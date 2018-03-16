@@ -29,7 +29,8 @@
     "path": "^0.12.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "sequelize": "^4.37.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
