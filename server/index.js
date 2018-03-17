@@ -86,7 +86,7 @@ app.post('/login', (req, res) => {
 app.post('/signup', (req, res) => {
   //signup auth goes here
   console.log('Signed in!');
-}
+});
 
 app.get('/logout', (req, res) => {
   console.log('Logged out!');
