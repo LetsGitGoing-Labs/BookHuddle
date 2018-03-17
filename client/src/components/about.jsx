@@ -5,6 +5,12 @@ class About extends React.Component {
     return (
       <div>
         <h1>Our Team</h1>
+        <ul>
+          <li>Sam Donner</li>
+          <li>Mike Butak</li>
+          <li>Queenie Smith</li>
+          <li>John Blaine</li>
+        </ul>
       </div>
     );
   }
