@@ -17,8 +17,13 @@ module.exports = {
         include : SRC_DIR,
         loader : 'babel-loader',
         query : {
-          presets : ['react', 'es2015']
+          presets : ['react', 'es2015'],
+          plugins: ['syntax-dynamic-import']
         }
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader'
       }
     ]
   }
