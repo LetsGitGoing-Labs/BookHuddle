@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha server/spec/spec.js",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon --inspect server/index.js"
   },
