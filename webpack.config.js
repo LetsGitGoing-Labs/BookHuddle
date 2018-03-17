@@ -20,6 +20,10 @@ module.exports = {
           presets : ['react', 'es2015'],
           plugins: ['syntax-dynamic-import']
         }
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader'
       }
     ]
   }
