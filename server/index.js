@@ -29,4 +29,8 @@ app.listen(PORT, function() {
   console.log(`listening on port ${PORT}`);
 });
 
+function stop() {
+  server.close();
+}
+
 module.exports = app;
