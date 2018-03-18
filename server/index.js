@@ -19,6 +19,39 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files to client
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
+// Begin GraphQL attempt
+
+// Schema
+var schema = buildSchema(`
+  typeMutation {
+    setMessage(message: String):
+      String
+  }
+
+  type Query {
+    getMessage: String
+  }
+`);
+
+// Resolvers
+var root = {
+  setMessage: ({message}) => {
+    fakeDatabase.message = message;
+    return message;
+  },
+  getMessage: function () {
+    return fakeDatabase.message;
+  }
+};
+
+app.use('/graphql'. graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true,
+}));
+
+// End GraphQL attempt
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
