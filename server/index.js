@@ -18,6 +18,7 @@ let sendData = (responseData, dataObj, res) => {
   dataObj.body = results;
   res.status(200).send(dataObj);
 };
+
 // Parse JSON, urls and cookies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -95,11 +96,9 @@ passport.use(new FacebookStrategy({
             if(err)
               throw err
             return done(null, user);
-          })
+          });
         }
-
       });
-
 }));
 
 // passport.use(new FacebookTokenStrategy({
@@ -170,7 +169,7 @@ app.get('/clubs', (req, res) => {
   console.log(req, '<-- req.body in get clubs');
   let dataObj = {
     confirmRequest: req.body
-  }
+  };
   database.retrieveClubs(sendData, dataObj);
 });
 
@@ -230,8 +229,7 @@ app.post('/login', (req, res) => {
 app.post('/signup', (req, res) => {
   let newUser = {
     confirmRequest: req.body
-  }
-  console.log('line 140', newUser);
+  };
   database.addUser(sendData, newUser, res);
 });
 
