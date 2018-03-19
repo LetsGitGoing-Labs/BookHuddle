@@ -62,6 +62,7 @@ class Login extends React.Component {
               <button type="submit" className="btn btn-primary">Sign in</button>
             </Link>
             <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span> Facebook</a>
+
           </div>
         </div>
       </form>

@@ -78,7 +78,7 @@ passport.use(new FacebookStrategy({
                 if(err)
                   throw err;
                 return done(null, newUser);
-              })
+              });
             }
           });
         }
