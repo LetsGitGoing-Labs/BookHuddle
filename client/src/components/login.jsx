@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, Redirect } from 'react-router-dom';
+import $ from 'jquery';
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      isLoggedIn: false
     }
-    this.onChange = this.onChange.bind(this);
 
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange(e) {
@@ -20,27 +21,19 @@ class Login extends React.Component {
   }
   handleSubmit (e) {
     e.preventDefault();
-    // $.ajax({
-    //   type:'POST',
-    //   url: '/login',
-    //   data: {
-    //     email: this.state.email,
-    //     password: this.state.password
-    //   },
-    //   success: (data) => {
-    //     this.setState({
-    //       isLoggedIn: true
-    //     });
-    //   },
-    //   error: (data) => {
-    //     console.log(data);
-    //   }
-    // });
-
-    console.log('submitted', this.state)
+    console.log('submitted');
+    this.props.auth(() => {
+      this.setState({
+        isLoggedIn: true
+      });
+      console.log('logged in');
+    });
   }
 
   render() {
+    if (this.state.isLoggedIn) {
+      return (<Redirect to='/dashboard' />)
+    }
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <div className="form-group row">

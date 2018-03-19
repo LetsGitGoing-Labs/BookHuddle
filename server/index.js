@@ -119,6 +119,7 @@ app.post('/meetings', (req, res) => {
 
 app.post('/login', (req, res) => {
   //Login auth goes here
+  res.send('ok');
   console.log('Logged in!');
 });
 
