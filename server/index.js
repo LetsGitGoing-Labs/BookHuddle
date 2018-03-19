@@ -7,7 +7,15 @@ const amazonHelpers = require('./api-helpers/amazon-helpers.js');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
 
+
 let app = express();
+
+// callback for DB queries
+let sendData = (responseData, dataObj) => {
+  let results = JSON.stringify(responseData);
+  dataObj.body = results;
+  res.status(200).send(dataObj);
+}
 
 // Authentication Packages
 const passport = require('passport');
@@ -63,10 +71,11 @@ app.get('/', (req, res) => {
 
 app.get('/clubs', (req, res) => {
   //database function here to retrieve clubs
-  database.retrieveClubs(function(clubs) {
-    //send back clubs data with response
-    res.send(clubs);
-  });
+  console.log(req.body, '<-- req.body in get clubs');
+  let dataObj = {
+    confirmRequest: req.body.data
+  }
+  database.retrieveClubs(sendData, dataObj);
 });
 
 app.get('/meetings', (req, res) => {
