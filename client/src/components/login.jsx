@@ -1,7 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login';
+
+
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
+    this.checkLoginState = this.checkLoginState.bind(this);
+  }
+
+  checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
   render() {
     return (
       <form>
@@ -22,6 +38,11 @@ class Login extends React.Component {
             <Link to='/dashboard'>
               <button type="submit" className="btn btn-primary">Sign in</button>
             </Link>
+            <FacebookLogin
+              appId="174422809852795"
+              autoLoad={true}
+              fields="name,email,picture"
+              onClick= {this.checkLoginState} />
           </div>
         </div>
       </form>
