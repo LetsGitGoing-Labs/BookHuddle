@@ -11,17 +11,20 @@ import MainNavbar from './main-navbar.jsx';
 
 class App extends React.Component {
   render() {
+
     return (
       <div>
         <MainNavbar />
-
         <Switch>
           <Route exact path='/' component={ Home } />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
           <Route path='/signup' component={ Signup } />
           <Route path='/login' component={ Login } />
-          <Route path='/dashboard' component={ Dashboard } />
+          <Route
+            path='/dashboard'
+            render={(props) => <Dashboard {...props} />}
+          />
           <Route path='/logout' component={ Logout } />
           <Route component={ NotFound } />
         </Switch>
