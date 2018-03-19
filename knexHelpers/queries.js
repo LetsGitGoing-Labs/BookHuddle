@@ -7,18 +7,19 @@ const retrieveClubs = (cb, dataObj) => {
 }
 
 const addUser = (cb, user, res) => {
-  let email = user.email;
+  console.log('addUser invoked')
+  let email = user.confirmRequest.email;
   if (!checkUserByEmail(email) ) {
+    console.log('getting ready to add new user!');
     // do something to add the user
     return knex.insert({
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      password: user.password,
-      user_city: user.city,
-      user_state_province: user.state
-    })
-    .into('user')
+      first_name: user.confirmRequest.first_name,
+      last_name: user.confirmRequest.last_name,
+      email: user.confirmRequest.email,
+      password: user.confirmRequest.password,
+      user_city: user.confirmRequest.user_city,
+      user_state_province: user.confirmRequest.user_state
+    }).into('user')
     .then(function(data) {
       cb(data, user, res)
     })
@@ -29,8 +30,10 @@ const addUser = (cb, user, res) => {
 }
 
 const checkUserByEmail = (email) => {
-  return knex('user')
-    .where({'user.email': email})
+  console.log('checkUserByEmail invoked');
+  return false;
+  // return knex('user')
+  //   .where({'user.email': email})
 }
 
 
