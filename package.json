@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
+    "start": "node server/index.js",
     "test": "mocha server/spec/spec.js --exit",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon --inspect server/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/john-blaine/Food-Matrix.git"
+    "url": ""
   },
   "author": "",
   "license": "ISC",

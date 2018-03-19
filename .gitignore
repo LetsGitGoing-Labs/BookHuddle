@@ -32,5 +32,6 @@ package-lock.json
 .floo
 .flooignore
 
+.env
 
 
