@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const amazonHelpers = require('./api-helpers/amazon-helpers.js');
+const database = require('../knexHelpers/queries.js')
+
 
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
@@ -73,7 +75,7 @@ app.get('/clubs', (req, res) => {
   //database function here to retrieve clubs
   console.log(req.body, '<-- req.body in get clubs');
   let dataObj = {
-    confirmRequest: req.body.data
+    confirmRequest: req.body
   }
   database.retrieveClubs(sendData, dataObj);
 });
@@ -133,6 +135,10 @@ app.post('/login', (req, res) => {
 
 app.post('/signup', (req, res) => {
   //signup auth goes here
+  let newUser = {
+    confirmRequest: req.body
+  }
+  database.addUser(sendData, newUser);
   console.log('Signed in!');
 });
 
