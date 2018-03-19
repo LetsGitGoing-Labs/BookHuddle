@@ -131,9 +131,9 @@ app.get('/logout', (req, res) => {
   console.log('Logged out!');
 });
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+// });
 
 // THIS IS THE AUTH FOR Blacksmith Post
 //--------------------------------------
