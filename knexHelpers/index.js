@@ -2,8 +2,8 @@ const knex = require('knex')({
   client: 'mysql',
   connection: {
     host : process.env.DATABASE_HOST || '127.0.0.1',
-    user : process.env.DATABASE_USER //|| config.dbUser,
-    password: process.env.DATABASE_PASSWORD //!== undefined ? process.env.DATABASE_PASSWORD : config.dbPass,
+    user : process.env.DATABASE_USER /*|| config.dbUser*/,
+    password: process.env.DATABASE_PASSWORD /*!== undefined ? process.env.DATABASE_PASSWORD : config.dbPass*/,
     database : process.env.DATABASE_NAME ||  'bookapp'
   }
 });
@@ -11,7 +11,7 @@ const knex = require('knex')({
 knex.schema.hasTable('user').then(function(exists) {
   if(!exists) {
     return knex.schema.createTable('user',function (t) {
-      t.increments('id').primary();
+      t.increments('id').primary().unsigned();
       t.string('email',100);
       t.string('password',100);
       t.string('first_name', 100);
@@ -101,7 +101,7 @@ knex.schema.hasTable('user').then(function(exists) {
 }).then(function() {
   knex.schema.hasTable('genre_club').then(function(exists) {
     if(!exists) {
-      return(knex.schema.createTable('genre_club', function(t) {
+      return knex.schema.createTable('genre_club', function(t) {
         t.integer('genre_id').references('genre.id');
         t.integer('club_id').references('club_id');
       })
