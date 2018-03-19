@@ -119,6 +119,7 @@ app.post('/meetings', (req, res) => {
 
 app.post('/login', (req, res) => {
   //Login auth goes here
+  res.send('ok');
   console.log('Logged in!');
 });
 
@@ -129,6 +130,10 @@ app.post('/signup', (req, res) => {
 
 app.get('/logout', (req, res) => {
   console.log('Logged out!');
+});
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 // THIS IS THE AUTH FOR Blacksmith Post
