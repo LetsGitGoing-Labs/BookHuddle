@@ -35,11 +35,7 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-<<<<<<< HEAD
   callbackURL: process.env.CALLBACK_URL
-=======
-  callbackURL: "http://localhost:3000/auth/facebook/callback"
->>>>>>> Resolve merge conflicts and install db dependencies
 },
   function(req, accessToken, refreshToken, profile, done) {
       process.nextTick(function(){
