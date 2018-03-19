@@ -59,6 +59,7 @@ passport.use(new FacebookStrategy({
                 user.facebook.token = accessToken;
                 user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
                 user.facebook.email = profile.emails[0].value;
+                console.log(user.facebook);
                 user.save(function(err){
                   if(err)
                     throw err;
