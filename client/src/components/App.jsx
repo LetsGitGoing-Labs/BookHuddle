@@ -7,21 +7,13 @@ import Signup from './signup.jsx';
 import Login from './login.jsx';
 import Dashboard from './dashboard.jsx';
 import Logout from './logout.jsx';
+import MainNavbar from './main-navbar.jsx';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>BookHuddle</h1>
-        <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/about'>Our Team</Link></li>
-          <li><Link to='/faq'>FAQ</Link></li>
-          <li><Link to='/signup'>Signup</Link></li>
-          <li><Link to='/login'>Login</Link></li>
-        </ul>
-
-        <hr/>
+        <MainNavbar />
 
         <Switch>
           <Route exact path='/' component={ Home } />
