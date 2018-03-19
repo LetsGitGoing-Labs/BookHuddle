@@ -1,6 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const amazonHelpers = require('./api-helpers/amazon-helpers.js');
+
+var graphqlHTTP = require('express-graphql');
+var { buildSchema } = require('graphql');
 
 let app = express();
 
@@ -18,6 +23,39 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files to client
 app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Begin GraphQL attempt
+
+// Schema
+var schema = buildSchema(`
+  type Mutation {
+    setMessage(message: String):
+      String
+  }
+
+  type Query {
+    getMessage: String
+  }
+`);
+
+// Resolvers
+var root = {
+  setMessage: ({message}) => {
+    fakeDatabase.message = message;
+    return message;
+  },
+  getMessage: function () {
+    return fakeDatabase.message;
+  }
+};
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true,
+}));
+
+// End GraphQL attempt
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
@@ -51,10 +89,11 @@ app.get('/getBooksDB', (req, res) => {
 
 app.get('/getBooksAPI', (req, res) => {
   // get search term to use for API lookup
-  var searchTerm = req.body.searchTerm;
-  database.retrieveBooksAPI(function(books) {
-    res.send(books);
-  });
+
+  var searchTerm = undefined;
+  amazonHelpers.retrieveBooksAPI(searchTerm)
+    .then(books => res.send(books.data))
+    .catch(err => console.log(err));
 });
 
 app.post('/clubs', (req, res) => {
