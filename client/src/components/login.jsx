@@ -29,12 +29,10 @@ class Login extends React.Component {
   }
   handleSubmit (e) {
     e.preventDefault();
-    console.log('submitted');
     this.props.auth(() => {
       this.setState({
         isLoggedIn: true
       });
-      console.log('logged in');
     });
   }
 
@@ -43,6 +41,7 @@ class Login extends React.Component {
       return (<Redirect to='/dashboard' />)
     }
     return (
+      <div>
       <form onSubmit={this.handleSubmit.bind(this)}>
         <div className="form-group row">
           <label className="col-sm-2 col-form-label">Email</label>
@@ -58,19 +57,16 @@ class Login extends React.Component {
         </div>
         <div className="form-group row">
           <div className="col-sm-10">
-            <Link to='/dashboard'>
-              <button type="submit" className="btn btn-primary">Sign in</button>
-            </Link>
+            <input type="submit" className="btn btn-primary" value="Sign in" />
             <FacebookLogin
               appId="174422809852795"
               autoLoad={true}
               fields="name,email,picture"
               onClick= {this.checkLoginState} />
-            <input type="submit" className="btn btn-primary" value="Sign in" />
-
           </div>
         </div>
       </form>
+      </div>
     );
   }
 }

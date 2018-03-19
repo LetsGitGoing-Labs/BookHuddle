@@ -22,20 +22,11 @@ class App extends React.Component {
       isAuthenticated: false
     }
     this.authenticate = this.authenticate.bind(this);
-    this.signout = this.signout.bind(this);
   }
 
   authenticate (cb) {
     this.setState({
       isAuthenticated: true
-    });
-    console.log('authenticated')
-    setTimeout(cb, 100);
-  }
-
-  signout(cb) {
-    this.setState({
-      isAuthenticated: false
     });
     setTimeout(cb, 100);
   }
@@ -45,7 +36,7 @@ class App extends React.Component {
       <div>
         <MainNavbar />
         <Switch>
-          <Route exact path='/' render={ Home } />
+          <Route exact path='/' component={ Home } />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
           <Route path='/signup' component={ Signup } />
@@ -62,7 +53,8 @@ class App extends React.Component {
             path='/dashboard'
             render={
               (props) => (
-                this.state.isAuthenticated ?  <Dashboard {...props} signout={this.signout}/> : <Redirect to='/login'/>
+                this.state.isAuthenticated ?  <Dashboard {...props}/> :
+                <Redirect to='/login'/>
               )
             }
           />
