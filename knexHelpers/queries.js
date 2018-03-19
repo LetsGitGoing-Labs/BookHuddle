@@ -6,7 +6,7 @@ const retrieveClubs = (cb, dataObj) => {
   })
 }
 
-const addUser = (cb, user ) => {
+const addUser = (cb, user, res) => {
   let email = user.email;
   if (!checkUserByEmail(email) ) {
     // do something to add the user
@@ -16,12 +16,15 @@ const addUser = (cb, user ) => {
       email: user.email,
       password: user.password,
       user_city: user.city,
-      user_state_province:  user.state
-    }).into('user');
-
+      user_state_province: user.state
+    })
+    .into('user')
+    .then(function(data) {
+      cb(data, user, res)
+    })
   } else {
     let err = 'Error.  An account with that email address already exists.'
-    cb(err, user);
+    cb(err, user, res);
   }
 }
 

@@ -13,7 +13,7 @@ var { buildSchema } = require('graphql');
 let app = express();
 
 // callback for DB queries
-let sendData = (responseData, dataObj) => {
+let sendData = (responseData, dataObj, res) => {
   let results = JSON.stringify(responseData);
   dataObj.body = results;
   res.status(200).send(dataObj);
@@ -73,7 +73,7 @@ app.get('/', (req, res) => {
 
 app.get('/clubs', (req, res) => {
   //database function here to retrieve clubs
-  console.log(req.body, '<-- req.body in get clubs');
+  console.log(req, '<-- req.body in get clubs');
   let dataObj = {
     confirmRequest: req.body
   }
@@ -134,12 +134,10 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-  //signup auth goes here
   let newUser = {
-    confirmRequest: req.body
+    confirmRequest: req.query
   }
-  database.addUser(sendData, newUser);
-  console.log('Signed in!');
+  database.addUser(sendData, newUser, res);
 });
 
 app.get('/logout', (req, res) => {
