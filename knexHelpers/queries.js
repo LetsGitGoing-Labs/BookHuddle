@@ -15,12 +15,12 @@ const addUser = (cb, user, res) => {
   //   if (exists === false ) {
       console.log('line 13 you are adding a user');
       return knex.insert({
-        first_name: user.confirmRequest.first_name,
-        last_name: user.confirmRequest.last_name,
+        first_name: user.confirmRequest.firstName,
+        last_name: user.confirmRequest.lastName,
         email: user.confirmRequest.email,
         password: user.confirmRequest.password,
-        user_city: user.confirmRequest.user_city,
-        user_state_province: user.confirmRequest.user_state,
+        user_city: user.confirmRequest.city,
+        user_state_province: user.confirmRequest.state,
         // user_facebook_token: user.confirmRequest.user.facebook.token
       })
       .into('user')
@@ -59,11 +59,11 @@ const addClub = (cb, club, res) => {
   // if (!checkClubByClubName(clubName)) {
     console.log('getting ready to add new club!');
     return knex.insert({
-      club_name: club.confirmRequest.club_name,
-      club_city: club.confirmRequest.club_city,
-      club_state_province: club.confirmRequest.club_state_province,
-      club_admin_email: club.confirmRequest.club_admin_email,
-      club_description: club.confirmRequest.club_description,
+      club_name: club.confirmRequest.clubName,
+      club_city: club.confirmRequest.clubCity,
+      club_state_province: club.confirmRequest.clubState,
+      club_admin_email: club.confirmRequest.clubAdminEmail,
+      club_description: club.confirmRequest.description,
     })
     .into('club')
     .then(function(data) {

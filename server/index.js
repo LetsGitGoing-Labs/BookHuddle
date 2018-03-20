@@ -203,7 +203,7 @@ app.get('/getBooksAPI', (req, res) => {
 
 app.post('/clubs', (req, res) => {
   let newClub = {
-    confirmRequest: req.query
+    confirmRequest: req.body
   }
   database.addClub(sendData, newClub, res);
 });
@@ -229,9 +229,9 @@ app.post('/login', (req, res) => {
 
 app.post('/signup', (req, res) => {
   let newUser = {
-    confirmRequest: req.query
+    confirmRequest: req.body
   }
-  console.log('line 140');
+  console.log('line 140', newUser);
   database.addUser(sendData, newUser, res);
 });
 
