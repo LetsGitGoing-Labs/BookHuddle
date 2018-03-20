@@ -12,7 +12,7 @@ class MainNavbar extends React.Component {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
+            <ul className="navbar-nav ml-auto">
               <li className="nav-item">
               <Link to="/" className="nav-link">Home</Link>
               </li>
