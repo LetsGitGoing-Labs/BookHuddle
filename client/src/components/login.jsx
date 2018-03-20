@@ -58,8 +58,6 @@ class Login extends React.Component {
         </div>
         <div className="form-group row">
           <div className="col-sm-10">
-            <input type="submit" className="btn btn-primary" value="Sign in" />
-
             <Link to='/dashboard'>
               <button type="submit" className="btn btn-primary">Sign in</button>
             </Link>

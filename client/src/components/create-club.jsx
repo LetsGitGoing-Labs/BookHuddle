@@ -7,7 +7,7 @@ class CreateClub extends React.Component {
     this.state= {
       clubName: '',
       description: '',
-      location: '',
+      clubCity: '',
       genre: ''
     }
     this.onChange = this.onChange.bind(this);
@@ -56,7 +56,7 @@ class CreateClub extends React.Component {
           </div>
           <div className="form-group">
             <label>Location</label>
-            <input type="text" className="form-control" id="inputClubLocation" placeholder="San Diego" name="location" value={this.state.location} onChange={this.onChange}/>
+            <input type="text" className="form-control" id="inputClubLocation" placeholder="San Diego" name="clubCity" value={this.state.clubCity} onChange={this.onChange}/>
           </div>
           <div className="form-group">
             <label >Genre</label>
