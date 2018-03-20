@@ -58,37 +58,6 @@ const addClub = (cb, club, res) => {
   // console.log(!checkClubByClubName(clubName), '<-- checkClubByClubName(clubName)');
   // if (!checkClubByClubName(clubName)) {
     console.log('getting ready to add new club!');
-
-// const addUser = (cb, user, res) => {
-//   console.log('addUser invoked')
-//   let email = user.confirmRequest.email;
-//   if (!checkUserByEmail(email) ) {
-//     console.log('getting ready to add new user!');
-//     // do something to add the user
-//     return knex.insert({
-//       first_name: user.confirmRequest.first_name,
-//       last_name: user.confirmRequest.last_name,
-//       email: user.confirmRequest.email,
-//       password: user.confirmRequest.password,
-//       user_city: user.confirmRequest.user_city,
-//       user_state_province: user.confirmRequest.user_state
-//     }).into('user')
-//     .then(function(data) {
-//       cb(data, user, res)
-//     })
-//   } else {
-//     let err = 'Error.  An account with that email address already exists.'
-//     cb(err, user, res);
-//   }
-// }
-
-// const addUser = (user, res, cb) => {
-//   console.log('addUser invoked')
-//   let email = user.confirmRequest.email;
-//   if (!checkUserByEmail(email) ) {
-//     console.log('getting ready to add new user!');
-//     // do something to add the user
-// >>>>>>> FB auth
     return knex.insert({
       club_name: club.confirmRequest.club_name,
       club_city: club.confirmRequest.club_city,
@@ -122,19 +91,13 @@ const emailIsInUse = (email) => {
   })
 }
 
-// <<<<<<< HEAD
-// const checkClubByClubName = (clubName) => {
-//   console.log(knex.select().from('club'), '<-- line 77');
-//   return knex('club')
-//     .where('club_name', clubName)
-// }
-// =======
-// const checkIfUserExists = (email) => {
-//   return knex('user').where({
-//     email: email
-//   }).select('id');
-// };
-// >>>>>>> FB auth
+
+const checkClubByClubName = (clubName) => {
+  console.log(knex.select().from('club'), '<-- line 77');
+  return knex('club')
+    .where('club_name', clubName)
+}
+
 
 
 
@@ -142,7 +105,6 @@ const emailIsInUse = (email) => {
 module.exports = {
   retrieveClubs,
   addUser,
-
   addClub
 }
 
