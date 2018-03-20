@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const amazonHelpers = require('./api-helpers/amazon-helpers.js');
-const database = require('../knexHelpers/queries.js');
+const database = require('../knexHelpers/queries.js')
 
 
 var graphqlHTTP = require('express-graphql');
@@ -49,6 +49,7 @@ passport.use(new FacebookStrategy({
         //   }
 
 
+
         console.log('Line 52: ' + database.checkIfUserExists());
 
         User.findOne({'facebook.id': profile.id}, function(err, user){
@@ -59,6 +60,7 @@ passport.use(new FacebookStrategy({
                 user.facebook.token = accessToken;
                 user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
                 user.facebook.email = profile.emails[0].value;
+                console.log(user.facebook);
                 user.save(function(err){
                   if(err)
                     throw err;
@@ -97,9 +99,7 @@ passport.use(new FacebookStrategy({
             return done(null, user);
           })
         }
-
       });
-
 }));
 
 // passport.use(new FacebookTokenStrategy({
@@ -230,8 +230,7 @@ app.post('/login', (req, res) => {
 app.post('/signup', (req, res) => {
   let newUser = {
     confirmRequest: req.body
-  }
-  console.log('line 140', newUser);
+  };
   database.addUser(sendData, newUser, res);
 });
 
