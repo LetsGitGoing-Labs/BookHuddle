@@ -1,9 +1,9 @@
 const knex = require('knex')({
   client: 'mysql',
   connection: {
-    host : process.env.CLEARDB_DATABASE_URL || '127.0.0.1',
-    user : process.env.DATABASE_USER /*|| config.dbUser*/,
-    password: process.env.DATABASE_PASSWORD /*!== undefined ? process.env.DATABASE_PASSWORD : config.dbPass*/,
+    host : process.env.DATABASE_HOST || '127.0.0.1',
+    user : process.env.DATABASE_USER //|| config.dbUser,
+    password: process.env.DATABASE_PASSWORD //!== undefined ? process.env.DATABASE_PASSWORD : config.dbPass,
     database : process.env.DATABASE_NAME ||  'bookapp'
   }
 });
@@ -11,14 +11,13 @@ const knex = require('knex')({
 knex.schema.hasTable('user').then(function(exists) {
   if(!exists) {
     return knex.schema.createTable('user',function (t) {
-      t.increments('id').primary().unsigned();
+      t.increments('id').primary();
       t.string('email',100);
       t.string('password',100);
       t.string('first_name', 100);
       t.string('last_name', 100);
       t.string('user_city', 100);
       t.string('user_state_province', 100);
-      t.string('user_facebook_token', 100);
       t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
     }).then(function(table) {
       console.log('Created table user');
@@ -28,13 +27,13 @@ knex.schema.hasTable('user').then(function(exists) {
   knex.schema.hasTable('club').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('club', function (t) {
-        t.increments('id').primary().unsigned();
+        t.increments('id').primary();
         t.string('club_name', 100);
         t.string('club_city', 100);
-        t.string('club_state_province', 100);
-        t.string('club_admin_email', 100);
-        t.text('club_description', 280);
+        t.string('club_state-province', 100);
+        t.string('club_admin_username', 100);
         t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
+        t.text('club_description', 280);
       }).then(function(table) {
         console.log('Created table club');
       })
@@ -102,7 +101,7 @@ knex.schema.hasTable('user').then(function(exists) {
 }).then(function() {
   knex.schema.hasTable('genre_club').then(function(exists) {
     if(!exists) {
-      return knex.schema.createTable('genre_club', function(t) {
+      return(knex.schema.createTable('genre_club', function(t) {
         t.integer('genre_id').references('genre.id');
         t.integer('club_id').references('club_id');
       })

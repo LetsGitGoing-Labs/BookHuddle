@@ -3,30 +3,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const amazonHelpers = require('./api-helpers/amazon-helpers.js');
-<<<<<<< HEAD
-const database = require('../knexHelpers/queries.js')
+const database = require('../knexHelpers/queries.js');
 
 
-=======
->>>>>>> changes to facebook auth server
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
 
 
 let app = express();
 
-<<<<<<< HEAD
 // callback for DB queries
 let sendData = (responseData, dataObj, res) => {
   let results = JSON.stringify(responseData);
   dataObj.body = results;
   res.status(200).send(dataObj);
-}
-=======
+};
 // Parse JSON, urls and cookies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
->>>>>>> changes to facebook auth server
 
 // Authentication Packages
 const passport = require('passport');
@@ -41,12 +35,22 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: "http://localhost:3000/auth/facebook/callback"
+  callbackURL: process.env.CALLBACK_URL
 },
   function(req, accessToken, refreshToken, profile, done) {
       process.nextTick(function(){
         //user is not logged in yet
         if(!req.user){
+
+        // database.addUser(
+        //   {first_name: profile.name.givenName, last_name: profile.name.familyName, email: profile.emails[0].value },
+        //   null, function(err, user, res) {
+
+        //   }
+
+
+        console.log('Line 52: ' + database.checkIfUserExists());
+
         User.findOne({'facebook.id': profile.id}, function(err, user){
             if(err)
               return done(err);
@@ -74,7 +78,7 @@ passport.use(new FacebookStrategy({
                 if(err)
                   throw err;
                 return done(null, newUser);
-              })
+              });
             }
           });
         }
@@ -107,7 +111,7 @@ passport.use(new FacebookStrategy({
 //   });
 // }));
 
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/dashboard',
