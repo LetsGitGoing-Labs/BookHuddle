@@ -49,6 +49,7 @@ passport.use(new FacebookStrategy({
         //   }
 
 
+
         console.log('Line 52: ' + database.checkIfUserExists());
 
         User.findOne({'facebook.id': profile.id}, function(err, user){
