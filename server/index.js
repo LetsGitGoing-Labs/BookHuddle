@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const amazonHelpers = require('./api-helpers/amazon-helpers.js');
-const database = require('../knexHelpers/queries.js')
+const database = require('../knexHelpers/queries.js');
 
 
 var graphqlHTTP = require('express-graphql');
@@ -17,19 +17,113 @@ let sendData = (responseData, dataObj, res) => {
   let results = JSON.stringify(responseData);
   dataObj.body = results;
   res.status(200).send(dataObj);
-}
+};
+// Parse JSON, urls and cookies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Authentication Packages
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookTokenStrategy = require('passport-facebook-token');
+FacebookStrategy = require('passport-facebook').Strategy;
 
 //Passport init
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Parse JSON, urls and cookies
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+passport.use(new FacebookStrategy({
+  clientID: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  callbackURL: process.env.CALLBACK_URL
+},
+  function(req, accessToken, refreshToken, profile, done) {
+      process.nextTick(function(){
+        //user is not logged in yet
+        if(!req.user){
+
+        // database.addUser(
+        //   {first_name: profile.name.givenName, last_name: profile.name.familyName, email: profile.emails[0].value },
+        //   null, function(err, user, res) {
+
+        //   }
+
+
+        console.log('Line 52: ' + database.checkIfUserExists());
+
+        User.findOne({'facebook.id': profile.id}, function(err, user){
+            if(err)
+              return done(err);
+            if(user){
+              if(!user.facebook.token){
+                user.facebook.token = accessToken;
+                user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+                user.facebook.email = profile.emails[0].value;
+                user.save(function(err){
+                  if(err)
+                    throw err;
+                });
+
+              }
+              return done(null, user);
+            }
+            else {
+              var newUser = new User();
+              newUser.facebook.id = profile.id;
+              newUser.facebook.token = accessToken;
+              newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+              newUser.facebook.email = profile.emails[0].value;
+
+              newUser.save(function(err){
+                if(err)
+                  throw err;
+                return done(null, newUser);
+              });
+            }
+          });
+        }
+
+        //user is logged in already, and needs to be merged
+        else {
+          var user = req.user;
+          user.facebook.id = profile.id;
+          user.facebook.token = accessToken;
+          user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+          user.facebook.email = profile.emails[0].value;
+
+          user.save(function(err){
+            if(err)
+              throw err
+            return done(null, user);
+          })
+        }
+
+      });
+
+}));
+
+// passport.use(new FacebookTokenStrategy({
+//   clientID: process.env.CLIENT_ID,
+//   clientSecret: process.env.CLIENT_SECRET,
+// }, function(accessToken, refreshToken, profile, done) {
+//   User.findOrCreate({facebookId: profile.id}, function (error, user) {
+//     return done(error, user);
+//   });
+// }));
+
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/dashboard',
+                                      failureRedirect: '/login' }));
+
+// app.post('/auth/facebook/token',
+//   passport.authenticate('facebook-token'),
+//   function (req, res) {
+//     // do something with req.user
+//     res.redirect('/');
+//     res.send(req.user ? 200 : 401);
+//   });
 
 // Serve static files to client
 app.use(express.static(path.join(__dirname, '../client/dist')));

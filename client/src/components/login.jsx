@@ -17,6 +17,7 @@ class Login extends React.Component {
 
   checkLoginState() {
     FB.getLoginStatus(function(response) {
+      console.log(response);
       statusChangeCallback(response);
     });
   }
@@ -58,11 +59,12 @@ class Login extends React.Component {
         <div className="form-group row">
           <div className="col-sm-10">
             <input type="submit" className="btn btn-primary" value="Sign in" />
-            <FacebookLogin
-              appId="174422809852795"
-              autoLoad={true}
-              fields="name,email,picture"
-              onClick= {this.checkLoginState} />
+
+            <Link to='/dashboard'>
+              <button type="submit" className="btn btn-primary">Sign in</button>
+            </Link>
+            <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span> Facebook</a>
+
           </div>
         </div>
       </form>

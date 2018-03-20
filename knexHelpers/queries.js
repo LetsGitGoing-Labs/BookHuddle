@@ -6,6 +6,7 @@ const retrieveClubs = (cb, dataObj) => {
   })
 }
 
+
 const addUser = (cb, user, res) => {
   console.log('line 10 add user')
   // let email = user.confirmRequest.email;
@@ -90,6 +91,7 @@ const emailIsInUse = (email) => {
   })
 }
 
+
 const checkClubByClubName = (clubName) => {
   console.log(knex.select().from('club'), '<-- line 77');
   return knex('club')
@@ -99,8 +101,10 @@ const checkClubByClubName = (clubName) => {
 
 
 
+
 module.exports = {
   retrieveClubs,
   addUser,
   addClub
 }
+
