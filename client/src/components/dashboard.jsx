@@ -21,12 +21,15 @@ class Dashboard extends React.Component {
           <li><Link to={`${match.url}/profile`}>View Profile</Link></li>
           <li><Link to='/logout'>Logout</Link></li>
         </ul>
+        <p></p>
         <div>
           <MeetingListDashboard/>
         </div>
+        <p></p>
         <div>
           <ClubListDashboard/>
         </div>
+        <p></p>
         <div>
           <BookListDashboard/>
         </div>
