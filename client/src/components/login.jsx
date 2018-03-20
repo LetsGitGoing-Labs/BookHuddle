@@ -39,7 +39,7 @@ class Login extends React.Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      return (<Redirect to='/dashboard' />)
+      return (<Redirect to='/dashboard' />);
     }
     return (
       <div>
@@ -58,6 +58,7 @@ class Login extends React.Component {
         </div>
         <div className="form-group row">
           <div className="col-sm-10">
+
             <input type="submit" className="btn btn-primary" value="Sign in" />
 
             <Link to='/dashboard'>
