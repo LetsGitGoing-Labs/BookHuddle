@@ -108,10 +108,10 @@ app.get('/getBooksAPI', (req, res) => {
 });
 
 app.post('/clubs', (req, res) => {
-  var clubObject = req.body;
-  database.saveClub(clubObject, function(club) {
-    res.send(club);
-  });
+  let newClub = {
+    confirmRequest: req.query
+  }
+  database.addClub(sendData, newClub, res);
 });
 
 app.post('/booksdb', (req, res) => {
@@ -137,6 +137,7 @@ app.post('/signup', (req, res) => {
   let newUser = {
     confirmRequest: req.query
   }
+  console.log('line 140');
   database.addUser(sendData, newUser, res);
 });
 
