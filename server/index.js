@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const amazonHelpers = require('./api-helpers/amazon-helpers.js');
-const database = require('../knexHelpers/queries.js');
+const database = require('../knexHelpers/queries.js')
 
 
 var graphqlHTTP = require('express-graphql');
@@ -18,7 +18,6 @@ let sendData = (responseData, dataObj, res) => {
   dataObj.body = results;
   res.status(200).send(dataObj);
 };
-
 // Parse JSON, urls and cookies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,7 +35,11 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
+<<<<<<< HEAD
   callbackURL: process.env.CALLBACK_URL
+=======
+  callbackURL: "http://localhost:3000/auth/facebook/callback"
+>>>>>>> Resolve merge conflicts and install db dependencies
 },
   function(req, accessToken, refreshToken, profile, done) {
       process.nextTick(function(){
@@ -79,7 +82,7 @@ passport.use(new FacebookStrategy({
                 if(err)
                   throw err;
                 return done(null, newUser);
-              });
+              })
             }
           });
         }
@@ -96,7 +99,7 @@ passport.use(new FacebookStrategy({
             if(err)
               throw err
             return done(null, user);
-          });
+          })
         }
       });
 }));
@@ -169,7 +172,7 @@ app.get('/clubs', (req, res) => {
   console.log(req, '<-- req.body in get clubs');
   let dataObj = {
     confirmRequest: req.body
-  };
+  }
   database.retrieveClubs(sendData, dataObj);
 });
 
@@ -229,8 +232,7 @@ app.post('/login', (req, res) => {
 app.post('/signup', (req, res) => {
   let newUser = {
     confirmRequest: req.query
-  };
-  console.log('line 140');
+  }
   database.addUser(sendData, newUser, res);
 });
 
