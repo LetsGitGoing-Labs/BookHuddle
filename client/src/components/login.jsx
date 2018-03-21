@@ -12,7 +12,8 @@ class Login extends React.Component {
       password: '',
       isLoggedIn: false,
       signup: false,
-      errMsg: ''
+      errMsg: '',
+      userResponseData: ''
     };
     this.onChange = this.onChange.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);
@@ -55,10 +56,17 @@ class Login extends React.Component {
       type: 'POST',
       data: data,
       success: (data) => {
+<<<<<<< HEAD
         console.log('user logged in', data)
         this.setState({
           isLoggedIn: true
         })
+=======
+        this.setState({
+          userResponseData: data,
+          isLoggedIn: true
+        });
+>>>>>>> Pass props from login to dashboard component
       },
       error: (err) => {
         console.log('errror in ajax', err);
@@ -69,12 +77,19 @@ class Login extends React.Component {
 
       }
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> Pass props from login to dashboard component
   }
 
   render() {
     if (this.state.isLoggedIn) {
-      return (<Redirect to='/dashboard' />)
+      return (
+          <Redirect to= {{
+            pathname: '/dashboard',
+            state: { userResponseData: this.state.userResponseData }
+            }} />)
     }
     return (
       <div>
