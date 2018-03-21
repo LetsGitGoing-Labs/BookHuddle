@@ -11,6 +11,8 @@ import '../styles/main.css';
 import CreateClub from './create-club.jsx';
 import Profile from './profile.jsx';
 import LoginModal from './login-modal.jsx';
+import MainNavbar from './main-navbar.jsx';
+import Club from './club.jsx';
 
 class App extends React.Component {
   render() {
@@ -27,6 +29,7 @@ class App extends React.Component {
           <Route path='/logout' component={ Logout } />
           <Route path='/create-club' component={ CreateClub } />
           <Route path='/profile' component={ Profile } />
+          <Route path='/club' component={Club } />
           <Route component={ NotFound } />
         </Switch>
       </div>
