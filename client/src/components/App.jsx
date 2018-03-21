@@ -18,8 +18,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <MainNavbar />
-        <Club />
         <Switch>
           <Route exact path='/' component={ Home } />
           <Route path='/about' component={ About } />
@@ -31,6 +29,7 @@ class App extends React.Component {
           <Route path='/logout' component={ Logout } />
           <Route path='/create-club' component={ CreateClub } />
           <Route path='/profile' component={ Profile } />
+          <Route path='/club' component={Club } />
           <Route component={ NotFound } />
         </Switch>
       </div>
