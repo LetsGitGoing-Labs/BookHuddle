@@ -20,12 +20,12 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     var component = this;
     $.ajax({
       type: 'GET',
       url: '/getBooksAPI',
       success: function(books) {
-        debugger;
         component.setState({
           books: books
         });

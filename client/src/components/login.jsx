@@ -13,7 +13,7 @@ class Login extends React.Component {
       isLoggedIn: false,
       signup: false,
       errMsg: ''
-    }
+    };
     this.onChange = this.onChange.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);
     this.signupView = this.signupView.bind(this);
@@ -69,7 +69,7 @@ class Login extends React.Component {
 
       }
     });
-    
+
   }
 
   render() {

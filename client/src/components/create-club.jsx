@@ -11,8 +11,9 @@ class CreateClub extends React.Component {
       description: '',
       clubCity: '',
       genre: '',
-      modal: true
-    }
+      modal: true,
+      clubResponseData: ''
+    };
     this.onChange = this.onChange.bind(this);
     this.toggle = this.toggle.bind(this);
   }
@@ -50,8 +51,10 @@ class CreateClub extends React.Component {
       url: '/clubs',
       data: data,
       success: (data) => {
-        console.log(data);
         this.toggle();
+        this.setState({
+          clubResponseData: data
+        });
       },
       error: (data) => {
         console.log(data);
