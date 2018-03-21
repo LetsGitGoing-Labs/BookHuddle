@@ -18,6 +18,9 @@ class Meeting extends React.Component {
           <p>{this.props.host},</p>
           <p>{this.props.address},</p>
           <p>{this.props.notes}</p>
+          <p>{this.props.book.title}</p>
+          <p>{this.props.book.author}</p>
+          <img src={this.props.book.imgSrc}/>
         </div>
       </div>
       )

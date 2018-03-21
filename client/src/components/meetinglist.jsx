@@ -21,6 +21,7 @@ class MeetingList extends React.Component {
             host={meeting.meeting_host}
             address={meeting.meeting_street_address}
             notes={meeting.meeting_notes}
+            book={meeting.meeting_book}
             />
         )}
         </div>

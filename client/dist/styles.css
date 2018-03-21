@@ -83,8 +83,12 @@ i {
   color: #fff;
   background: #292624;
   border: 1px solid #666;
-  margin: .5em 0;
+  margin: 1em;
   display: inline-block;
+}
+
+.btnDiv {
+  text-align: right;
 }
 
 .btn:hover {
@@ -184,12 +188,30 @@ i {
 }
 
 .flexRow {
-  flex-direction: row-reverse;
+  flex-direction: column;
 }
 
 .flexRow li {
   padding: 10px;
 }
+
+.clubHeader {
+  font-size: 150%;
+  text-align: left;
+  padding-top: 2px;
+  padding-left: 15px;
+  clear:both;
+}
+
+.clubNav {
+  outline: 1px solid;
+}
+
+.clubNav li {
+  display: inline;
+  float: left;
+}
+
 
 
 @media only screen and (min-width: 768px) {
