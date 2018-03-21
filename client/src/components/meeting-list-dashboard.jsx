@@ -3,7 +3,7 @@ import React from 'react';
 var MeetingListDashboard = (props) => {
   if (!props.meetingList || props.meetingList.length === 0) {
     return (
-      <div class="ui segment">
+      <div className="ui segment">
         <h3>Upcoming Meetings:</h3>
         <div>No meetings yet!</div>
       </div>
@@ -12,12 +12,12 @@ var MeetingListDashboard = (props) => {
     return (
       <div>
         <h3>Upcoming Meetings:</h3>
-        <div class="ui five link cards">
+        <div className="ui five link cards">
           {props.meetingList.map((meeting) =>
-            <div class="card" onClick = {() => props.onMeetingClick(meeting)}>
+            <div className="card" onClick = {() => props.onMeetingClick(meeting)}>
 
-            <div class="content">
-              <div class="header">{meeting.date}</div>
+            <div className="content">
+              <div className="header">{meeting.date}</div>
             </div>
 
             {/*Location?*/}
