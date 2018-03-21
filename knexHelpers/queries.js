@@ -3,8 +3,8 @@ const knex = require('./index.js');
 const retrieveClubs = (cb, dataObj) => {
   return knex.select().from('club').then(function(clubs, cb) {
     cb(clubs, dataObj);
-  })
-}
+  });
+};
 
 
 const addUser = (cb, user, res) => {
@@ -26,15 +26,15 @@ const addUser = (cb, user, res) => {
       .into('user')
       // .then(ADD RECORD TO THE USER_CLUB JOIN TABLE)
       .then(function(data) {
-        cb(data, user, res)
-      })
+        cb(data, user, res);
+      });
     // }
     // else {
     //   let err = 'Error.  An account with that email address already exists.'
     //   cb(err, user, res);
     // }
   // })
-}
+};
 
 const addClub = (cb, club, res) => {
   // knex.transaction(trx => {
@@ -68,13 +68,13 @@ const addClub = (cb, club, res) => {
     .into('club')
     .then(function(data) {
       cb(data, club, res)
-    })
+    });
   // } else {
   //   console.log('line 48');
   //   let err = 'Error.  A club with that name already exists.'
   //   cb(err, club, res);
   // }
-}
+};
 
 const emailIsInUse = (email) => {
   knex('user')
@@ -88,15 +88,15 @@ const emailIsInUse = (email) => {
     } else {
       return false;
     }
-  })
-}
+  });
+};
 
 
 const checkClubByClubName = (clubName) => {
   console.log(knex.select().from('club'), '<-- line 77');
   return knex('club')
-    .where('club_name', clubName)
-}
+    .where('club_name', clubName);
+};
 
 
 
@@ -106,5 +106,5 @@ module.exports = {
   retrieveClubs,
   addUser,
   addClub
-}
+};
 
