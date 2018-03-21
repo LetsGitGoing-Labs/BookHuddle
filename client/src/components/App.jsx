@@ -11,7 +11,6 @@ import '../styles/main.css';
 import CreateClub from './create-club.jsx';
 import Profile from './profile.jsx';
 
-
 class App extends React.Component {
   render() {
     return (
