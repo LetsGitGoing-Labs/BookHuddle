@@ -10,20 +10,20 @@ var BookListDashboard = (props) => {
     )
   } else {
     return (
-      <div class="ui segment">
+      <div className="ui segment">
         <h3>Recommended Books</h3>
 
-        <div class="ui five link cards">
+        <div className="ui five link cards">
           {props.bookList.map((book) =>
             <div class="card" onClick = {() => props.onBookClick(book)}>
             })}
 
-            <div class="image">
+            <div className="image">
               <img src={book.image}/>
             </div>
 
-            <div class="content">
-              <div class="header">{book.title}</div>
+            <div className="content">
+              <div className="header">{book.title}</div>
             </div>
 
             {/*author? description? */}

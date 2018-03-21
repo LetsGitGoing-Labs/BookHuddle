@@ -209,12 +209,12 @@ app.get('/getBooksAPI', (req, res) => {
           bookData.push({
             book_amazon_id: result[i].ASIN,
             book_title: result[i].ItemAttributes[0].Title,
-            book_author: result[i].ItemAttributes[0].Author
+            book_author: result[i].ItemAttributes[0].Author,
+            book_image: result[i].MediumImage[0].URL
           });
           debugger;
         }
-        console.log(result);
-        res.send(result);
+        res.send(bookData);
       });
     })
     .catch(err => console.log(err));
