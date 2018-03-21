@@ -1,4 +1,6 @@
 import React from 'react';
+import $ from 'jquery';
+
 import { Route, Link } from 'react-router-dom';
 import CreateClub from './create-club.jsx';
 import Profile from './profile.jsx';
@@ -10,7 +12,30 @@ import DashNav from './dashboard-nav.jsx';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      books: []
+    };
+
+    this.componentDidMount = this. componentDidMount.bind(this);
   }
+
+  componentDidMount() {
+    var component = this;
+    $.ajax({
+      type: 'GET',
+      url: '/getBooksAPI',
+      success: function(books) {
+        debugger;
+        component.setState({
+          books: books
+        });
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+  }
+
 
   render() {
     return (

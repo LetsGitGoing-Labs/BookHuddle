@@ -70,6 +70,7 @@ knex.schema.hasTable('user').then(function(exists) {
         t.text('book_title', 100);
         t.text('book_author', 100);
         t.text('book_genres', 100);
+        t.text('book_image', 300);
       }).then(function(table) {
         console.log('Created table books');
       });

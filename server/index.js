@@ -3,8 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const amazonHelpers = require('./api-helpers/amazon-helpers.js');
-const database = require('../knexHelpers/queries.js')
+const database = require('../knexHelpers/queries.js');
 
+var parseString = require('xml2js').parseString;
 
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
@@ -197,7 +198,25 @@ app.get('/getBooksAPI', (req, res) => {
 
   var searchTerm = undefined;
   amazonHelpers.retrieveBooksAPI(searchTerm)
-    .then(books => res.send(books.data))
+    .then(function(books) {
+      var parsedData = parseString(books.data, function(err, result) {
+        var bookData = [];
+        result = result['ItemSearchResponse'];
+        result = result['Items'];
+        result = result[0];
+        result = result['Item'];
+        for (var i = 0; i < result.length; i++) {
+          bookData.push({
+            book_amazon_id: result[i].ASIN,
+            book_title: result[i].ItemAttributes[0].Title,
+            book_author: result[i].ItemAttributes[0].Author
+          });
+          debugger;
+        }
+        console.log(result);
+        res.send(result);
+      });
+    })
     .catch(err => console.log(err));
 });
 

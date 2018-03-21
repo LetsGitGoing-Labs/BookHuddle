@@ -8,7 +8,7 @@ const retrieveClubs = (cb, dataObj) => {
 
 
 const addUser = (cb, user, res) => {
-  console.log('line 10 add user')
+  console.log('line 10 add user');
   // let email = user.confirmRequest.email;
   // let checkDatabase = emailIsInUse(email);
   // checkDatabase.then(function(exists) {
@@ -67,7 +67,7 @@ const addClub = (cb, club, res) => {
     })
     .into('club')
     .then(function(data) {
-      cb(data, club, res)
+      cb(data, club, res);
     });
   // } else {
   //   console.log('line 48');
