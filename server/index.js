@@ -243,14 +243,25 @@ app.post('/meetings', (req, res) => {
 
 app.post('/login', (req, res) => {
   //Login auth goes here
-  console.log('Logged in!');
+  console.log('Logged in!', req.body);
+  database.checkUser(req.body, function (validate) {
+    console.log(validate, 'line 248 in func')
+    if (validate) {
+      sendData(req.body, req.body, res)
+    } else {
+      res.status(401).send('Email or password did not match')
+    }
+  });
+  
+ 
+  
 });
-
+  
 app.post('/signup', (req, res) => {
   let newUser = {
     confirmRequest: req.body
   };
-  database.addUser(sendData, newUser, res);
+  database.addUser(sendData, newUser, res);                 
 });
 
 app.get('/logout', (req, res) => {

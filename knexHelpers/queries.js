@@ -6,6 +6,23 @@ const retrieveClubs = (cb, dataObj) => {
   });
 };
 
+const checkUser = (user, cb) => {
+  console.log(user);
+   return knex('user')
+  .where({
+    email: user.email,
+    password: user.password
+  })
+  .select('email')
+  .then((x) => {
+    if (x.length > 0 ) {
+      cb(true);
+    } else {
+      cb(false);
+    }
+  });
+}
+
 
 const addUser = (cb, user, res) => {
   console.log('line 10 add user');
@@ -105,6 +122,7 @@ const checkClubByClubName = (clubName) => {
 module.exports = {
   retrieveClubs,
   addUser,
-  addClub
+  addClub,
+  checkUser
 };
 

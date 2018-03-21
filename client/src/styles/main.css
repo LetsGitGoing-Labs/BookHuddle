@@ -221,6 +221,13 @@
 
 }
 
+#login-err {
+  color: red;
+  text-align: left;
+  font-family: Arial;
+  font-size: 80%;
+}
+
 .centerize {
     display: block;
     margin: 0 auto;
