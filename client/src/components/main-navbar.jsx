@@ -22,10 +22,10 @@ class MainNavbar extends React.Component {
                 <Link to="/faq" className="nav-link">FAQ</Link>
               </li>
               <li className="nav-item active">
-                <Link to="/signup" className="nav-link">Signup</Link>
+                <Link to="/login-modal" className="nav-link">Signup</Link>
               </li>
               <li className="nav-item">
-                <Link to="/login" className="nav-link">Login</Link>
+                <Link to="/login-modal" className="nav-link">Login</Link>
               </li>
             </ul>
   </div>

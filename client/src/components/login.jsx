@@ -1,6 +1,7 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Link, Redirect } from 'react-router-dom';
+import Signup from './Signup.jsx';
 
 
 class Login extends React.Component {
@@ -9,10 +10,13 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isLoggedIn: false
+      isLoggedIn: false,
+      signup: false
     }
     this.onChange = this.onChange.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);
+    this.signupView = this.signupView.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   checkLoginState() {
@@ -20,6 +24,12 @@ class Login extends React.Component {
       console.log(response);
       statusChangeCallback(response);
     });
+  }
+
+  signupView() {
+    this.setState({
+      signup: true
+    })
   }
 
   onChange(e) {
@@ -43,31 +53,41 @@ class Login extends React.Component {
     }
     return (
       <div>
+         {this.state.signup && <Signup />}
+         {!this.state.signup &&
+         <div  className="centerize">
       
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <div className="form-group row">
-          <label className="col-sm-2 col-form-label">Email</label>
-          <div className="col-sm-10">
-            <input type="email" className="form-control" id="inputEmail3" placeholder="Email" name="email" value={this.state.email} onChange={this.onChange}/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-sm-2 col-form-label">Password</label>
-          <div className="col-sm-10">
-            <input type="password" className="form-control" id="inputPassword" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-sm-10">
-            <Link to='/dashboard'>
-              <button type="submit" className="btn btn-primary">Sign in</button>
-            </Link>
-            <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span> Facebook</a>
+      
+            <h1> Login </h1>
+            <form>
+              <div className="form-group row">
+                <label className="col-sm-2 col-form-label">Email</label>
+                <div className="col-sm-10">
+                  <input type="email" className="form-control" id="inputEmail3" placeholder="Email" name="email" value={this.state.email} onChange={this.onChange}/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label className="col-sm-2 col-form-label">Password</label>
+                <div className="col-sm-10">
+                  <input type="password" className="form-control" id="inputPassword" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
+                </div>
+              </div>
+              
+              <div className="form-group row">
+                <div className="col-sm-10 centerize">
+                  <Link to='/dashboard'>
+                    <button className="centerize" id="button1" type="submit" onClick={this.handleSubmit}>Sign in</button>
+                  </Link>
+                  </div>
+                  <div className="centerize"><p> Not a member?  <a href="#" onClick={this.signupView}>Create an Account!</a></p></div> 
+                 
 
-          </div>
+                
+              </div>
+       <div className="centerize"><a href="/auth/facebook" className="btn btn-primary"><span className=" fa fa-facebook"></span> Facebook</a></div>
+            </form>
+          </div>}
         </div>
-      </form>
-      </div>
     );
   }
 }
