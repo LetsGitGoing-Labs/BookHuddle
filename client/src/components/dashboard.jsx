@@ -20,7 +20,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    console.log(this.props.location.state);
     var component = this;
     $.ajax({
       type: 'GET',

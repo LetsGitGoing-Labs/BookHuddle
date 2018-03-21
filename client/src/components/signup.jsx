@@ -40,24 +40,25 @@ class Signup extends React.Component {
       url: '/signup',
       type: 'POST',
       data: formData,
-      success: function(data) {
+      success: (data) => {
         this.setState({
-          userResponseData : data
+          userResponseData : data,
+          isLoggedIn: true
         });
       },
       error: function(err){
         console.log('errror in ajax', err);
       }
     });
-    this.setState({
-      isLoggedIn: true
-    });
-    console.log(this.state);
   }
 
   render() {
     if (this.state.isLoggedIn) {
-      return (<Redirect to='/dashboard' />)
+      return (
+          <Redirect to= {{
+            pathname: '/dashboard',
+            state: { userResponseData: this.state.userResponseData }
+            }} />)
     }
     return (
       <form >

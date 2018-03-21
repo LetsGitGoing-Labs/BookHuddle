@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, FormFeedback, FormText, Button, ButtonGroup, InputGroup, InputGroupAddon, Modal, ModalHeader, ModalBody, ModalFooter, Media } from 'reactstrap';
 import Login from './login.jsx';
-import Signup from './Signup.jsx';
+import Signup from './signup.jsx';
 import { Link, Redirect } from 'react-router-dom';
 
 class LoginModal extends React.Component {
@@ -38,7 +38,7 @@ class LoginModal extends React.Component {
   	 if (!this.state.modal) {
       return (<Redirect to='/' />)
     }
-    
+
     return (
       <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
         <ModalBody>

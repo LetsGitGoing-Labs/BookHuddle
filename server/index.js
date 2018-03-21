@@ -212,7 +212,6 @@ app.get('/getBooksAPI', (req, res) => {
             book_author: result[i].ItemAttributes[0].Author,
             book_image: result[i].MediumImage[0].URL
           });
-          debugger;
         }
         res.send(bookData);
       });

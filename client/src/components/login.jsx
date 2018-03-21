@@ -2,7 +2,7 @@ import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Link, Redirect } from 'react-router-dom';
 import $ from 'jquery';
-import Signup from './Signup.jsx';
+import Signup from './signup.jsx';
 
 class Login extends React.Component {
   constructor(props) {
