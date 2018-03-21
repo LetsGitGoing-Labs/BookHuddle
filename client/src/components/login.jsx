@@ -11,7 +11,8 @@ class Login extends React.Component {
       email: '',
       password: '',
       isLoggedIn: false,
-      signup: false
+      signup: false,
+      errMsg: ''
     }
     this.onChange = this.onChange.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);
@@ -33,11 +34,15 @@ class Login extends React.Component {
   }
 
   onChange(e) {
+
     let target = e.target.name;
     this.setState ({
+      errMsg: '',
       [ target ]: e.target.value
     });
   }
+
+
   handleSubmit (e) {
     e.preventDefault();
     let data = {
@@ -51,14 +56,20 @@ class Login extends React.Component {
       data: data,
       success: (data) => {
         console.log('user logged in', data)
+        this.setState({
+          isLoggedIn: true
+        })
       },
       error: (err) => {
         console.log('errror in ajax', err);
+        this.setState({
+          email: '',
+          password: '',
+          errMsg: 'User not found'})
+
       }
     });
-    this.setState({
-      isLoggedIn: true
-    });
+    
   }
 
   render() {
@@ -86,11 +97,11 @@ class Login extends React.Component {
                   <input type="password" className="form-control" id="inputPassword" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
                 </div>
               </div>
-
+              {this.state.errMsg.length > 1 && <div id="login-err"><p>{this.state.errMsg}</p></div>}
               <div className="form-group row">
                 <div className="col-sm-10 centerize">
                   <Link to='/dashboard'>
-                    <button className="centerize" id="button1" type="submit" onClick={this.handleSubmit}>Sign in</button>
+                    <button className="centerize" id="button1" onClick={this.handleSubmit}>Sign in</button>
                   </Link>
                   </div>
                   <div className="centerize"><p> Not a member?  <a href="#" onClick={this.signupView}>Create an Account!</a></p></div>
