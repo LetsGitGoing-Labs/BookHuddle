@@ -11,11 +11,15 @@ import '../styles/main.css';
 import CreateClub from './create-club.jsx';
 import Profile from './profile.jsx';
 import LoginModal from './login-modal.jsx';
+import MainNavbar from './main-navbar.jsx';
+import Club from './club.jsx';
 
 class App extends React.Component {
   render() {
     return (
       <div>
+        <MainNavbar />
+        <Club />
         <Switch>
           <Route exact path='/' component={ Home } />
           <Route path='/about' component={ About } />
