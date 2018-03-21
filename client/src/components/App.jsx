@@ -8,6 +8,9 @@ import Login from './login.jsx';
 import Dashboard from './dashboard.jsx';
 import Logout from './logout.jsx';
 import '../styles/main.css';
+import CreateClub from './create-club.jsx';
+import Profile from './profile.jsx';
+import LoginModal from './login-modal.jsx';
 
 class App extends React.Component {
   render() {
@@ -17,10 +20,13 @@ class App extends React.Component {
           <Route exact path='/' component={ Home } />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
+          <Route path='/login-modal' component={ LoginModal } />
           <Route path='/signup' component={ Signup } />
           <Route path='/login' component={ Login } />
           <Route path='/dashboard' component={ Dashboard } />
           <Route path='/logout' component={ Logout } />
+          <Route path='/create-club' component={ CreateClub } />
+          <Route path='/profile' component={ Profile } />
           <Route component={ NotFound } />
         </Switch>
       </div>

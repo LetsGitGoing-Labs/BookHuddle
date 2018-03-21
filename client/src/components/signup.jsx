@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class Signup extends React.Component {
@@ -11,7 +12,8 @@ class Signup extends React.Component {
       email: '',
       password: '',
       city: '',
-      state: ''
+      state: '',
+      isLoggedIn: false
     }
     this.change = this.change.bind(this);
     this.signupSubmit = this.signupSubmit.bind(this);
@@ -44,11 +46,19 @@ class Signup extends React.Component {
         console.log('errror in ajax', err);
       }
     });
+    this.setState({
+      
+      isLoggedIn: true
+    })
   }
 
   render() {
+    if (this.state.isLoggedIn) {
+      return (<Redirect to='/dashboard' />)
+    }
     return (
-      <form>
+      <form >
+        <h1 className="centerize"> Create an Account </h1>
         <div className="form-row">
           <div className="form-group col-md-6">
             <label>First name</label>
@@ -84,7 +94,9 @@ class Signup extends React.Component {
             </select>
           </div>
         </div>
+        <div className="centerize">
         <button onClick={this.signupSubmit} type="submit" className="btn btn-primary">Sign Up</button>
+        </div>
       </form>
     );
   }
