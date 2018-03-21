@@ -7,15 +7,12 @@ import Signup from './signup.jsx';
 import Login from './login.jsx';
 import Dashboard from './dashboard.jsx';
 import Logout from './logout.jsx';
-import MainNavbar from './main-navbar.jsx';
 import '../styles/main.css';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <MainNavbar />
-
         <Switch>
           <Route exact path='/' component={ Home } />
           <Route path='/about' component={ About } />

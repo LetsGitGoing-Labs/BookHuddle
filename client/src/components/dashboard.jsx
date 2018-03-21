@@ -5,6 +5,7 @@ import Profile from './profile.jsx';
 import MeetingListDashboard from './meeting-list-dashboard.jsx';
 import BookListDashboard from './book-list-dashboard.jsx';
 import ClubListDashboard from './clubs-list-dashboard.jsx';
+import DashNav from './dashboard-nav.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -15,12 +16,7 @@ class Dashboard extends React.Component {
     const match = this.props.match;
     return (
       <div>
-        <h1>Welcome to your dashboard!</h1>
-        <ul>
-          <li><Link to={`${match.url}/create-club`}>Create a Club</Link></li>
-          <li><Link to={`${match.url}/profile`}>View Profile</Link></li>
-          <li><Link to='/logout'>Logout</Link></li>
-        </ul>
+        <DashNav />
         <p></p>
         <div>
           <MeetingListDashboard/>
