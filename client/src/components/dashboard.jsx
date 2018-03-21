@@ -13,10 +13,15 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const match = this.props.match;
     return (
       <div>
         <DashNav />
+        <h1>Welcome to your dashboard!</h1>
+        <ul>
+          <li><Link to='/create-club'>Create a Club</Link></li>
+          <li><Link to='/profile'>View Profile</Link></li>
+          <li><Link to='/logout'>Logout</Link></li>
+        </ul>
         <p></p>
         <div>
           <MeetingListDashboard/>
@@ -29,8 +34,8 @@ class Dashboard extends React.Component {
         <div>
           <BookListDashboard/>
         </div>
-        <Route path={`${match.url}/create-club`} component={ CreateClub } />
-        <Route path={`${match.url}/profile`} component={ Profile } />
+        <Route path='/create-club' component={ CreateClub } />
+        <Route path='/profile' component={ Profile } />
       </div>
     );
   }

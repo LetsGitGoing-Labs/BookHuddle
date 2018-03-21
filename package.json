@@ -47,6 +47,7 @@
     "react-dom": "^16.2.0",
     "react-facebook-login": "^4.0.1",
     "react-router-dom": "^4.2.2",
+    "reactstrap": "^5.0.0-beta.3",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "sequelize": "^4.37.0"

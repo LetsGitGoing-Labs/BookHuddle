@@ -39,10 +39,11 @@ class Login extends React.Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      return (<Redirect to='/dashboard' />);
+      return (<Redirect to='/dashboard' />)
     }
     return (
       <div>
+      
       <form onSubmit={this.handleSubmit.bind(this)}>
         <div className="form-group row">
           <label className="col-sm-2 col-form-label">Email</label>
