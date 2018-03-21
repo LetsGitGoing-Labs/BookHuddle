@@ -2,6 +2,17 @@ import React from 'react';
 import Book from './book.jsx';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  smoothScroll() {
+
+    $('html, body').animate({
+      scrollTop: $("#section-a").offset().top
+    }, 2000);
+  }
+
   render() {
     const bookList = [
     { title: "The Pillars of the Earth", author: "Ken Follet", cover: "http://covers.openlibrary.org/b/isbn/0451207149-M.jpg"},
@@ -14,8 +25,8 @@ class Home extends React.Component {
         <div className='bg-image'></div>
         <div className="content-wrapper">
           <h1>BookHuddle</h1>
-          <p>Enlightenment self philosophy enlightenment of. Joy dead against intentions deceptions. Self value dead decrepit grandeur morality god passion madness fearful.</p>
-          <a href='#section-a' className='btn'>Read More</a>
+          <p>Come together and share with a community who loves the same books you do.</p>
+          <button className='btn' onClick={this.smoothScroll.bind(this)}>Read More</button>
         </div>
       </header>
       <main id='main'>
