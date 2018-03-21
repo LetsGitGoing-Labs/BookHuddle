@@ -40,11 +40,11 @@ class Login extends React.Component {
   }
   handleSubmit (e) {
     e.preventDefault();
-    this.props.auth(() => {
+    // this.props.auth(() => {
       this.setState({
         isLoggedIn: true
       });
-    });
+    // });
   }
 
   render() {
@@ -84,7 +84,7 @@ class Login extends React.Component {
 
                 
               </div>
-       <div className="centerize"><a href="/auth/facebook" className="btn btn-primary"><span className=" fa fa-facebook"></span> Facebook</a></div>
+              <div className="centerize"><a href="/auth/facebook" className="btn btn-primary"><span className=" fa fa-facebook"></span> Facebook</a></div>
             </form>
           </div>}
         </div>

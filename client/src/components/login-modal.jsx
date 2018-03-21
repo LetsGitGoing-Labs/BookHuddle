@@ -42,7 +42,7 @@ class LoginModal extends React.Component {
     return (
       <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
         <ModalBody>
-	        {this.state.login && <Login/>}
+	        {this.state.login && <Login modal={this.state.modal}/>}
 	        {!this.state.login && <Signup/>}
         </ModalBody>
       </Modal>
