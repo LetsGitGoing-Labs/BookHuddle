@@ -1,8 +1,8 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Link, Redirect } from 'react-router-dom';
+import $ from 'jquery';
 import Signup from './Signup.jsx';
-
 
 class Login extends React.Component {
   constructor(props) {
@@ -40,11 +40,25 @@ class Login extends React.Component {
   }
   handleSubmit (e) {
     e.preventDefault();
-    // this.props.auth(() => {
-      this.setState({
-        isLoggedIn: true
-      });
-    // });
+    let data = {
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    $.ajax({
+      url: '/login',
+      type: 'POST',
+      data: data,
+      success: (data) => {
+        console.log('user logged in', data)
+      },
+      error: (err) => {
+        console.log('errror in ajax', err);
+      }
+    });
+    this.setState({
+      isLoggedIn: true
+    });
   }
 
   render() {
@@ -56,8 +70,8 @@ class Login extends React.Component {
          {this.state.signup && <Signup />}
          {!this.state.signup &&
          <div  className="centerize">
-      
-      
+
+
             <h1> Login </h1>
             <form>
               <div className="form-group row">
@@ -72,17 +86,14 @@ class Login extends React.Component {
                   <input type="password" className="form-control" id="inputPassword" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
                 </div>
               </div>
-              
+
               <div className="form-group row">
                 <div className="col-sm-10 centerize">
                   <Link to='/dashboard'>
                     <button className="centerize" id="button1" type="submit" onClick={this.handleSubmit}>Sign in</button>
                   </Link>
                   </div>
-                  <div className="centerize"><p> Not a member?  <a href="#" onClick={this.signupView}>Create an Account!</a></p></div> 
-                 
-
-                
+                  <div className="centerize"><p> Not a member?  <a href="#" onClick={this.signupView}>Create an Account!</a></p></div>
               </div>
               <div className="centerize"><a href="/auth/facebook" className="btn btn-primary"><span className=" fa fa-facebook"></span> Facebook</a></div>
             </form>
