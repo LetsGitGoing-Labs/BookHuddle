@@ -93,7 +93,6 @@ class Dashboard extends React.Component {
     });
   }
 
-
   render() {
     if (this.state.clubRedirect) {
       return (
@@ -121,7 +120,7 @@ class Dashboard extends React.Component {
         </div>
         <p></p>
         <div>
-          <BookListDashboard bookList={this.state.books}/>
+          <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
         </div>
         <p></p>
         <div>

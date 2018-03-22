@@ -208,7 +208,8 @@ app.get('/getBooksAPI', (req, res) => {
               book_amazon_id: result[i].ASIN,
               book_title: result[i].ItemAttributes[0].Title,
               book_author: result[i].ItemAttributes[0].Author,
-              book_image: result[i].MediumImage[0].URL
+              book_image: result[i].MediumImage[0].URL,
+              book_url: result[i].DetailPageURL
             });
           }
         }

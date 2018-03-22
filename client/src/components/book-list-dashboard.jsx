@@ -16,7 +16,7 @@ var BookListDashboard = (props) => {
         <p></p>
         <div className="ui seven link cards">
           {props.bookList.map((book) =>
-            <div className="card" onClick = {() => props.onBookClick(book)}>
+            <a href={book.book_url} className="card">
 
             <div className="image">
               <img src={book.book_image[0]}/>
@@ -25,7 +25,7 @@ var BookListDashboard = (props) => {
             <div className="content">
               <h2 className="ui sub header">{book.book_title[0].slice(0, 30)}</h2>
             </div>
-          </div>
+          </a>
           )}
         </div>
       </div>
