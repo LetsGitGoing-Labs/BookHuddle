@@ -3,12 +3,12 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form,
 import classnames from 'classnames';
 import Login from './login.jsx';
 import Signup from './signup.jsx';
-import { Link, Redirect } from 'react-router-dom';
 
 class LoginModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       modal: true,
     };
   }
@@ -23,33 +23,37 @@ class LoginModal extends React.Component {
     this.setState({
       activeTab: tab
     })
+=======
+      modal: this.props.modal
+    };
+>>>>>>> Render modal without changing page
   }
 
   render() {
     return (
       <div>
-        <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={this.props.className} centered={true}>
+        <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} className={this.props.className} centered={true}>
           <ModalBody>
             <div>
               <Nav tabs>
                 <NavItem>
                   <NavLink
-                    className={classnames({ active: this.state.activeTab === 'login' })}
-                    onClick={() => { this.toggleTab('login'); }}
+                    className={classnames({ active: this.props.activeTab === 'login' })}
+                    onClick={() => { this.props.toggleTab('login'); }}
                   >
                     Login
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink
-                    className={classnames({ active: this.state.activeTab === 'signup' })}
-                    onClick={() => { this.toggleTab('signup'); }}
+                    className={classnames({ active: this.props.activeTab === 'signup' })}
+                    onClick={() => { this.props.toggleTab('signup'); }}
                   >
                     New Account
                   </NavLink>
                 </NavItem>
               </Nav>
-              <TabContent activeTab={this.state.activeTab}>
+              <TabContent activeTab={this.props.activeTab}>
                 <TabPane tabId="login">
                   <Login />
                 </TabPane>

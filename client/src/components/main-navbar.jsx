@@ -1,9 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LoginModal from './login-modal.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
 class MainNavbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false,
+      activeTab: ''
+    }
+    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleTab = this.toggleTab.bind(this);
+  }
+
+  toggleModal(e) {
+    const activeTab = e.target.name ? e.target.name : null;
+    this.setState({
+      activeTab: activeTab,
+      modal: !this.state.modal
+    });
+  }
+
+  toggleTab(tab) {
+    this.setState({
+      activeTab: tab
+    })
+  }
+
   render() {
     return (
       <div>
@@ -22,14 +47,20 @@ class MainNavbar extends React.Component {
                 <Link to="/faq" className="nav-link">FAQ</Link>
               </li>
               <li className="nav-item active">
-                <Link to="/login-modal" className="nav-link">Signup</Link>
+                <Link to="" name='signup' className="nav-link" onClick={this.toggleModal}>Signup</Link>
               </li>
               <li className="nav-item">
-                <Link to="/login-modal" className="nav-link">Login</Link>
+                <Link to="" name='login' className="nav-link" onClick={this.toggleModal}>Login</Link>
               </li>
             </ul>
   </div>
 </nav>
+        <LoginModal
+          modal={this.state.modal}
+          activeTab={this.state.activeTab}
+          toggleTab={this.toggleTab}
+          toggleModal={this.toggleModal}
+        />
       </div>
     );
   }

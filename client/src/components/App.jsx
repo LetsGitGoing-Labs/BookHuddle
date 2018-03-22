@@ -22,9 +22,7 @@ class App extends React.Component {
           <Route exact path='/' component={ Home } />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
-          <Route path='/login-modal' component={ LoginModal } />
-          <Route path='/signup' component={ Signup } />
-          <Route path='/login' component={ Login } />
+          <Route path='/login' component={ LoginModal } />
           <Route path='/dashboard' component={ Dashboard } />
           <Route path='/logout' component={ Logout } />
           <Route path='/create-club' component={ CreateClub } />
