@@ -22,7 +22,7 @@ class Home extends React.Component {
     ]
     return (
       <div>
-        <MainNavbar login={this.props.login}/>
+        <MainNavbar login={this.props.login} isLoggedIn={this.props.isLoggedIn}/>
         <header id="showcase" className="grid info-section">
           <div className='bg-image'></div>
           <div className="bg-overlay"></div>

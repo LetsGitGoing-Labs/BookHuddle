@@ -10,7 +10,6 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isLoggedIn: false,
       signup: false,
       errMsg: '',
       userResponseData: ''
@@ -47,23 +46,22 @@ class Login extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
-    console.log(this.props.login)
     let data = {
       email: this.state.email,
       password: this.state.password
     };
 
-    // this.props.login(data, (responseData) => {
-    //   this.setState({
-    //       email: '',
-    //       password: '',
-    //       errMsg: 'User not found'});
-    //   }
-    // });
+    this.props.login(data, (responseData) => {
+      this.setState({
+        email: '',
+        password: '',
+        errMsg: 'User not found'
+      });
+    });
   }
 
   render() {
-    if (this.state.isLoggedIn) {
+    if (this.props.isLoggedIn) {
       return (
           <Redirect to='/loggedin'/>)
     }

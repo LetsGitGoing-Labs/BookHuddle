@@ -40,13 +40,21 @@ class App extends React.Component {
       }
     });
   }
+
   render() {
     return (
       <div>
         <Switch>
-          <Route exact path='/' render={(...props) => {
-            return <Home login={this.handleLogin.bind(this)}/>
-          }} />
+          <Route
+            exact path='/'
+            render={
+              (props) => {
+                return <Home {...props}
+                  login={this.handleLogin.bind(this)}
+                  isLoggedIn={this.state.isLoggedIn}
+                />
+              }
+            } />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
           <Route path='/login' component={ LoginModal } />

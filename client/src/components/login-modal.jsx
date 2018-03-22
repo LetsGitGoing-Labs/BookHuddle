@@ -37,7 +37,10 @@ class LoginModal extends React.Component {
               </Nav>
               <TabContent activeTab={this.props.activeTab}>
                 <TabPane tabId="login">
-                  <Login login={this.props.login}/>
+                  <Login
+                    login={this.props.login}
+                    isLoggedIn={this.props.isLoggedIn}
+                  />
                 </TabPane>
                 <TabPane tabId="signup">
                   <Signup />
