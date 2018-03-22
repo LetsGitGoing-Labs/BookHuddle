@@ -86,9 +86,6 @@ class Login extends React.Component {
          {this.state.signup && <Signup />}
          {!this.state.signup &&
          <div  className="centerize">
-
-
-            <h1> Login </h1>
             <form>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Email</label>
