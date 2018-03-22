@@ -30,9 +30,11 @@ class LoginModal extends React.Component {
   }
 
   render() {
+    const externalCloseBtn = <button className="close" onClick={this.toggle}>x</button>;
+
     return (
       <div>
-        <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} className={this.props.className} centered={true}>
+        <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} external={externalCloseBtn}>
           <ModalBody>
             <div>
               <Nav tabs>

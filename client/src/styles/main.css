@@ -1,6 +1,16 @@
 /*CORE*/
 
-
+.modal-dialog {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  background: transparent;
+  margin: 3em auto 4em;
+  cursor: auto;
+  border-radius: 0.25em;
+  transform: translateY(-30px);
+  transition: transform 0.3s;
+}
 
 .btn {
   text-decoration: none;
@@ -232,5 +242,23 @@
     display: block;
     margin: 0 auto;
     text-align: center;
+}
 
+.close {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 230px;
+  top: 15px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 2rem;
+  font-weight: 700;
+  opacity: 1;
+}
+
+.close:hover {
+  color: #fff;
+  opacity: 1;
 }
