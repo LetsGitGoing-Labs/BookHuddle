@@ -8,25 +8,8 @@ class LoginModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-      modal: true,
-    };
-  }
-
-  toggleModal() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-
-  toggleTab(tab) {
-    this.setState({
-      activeTab: tab
-    })
-=======
       modal: this.props.modal
     };
->>>>>>> Render modal without changing page
   }
 
   render() {
@@ -36,21 +19,14 @@ class LoginModal extends React.Component {
       <div>
         <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} external={externalCloseBtn}>
           <ModalBody>
-            <div>
               <Nav tabs>
-                <NavItem>
-                  <NavLink
-                    className={classnames({ active: this.props.activeTab === 'login' })}
-                    onClick={() => { this.props.toggleTab('login'); }}
-                  >
+                <NavItem className={` ${classnames({ active: this.props.activeTab === 'login' })} modal-tab`}>
+                  <NavLink onClick={() => { this.props.toggleTab('login'); }} >
                     Login
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink
-                    className={classnames({ active: this.props.activeTab === 'signup' })}
-                    onClick={() => { this.props.toggleTab('signup'); }}
-                  >
+                <NavItem className={` ${classnames({ active: this.props.activeTab === 'signup' })} modal-tab`}>
+                  <NavLink onClick={() => { this.props.toggleTab('signup'); }} >
                     New Account
                   </NavLink>
                 </NavItem>
@@ -63,7 +39,6 @@ class LoginModal extends React.Component {
                   <Signup />
                 </TabPane>
               </TabContent>
-            </div>
 
           </ModalBody>
         </Modal>
