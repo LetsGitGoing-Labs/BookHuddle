@@ -88,10 +88,10 @@ class Login extends React.Component {
          <div  className="centerize">
             <form>
               <div className="form-group">
-                  <input type="email" className="form-control" id="inputEmail3" placeholder="Email" name="email" value={this.state.email} onChange={this.onChange}/>
+                  <input type="email" className="form-control" id="inputEmail3" placeholder="Email" name="email" autoComplete="email" value={this.state.email} onChange={this.onChange}/>
               </div>
               <div className="form-group">
-                  <input type="password" className="form-control" id="inputPassword" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
+                  <input type="password" className="form-control" id="login-password" autoComplete="current-password" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
               </div>
               {this.state.errMsg.length > 1 && <div id="login-err"><p>{this.state.errMsg}</p></div>}
               <div className="form-group">

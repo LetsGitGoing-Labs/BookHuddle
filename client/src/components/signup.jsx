@@ -78,10 +78,10 @@ class Signup extends React.Component {
           </div>
         </div>
         <div className="form-group">
-          <input name="email" onChange={event => this.change(event)} type="email" className="form-control" id="inputEmail" placeholder="Email"/>
+          <input name="email" onChange={event => this.change(event)} type="email" className="form-control" id="inputEmail" autoComplete="email" placeholder="Email"/>
         </div>
         <div className="form-group">
-          <input name="password" onChange={event => this.change(event)} type="password" className="form-control" id="inputPassword" placeholder="Password"/>
+          <input name="password" onChange={event => this.change(event)} type="password" className="form-control" autoComplete="current-password" id="inputPassword" placeholder="Password"/>
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
@@ -89,7 +89,7 @@ class Signup extends React.Component {
           </div>
           <div className="form-group col-md-4">
             <select name="state" onChange={event => this.change(event)} id="inputState" className="form-control">
-              <option selected>State/Province</option>
+              <option defaultValue>State/Province</option>
               <option>...</option>
               <option>CA</option>
               <option>CO</option>
