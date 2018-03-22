@@ -60,6 +60,7 @@ class MainNavbar extends React.Component {
           activeTab={this.state.activeTab}
           toggleTab={this.toggleTab}
           toggleModal={this.toggleModal}
+          login={this.props.login}
         />
       </div>
     );

@@ -15,11 +15,38 @@ import MainNavbar from './main-navbar.jsx';
 import Club from './club.jsx';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+      isLoggedIn: false
+    }
+  }
+
+  handleLogin(formData, cb) {
+    $.ajax({
+      url: '/login',
+      type: 'POST',
+      data: formData,
+      success: (data) => {
+        this.setState({
+          user: data,
+          isLoggedIn: true
+        });
+      },
+      error: (err) => {
+        console.log('errror logging in', err);
+        cb(err);
+      }
+    });
+  }
   render() {
     return (
       <div>
         <Switch>
-          <Route exact path='/' component={ Home } />
+          <Route exact path='/' render={(...props) => {
+            return <Home login={this.handleLogin.bind(this)}/>
+          }} />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
           <Route path='/login' component={ LoginModal } />

@@ -22,7 +22,7 @@ class Home extends React.Component {
     ]
     return (
       <div>
-        <MainNavbar />
+        <MainNavbar login={this.props.login}/>
         <header id="showcase" className="grid info-section">
           <div className='bg-image'></div>
           <div className="bg-overlay"></div>

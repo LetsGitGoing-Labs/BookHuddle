@@ -47,38 +47,25 @@ class Login extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
+    console.log(this.props.login)
     let data = {
       email: this.state.email,
       password: this.state.password
     };
 
-    $.ajax({
-      url: '/login',
-      type: 'POST',
-      data: data,
-      success: (data) => {
-        this.setState({
-          userResponseData: data,
-          isLoggedIn: true
-        });
-      },
-      error: (err) => {
-        console.log('errror in ajax', err);
-        this.setState({
-          email: '',
-          password: '',
-          errMsg: 'User not found'});
-      }
-    });
+    // this.props.login(data, (responseData) => {
+    //   this.setState({
+    //       email: '',
+    //       password: '',
+    //       errMsg: 'User not found'});
+    //   }
+    // });
   }
 
   render() {
     if (this.state.isLoggedIn) {
       return (
-          <Redirect to= {{
-            pathname: '/dashboard',
-            state: { userResponseData: this.state.userResponseData }
-            }} />)
+          <Redirect to='/loggedin'/>)
     }
 
     return (
