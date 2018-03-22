@@ -49,38 +49,28 @@ class Login extends React.Component {
     let data = {
       email: this.state.email,
       password: this.state.password
-    }
+    };
 
     $.ajax({
       url: '/login',
       type: 'POST',
       data: data,
       success: (data) => {
-<<<<<<< HEAD
-        console.log('user logged in', data)
-        this.setState({
-          isLoggedIn: true
-        })
-=======
         this.setState({
           userResponseData: data,
           isLoggedIn: true
         });
->>>>>>> Pass props from login to dashboard component
       },
       error: (err) => {
         console.log('errror in ajax', err);
         this.setState({
           email: '',
           password: '',
-          errMsg: 'User not found'})
+          errMsg: 'User not found'});
 
       }
     });
-<<<<<<< HEAD
 
-=======
->>>>>>> Pass props from login to dashboard component
   }
 
   render() {

@@ -21,7 +21,19 @@ const checkUser = (user, cb) => {
       cb(false);
     }
   });
-}
+};
+
+const retrieveUser = (email, cb) => {
+  return knex('user').where({
+    email: email
+  }).select('*').then((userData) => {
+    if (userData) {
+      cb(userData);
+    } else {
+      cb(null);
+    }
+  });
+};
 
 const addUser = (cb, user, res) => {
   console.log('line 10 add user');
@@ -41,8 +53,10 @@ const addUser = (cb, user, res) => {
       })
       .into('user')
       // .then(ADD RECORD TO THE USER_CLUB JOIN TABLE)
-      .then(function(data) {
-        cb(data, user, res);
+      .then(function() {
+        retrieveUser(user.confirmRequest.email, function(userData) {
+          cb(userData, userData, res);
+        });
       });
     // }
     // else {
@@ -98,12 +112,9 @@ const checkClubByClubName = (clubName) => {
     .where('club_name', clubName);
 };
 
-
-
-
-
 module.exports = {
   retrieveClubs,
+  retrieveUser,
   addUser,
   addClub,
   checkUser

@@ -203,12 +203,14 @@ app.get('/getBooksAPI', (req, res) => {
         var bookData = [];
         result = result.ItemSearchResponse.Items[0].Item;
         for (var i = 0; i < result.length; i++) {
-          bookData.push({
-            book_amazon_id: result[i].ASIN,
-            book_title: result[i].ItemAttributes[0].Title,
-            book_author: result[i].ItemAttributes[0].Author,
-            book_image: result[i].MediumImage[0].URL
-          });
+          if (result[i].ASIN && result[i].ItemAttributes[0].Title && result[i].ItemAttributes[0].Author && result[i].MediumImage[0].URL) {
+            bookData.push({
+              book_amazon_id: result[i].ASIN,
+              book_title: result[i].ItemAttributes[0].Title,
+              book_author: result[i].ItemAttributes[0].Author,
+              book_image: result[i].MediumImage[0].URL
+            });
+          }
         }
         res.send(bookData);
       });
@@ -241,11 +243,13 @@ app.post('/login', (req, res) => {
   //Login auth goes here
   console.log('Logged in!', req.body);
   database.checkUser(req.body, function (validate) {
-    console.log(validate, 'line 248 in func')
+    console.log(validate, 'line 248 in func');
     if (validate) {
-      sendData(req.body, req.body, res)
+      database.retrieveUser(req.body.email, function(userData){
+        sendData(userData, userData, res);
+      });
     } else {
-      res.status(401).send('Email or password did not match')
+      res.status(401).send('Email or password did not match');
     }
   });
 

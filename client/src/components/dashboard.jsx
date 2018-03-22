@@ -20,7 +20,6 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location.state);
     var component = this;
     $.ajax({
       type: 'GET',
@@ -41,7 +40,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <DashNav />
-        <h1>{this.props.location.state.userResponseData.confirmRequest.firstName + "'s Dashboard"}</h1>
+        <h1>{this.props.location.state.userResponseData[0].first_name + "'s Dashboard"}</h1>
         <ul>
           <li><Link to='/create-club'>Create a Club</Link></li>
           <li><Link to='/profile'>View Profile</Link></li>
