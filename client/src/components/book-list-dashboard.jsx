@@ -1,33 +1,31 @@
 import React from 'react';
+import '../styles/main.css';
 
 var BookListDashboard = (props) => {
   if (!props.bookList || props.bookList.length === 0) {
     return (
-      <div class="ui segment">
-        <h3>Recommended Books</h3>
+      <div className="ui segment">
+        <h2 className="dashboard-header">Recommended Books</h2>
         <div>No recommendations yet!</div>
       </div>
     )
   } else {
     return (
       <div className="ui segment">
-        <h3>Recommended Books</h3>
-
-        <div className="ui five link cards">
+        <h2 className="dashboard-header">Recommended Books:</h2>
+        <p></p>
+        <div className="ui seven link cards">
           {props.bookList.map((book) =>
-            <div class="card" onClick = {() => props.onBookClick(book)}>
-            })}
+            <a href={book.book_url} className="card">
 
             <div className="image">
-              <img src={book.image}/>
+              <img src={book.book_image[0]}/>
             </div>
 
             <div className="content">
-              <div className="header">{book.title}</div>
+              <h2 className="ui sub header">{book.book_title[0].slice(0, 30)}</h2>
             </div>
-
-            {/*author? description? */}
-          </div>
+          </a>
           )}
         </div>
       </div>

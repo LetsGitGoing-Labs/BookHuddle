@@ -44,7 +44,7 @@ class CreateClub extends React.Component {
       description: this.state.description,
       clubCity: this.state.clubCity,
       genre: this.state.genre
-    }
+    };
 
     $.ajax({
       type: 'POST',
