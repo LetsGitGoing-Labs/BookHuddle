@@ -19,14 +19,18 @@ class LoginModal extends React.Component {
       <div>
         <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} external={externalCloseBtn} centered={true}>
           <ModalBody>
-              <Nav tabs>
-                <NavItem className={` ${classnames({ active: this.props.activeTab === 'login' })} modal-tab`}>
-                  <NavLink onClick={() => { this.props.toggleTab('login'); }} >
+            <Nav tabs>
+              <NavItem
+              className={` ${classnames({ active: this.props.activeTab === 'login' })} modal-tab`}>
+                  <NavLink
+                  onClick={() => { this.props.toggleTab('login'); }} >
                     Login
                   </NavLink>
                 </NavItem>
-                <NavItem className={` ${classnames({ active: this.props.activeTab === 'signup' })} modal-tab`}>
-                  <NavLink onClick={() => { this.props.toggleTab('signup'); }} >
+                <NavItem
+                className={` ${classnames({ active: this.props.activeTab === 'signup' })} modal-tab`}>
+                  <NavLink
+                  onClick={() => { this.props.toggleTab('signup'); }} >
                     New Account
                   </NavLink>
                 </NavItem>
