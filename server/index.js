@@ -19,6 +19,13 @@ let sendData = (responseData, dataObj, res) => {
   dataObj.body = results;
   res.status(200).send(dataObj);
 };
+
+let send401 = (responseData, dataObj, res) => {
+  let results = JSON.stringify(responseData);
+  dataObj.body = results;
+  res.status(401).send(dataObj);
+}
+
 // Parse JSON, urls and cookies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -142,10 +149,9 @@ app.post('/booksdb', (req, res) => {
 });
 
 app.post('/meetings', (req, res) => {
-  var meetingObject = req.body;
-  database.saveMeeting(meetingObject, function(meeting) {
-    res.send(meeting);
-  });
+  console.log('post to meetings invoked');
+  let newMeeting = req.body | req.query;
+  database.saveMeeting(sendData, newMeeting, res);
 });
 
 app.post('/login', (req, res) => {
@@ -161,9 +167,6 @@ app.post('/login', (req, res) => {
       res.status(401).send('Email or password did not match');
     }
   });
-
-
-
 });
 
 app.post('/signup', (req, res) => {
