@@ -2,7 +2,6 @@ import React from 'react';
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
 
-
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -12,9 +11,7 @@ class Signup extends React.Component {
       email: '',
       password: '',
       city: '',
-      state: '',
-      isLoggedIn: false,
-      userResponseData: ''
+      state: ''
     }
     this.change = this.change.bind(this);
     this.signupSubmit = this.signupSubmit.bind(this);
@@ -26,9 +23,9 @@ class Signup extends React.Component {
     })
   }
 
-  signupSubmit(event) {
-    event.preventDefault();
-    var formData = {
+  signupSubmit(e) {
+    e.preventDefault();
+    let formData = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
@@ -36,29 +33,15 @@ class Signup extends React.Component {
       city: this.state.city,
       state: this.state.state
     }
-    $.ajax({
-      url: '/signup',
-      type: 'POST',
-      data: formData,
-      success: (data) => {
-        this.setState({
-          userResponseData : data,
-          isLoggedIn: true
-        });
-      },
-      error: function(err){
-        console.log('errror in ajax', err);
-      }
+
+    this.props.signup(formData, (err) => {
+      console.log('error signing in:', err)
     });
   }
 
   render() {
-    if (this.state.isLoggedIn) {
-      return (
-          <Redirect to= {{
-            pathname: '/dashboard',
-            state: { userResponseData: this.state.userResponseData }
-            }} />)
+    if (this.props.isLoggedIn) {
+      <Redirect to='/dashboard'/>
     }
     return (
       <form >

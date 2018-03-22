@@ -4,6 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
 class DashNav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedOut: false
+    }
+  }
+
+  logout() {
+    this.props.logout();
+    console.log('logged out');
+  }
+
   render() {
     return (
       <div>
@@ -22,7 +34,7 @@ class DashNav extends React.Component {
                 <Link to="/profile" className="nav-link">Profile</Link>
               </li>
               <li className="nav-item active">
-                <Link to="/logout" className="nav-link">Logout</Link>
+                <Link to="/logout" className="nav-link" onClick={this.logout.bind(this)}>Logout</Link>
               </li>
             </ul>
   </div>

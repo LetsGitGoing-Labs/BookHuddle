@@ -10,40 +10,20 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isLoggedIn: false,
-      signup: false,
       errMsg: '',
-      userResponseData: ''
     };
 
     this.onChange = this.onChange.bind(this);
-    this.checkLoginState = this.checkLoginState.bind(this);
-    this.signupView = this.signupView.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      console.log(response);
-      statusChangeCallback(response);
-    });
-  }
-
-  signupView() {
-    this.setState({
-      signup: true
-    })
-  }
-
   onChange(e) {
-
     let target = e.target.name;
     this.setState ({
       errMsg: '',
       [ target ]: e.target.value
     });
   }
-
 
   handleSubmit (e) {
     e.preventDefault();
@@ -52,39 +32,23 @@ class Login extends React.Component {
       password: this.state.password
     };
 
-    $.ajax({
-      url: '/login',
-      type: 'POST',
-      data: data,
-      success: (data) => {
-        this.setState({
-          userResponseData: data,
-          isLoggedIn: true
-        });
-      },
-      error: (err) => {
-        console.log('errror in ajax', err);
-        this.setState({
-          email: '',
-          password: '',
-          errMsg: 'User not found'});
-      }
+    this.props.login(data, (responseData) => {
+      this.setState({
+        email: '',
+        password: '',
+        errMsg: 'User not found'
+      });
     });
   }
 
   render() {
-    if (this.state.isLoggedIn) {
+    if (this.props.isLoggedIn) {
       return (
-          <Redirect to= {{
-            pathname: '/dashboard',
-            state: { userResponseData: this.state.userResponseData }
-            }} />)
+          <Redirect to='/dashboard'/>)
     }
 
     return (
       <div>
-        {this.state.signup && <Signup />}
-        {!this.state.signup &&
         <div  className="centerize">
           <form>
             <div className="form-group">
@@ -119,7 +83,6 @@ class Login extends React.Component {
             </div>
           </form>
         </div>
-      }
       </div>
     );
   }
