@@ -5,14 +5,14 @@ var BookListDashboard = (props) => {
   if (!props.bookList || props.bookList.length === 0) {
     return (
       <div className="ui segment">
-        <h3>Recommended Books</h3>
+        <h2 className="dashboard-header">Recommended Books</h2>
         <div>No recommendations yet!</div>
       </div>
     )
   } else {
     return (
       <div className="ui segment">
-        <h3>Recommended Books</h3>
+        <h2 className="dashboard-header">Recommended Books</h2>
         <p></p>
         <div className="ui five link cards">
           {props.bookList.map((book) =>

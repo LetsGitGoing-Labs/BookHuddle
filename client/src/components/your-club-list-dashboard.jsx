@@ -5,7 +5,7 @@ var YourClubListDashboard = (props) => {
   if (!props.yourClubList || props.yourClubList.length === 0) {
     return (
       <div className="ui segment">
-        <h3>Your Book Clubs:</h3>
+        <h2 className="dashboard-header">Your Book Clubs:</h2>
         <div>You're not in any book clubs!</div>
       </div>
     )

@@ -5,13 +5,13 @@ var MeetingListDashboard = (props) => {
   if (!props.meetingList || props.meetingList.length === 0) {
     return (
       <div className="ui segment">
-        <h3>Upcoming Meetings:</h3>
+        <h2 className="dashboard-header">Upcoming Meetings:</h2>
         <div>No meetings yet!</div>
       </div>
     )
   } else {
     return (
-      <div>
+      <div className="ui segment">
         <h2 className="dashboard-header">Upcoming Meetings:</h2>
         <p></p>
         <div className="ui four cards">
