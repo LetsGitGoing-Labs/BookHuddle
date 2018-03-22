@@ -6,7 +6,7 @@ class Club extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      selectedClub: 'Jane Austin Fan Club',
+      selectedClub: 'Jane Austen Book Club',
       meetings: [
       {
         id: 1,
@@ -50,7 +50,7 @@ class Club extends React.Component {
           imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/41jTnx6I%2BbL._SX324_BO1,204,203,200_.jpg'
         }
       }]
-    }
+    };
   }
 
   render () {

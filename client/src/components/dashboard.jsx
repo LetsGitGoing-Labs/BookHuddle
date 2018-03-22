@@ -1,22 +1,29 @@
 import React from 'react';
 import $ from 'jquery';
 
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 import CreateClub from './create-club.jsx';
 import Profile from './profile.jsx';
 import MeetingListDashboard from './meeting-list-dashboard.jsx';
 import BookListDashboard from './book-list-dashboard.jsx';
 import ClubListDashboard from './clubs-list-dashboard.jsx';
+import YourClubListDashboard from './your-club-list-dashboard.jsx';
 import DashNav from './dashboard-nav.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      clubs: [
+        { title: 'Jane Austen Book Club' }
+      ],
+      clickedClub: '',
+      clubRedirect: false
     };
 
-    this.componentDidMount = this. componentDidMount.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.onYourClubClick = this.onYourClubClick.bind(this);
   }
 
   componentDidMount() {
@@ -35,8 +42,21 @@ class Dashboard extends React.Component {
     });
   }
 
+  onYourClubClick() {
+    this.setState({
+      clubRedirect: true
+    });
+  }
+
 
   render() {
+    if (this.state.clubRedirect) {
+      return (
+          <Redirect to= {{
+            pathname: '/club',
+            state: { clickedClub: this.state.clickedClub }
+            }} />)
+    }
     return (
       <div>
         <DashNav />
@@ -52,11 +72,15 @@ class Dashboard extends React.Component {
         </div>
         <p></p>
         <div>
-          <ClubListDashboard/>
+          <YourClubListDashboard onYourClubClick = {this.onYourClubClick} yourClubList={this.state.clubs}/>
         </div>
         <p></p>
         <div>
           <BookListDashboard/>
+        </div>
+        <p></p>
+        <div>
+          <ClubListDashboard/>
         </div>
         <Route path='/create-club' component={ CreateClub } />
         <Route path='/profile' component={ Profile } />

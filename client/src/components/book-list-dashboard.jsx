@@ -3,7 +3,7 @@ import React from 'react';
 var BookListDashboard = (props) => {
   if (!props.bookList || props.bookList.length === 0) {
     return (
-      <div class="ui segment">
+      <div className="ui segment">
         <h3>Recommended Books</h3>
         <div>No recommendations yet!</div>
       </div>
