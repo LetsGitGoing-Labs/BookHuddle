@@ -2,7 +2,6 @@ import React from 'react';
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
 
-
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -12,8 +11,7 @@ class Signup extends React.Component {
       email: '',
       password: '',
       city: '',
-      state: '',
-      userResponseData: ''
+      state: ''
     }
     this.change = this.change.bind(this);
     this.signupSubmit = this.signupSubmit.bind(this);

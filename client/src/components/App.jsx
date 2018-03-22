@@ -40,7 +40,7 @@ class App extends React.Component {
       data: formData,
       success: (data) => {
         this.setState({
-          user: data,
+          user: data[0],
           isLoggedIn: true
         });
       },
@@ -87,13 +87,12 @@ class App extends React.Component {
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
           <Route path='/logout' component={ Logout } />
-          <Route path='/create-club' component={ CreateClub } />
           <Route path='/profile' component={ Profile } />
           <Route path='/club' component={ Club } />
           <Route path='/dashboard' render={
             (props) => {
               return this.state.isLoggedIn
-              ? <Dashboard />
+              ? <Dashboard user={this.state.user}/>
               : <Redirect to={{
                   pathname: "/nologin",
                   state: { from: props.location }

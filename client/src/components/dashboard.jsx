@@ -104,14 +104,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <DashNav />
-         {
-      //     <h1>{this.props.location.state.userResponseData[0].first_name + "'s Dashboard"}</h1>
-      }
-        <ul>
-          <li><Link to='/create-club'>Create a Club</Link></li>
-          <li><Link to='/profile'>View Profile</Link></li>
-          <li><Link to='/logout'>Logout</Link></li>
-        </ul>
+         <h1>{this.props.user.first_name}'s Dashboard</h1>
         <p></p>
         <div>
           <MeetingListDashboard meetingList= {this.state.meetings}/>
