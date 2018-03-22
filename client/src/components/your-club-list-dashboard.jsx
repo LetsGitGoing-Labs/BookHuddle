@@ -1,39 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/main.css';
 
-var YourClubListDashboard = (props) => {
-  if (!props.yourClubList || props.yourClubList.length === 0) {
-    return (
+class YourClubListDashboard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+    render() {
+      return !this.props.yourClubList || this.props.yourClubList.length === 0 ?
+        (
+          <div className="ui segment">
+            <h2 className="dashboard-header">Your Book Clubs:</h2>
+            <div>You're not in any book clubs!</div>
+          </div>
+        )
+      :
+    (
       <div className="ui segment">
         <h2 className="dashboard-header">Your Book Clubs:</h2>
-        <div>You're not in any book clubs!</div>
-      </div>
-    )
-  } else {
-    return (
-      <div className="ui segment">
-        <h2 className="dashboard-header">Your Book Clubs:</h2>
-        <p></p>
         <div className="ui seven link cards">
-          {props.yourClubList.map((yourClub) =>
-            <div className="card" onClick = {() => props.onYourClubClick(yourClub)}>
-
-            <div className="image">
-              <img src={yourClub.image}/>
-            </div>
-
-            <div className="content">
-              <div className="header">{yourClub.title}</div>
-            </div>
-
-            {/* Genre? */}
-
-            </div>
+          {this.props.yourClubList.map((yourClub, i) =>
+            <Link to='/club' onClick={this.props.renderClub}>
+              <div className="card" id={i} style={{padding: '1em'}} >
+                <div className="image"><img src={yourClub.image}/></div>
+                <div className="content">
+                  <div className="header">{yourClub.title}</div>
+                </div>
+              </div>
+            </Link>
           )}
         </div>
       </div>
     )
   }
 }
-
 export default YourClubListDashboard;

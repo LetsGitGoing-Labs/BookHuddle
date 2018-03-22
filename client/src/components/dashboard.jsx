@@ -9,6 +9,7 @@ import BookListDashboard from './book-list-dashboard.jsx';
 import ClubListDashboard from './clubs-list-dashboard.jsx';
 import YourClubListDashboard from './your-club-list-dashboard.jsx';
 import DashNav from './dashboard-nav.jsx';
+import Club from './club.jsx';
 import '../styles/main.css';
 
 class Dashboard extends React.Component {
@@ -63,14 +64,11 @@ class Dashboard extends React.Component {
         }
       }
       ],
-      clickedClub: '',
-      clubRedirect: false,
-      createClubRedirect: false
+      index: '',
+      clubRedirect: false
     };
 
     this.componentDidMount = this.componentDidMount.bind(this);
-    this.onYourClubClick = this.onYourClubClick.bind(this);
-    this.onCreateClubClick = this.onCreateClubClick.bind(this);
   }
 
   componentDidMount() {
@@ -89,8 +87,9 @@ class Dashboard extends React.Component {
     });
   }
 
-  onYourClubClick() {
+  renderClub(e) {
     this.setState({
+      index: e.target.id,
       clubRedirect: true
     });
   }
@@ -102,12 +101,11 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    const index = this.state.index;
+
     if (this.state.clubRedirect) {
       return (
-          <Redirect to= {{
-            pathname: '/club',
-            state: { clickedClub: this.state.clickedClub }
-            }} />)
+        <Redirect to='/club' />)
     }
     if (this.state.createClubRedirect) {
       return (
@@ -119,28 +117,12 @@ class Dashboard extends React.Component {
     return (
       <div>
         <DashNav logout={this.props.logout}/>
-         <h1 className="dashboard-title">{this.props.user.first_name}'s Dashboard</h1>
-        <p></p>
-        <div>
-          <MeetingListDashboard meetingList= {this.state.meetings}/>
-        </div>
-        <p></p>
-        <div>
-          <YourClubListDashboard onYourClubClick = {this.onYourClubClick} yourClubList={this.state.clubs}/>
-        </div>
-        <p></p>
-        <div>
-          <BookListDashboard onBookClick={this.onBookClick} bookList={this.state.books}/>
-        </div>
-        <p></p>
-        <div>
-        </div>
-        <Route
-          path="/create-club"
-          render={(routeProps) => (
-            <CreateClub test="2"{...props} />
-          )}
-        />
+        <h1>{this.props.user.first_name}'s Dashboard</h1>
+        <MeetingListDashboard meetingList= {this.state.meetings}/>
+        <YourClubListDashboard renderClub= {this.renderClub.bind(this)} yourClubList={this.state.clubs}/>
+        <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
+
+        <Route path='/club' render={(props) => <Club {...props} clubData={this.state.clubs[index]}/>} />
         <Route path='/profile' component={ Profile } />
       </div>
     );
