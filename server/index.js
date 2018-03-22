@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const amazonHelpers = require('./api-helpers/amazon-helpers.js');
-const database = require('../knexHelpers/queries.js');
+const database = require('../database/queries.js');
 
 var parseString = require('xml2js').parseString;
 
@@ -252,16 +252,16 @@ app.post('/login', (req, res) => {
       res.status(401).send('Email or password did not match')
     }
   });
-  
- 
-  
+
+
+
 });
-  
+
 app.post('/signup', (req, res) => {
   let newUser = {
     confirmRequest: req.body
   };
-  database.addUser(sendData, newUser, res);                 
+  database.addUser(sendData, newUser, res);
 });
 
 app.get('/logout', (req, res) => {

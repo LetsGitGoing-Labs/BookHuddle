@@ -23,7 +23,6 @@ const checkUser = (user, cb) => {
   });
 }
 
-
 const addUser = (cb, user, res) => {
   console.log('line 10 add user');
   // let email = user.confirmRequest.email;
@@ -54,22 +53,6 @@ const addUser = (cb, user, res) => {
 };
 
 const addClub = (cb, club, res) => {
-  // knex.transaction(trx => {
-  //   let clubName = club.confirmRequest.club_name;
-  //   trx('club').where('club.club_name', clubName).then(data => {
-  //     if (data.length === 0) {
-  //       return trx('club').insert({ club_name: clubName }).then(() => {
-  //         return trx('club').where('club_name', clubName).then(() => {
-  //           cb(data, club, res);
-  //         })
-  //       });
-  //     } else {
-  //       cb('THAT NAME IS TAKEN', club, res);
-  //     }
-  //   });
-  // }).then(res => console.log(`User is: ${res[0]}`));
-
-
   // console.log('addClub invoked')
   // let clubName = club.confirmRequest.club_name;
   // console.log(!checkClubByClubName(clubName), '<-- checkClubByClubName(clubName)');
