@@ -62,34 +62,27 @@ class Signup extends React.Component {
     }
     return (
       <form >
-        <h1 className="centerize"> Create an Account </h1>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label>First name</label>
             <input name="firstName" onChange={event => this.change(event)} type="text" className="form-control" id="inputFirstName" placeholder="First name"/>
           </div>
           <div className="form-group col-md-6">
-            <label>Last name</label>
             <input name="lastName" onChange={event => this.change(event)} type="text" className="form-control" id="inputLastName" placeholder="Last name"/>
           </div>
         </div>
         <div className="form-group">
-          <label>Email</label>
-          <input name="email" onChange={event => this.change(event)} type="email" className="form-control" id="inputEmail" placeholder="Email"/>
+          <input name="email" onChange={event => this.change(event)} type="email" className="form-control" id="inputEmail" autoComplete="email" placeholder="Email"/>
         </div>
         <div className="form-group">
-          <label>Password</label>
-          <input name="password" onChange={event => this.change(event)} type="password" className="form-control" id="inputPassword" placeholder="Password"/>
+          <input name="password" onChange={event => this.change(event)} type="password" className="form-control" autoComplete="current-password" id="inputPassword" placeholder="Password"/>
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label>City</label>
-            <input name="city" onChange={event => this.change(event)} type="text" className="form-control" id="inputCity"/>
+            <input name="city" onChange={event => this.change(event)} type="text" className="form-control" id="inputCity" placeholder="City"/>
           </div>
           <div className="form-group col-md-4">
-            <label>State</label>
             <select name="state" onChange={event => this.change(event)} id="inputState" className="form-control">
-              <option selected>Choose...</option>
+              <option defaultValue>State/Province</option>
               <option>...</option>
               <option>CA</option>
               <option>CO</option>
@@ -99,7 +92,7 @@ class Signup extends React.Component {
           </div>
         </div>
         <div className="centerize">
-        <button onClick={this.signupSubmit} type="submit" className="btn btn-primary">Sign Up</button>
+        <button onClick={this.signupSubmit} type="submit" className="btn-primary btn">Sign Up</button>
         </div>
       </form>
     );

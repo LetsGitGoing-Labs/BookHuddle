@@ -1,51 +1,52 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input, FormFeedback, FormText, Button, ButtonGroup, InputGroup, InputGroupAddon, Modal, ModalHeader, ModalBody, ModalFooter, Media } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup, Nav, NavLink, NavItem, TabPane, TabContent } from 'reactstrap';
+import classnames from 'classnames';
 import Login from './login.jsx';
 import Signup from './signup.jsx';
-import { Link, Redirect } from 'react-router-dom';
 
 class LoginModal extends React.Component {
   constructor(props) {
-  	super(props);
-  	this.state = {
-  	  modal: true,
-  	  login: true,
-  	  signup: false
-  	}
-  	this.toggle = this.toggle.bind(this);
-  	this.clickLogin = this.clickLogin.bind(this);
-  	this.clickSignup = this.clickSignup.bind(this);
-  }
-   toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-
-  clickLogin() {
-  	this.setState({
-  	  login: !this.state.login
-  	})
-  }
-
-   clickSignup() {
-  	this.setState({
-  	  login: !this.state.signup
-  	})
+    super(props);
+    this.state = {
+      modal: this.props.modal
+    };
   }
 
   render() {
-  	 if (!this.state.modal) {
-      return (<Redirect to='/' />)
-    }
+    const externalCloseBtn = <button className="close" onClick={this.toggle}>x</button>;
 
     return (
-      <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-        <ModalBody>
-	        {this.state.login && <Login modal={this.state.modal}/>}
-	        {!this.state.login && <Signup/>}
-        </ModalBody>
-      </Modal>
+      <div>
+        <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} external={externalCloseBtn} centered={true}>
+          <ModalBody>
+            <Nav tabs>
+              <NavItem
+              className={` ${classnames({ active: this.props.activeTab === 'login' })} modal-tab`}>
+                  <NavLink
+                  onClick={() => { this.props.toggleTab('login'); }} >
+                    Login
+                  </NavLink>
+                </NavItem>
+                <NavItem
+                className={` ${classnames({ active: this.props.activeTab === 'signup' })} modal-tab`}>
+                  <NavLink
+                  onClick={() => { this.props.toggleTab('signup'); }} >
+                    New Account
+                  </NavLink>
+                </NavItem>
+              </Nav>
+              <TabContent activeTab={this.props.activeTab}>
+                <TabPane tabId="login">
+                  <Login />
+                </TabPane>
+                <TabPane tabId="signup">
+                  <Signup />
+                </TabPane>
+              </TabContent>
+
+          </ModalBody>
+        </Modal>
+      </div>
     )
   }
 }
