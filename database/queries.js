@@ -36,12 +36,10 @@ const retrieveUser = (email, cb) => {
 };
 
 const addUser = (cb, user, res) => {
-  console.log('line 10 add user');
-  // let email = user.confirmRequest.email;
-  // let checkDatabase = emailIsInUse(email);
-  // checkDatabase.then(function(exists) {
-  //   if (exists === false ) {
-      console.log('line 13 you are adding a user');
+  let checkDatabase = emailIsInUse(user.confirmRequest.email);
+  checkDatabase.then(function(exists) {
+    console.log(exists, "<--user email already taken")
+    if (exists === false ) {
       return knex.insert({
         first_name: user.confirmRequest.firstName,
         last_name: user.confirmRequest.lastName,
@@ -58,12 +56,12 @@ const addUser = (cb, user, res) => {
           cb(userData, userData, res);
         });
       });
-    // }
-    // else {
-    //   let err = 'Error.  An account with that email address already exists.'
-    //   cb(err, user, res);
-    // }
-  // })
+    } else {
+      let err = 'Error.  An account with that email address already exists.'
+      console.log(err);
+      cb(err, user, res);
+    }
+  })
 };
 
 const addClub = (cb, club, res) => {
@@ -91,7 +89,7 @@ const addClub = (cb, club, res) => {
 };
 
 const emailIsInUse = (email) => {
-  knex('user')
+  return knex('user')
   .where({
     email: email
   })
