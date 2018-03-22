@@ -17,10 +17,13 @@ var MeetingListDashboard = (props) => {
             <div className="card" onClick = {() => props.onMeetingClick(meeting)}>
 
             <div className="content">
-              <div className="header">{meeting.date}</div>
+              <h2 className="header">{meeting.meeting_date}</h2>
             </div>
 
-            {/*Location?*/}
+            <div className="content">
+              <h2 className="sub header">{meeting.meeting_time}</h2>
+            </div>
+
             </div>
           )}
         </div>
