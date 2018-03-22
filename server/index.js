@@ -202,7 +202,7 @@ app.get('/getBooksAPI', (req, res) => {
       var parsedData = parseString(books.data, function(err, result) {
         var bookData = [];
         result = result.ItemSearchResponse.Items[0].Item;
-        for (var i = 0; i < result.length; i++) {
+        for (var i = 0; i < 7; i++) {
           if (result[i].ASIN && result[i].ItemAttributes[0].Title && result[i].ItemAttributes[0].Author && result[i].MediumImage[0].URL) {
             bookData.push({
               book_amazon_id: result[i].ASIN,

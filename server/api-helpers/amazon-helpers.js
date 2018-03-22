@@ -22,7 +22,7 @@ var retrieveBooksAPI = function(searchTerm) {
   parameters.push("AssociateTag=" + process.env.ASSOCIATE_ID);
   parameters.push("Operation=ItemSearch");
   parameters.push("ResponseGroup=Medium");
-  parameters.push("Keywords=the%20hunger%20games");
+  parameters.push("Keywords=jane%20austen");
   parameters.push("SearchIndex=Books");
   parameters.push("Timestamp=" + time);
 

@@ -12,22 +12,19 @@ var BookListDashboard = (props) => {
   } else {
     return (
       <div className="ui segment">
-        <h2 className="dashboard-header">Recommended Books</h2>
+        <h2 className="dashboard-header">Recommended Books:</h2>
         <p></p>
-        <div className="ui five link cards">
+        <div className="ui seven link cards">
           {props.bookList.map((book) =>
-            <div class="card" onClick = {() => props.onBookClick(book)}>
-            })}
+            <div className="card" onClick = {() => props.onBookClick(book)}>
 
             <div className="image">
-              <img src={book.image}/>
+              <img src={book.book_image[0]}/>
             </div>
 
             <div className="content">
-              <div className="header">{book.title}</div>
+              <h2 className="ui sub header">{book.book_title[0].slice(0, 30)}</h2>
             </div>
-
-            {/*author? description? */}
           </div>
           )}
         </div>

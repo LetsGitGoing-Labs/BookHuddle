@@ -121,11 +121,11 @@ class Dashboard extends React.Component {
         </div>
         <p></p>
         <div>
-          <BookListDashboard/>
+          <BookListDashboard bookList={this.state.books}/>
         </div>
         <p></p>
         <div>
-          <ClubListDashboard/>
+          {/*<ClubListDashboard/>*/}
         </div>
         <Route path='/create-club' component={ CreateClub } />
         <Route path='/profile' component={ Profile } />
