@@ -12,11 +12,13 @@ var YourClubListDashboard = (props) => {
     return (
       <div className="ui segment">
         <h3>Your Book Clubs:</h3>
-        <div className="ui five link cards">
+        <div className="ui seven link cards">
           {props.yourClubList.map((yourClub) =>
             <div className="card" onClick = {() => props.onYourClubClick(yourClub)}>
 
-            {/* Image? */}
+            <div className="image">
+              <img src={yourClub.image}/>
+            </div>
 
             <div className="content">
               <div className="header">{yourClub.title}</div>

@@ -16,7 +16,7 @@ class Dashboard extends React.Component {
     this.state = {
       books: [],
       clubs: [
-        { title: 'Jane Austen Book Club' }
+        { title: 'Jane Austen Book Club', image: 'https://images-na.ssl-images-amazon.com/images/I/41uM9MBn1CL._SX326_BO1,204,203,200_.jpg' }
       ],
       clickedClub: '',
       clubRedirect: false
