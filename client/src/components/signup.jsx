@@ -50,13 +50,6 @@ class Signup extends React.Component {
         console.log('errror in ajax', err);
       }
     });
-<<<<<<< HEAD
-=======
-    this.setState({
-
-      isLoggedIn: true
-    })
->>>>>>> Add styling for modal content
   }
 
   render() {
