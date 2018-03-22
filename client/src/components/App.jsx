@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import Home from './home.jsx';
 import About from './about.jsx';
 import FAQ from './faq.jsx';
@@ -22,6 +22,15 @@ class App extends React.Component {
       isLoggedIn: false
     }
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
+    this.checkLoginState = this.checkLoginState.bind(this);
+  }
+
+  checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      console.log(response);
+      statusChangeCallback(response);
+    });
   }
 
   handleLogin(formData, cb) {
@@ -42,6 +51,24 @@ class App extends React.Component {
     });
   }
 
+  handleSignup(formData, cb) {
+    $.ajax({
+      url: '/signup',
+      type: 'POST',
+      data: formData,
+      success: (data) => {
+        this.setState({
+          user: data,
+          isLoggedIn: true
+        });
+      },
+      error: function(err){
+        console.log('errror in ajax', err);
+        cb(err);
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -51,7 +78,8 @@ class App extends React.Component {
             render={
               (props) => {
                 return <Home {...props}
-                  login={this.handleLogin.bind(this)}
+                  login={this.handleLogin}
+                  signup={this.handleSignup}
                   isLoggedIn={this.state.isLoggedIn}
                 />
               }

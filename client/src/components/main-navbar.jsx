@@ -61,6 +61,7 @@ class MainNavbar extends React.Component {
           toggleTab={this.toggleTab}
           toggleModal={this.toggleModal}
           login={this.props.login}
+          signup={this.props.signup}
           isLoggedIn={this.props.isLoggedIn}
         />
       </div>
