@@ -64,11 +64,13 @@ class Dashboard extends React.Component {
       }
       ],
       clickedClub: '',
-      clubRedirect: false
+      clubRedirect: false,
+      createClubRedirect: false
     };
 
     this.componentDidMount = this.componentDidMount.bind(this);
     this.onYourClubClick = this.onYourClubClick.bind(this);
+    this.onCreateClubClick = this.onCreateClubClick.bind(this);
   }
 
   componentDidMount() {
@@ -93,6 +95,12 @@ class Dashboard extends React.Component {
     });
   }
 
+  onCreateClubClick() {
+    this.setState({
+      createClubRedirect: true
+    });
+  }
+
   render() {
     if (this.state.clubRedirect) {
       return (
@@ -101,10 +109,17 @@ class Dashboard extends React.Component {
             state: { clickedClub: this.state.clickedClub }
             }} />)
     }
+    if (this.state.createClubRedirect) {
+      return (
+          <Redirect to= {{
+            pathname: '/create-club',
+            state: { userResponseData: this.props.location.state.userResponseData }
+            }} />)
+    }
     return (
       <div>
         <DashNav logout={this.props.logout}/>
-         <h1>{this.props.user.first_name}'s Dashboard</h1>
+         <h1 className="dashboard-title">{this.props.user.first_name}'s Dashboard</h1>
         <p></p>
         <div>
           <MeetingListDashboard meetingList= {this.state.meetings}/>
@@ -115,13 +130,17 @@ class Dashboard extends React.Component {
         </div>
         <p></p>
         <div>
-          <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
+          <BookListDashboard onBookClick={this.onBookClick} bookList={this.state.books}/>
         </div>
         <p></p>
         <div>
-          {/*<ClubListDashboard/>*/}
         </div>
-        <Route path='/create-club' component={ CreateClub } />
+        <Route
+          path="/create-club"
+          render={(routeProps) => (
+            <CreateClub test="2"{...props} />
+          )}
+        />
         <Route path='/profile' component={ Profile } />
       </div>
     );
