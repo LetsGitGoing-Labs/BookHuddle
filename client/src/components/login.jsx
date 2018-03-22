@@ -10,14 +10,11 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      signup: false,
       errMsg: '',
-      userResponseData: ''
     };
 
     this.onChange = this.onChange.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);
-    this.signupView = this.signupView.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -26,12 +23,6 @@ class Login extends React.Component {
       console.log(response);
       statusChangeCallback(response);
     });
-  }
-
-  signupView() {
-    this.setState({
-      signup: true
-    })
   }
 
   onChange(e) {
@@ -68,8 +59,6 @@ class Login extends React.Component {
 
     return (
       <div>
-        {this.state.signup && <Signup />}
-        {!this.state.signup &&
         <div  className="centerize">
           <form>
             <div className="form-group">
@@ -104,7 +93,6 @@ class Login extends React.Component {
             </div>
           </form>
         </div>
-      }
       </div>
     );
   }

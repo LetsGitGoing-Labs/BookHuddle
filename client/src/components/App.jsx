@@ -29,6 +29,7 @@ class App extends React.Component {
       type: 'POST',
       data: formData,
       success: (data) => {
+        console.log(data)
         this.setState({
           user: data,
           isLoggedIn: true
