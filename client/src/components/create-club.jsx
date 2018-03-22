@@ -66,7 +66,7 @@ class CreateClub extends React.Component {
      if (!this.state.modal) {
       return (<Redirect to={{
             pathname: '/dashboard',
-            state: { userResponseData: this.props.location.state.userResponseData[0] }
+            state: { userResponseData: this.props.location.state.userResponseData }
             }} />)
     }
     return (
