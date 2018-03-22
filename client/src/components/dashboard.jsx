@@ -103,7 +103,7 @@ class Dashboard extends React.Component {
     }
     return (
       <div>
-        <DashNav />
+        <DashNav logout={this.props.logout}/>
          <h1>{this.props.user.first_name}'s Dashboard</h1>
         <p></p>
         <div>
