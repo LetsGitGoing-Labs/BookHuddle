@@ -14,26 +14,16 @@ class Login extends React.Component {
     };
 
     this.onChange = this.onChange.bind(this);
-    this.checkLoginState = this.checkLoginState.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      console.log(response);
-      statusChangeCallback(response);
-    });
-  }
-
   onChange(e) {
-
     let target = e.target.name;
     this.setState ({
       errMsg: '',
       [ target ]: e.target.value
     });
   }
-
 
   handleSubmit (e) {
     e.preventDefault();

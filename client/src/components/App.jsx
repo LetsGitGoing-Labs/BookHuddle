@@ -21,6 +21,7 @@ class App extends React.Component {
       user: {},
       isLoggedIn: false
     }
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleLogin(formData, cb) {
@@ -57,24 +58,21 @@ class App extends React.Component {
             } />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
-          <Route path='/login' component={ LoginModal } />
-          <Route path='/dashboard' render={ (props) => {
-            if (this.state.isLoggedIn) {
-              return <Dashboard />
-            } else {
-              <Redirect to={{
-                pathname: "/nologin",
-                state: { from: props.location }
-              }}
-              />
-            }
-          }
-           } />
-          }
           <Route path='/logout' component={ Logout } />
           <Route path='/create-club' component={ CreateClub } />
           <Route path='/profile' component={ Profile } />
-          <Route path='/club' component={Club } />
+          <Route path='/club' component={ Club } />
+          <Route path='/dashboard' render={
+            (props) => {
+              return this.state.isLoggedIn
+              ? <Dashboard />
+              : <Redirect to={{
+                  pathname: "/nologin",
+                  state: { from: props.location }
+                }}
+              />
+            }}
+          />
           <Route component={ NotFound } />
         </Switch>
       </div>
