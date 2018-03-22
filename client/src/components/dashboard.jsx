@@ -9,6 +9,7 @@ import BookListDashboard from './book-list-dashboard.jsx';
 import ClubListDashboard from './clubs-list-dashboard.jsx';
 import YourClubListDashboard from './your-club-list-dashboard.jsx';
 import DashNav from './dashboard-nav.jsx';
+import '../styles/main.css';
 
 class Dashboard extends React.Component {
   constructor(props) {

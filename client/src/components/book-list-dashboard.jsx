@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/main.css';
 
 var BookListDashboard = (props) => {
   if (!props.bookList || props.bookList.length === 0) {
@@ -12,7 +13,7 @@ var BookListDashboard = (props) => {
     return (
       <div className="ui segment">
         <h3>Recommended Books</h3>
-
+        <p></p>
         <div className="ui five link cards">
           {props.bookList.map((book) =>
             <div class="card" onClick = {() => props.onBookClick(book)}>

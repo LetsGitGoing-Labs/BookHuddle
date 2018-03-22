@@ -89,6 +89,11 @@
   text-align: center;
 }
 
+.dashboard-header {
+  font-size: 1.2em;
+  color: #000;
+}
+
 #showcase .bg-image {
   position: absolute;
   background: url('https://source.unsplash.com/IMtEliM53Lc') no-repeat center;

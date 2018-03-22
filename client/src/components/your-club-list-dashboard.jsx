@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/main.css';
 
 var YourClubListDashboard = (props) => {
   if (!props.yourClubList || props.yourClubList.length === 0) {
@@ -11,7 +12,8 @@ var YourClubListDashboard = (props) => {
   } else {
     return (
       <div className="ui segment">
-        <h3>Your Book Clubs:</h3>
+        <h2 className="dashboard-header">Your Book Clubs:</h2>
+        <p></p>
         <div className="ui seven link cards">
           {props.yourClubList.map((yourClub) =>
             <div className="card" onClick = {() => props.onYourClubClick(yourClub)}>
