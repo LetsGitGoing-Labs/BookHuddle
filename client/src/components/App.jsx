@@ -29,7 +29,6 @@ class App extends React.Component {
       type: 'POST',
       data: formData,
       success: (data) => {
-        console.log(data)
         this.setState({
           user: data,
           isLoggedIn: true
@@ -59,7 +58,19 @@ class App extends React.Component {
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
           <Route path='/login' component={ LoginModal } />
-          <Route path='/dashboard' component={ Dashboard } />
+          <Route path='/dashboard' render={ (props) => {
+            if (this.state.isLoggedIn) {
+              return <Dashboard />
+            } else {
+              <Redirect to={{
+                pathname: "/nologin",
+                state: { from: props.location }
+              }}
+              />
+            }
+          }
+           } />
+          }
           <Route path='/logout' component={ Logout } />
           <Route path='/create-club' component={ CreateClub } />
           <Route path='/profile' component={ Profile } />

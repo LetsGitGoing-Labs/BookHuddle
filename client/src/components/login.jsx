@@ -54,7 +54,7 @@ class Login extends React.Component {
   render() {
     if (this.props.isLoggedIn) {
       return (
-          <Redirect to='/loggedin'/>)
+          <Redirect to='/dashboard'/>)
     }
 
     return (
