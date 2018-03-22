@@ -121,7 +121,9 @@ class Dashboard extends React.Component {
         <div>
           {/*<ClubListDashboard/>*/}
         </div>
-        <Route path='/create-club' component={ CreateClub } />
+        <Route path='/create-club' render={ (props) => {
+          <CreateClub {...props} userResponseData={this.props.location.state.userResponseData[0]} />
+        } } />
         <Route path='/profile' component={ Profile } />
       </div>
     );
