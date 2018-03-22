@@ -13,7 +13,8 @@ class Signup extends React.Component {
       password: '',
       city: '',
       state: '',
-      isLoggedIn: false
+      isLoggedIn: false,
+      userResponseData: ''
     }
     this.change = this.change.bind(this);
     this.signupSubmit = this.signupSubmit.bind(this);
@@ -22,7 +23,7 @@ class Signup extends React.Component {
   change(event) {
     this.setState({
       [event.target.name]: event.target.value
-    })  
+    })
   }
 
   signupSubmit(event) {
@@ -39,22 +40,25 @@ class Signup extends React.Component {
       url: '/signup',
       type: 'POST',
       data: formData,
-      success: function(data) {
-        console.log(  'logged in')
+      success: (data) => {
+        this.setState({
+          userResponseData : data,
+          isLoggedIn: true
+        });
       },
       error: function(err){
         console.log('errror in ajax', err);
       }
     });
-    this.setState({
-      
-      isLoggedIn: true
-    })
   }
 
   render() {
     if (this.state.isLoggedIn) {
-      return (<Redirect to='/dashboard' />)
+      return (
+          <Redirect to= {{
+            pathname: '/dashboard',
+            state: { userResponseData: this.state.userResponseData }
+            }} />)
     }
     return (
       <form >

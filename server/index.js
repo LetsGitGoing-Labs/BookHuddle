@@ -201,18 +201,16 @@ app.get('/getBooksAPI', (req, res) => {
     .then(function(books) {
       var parsedData = parseString(books.data, function(err, result) {
         var bookData = [];
-        result = result['ItemSearchResponse'];
-        result = result['Items'];
-        result = result[0];
-        result = result['Item'];
+        result = result.ItemSearchResponse.Items[0].Item;
         for (var i = 0; i < result.length; i++) {
-          bookData.push({
-            book_amazon_id: result[i].ASIN,
-            book_title: result[i].ItemAttributes[0].Title,
-            book_author: result[i].ItemAttributes[0].Author,
-            book_image: result[i].MediumImage[0].URL
-          });
-          debugger;
+          if (result[i].ASIN && result[i].ItemAttributes[0].Title && result[i].ItemAttributes[0].Author && result[i].MediumImage[0].URL) {
+            bookData.push({
+              book_amazon_id: result[i].ASIN,
+              book_title: result[i].ItemAttributes[0].Title,
+              book_author: result[i].ItemAttributes[0].Author,
+              book_image: result[i].MediumImage[0].URL
+            });
+          }
         }
         res.send(bookData);
       });
@@ -245,11 +243,13 @@ app.post('/login', (req, res) => {
   //Login auth goes here
   console.log('Logged in!', req.body);
   database.checkUser(req.body, function (validate) {
-    console.log(validate, 'line 248 in func')
+    console.log(validate, 'line 248 in func');
     if (validate) {
-      sendData(req.body, req.body, res)
+      database.retrieveUser(req.body.email, function(userData){
+        sendData(userData, userData, res);
+      });
     } else {
-      res.status(401).send('Email or password did not match')
+      res.status(401).send('Email or password did not match');
     }
   });
 
@@ -271,97 +271,6 @@ app.get('/logout', (req, res) => {
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
-
-// THIS IS THE AUTH FOR Blacksmith Post
-//--------------------------------------
-// app.get('/signupS', function(req, res) {
-//   res.send(req.flash('User'));
-// });
-// app.get('/signupF', function(req, res) {
-//   res.send({message: req.flash('signupMessage')});
-// });
-// app.post('/signup', passport.authenticate('local-signup', {
-//   successRedirect: '/signupS',
-//   failureRedirect: '/signupF',
-//   failureFlash: true,
-//   successFlash: true
-// }));
-// app.get('/loginS', function(req, res) {
-//   res.send(req.flash('User'));
-// });
-// app.get('/loginF', function(req, res) {
-//   res.send({message: req.flash('loginMessage')});
-// });
-// app.post('/login', passport.authenticate('local-login', {
-//   successRedirect: '/loginS',
-//   failureRedirect: '/loginF',
-//   failureFlash: true,
-//   successFlash: true
-// }));
-// app.get('/logout', function(req, res) {
-//   console.log('logout hit');
-//   req.logout();
-//   res.redirect('/');
-// });
-
-//THIS IS THE AUTH FOR Urban Tails
-//--------------------------------
-// app.post('/signup', (req, res) => {
-//   auth.validateSignupForm(req.body, (result) => {
-//     if (result.success) {
-//       console.log(result);
-//       db.saveUser(req.body, (err, result) => {
-//         if (err) {
-//           console.log('error saving user data to db:', err);
-//           res.status(500).send({ error: 'User already exists' });
-//         }
-//         else {
-//           console.log('saved user data to the db:', result);
-//           db.getUser(req.body, (err, result) => {
-//             if (err) { res.send(err); }
-//             else {
-//               console.log('result db.getUser', result);
-//               // creates persisting session with Passport
-//               const user_id = result._id;
-//               req.login(user_id, (err) => {
-//                 console.log('logged in...redirecting...');
-//                 // res.redirect('/');
-//                 res.send(result);
-//               });
-//             }
-//           });
-//         }
-//       });
-//     } else if (result) {
-//       console.log(result);
-//       res.status(500).send(result);
-//     }
-//   });
-// });
-//--------------------------------------
-// app.post('/login', (req, res) => {
-//   auth.validateLoginForm(req.body, (result) => {
-//     if (result.success) {
-//       db.getUser(req.body, (err, result) => {
-//         if (err) {
-//           console.log(err);
-//           res.status(500).send(err);
-//         } else {
-//           // first attempt at Express sessions without Passport
-//           req.session.user = result[0];
-//           res.send(result);
-//         }
-//       });
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
-//---------------------------------------
-// app.get('/logout', function (req, res){
-//   req.logOut();
-//   res.clearCookie('connect.sid', {path: '/'}).send('cleared');
-// });
 
 let PORT = process.env.PORT || 3000;
 

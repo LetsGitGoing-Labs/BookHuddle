@@ -2,7 +2,7 @@ import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Link, Redirect } from 'react-router-dom';
 import $ from 'jquery';
-import Signup from './Signup.jsx';
+import Signup from './signup.jsx';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,8 +12,9 @@ class Login extends React.Component {
       password: '',
       isLoggedIn: false,
       signup: false,
-      errMsg: ''
-    }
+      errMsg: '',
+      userResponseData: ''
+    };
     this.onChange = this.onChange.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);
     this.signupView = this.signupView.bind(this);
@@ -48,33 +49,37 @@ class Login extends React.Component {
     let data = {
       email: this.state.email,
       password: this.state.password
-    }
+    };
 
     $.ajax({
       url: '/login',
       type: 'POST',
       data: data,
       success: (data) => {
-        console.log('user logged in', data)
         this.setState({
+          userResponseData: data,
           isLoggedIn: true
-        })
+        });
       },
       error: (err) => {
         console.log('errror in ajax', err);
         this.setState({
           email: '',
           password: '',
-          errMsg: 'User not found'})
+          errMsg: 'User not found'});
 
       }
     });
-    
+
   }
 
   render() {
     if (this.state.isLoggedIn) {
-      return (<Redirect to='/dashboard' />)
+      return (
+          <Redirect to= {{
+            pathname: '/dashboard',
+            state: { userResponseData: this.state.userResponseData }
+            }} />)
     }
     return (
       <div>
