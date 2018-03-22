@@ -1,5 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
+import { Link, Redirect } from 'react-router-dom';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class CreateClub extends React.Component {
   constructor(props) {
@@ -8,9 +10,11 @@ class CreateClub extends React.Component {
       clubName: '',
       description: '',
       clubCity: '',
-      genre: ''
+      genre: '',
+      modal: true
     }
     this.onChange = this.onChange.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
   onChange(e) {
     let target = e.target.name;
@@ -26,14 +30,28 @@ class CreateClub extends React.Component {
     });
   }
 
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
+    let data = {
+      clubName: this.state.clubName,
+      description: this.state.description,
+      clubCity: this.state.clubCity,
+      genre: this.state.genre
+    }
+
     $.ajax({
       type: 'POST',
       url: '/clubs',
-      data: this.state,
+      data: data,
       success: (data) => {
         console.log(data);
+        this.toggle();
       },
       error: (data) => {
         console.log(data);
@@ -42,9 +60,14 @@ class CreateClub extends React.Component {
   }
 
   render() {
+     if (!this.state.modal) {
+      return (<Redirect to='/dashboard' />)
+    }
     return (
+      <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <ModalBody>
       <div>
-        <h1>Create a Club</h1>
+        <h1 className="centerize">Create a Club</h1>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <label>Club Name</label>
@@ -69,9 +92,11 @@ class CreateClub extends React.Component {
               <option>Non-Fiction</option>
             </select>
           </div>
-          <input type="submit" className="btn btn-primary" value="Submit" />
+          <input type="submit" className="btn btn-primary centerize" value="Submit" />
         </form>
       </div>
+       </ModalBody>
+      </Modal>
     );
   }
 }
