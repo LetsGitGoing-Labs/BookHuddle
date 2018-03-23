@@ -4,7 +4,7 @@ import { Route, Link, Redirect } from 'react-router-dom';
 
 import Profile from './profile.jsx';
 import MeetingList from './meeting-list-dashboard.jsx';
-import BookListDashboard from './book-list-dashboard.jsx';
+import BookList from './book-list-dashboard.jsx';
 import ClubList from './your-club-list-dashboard.jsx';
 import DashNav from './dashboard-nav.jsx';
 import Club from './club.jsx';
@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
         <h1>{this.props.user.first_name}'s Dashboard</h1>
         <MeetingList meetingList= {this.state.meetings}/>
         <ClubList clubs={this.props.clubs}/>
-        <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
+        <BookList onBookClick = {this.onBookClick} bookList={this.state.books}/>
       </div>
     )
   }
