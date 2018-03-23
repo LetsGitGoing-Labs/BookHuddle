@@ -73,33 +73,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/clubs', (req, res) => {
-  console.log(req, '<-- req.body in get clubs');
-  let dataObj = {
-    confirmRequest: req.body
-  }
-  database.retrieveClubs(sendData, dataObj);
-  // database.retrieveClubs( req.body, function(validate) {
-  //   if (validate) {
-  //     database.
-  //   }
-  // })
-
+  let clubObj = req.body;
+  database.retrieveClubs(sendData, clubObj, res);
 });
-
-// app.post('/login', (req, res) => {
-//   //Login auth goes here
-//   console.log('Logged in!', req.body);
-//   database.checkUser(req.body, function (validate) {
-//     console.log(validate, 'line 248 in func');
-//     if (validate) {
-//       database.retrieveUser(req.body.email, function(userData){
-//         sendData(userData, userData, res);
-//       });
-//     } else {
-//       res.status(401).send('Email or password did not match');
-//     }
-//   });
-// });
 
 app.get('/meetings', (req, res) => {
   // database function here to retrieve clubs
