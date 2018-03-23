@@ -13,10 +13,8 @@ var { buildSchema } = require('graphql');
 
 let app = express();
 
-// callback for DB queries
+// callback for responses to client requests that require DB queries
 let sendData = (responseData, statusCode, res) => {
-  console.log(responseData, '<-- responseData');
-  console.log(statusCode, '<-- status code');
   let results = JSON.stringify(responseData);
   res.status(statusCode).send(results);
 };
@@ -78,9 +76,8 @@ app.get('/clubs', (req, res) => {
 });
 
 app.get('/meetings', (req, res) => {
-  // database function here to retrieve clubs
+  // this will have to be refactored to get only the meetings of a specific club or user
   database.retrieveMeetings(function(meetings) {
-    // send back clubs data with response
     res.send(meetings);
   });
 });
@@ -139,13 +136,11 @@ app.post('/booksdb', (req, res) => {
 
 app.post('/meetings', (req, res) => {
   let newMeeting = req.body;
-  console.log(newMeeting);
   database.saveMeeting(sendData, newMeeting, res);
 });
 
 app.post('/login', (req, res) => {
   //Login auth goes here
-  console.log('Logged in!', req.body);
   database.checkUser(req.body, res, sendData);
 });
 
