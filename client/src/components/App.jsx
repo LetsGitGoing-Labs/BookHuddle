@@ -75,6 +75,7 @@ class App extends React.Component {
     this.setState({
       isLoggedIn: false
     });
+    console.log('logged out');
   }
 
   render() {
@@ -94,13 +95,15 @@ class App extends React.Component {
             } />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
-          <Route path='/logout' component={ Logout } />
+          <Route path='/logout' render={ (props) => (
+            <Logout handleLogout={this.handleLogout} />
+           )} />
           <Route path='/profile' component={ Profile } />
           <Route path='/club' component={ Club } />
           <Route path='/dashboard' render={
             (props) => {
               return this.state.isLoggedIn
-              ? <DashboardRouting user={this.state.user} logout={this.handleLogout}/>
+              ? <DashboardRouting user={this.state.user} />
               : <Redirect to={{
                   pathname: "/nologin",
                   state: { from: props.location }
