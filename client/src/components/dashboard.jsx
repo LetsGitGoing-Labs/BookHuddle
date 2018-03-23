@@ -1,8 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
-
 import { Route, Link, Redirect } from 'react-router-dom';
-import CreateClub from './create-club.jsx';
+
 import Profile from './profile.jsx';
 import MeetingListDashboard from './meeting-list-dashboard.jsx';
 import BookListDashboard from './book-list-dashboard.jsx';
@@ -75,18 +74,8 @@ class Dashboard extends React.Component {
   render() {
     const index = this.state.index;
 
-    if (this.state.clubRedirect) {
-      return (
-        <Redirect to='/club' />)
-    }
-    if (this.state.createClubRedirect) {
-      return (
-          <Redirect to= {{
-            pathname: '/create-club',
-            state: { userResponseData: this.props.location.state.userResponseData }
-            }} />)
-    }
-    return (
+    return this.state.clubRedirect ? ( <Redirect to='/club' /> ) :
+    (
       <div>
         <DashNav logout={this.props.logout} createNewClub={this.handleCreateClub.bind(this)}/>
         <h1>{this.props.user.first_name}'s Dashboard</h1>

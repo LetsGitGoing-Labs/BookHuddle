@@ -36,7 +36,7 @@ class DashNav extends React.Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-              <Link to="/dashboard" className="nav-link" onClick={this.toggleModal.bind(this)}>Create a club</Link>
+                <Link to="/dashboard" className="nav-link" onClick={this.toggleModal.bind(this)}>Create a club</Link>
               </li>
               <li className="nav-item">
                 <Link to="/profile" className="nav-link">Profile</Link>
@@ -45,13 +45,13 @@ class DashNav extends React.Component {
                 <Link to="/logout" className="nav-link" onClick={this.logout.bind(this)}>Logout</Link>
               </li>
             </ul>
-  </div>
-</nav>
-      <CreateClub
-      modal={this.state.modal}
-      toggleModal={this.toggleModal.bind(this)}
-      createNewClub={this.props.createNewClub}
-      />
+          </div>
+        </nav>
+        <CreateClub
+        modal={this.state.modal}
+        toggleModal={this.toggleModal.bind(this)}
+        createNewClub={this.props.createNewClub}
+        />
       </div>
     );
   }
