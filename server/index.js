@@ -162,8 +162,8 @@ app.post('/booksdb', (req, res) => {
 });
 
 app.post('/meetings', (req, res) => {
-  console.log('post to meetings invoked');
-  let newMeeting = req.body | req.query;
+  let newMeeting = req.body;
+  console.log(newMeeting);
   database.saveMeeting(sendData, newMeeting, res);
 });
 

@@ -72,14 +72,16 @@ const retrieveUser = (email, res, cb) => {
 };
 
 const retrieveMeeting = (meetingID, cb) => {
-  console.log('retrieving meeting from db')
-  return knex('meeting').where({
+  return knex('meeting')
+  .where({
     id: meetingID
-  }).select('*').then((meetingData) => {
+  })
+  .select('*')
+  .then((meetingData) => {
     if (meetingData.length > 0 ) {
-      cb(meetingData);
+      cb(meetingData, 200);
     } else {
-      cb(null);
+      cb('Internal Server Error84', 500);
     }
   });
 };
@@ -115,21 +117,20 @@ const addUser = (cb, user, res) => {
 };
 
 const saveMeeting = (cb, meeting, res) => {
-  console.log('saveMeeting invoked');
+  console.log(meeting, '<-- meeting');
   return knex.insert({
     meeting_date: meeting.date,
     meeting_time: meeting.time,
     meeting_host: meeting.host,
     meeting_street_address: meeting.address,
     meeting_notes: meeting.notes,
-    meeting_book: meeting.book,
   })
   .into('meeting')
   // .then(ADD RECORD TO THE MEETING_CLUB JOIN TABLE)
   .then(function(meetingID) {
-    retrieveMeeting(meetingID, function(userData) {
-      cb(userData, userData, res);
-    });
+    retrieveMeeting(meetingID, function(userData, statusCode) {
+      cb(userData, statusCode, res);
+    })
   });
 };
 

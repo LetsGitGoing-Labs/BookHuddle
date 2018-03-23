@@ -51,9 +51,7 @@ knex.schema.hasTable('user').then(function(exists) {
         t.string('meeting_host', 100);
         t.string('meeting_street_address');
         t.text('meeting_notes', 280);
-        t.text('meeting_book');
         t.timestamp('meeting_created_at').notNullable().defaultTo(knex.raw('now()'));
-
         t.integer('club_id').references('club.id');
         t.integer('book_id').references('book.id');
       }).then(function(table) {
