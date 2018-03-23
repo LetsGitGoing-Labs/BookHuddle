@@ -6,7 +6,7 @@ import Profile from './profile.jsx';
 import MeetingList from './meeting-list-dashboard.jsx';
 import BookList from './book-list-dashboard.jsx';
 import ClubList from './your-club-list-dashboard.jsx';
-import DashNav from './dashboard-nav.jsx';
+import CreateClub from './create-club.jsx';
 import Club from './club.jsx';
 import '../styles/main.css';
 
@@ -36,20 +36,6 @@ class Dashboard extends React.Component {
       },
       error: function(err) {
         console.log(err);
-      }
-    });
-  }
-
-  handleCreateClub(formData) {
-    $.ajax({
-      type: 'POST',
-      url: '/clubs',
-      data: formData,
-      success: (data) => {
-        console.log(data.confirmRequest)
-      },
-      error: (data) => {
-        console.log(data);
       }
     });
   }

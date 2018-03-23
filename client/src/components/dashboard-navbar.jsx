@@ -35,16 +35,16 @@ export default class DashboardNavbar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link to="/dashboard">My Dashboard </Link>
+                <Link to="/dashboard">My Dashboard-</Link>
               </NavItem>
               <NavItem>
-                <Link to="/dashboard/create-club">Create a club </Link>
+                <Link to="/dashboard/create-club">Create a club-</Link>
               </NavItem>
               <NavItem>
-                <Link to="/dashboard/profile">Profile </Link>
+                <Link to="/dashboard/profile">Profile-</Link>
               </NavItem>
               <NavItem>
-                <Link to="/logout" onClick={this.props.logout}>Logout </Link>
+                <Link to="/logout">Logout </Link>
               </NavItem>
             </Nav>
           </Collapse>
