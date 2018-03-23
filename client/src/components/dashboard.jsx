@@ -3,7 +3,7 @@ import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
 import Profile from './profile.jsx';
-import MeetingListDashboard from './meeting-list-dashboard.jsx';
+import MeetingList from './meeting-list-dashboard.jsx';
 import BookListDashboard from './book-list-dashboard.jsx';
 import YourClubListDashboard from './your-club-list-dashboard.jsx';
 import DashNav from './dashboard-nav.jsx';
@@ -72,7 +72,7 @@ class Dashboard extends React.Component {
      return (
       <div>
         <h1>{this.props.user.first_name}'s Dashboard</h1>
-        <MeetingListDashboard meetingList= {this.state.meetings}/>
+        <MeetingList meetingList= {this.state.meetings}/>
         <YourClubListDashboard renderClub= {this.renderClubPage.bind(this)} yourClubList={this.state.clubs}/>
         <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
       </div>
