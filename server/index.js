@@ -13,8 +13,31 @@ const app = express();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-// callback for responses to client requests that require DB queries
-let sendData = (responseData, statusCode, res) => {
+// socket.io Trivia game
+let connections = [];
+let gameName = 'Untitled';
+
+
+let ioServer = app.listen(4000)
+let io = require('socket.io').listen(ioServer);
+
+io.sockets.on('connection', (socket) => {
+  socket.once('disconnect', function(){
+    connections.splice(connections.indexOf(socket), 1);
+    socket.disconnect();
+    console.log('Discounted: %s sockets remaining', connections.length)
+  })
+  socket.emit('welcome', {
+    gameName: gameName
+  })
+  connections.push(socket);
+  console.log('connect: %s sockets connected', connections.length);
+})
+
+//End of socket.io
+
+// callback for DB queries
+let sendData = (responseData, dataObj, res) => {
   let results = JSON.stringify(responseData);
   //console.log(results, '<-- the object sent to client');
   res.status(statusCode).send(results);
