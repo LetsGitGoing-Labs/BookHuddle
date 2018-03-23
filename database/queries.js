@@ -7,7 +7,7 @@ const retrieveClubs = (cb, dataObj) => {
 };
 
 
-const checkUser = (user, cb) => {
+const checkUser = (user, res, cb) => {
   console.log(user);
    return knex('user')
   .where({
@@ -17,9 +17,9 @@ const checkUser = (user, cb) => {
   .select('email')
   .then((data) => {
     if (data.length > 0 ) {
-      cb(true);
+      cb(data, 200, res);
     } else {
-      cb(false);
+      cb(data, 401, res);
     }
   });
 };

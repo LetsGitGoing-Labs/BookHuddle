@@ -172,15 +172,7 @@ app.post('/meetings', (req, res) => {
 app.post('/login', (req, res) => {
   //Login auth goes here
   console.log('Logged in!', req.body);
-  database.checkUser(req.body, function (validate) {
-    if (validate) {
-      database.retrieveUser(req.body.email, function(userData){
-        sendData(userData, userData, res);
-      });
-    } else {
-      res.status(401).send('Email or password did not match');
-    }
-  });
+  database.checkUser(req.body, res, sendData);
 });
 
 app.post('/signup', (req, res) => {
