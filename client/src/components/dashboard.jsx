@@ -23,22 +23,38 @@ class Dashboard extends React.Component {
       index: '',
       clubRedirect: false
     };
-
-    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
-    var component = this;
+    this.getBooks();
+  }
+
+  getBooks() {
+    let context = this;
     $.ajax({
       type: 'GET',
       url: '/getBooksAPI',
       success: function(books) {
-        component.setState({
+        context.setState({
           books: books
         });
       },
       error: function(err) {
         console.log(err);
+      }
+    });
+  }
+
+  handleCreateClub(formData) {
+    $.ajax({
+      type: 'POST',
+      url: '/clubs',
+      data: formData,
+      success: (data) => {
+        console.log(data.confirmRequest)
+      },
+      error: (data) => {
+        console.log(data);
       }
     });
   }
@@ -72,7 +88,7 @@ class Dashboard extends React.Component {
     }
     return (
       <div>
-        <DashNav logout={this.props.logout}/>
+        <DashNav logout={this.props.logout} createNewClub={this.handleCreateClub.bind(this)}/>
         <h1>{this.props.user.first_name}'s Dashboard</h1>
         <MeetingListDashboard meetingList= {this.state.meetings}/>
         <YourClubListDashboard renderClub= {this.renderClubPage.bind(this)} yourClubList={this.state.clubs}/>

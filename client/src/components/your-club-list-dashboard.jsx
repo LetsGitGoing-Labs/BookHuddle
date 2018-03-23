@@ -7,6 +7,9 @@ class YourClubListDashboard extends React.Component {
     super(props);
   }
 
+  componentWillReceiveProps(nextProps) {
+  }
+
     render() {
       return !this.props.yourClubList || this.props.yourClubList.length === 0 ?
         (

@@ -39,22 +39,8 @@ class CreateClub extends React.Component {
       genre: this.state.genre
     };
 
-    $.ajax({
-      type: 'POST',
-      url: '/clubs',
-      data: data,
-      success: (data) => {
-        this.props.toggleModal();
-        this.setState({
-          clubResponseData: data
-        });
-      },
-      error: (data) => {
-        console.log(data);
-      }
-    });
-
-    console.log(this.state.clubResponseData)
+    this.props.createNewClub(data);
+    this.props.toggleModal();
   }
 
   render() {

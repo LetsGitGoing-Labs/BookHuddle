@@ -47,7 +47,11 @@ class DashNav extends React.Component {
             </ul>
   </div>
 </nav>
-      <CreateClub modal={this.state.modal} toggleModal={this.toggleModal.bind(this)}/>
+      <CreateClub
+      modal={this.state.modal}
+      toggleModal={this.toggleModal.bind(this)}
+      createNewClub={this.props.createNewClub}
+      />
       </div>
     );
   }
