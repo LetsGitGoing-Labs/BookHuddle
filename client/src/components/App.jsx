@@ -64,7 +64,7 @@ class App extends React.Component {
         });
       },
       error: function(err){
-        console.log('errror in ajax', err);
+        console.log('error in ajax', err);
         cb(err);
       }
     });

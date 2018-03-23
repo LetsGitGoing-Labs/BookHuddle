@@ -6,7 +6,8 @@ const retrieveClubs = (cb, dataObj) => {
   });
 };
 
-const checkUser = (user, cb) => {
+
+const checkUser = (user, res, cb) => {
   console.log(user);
    return knex('user')
   .where({
@@ -14,84 +15,153 @@ const checkUser = (user, cb) => {
     password: user.password
   })
   .select('email')
-  .then((x) => {
-    if (x.length > 0 ) {
-      cb(true);
+  .then((data) => {
+    if (data.length > 0 ) {
+      cb(data, 200, res);
     } else {
-      cb(false);
+      cb(data, 401, res);
     }
   });
 };
 
-const retrieveUser = (email, cb) => {
-  return knex('user').where({
-    email: email
-  }).select('*').then((userData) => {
-    if (userData) {
-      cb(userData);
+const clubNameIsTaken = (clubName) => {
+  return knex('club')
+  .where({
+    club_name: clubName
+  })
+  .select('club_name')
+  .then((x) => {
+    if (x.length > 0 ) {
+      return true;
+    } else {
+      return false;
+    }
+  })
+};
+
+const retrieveClub = (clubID, cb ) => {
+  console.log('retrieving club from db');
+  return knex('club')
+  .where({
+    id:clubID
+  })
+  .select('*')
+  .then((clubData) => {
+    if (clubData.length > 0) {
+      cb(clubData);
     } else {
       cb(null);
+    }
+  })
+}
+
+const retrieveUser = (email, res, cb) => {
+  console.log('retrieving user from db')
+  return knex('user')
+  .where({
+    email: email
+  })
+  .select('*')
+  .then((userData) => {
+    if (userData.length > 0) {
+      cb(userData, 200, res);
+    } else {
+      cb('Internal Server Error', 500, res);
+    }
+  });
+};
+
+const retrieveMeeting = (meetingID, cb) => {
+  return knex('meeting')
+  .where({
+    id: meetingID
+  })
+  .select('*')
+  .then((meetingData) => {
+    if (meetingData.length > 0 ) {
+      cb(meetingData, 200);
+    } else {
+      cb('Internal Server Error84', 500);
     }
   });
 };
 
 const addUser = (cb, user, res) => {
-  console.log('line 10 add user');
-  // let email = user.confirmRequest.email;
-  // let checkDatabase = emailIsInUse(email);
-  // checkDatabase.then(function(exists) {
-  //   if (exists === false ) {
-      console.log('line 13 you are adding a user');
+  let checkDatabase = emailIsInUse(user.email);
+  checkDatabase.then(function(exists) {
+    if (exists === false ) {
       return knex.insert({
-        first_name: user.confirmRequest.firstName,
-        last_name: user.confirmRequest.lastName,
-        email: user.confirmRequest.email,
-        password: user.confirmRequest.password,
-        user_city: user.confirmRequest.city,
-        user_state_province: user.confirmRequest.state,
+        first_name: user.firstName,
+        last_name: user.lastName,
+        email: user.email,
+        password: user.password,
+        user_city: user.city,
+        user_state_province: user.state,
         // user_facebook_token: user.confirmRequest.user.facebook.token
       })
       .into('user')
-      // .then(ADD RECORD TO THE USER_CLUB JOIN TABLE)
       .then(function() {
-        retrieveUser(user.confirmRequest.email, function(userData) {
-          cb(userData, userData, res);
+        retrieveUser(user.email, res, function(userData, statusCode, res) {
+          for (var i = 0; i < userData.length; i++ ) {
+            userData[i].password = 'encrypted';
+          }
+          cb(userData, statusCode, res);
         });
       });
-    // }
-    // else {
-    //   let err = 'Error.  An account with that email address already exists.'
-    //   cb(err, user, res);
-    // }
-  // })
+    } else {
+      let err = 'Error.  An account with that email address already exists.'
+      console.log(err);
+      cb(err, 401, res);
+    }
+  })
+};
+
+const saveMeeting = (cb, meeting, res) => {
+  console.log(meeting, '<-- meeting');
+  return knex.insert({
+    meeting_date: meeting.date,
+    meeting_time: meeting.time,
+    meeting_host: meeting.host,
+    meeting_street_address: meeting.address,
+    meeting_notes: meeting.notes,
+  })
+  .into('meeting')
+  // .then(ADD RECORD TO THE MEETING_CLUB JOIN TABLE)
+  .then(function(meetingID) {
+    retrieveMeeting(meetingID, function(userData, statusCode) {
+      cb(userData, statusCode, res);
+    })
+  });
 };
 
 const addClub = (cb, club, res) => {
-  // console.log('addClub invoked')
-  // let clubName = club.confirmRequest.club_name;
-  // console.log(!checkClubByClubName(clubName), '<-- checkClubByClubName(clubName)');
-  // if (!checkClubByClubName(clubName)) {
-    console.log('getting ready to add new club!');
-    return knex.insert({
-      club_name: club.confirmRequest.clubName,
-      club_city: club.confirmRequest.clubCity,
-      club_state_province: club.confirmRequest.clubState,
-      club_admin_email: club.confirmRequest.clubAdminEmail,
-      club_description: club.confirmRequest.description,
-    })
-    .into('club')
-    .then(function(data) {
-      cb(data, club, res);
-    });
-  // } else {
-  //   console.log('line 48');
-  //   let err = 'Error.  A club with that name already exists.'
-  //   cb(err, club, res);
-  // }
+  let checkDatabase = clubNameIsTaken(club.clubName);
+  checkDatabase.then((exists) => {
+    if (exists === false ) {
+      console.log(`getting ready to add new club: ${club.clubName}`);
+      return knex.insert({
+        club_name: club.clubName,
+        club_city: club.clubCity,
+        club_state_province: club.clubState,
+        club_admin_email: club.clubAdminEmail,
+        club_description: club.description,
+      })
+      .into('club')
+      .then(function(clubID) {
+        retrieveClub(clubID, function(clubData) {
+          cb(clubData, 200, res);
+        })
+      })
+    }  else {
+      let err = 'Error.  A club with that name already exists.'
+      console.log(err);
+      cb(err, 401, res);
+    }
+  })
 };
 
 const emailIsInUse = (email) => {
-  knex('user')
+  return knex('user')
   .where({
     email: email
   })
@@ -105,18 +175,13 @@ const emailIsInUse = (email) => {
   });
 };
 
-
-const checkClubByClubName = (clubName) => {
-  console.log(knex.select().from('club'), '<-- line 77');
-  return knex('club')
-    .where('club_name', clubName);
-};
-
 module.exports = {
   retrieveClubs,
+  retrieveClub,
   retrieveUser,
   addUser,
   addClub,
-  checkUser
+  checkUser,
+  saveMeeting
 };
 

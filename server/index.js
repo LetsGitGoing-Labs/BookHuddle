@@ -14,11 +14,13 @@ var { buildSchema } = require('graphql');
 let app = express();
 
 // callback for DB queries
-let sendData = (responseData, dataObj, res) => {
+let sendData = (responseData, statusCode, res) => {
+  console.log(responseData, '<-- responseData');
+  console.log(statusCode, '<-- status code');
   let results = JSON.stringify(responseData);
-  dataObj.body = results;
-  res.status(200).send(dataObj);
+  res.status(statusCode).send(results);
 };
+
 // Parse JSON, urls and cookies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,13 +73,33 @@ app.get('/', (req, res) => {
 });
 
 app.get('/clubs', (req, res) => {
-  //database function here to retrieve clubs
   console.log(req, '<-- req.body in get clubs');
   let dataObj = {
     confirmRequest: req.body
   }
   database.retrieveClubs(sendData, dataObj);
+  // database.retrieveClubs( req.body, function(validate) {
+  //   if (validate) {
+  //     database.
+  //   }
+  // })
+
 });
+
+// app.post('/login', (req, res) => {
+//   //Login auth goes here
+//   console.log('Logged in!', req.body);
+//   database.checkUser(req.body, function (validate) {
+//     console.log(validate, 'line 248 in func');
+//     if (validate) {
+//       database.retrieveUser(req.body.email, function(userData){
+//         sendData(userData, userData, res);
+//       });
+//     } else {
+//       res.status(401).send('Email or password did not match');
+//     }
+//   });
+// });
 
 app.get('/meetings', (req, res) => {
   // database function here to retrieve clubs
@@ -128,9 +150,7 @@ app.get('/getBooksAPI', (req, res) => {
 });
 
 app.post('/clubs', (req, res) => {
-  let newClub = {
-    confirmRequest: req.body
-  }
+  let newClub = req.body
   database.addClub(sendData, newClub, res);
 });
 
@@ -142,34 +162,19 @@ app.post('/booksdb', (req, res) => {
 });
 
 app.post('/meetings', (req, res) => {
-  var meetingObject = req.body;
-  database.saveMeeting(meetingObject, function(meeting) {
-    res.send(meeting);
-  });
+  let newMeeting = req.body;
+  console.log(newMeeting);
+  database.saveMeeting(sendData, newMeeting, res);
 });
 
 app.post('/login', (req, res) => {
   //Login auth goes here
   console.log('Logged in!', req.body);
-  database.checkUser(req.body, function (validate) {
-    console.log(validate, 'line 248 in func');
-    if (validate) {
-      database.retrieveUser(req.body.email, function(userData){
-        sendData(userData, userData, res);
-      });
-    } else {
-      res.status(401).send('Email or password did not match');
-    }
-  });
-
-
-
+  database.checkUser(req.body, res, sendData);
 });
 
 app.post('/signup', (req, res) => {
-  let newUser = {
-    confirmRequest: req.body
-  };
+  let newUser = req.body
   database.addUser(sendData, newUser, res);
 });
 

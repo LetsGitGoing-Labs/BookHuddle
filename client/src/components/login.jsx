@@ -46,7 +46,6 @@ class Login extends React.Component {
       return (
           <Redirect to='/dashboard'/>)
     }
-
     return (
       <div>
         <div  className="centerize">
@@ -75,10 +74,8 @@ class Login extends React.Component {
             </div>
               {this.state.errMsg.length > 1 && <div id="login-err"><p>{this.state.errMsg}</p></div>}
             <div className="form-group">
-              <Link to='/dashboard'>
                 <button id="button1" type="submit" onClick={this.handleSubmit}>Login
                 </button>
-              </Link>
               <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span> Facebook</a>
             </div>
           </form>
