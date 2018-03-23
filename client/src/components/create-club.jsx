@@ -42,7 +42,7 @@ class CreateClub extends React.Component {
 
     return (
       <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} >
-        <ModalBody className="modal-dialog">
+        <ModalBody>
           <h1 className="centerize">Create a Club</h1>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group">
