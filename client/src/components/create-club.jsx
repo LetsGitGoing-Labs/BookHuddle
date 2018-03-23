@@ -1,7 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalBody } from 'reactstrap';
+import '../styles/main.css';
 
 class CreateClub extends React.Component {
   constructor(props) {
@@ -10,8 +11,7 @@ class CreateClub extends React.Component {
       clubName: '',
       description: '',
       clubCity: '',
-      genre: '',
-      clubResponseData: ''
+      genre: ''
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -32,14 +32,8 @@ class CreateClub extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let data = {
-      clubName: this.state.clubName,
-      description: this.state.description,
-      clubCity: this.state.clubCity,
-      genre: this.state.genre
-    };
-
-    this.props.createNewClub(data);
+    let formData = this.state;
+    this.props.createNewClub(formData);
     this.props.toggleModal();
   }
 
@@ -48,37 +42,31 @@ class CreateClub extends React.Component {
 
     return (
       <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} >
-        <ModalBody>
-      <div>
-        <h1 className="centerize">Create a Club</h1>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group">
-            <label>Club Name</label>
-            <input type="text" className="form-control" id="inputClubName" placeholder="Club name" name="clubName" value={this.state.clubName} onChange={this.onChange}/>
-          </div>
-          <div className="form-group">
-            <label>Description</label>
-            <textarea className="form-control" id="inputClubDescription" rows="3" name="description" value={this.state.description} onChange={this.onChange}></textarea>
-          </div>
-          <div className="form-group">
-            <label>Location</label>
-            <input type="text" className="form-control" id="inputClubLocation" placeholder="San Diego" name="clubCity" value={this.state.clubCity} onChange={this.onChange}/>
-          </div>
-          <div className="form-group">
-            <label >Genre</label>
-            <select className="form-control" id="inputClubGenres" name="genre"  onChange={this.onSelect.bind(this)}>
-              <option disabled selected>Choose a Genre</option>
-              <option>Fantasy</option>
-              <option>Thrillers</option>
-              <option>Historical Fiction</option>
-              <option>Mystery</option>
-              <option>Non-Fiction</option>
-            </select>
-          </div>
-          <input type="submit" className="btn btn-primary centerize" value="Submit" />
-        </form>
-      </div>
-       </ModalBody>
+        <ModalBody className="modal-dialog">
+          <h1 className="centerize">Create a Club</h1>
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <div className="form-group">
+              <input type="text" className="form-control" id="inputClubName" placeholder="Club name" name="clubName" value={this.state.clubName} onChange={this.onChange}/>
+            </div>
+            <div className="form-group">
+              <textarea className="form-control" id="inputClubDescription" rows="3" name="description" placeholder="Add a brief description to attract club members"value={this.state.description} onChange={this.onChange}></textarea>
+            </div>
+            <div className="form-group">
+              <input type="text" className="form-control" id="inputClubLocation" placeholder="City" name="clubCity" value={this.state.clubCity} onChange={this.onChange}/>
+            </div>
+            <div className="form-group">
+              <select className="form-control" id="inputClubGenres" name="genre"  onChange={this.onSelect.bind(this)}>
+                <option disabled defaultValue>Choose a Genre</option>
+                <option>Fantasy</option>
+                <option>Thrillers</option>
+                <option>Historical Fiction</option>
+                <option>Mystery</option>
+                <option>Non-Fiction</option>
+              </select>
+            </div>
+            <input type="submit" className="btn btn-primary centerize" value="Submit" />
+          </form>
+        </ModalBody>
       </Modal>
     );
   }
