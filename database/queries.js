@@ -87,6 +87,7 @@ const retrieveMeeting = (meetingID, cb) => {
 const addUser = (cb, user, res) => {
   let checkDatabase = emailIsInUse(user.confirmRequest.email);
   checkDatabase.then(function(exists) {
+    console.log(exists, "<--user email already taken")
     if (exists === false ) {
       return knex.insert({
         first_name: user.confirmRequest.firstName,
