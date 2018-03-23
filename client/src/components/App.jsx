@@ -98,8 +98,6 @@ class App extends React.Component {
           <Route path='/logout' render={ (props) => (
             <Logout handleLogout={this.handleLogout} />
            )} />
-          <Route path='/profile' component={ Profile } />
-          <Route path='/club' component={ Club } />
           <Route path='/dashboard' render={
             (props) => {
               return this.state.isLoggedIn
