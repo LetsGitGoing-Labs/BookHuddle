@@ -24,8 +24,19 @@ let io = require('socket.io').listen(ioServer);
 
 io.sockets.on('connection', (socket) => {
   socket.once('disconnect', function(){
+    let player = (players) => {
+      for (let i = 0; i < players.length; i++) {
+        if (players[i].id === this.id) {
+          players.splice(i,1);
+          io.sockets.emit('players', players);
+        }
+      }
+    }
+    player(players);
+    console.log('players remaingin', players);
     connections.splice(connections.indexOf(socket), 1);
     socket.disconnect();
+
     console.log('Discounted: %s sockets remaining', connections.length)
   })
 

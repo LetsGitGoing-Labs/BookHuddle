@@ -53,6 +53,12 @@ class TriviaMain extends React.Component {
   }
 
   connect() {
+    let player = (sessionStorage.player) ? JSON.parse(sessionStorage.player) : null;
+
+    if (player) {
+      this.emit('join', player);
+    } 
+    
   	this.setState({
   	  status: 'connected'
   	})
@@ -71,9 +77,11 @@ class TriviaMain extends React.Component {
   }
 
   joined(player) {
+    sessionStorage.player =  JSON.stringify(player);
     this.setState({
       player: player
     })
+
   }
 
   updatePlayers(newPlayer) {
