@@ -15,12 +15,8 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       books: [],
-      clubs: [
-        { title: 'Jane Austen Book Club', image: 'https://images-na.ssl-images-amazon.com/images/I/41uM9MBn1CL._SX326_BO1,204,203,200_.jpg' }
-      ],
       meetings: meetings,
-      index: '',
-      clubRedirect: false
+      index: ''
     };
   }
 
@@ -73,20 +69,14 @@ class Dashboard extends React.Component {
 
   render() {
     const index = this.state.index;
-
-    return this.state.clubRedirect ? ( <Redirect to='/club' /> ) :
-    (
+     return (
       <div>
-        <DashNav logout={this.props.logout} createNewClub={this.handleCreateClub.bind(this)}/>
         <h1>{this.props.user.first_name}'s Dashboard</h1>
         <MeetingListDashboard meetingList= {this.state.meetings}/>
         <YourClubListDashboard renderClub= {this.renderClubPage.bind(this)} yourClubList={this.state.clubs}/>
         <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
-
-        <Route path='/club' render={(props) => <Club {...props} clubData={this.state.clubs[index]}/>} />
-        <Route path='/profile' component={ Profile } />
       </div>
-    );
+    )
   }
 }
 
