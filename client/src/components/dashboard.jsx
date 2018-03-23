@@ -29,6 +29,7 @@ class Dashboard extends React.Component {
     $.ajax({
       type: 'GET',
       url: '/getBooksAPI',
+      data: { searchTerm: 'Jane Austen' },
       success: function(books) {
         context.setState({
           books: books

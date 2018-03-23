@@ -14,9 +14,40 @@ describe('server', function() {
         .expect(200, /id="app"/, done);
     });
 
-    // it('should 404 when asked for a nonexistent file', function(done) {
-    //   request.get('/arglebargle').expect(404, done);
-    // });
+    it('should return content of index.html when given nonexistent endpoint', function(done) {
+      request.get('/arglebargle').expect(200, /id="app"/, done);
+    });
+
+    it('should return a list of book objects when request made to /getBooksAPI', function(done) {
+      request
+      .get('/getBooksAPI?searchTerm=Jane%20Austen')
+      .expect(200)
+      .end(function (err, res) {
+
+        expect(Array.isArray(res.body)).to.be.true;
+        expect(typeof res.body[0] === 'object').to.be.true;
+        done();
+
+      });
+    });
+
+    it('should return an array of club objects', function(done) {
+      request.get('/clubs').expect(200).end(function (err, res) {
+        console.log(res.body);
+        done();
+      });
+    });
   });
-});
+
+  describe('POST', function() {
+    it('should accept user data posted to signup and return posted user data', function(done) {
+      request.post('/signup').send({ firstName: 'Bob', lastName: 'Jones', email: 'bob@jones.com', password: 'bobbyj', user_city: 'Seattle', user_state_province: 'WA' }).expect(201).end(function (err, res) {
+          if (!err) {
+            expect(res.body[0].first_name === 'Bob' && res.body[0].last_name === 'Jones' && res.body[0].email === 'bob@jones.com').to.be.true;
+          done();
+          }
+        });
+      });
+    });
+  });
 
