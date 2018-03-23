@@ -23,7 +23,7 @@ class YourClubListDashboard extends React.Component {
           {this.props.yourClubList.map((yourClub, i) =>
             <Link to='/club' onClick={this.props.renderClub}>
               <div className="card" id={i} style={{padding: '1em'}} >
-                <div className="image"><img src={yourClub.image}/></div>
+                <img className="carousel-card-img" src={yourClub.image}/>
                 <div className="content">
                   <div className="header">{yourClub.title}</div>
                 </div>

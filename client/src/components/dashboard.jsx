@@ -6,7 +6,6 @@ import CreateClub from './create-club.jsx';
 import Profile from './profile.jsx';
 import MeetingListDashboard from './meeting-list-dashboard.jsx';
 import BookListDashboard from './book-list-dashboard.jsx';
-import ClubListDashboard from './clubs-list-dashboard.jsx';
 import YourClubListDashboard from './your-club-list-dashboard.jsx';
 import DashNav from './dashboard-nav.jsx';
 import Club from './club.jsx';
@@ -20,7 +19,75 @@ class Dashboard extends React.Component {
       clubs: [
         { title: 'Jane Austen Book Club', image: 'https://images-na.ssl-images-amazon.com/images/I/41uM9MBn1CL._SX326_BO1,204,203,200_.jpg' }
       ],
-      meetings: [
+      meetings: meetings,
+      index: '',
+      clubRedirect: false
+    };
+
+    this.componentDidMount = this.componentDidMount.bind(this);
+  }
+
+  componentDidMount() {
+    var component = this;
+    $.ajax({
+      type: 'GET',
+      url: '/getBooksAPI',
+      success: function(books) {
+        component.setState({
+          books: books
+        });
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+  }
+
+  renderClubPage(e) {
+    this.setState({
+      index: e.target.id,
+      clubRedirect: true
+    });
+  }
+
+  onCreateClubClick() {
+    this.setState({
+      createClubRedirect: true
+    });
+  }
+
+  render() {
+    const index = this.state.index;
+
+    if (this.state.clubRedirect) {
+      return (
+        <Redirect to='/club' />)
+    }
+    if (this.state.createClubRedirect) {
+      return (
+          <Redirect to= {{
+            pathname: '/create-club',
+            state: { userResponseData: this.props.location.state.userResponseData }
+            }} />)
+    }
+    return (
+      <div>
+        <DashNav logout={this.props.logout}/>
+        <h1>{this.props.user.first_name}'s Dashboard</h1>
+        <MeetingListDashboard meetingList= {this.state.meetings}/>
+        <YourClubListDashboard renderClub= {this.renderClubPage.bind(this)} yourClubList={this.state.clubs}/>
+        <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
+
+        <Route path='/club' render={(props) => <Club {...props} clubData={this.state.clubs[index]}/>} />
+        <Route path='/profile' component={ Profile } />
+      </div>
+    );
+  }
+}
+
+export default Dashboard;
+
+const meetings = [
       {
         id: 1,
         meeting_date: 'March 30th, 2018',
@@ -63,70 +130,4 @@ class Dashboard extends React.Component {
           imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/41jTnx6I%2BbL._SX324_BO1,204,203,200_.jpg'
         }
       }
-      ],
-      index: '',
-      clubRedirect: false
-    };
-
-    this.componentDidMount = this.componentDidMount.bind(this);
-  }
-
-  componentDidMount() {
-    var component = this;
-    $.ajax({
-      type: 'GET',
-      url: '/getBooksAPI',
-      success: function(books) {
-        component.setState({
-          books: books
-        });
-      },
-      error: function(err) {
-        console.log(err);
-      }
-    });
-  }
-
-  renderClub(e) {
-    this.setState({
-      index: e.target.id,
-      clubRedirect: true
-    });
-  }
-
-  onCreateClubClick() {
-    this.setState({
-      createClubRedirect: true
-    });
-  }
-
-  render() {
-    const index = this.state.index;
-
-    if (this.state.clubRedirect) {
-      return (
-        <Redirect to='/club' />)
-    }
-    if (this.state.createClubRedirect) {
-      return (
-          <Redirect to= {{
-            pathname: '/create-club',
-            state: { userResponseData: this.props.location.state.userResponseData }
-            }} />)
-    }
-    return (
-      <div>
-        <DashNav logout={this.props.logout}/>
-        <h1>{this.props.user.first_name}'s Dashboard</h1>
-        <MeetingListDashboard meetingList= {this.state.meetings}/>
-        <YourClubListDashboard renderClub= {this.renderClub.bind(this)} yourClubList={this.state.clubs}/>
-        <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
-
-        <Route path='/club' render={(props) => <Club {...props} clubData={this.state.clubs[index]}/>} />
-        <Route path='/profile' component={ Profile } />
-      </div>
-    );
-  }
-}
-
-export default Dashboard;
+      ]
