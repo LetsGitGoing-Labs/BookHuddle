@@ -6,7 +6,6 @@ class Club extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      selectedClub: 'Jane Austen Book Club',
       meetings: [
       {
         id: 1,
@@ -54,10 +53,11 @@ class Club extends React.Component {
   }
 
   render () {
+    const clubData = this.props.clubs.find((ind) => ind.id === this.props.match.params.clubId)
     return (
         <div>
           <div className="clubHeader bg-light">
-            <h1>{this.state.selectedClub}</h1>
+            <h1>{clubData.title}</h1>
           </div>
           <div>
             <nav className="navbar-light navbar-nav navbar-light mr-auto bg-light flexRow">
@@ -86,7 +86,6 @@ class Club extends React.Component {
           <button className="btn btn-primary">New Meeting</button>
         </div>
         <MeetingList
-            club={this.state.selectedClub}
             meetings={this.state.meetings}
           />
       </div>
