@@ -150,9 +150,7 @@ app.get('/getBooksAPI', (req, res) => {
 });
 
 app.post('/clubs', (req, res) => {
-  let newClub = {
-    confirmRequest: req.body
-  }
+  let newClub = req.body
   database.addClub(sendData, newClub, res);
 });
 

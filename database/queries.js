@@ -134,30 +134,29 @@ const saveMeeting = (cb, meeting, res) => {
 };
 
 const addClub = (cb, club, res) => {
-  console.log(club.confirmRequest, '<-- club.confirmRequest');
-    let checkDatabase = clubNameIsTaken(club.confirmRequest.clubName);
-    checkDatabase.then((exists) => {
-      if (exists === false ) {
-        console.log(`getting ready to add new club: ${club.confirmRequest.clubName}`);
-        return knex.insert({
-          club_name: club.confirmRequest.clubName,
-          club_city: club.confirmRequest.clubCity,
-          club_state_province: club.confirmRequest.clubState,
-          club_admin_email: club.confirmRequest.clubAdminEmail,
-          club_description: club.confirmRequest.description,
+  let checkDatabase = clubNameIsTaken(club.clubName);
+  checkDatabase.then((exists) => {
+    if (exists === false ) {
+      console.log(`getting ready to add new club: ${club.clubName}`);
+      return knex.insert({
+        club_name: club.clubName,
+        club_city: club.clubCity,
+        club_state_province: club.clubState,
+        club_admin_email: club.clubAdminEmail,
+        club_description: club.description,
+      })
+      .into('club')
+      .then(function(clubID) {
+        retrieveClub(clubID, function(clubData) {
+          cb(clubData, 200, res);
         })
-        .into('club')
-        .then(function(clubID) {
-          retrieveClub(clubID, function(clubData) {
-            cb(clubData, clubData, res);
-          })
-        })
-      }  else {
-        let err = 'Error.  A club with that name already exists.'
-        console.log(err);
-        cb(err, club, res);
-      }
-    })
+      })
+    }  else {
+      let err = 'Error.  A club with that name already exists.'
+      console.log(err);
+      cb(err, 401, res);
+    }
+  })
 };
 
 const emailIsInUse = (email) => {
