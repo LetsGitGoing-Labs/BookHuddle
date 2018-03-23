@@ -11,12 +11,11 @@ class CreateClub extends React.Component {
       description: '',
       clubCity: '',
       genre: '',
-      modal: true,
       clubResponseData: ''
     };
     this.onChange = this.onChange.bind(this);
-    this.toggle = this.toggle.bind(this);
   }
+
   onChange(e) {
     let target = e.target.name;
     this.setState ({
@@ -28,12 +27,6 @@ class CreateClub extends React.Component {
     let target = e.target.options;
     this.setState({
       genre: target[e.target.selectedIndex].text
-    });
-  }
-
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
     });
   }
 
@@ -51,7 +44,7 @@ class CreateClub extends React.Component {
       url: '/clubs',
       data: data,
       success: (data) => {
-        this.toggle();
+        this.props.toggleModal();
         this.setState({
           clubResponseData: data
         });
@@ -60,17 +53,15 @@ class CreateClub extends React.Component {
         console.log(data);
       }
     });
+
+    console.log(this.state.clubResponseData)
   }
 
   render() {
-     if (!this.state.modal) {
-      return (<Redirect to={{
-            pathname: '/dashboard',
-            state: { userResponseData: this.props.location.state.userResponseData }
-            }} />)
-    }
+    const externalCloseBtn = <button className="close" onClick={this.toggle}>x</button>;
+
     return (
-      <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+      <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} >
         <ModalBody>
       <div>
         <h1 className="centerize">Create a Club</h1>

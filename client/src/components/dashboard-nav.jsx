@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CreateClub from './create-club.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
@@ -7,13 +8,20 @@ class DashNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedOut: false
+      isLoggedOut: false,
+      modal: false
     }
   }
 
   logout() {
     this.props.logout();
     console.log('logged out');
+  }
+
+  toggleModal() {
+    this.setState({
+      modal: !this.state.modal
+    });
   }
 
   render() {
@@ -28,7 +36,7 @@ class DashNav extends React.Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-              <Link to="/create-club" className="nav-link">Create a club</Link>
+              <Link to="/dashboard" className="nav-link" onClick={this.toggleModal.bind(this)}>Create a club</Link>
               </li>
               <li className="nav-item">
                 <Link to="/profile" className="nav-link">Profile</Link>
@@ -39,6 +47,7 @@ class DashNav extends React.Component {
             </ul>
   </div>
 </nav>
+      <CreateClub modal={this.state.modal} toggleModal={this.toggleModal.bind(this)}/>
       </div>
     );
   }
