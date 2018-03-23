@@ -1,7 +1,7 @@
 const knex = require('knex')({
   client: 'mysql',
   connection: {
-    host : process.env.CLEARDB_DATABASE_URL || '127.0.0.1',
+    host : process.env.DATABASE_URL || '127.0.0.1',
     user : process.env.DATABASE_USER /*|| config.dbUser*/,
     insecureAuth : true,
     password: process.env.DATABASE_PASSWORD /*!== undefined ? process.env.DATABASE_PASSWORD : config.dbPass*/,
