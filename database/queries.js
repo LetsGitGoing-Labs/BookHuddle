@@ -55,7 +55,7 @@ const retrieveClub = (clubID, cb ) => {
   })
 }
 
-const retrieveUser = (email, cb) => {
+const retrieveUser = (email, res, cb) => {
   console.log('retrieving user from db')
   return knex('user')
   .where({
@@ -63,10 +63,10 @@ const retrieveUser = (email, cb) => {
   })
   .select('*')
   .then((userData) => {
-    if (userData) {
-      cb(userData);
+    if (userData.length > 0) {
+      cb(userData, 200, res);
     } else {
-      cb(null);
+      cb('Internal Server Error', 500, res);
     }
   });
 };
@@ -85,29 +85,31 @@ const retrieveMeeting = (meetingID, cb) => {
 };
 
 const addUser = (cb, user, res) => {
-  let checkDatabase = emailIsInUse(user.confirmRequest.email);
+  let checkDatabase = emailIsInUse(user.email);
   checkDatabase.then(function(exists) {
     if (exists === false ) {
       return knex.insert({
-        first_name: user.confirmRequest.firstName,
-        last_name: user.confirmRequest.lastName,
-        email: user.confirmRequest.email,
-        password: user.confirmRequest.password,
-        user_city: user.confirmRequest.city,
-        user_state_province: user.confirmRequest.state,
+        first_name: user.firstName,
+        last_name: user.lastName,
+        email: user.email,
+        password: user.password,
+        user_city: user.city,
+        user_state_province: user.state,
         // user_facebook_token: user.confirmRequest.user.facebook.token
       })
       .into('user')
-      // .then(ADD RECORD TO THE USER_CLUB JOIN TABLE)
       .then(function() {
-        retrieveUser(user.confirmRequest.email, function(userData) {
-          cb(userData, userData, res);
+        retrieveUser(user.email, res, function(userData, statusCode, res) {
+          for (var i = 0; i < userData.length; i++ ) {
+            userData[i].password = 'encrypted';
+          }
+          cb(userData, statusCode, res);
         });
       });
     } else {
       let err = 'Error.  An account with that email address already exists.'
       console.log(err);
-      cb(err, user, res);
+      cb(err, 401, res);
     }
   })
 };

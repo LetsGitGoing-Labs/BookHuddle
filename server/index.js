@@ -14,17 +14,12 @@ var { buildSchema } = require('graphql');
 let app = express();
 
 // callback for DB queries
-let sendData = (responseData, dataObj, res) => {
+let sendData = (responseData, statusCode, res) => {
+  console.log(responseData, '<-- responseData');
+  console.log(statusCode, '<-- status code');
   let results = JSON.stringify(responseData);
-  dataObj.body = results;
-  res.status(200).send(dataObj);
+  res.status(statusCode).send(results);
 };
-
-let send401 = (responseData, dataObj, res) => {
-  let results = JSON.stringify(responseData);
-  dataObj.body = results;
-  res.status(401).send(dataObj);
-}
 
 // Parse JSON, urls and cookies
 app.use(bodyParser.json());
@@ -189,9 +184,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-  let newUser = {
-    confirmRequest: req.body
-  };
+  let newUser = req.body
   database.addUser(sendData, newUser, res);
 });
 
