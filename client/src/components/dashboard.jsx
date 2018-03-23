@@ -5,7 +5,7 @@ import { Route, Link, Redirect } from 'react-router-dom';
 import Profile from './profile.jsx';
 import MeetingList from './meeting-list-dashboard.jsx';
 import BookListDashboard from './book-list-dashboard.jsx';
-import YourClubListDashboard from './your-club-list-dashboard.jsx';
+import ClubList from './your-club-list-dashboard.jsx';
 import DashNav from './dashboard-nav.jsx';
 import Club from './club.jsx';
 import '../styles/main.css';
@@ -54,12 +54,12 @@ class Dashboard extends React.Component {
     });
   }
 
-  renderClubPage(e) {
-    this.setState({
-      index: e.target.id,
-      clubRedirect: true
-    });
-  }
+  // renderClubPage(e) {
+  //   this.setState({
+  //     index: e.target.id,
+  //     clubRedirect: true
+  //   });
+  // }
 
   onCreateClubClick() {
     this.setState({
@@ -73,7 +73,7 @@ class Dashboard extends React.Component {
       <div>
         <h1>{this.props.user.first_name}'s Dashboard</h1>
         <MeetingList meetingList= {this.state.meetings}/>
-        <YourClubListDashboard renderClub= {this.renderClubPage.bind(this)} yourClubList={this.state.clubs}/>
+        <ClubList clubs={this.props.clubs}/>
         <BookListDashboard onBookClick = {this.onBookClick} bookList={this.state.books}/>
       </div>
     )
