@@ -16,7 +16,7 @@ let app = express();
 // callback for responses to client requests that require DB queries
 let sendData = (responseData, statusCode, res) => {
   let results = JSON.stringify(responseData);
-  console.log(results, '<-- the object sent to client')
+  console.log(results, '<-- the object sent to client');
   res.status(statusCode).send(results);
 };
 

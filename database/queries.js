@@ -58,11 +58,11 @@ const retrieveClub = (clubID, cb ) => {
     } else {
       cb(null);
     }
-  })
-}
+  });
+};
 
 const retrieveUser = (email, res, cb) => {
-  console.log('retrieving user from db')
+  console.log('retrieving user from db');
   return knex('user')
   .where({
     email: email
