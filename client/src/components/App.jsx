@@ -13,6 +13,7 @@ import Profile from './profile.jsx';
 import LoginModal from './login-modal.jsx';
 import MainNavbar from './main-navbar.jsx';
 import Club from './club.jsx';
+import DashboardRouting from './dashboard-routing.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -74,6 +75,7 @@ class App extends React.Component {
     this.setState({
       isLoggedIn: false
     });
+    console.log('logged out');
   }
 
   render() {
@@ -93,13 +95,13 @@ class App extends React.Component {
             } />
           <Route path='/about' component={ About } />
           <Route path='/faq' component={ FAQ } />
-          <Route path='/logout' component={ Logout } />
-          <Route path='/profile' component={ Profile } />
-          <Route path='/club' component={ Club } />
+          <Route path='/logout' render={ (props) => (
+            <Logout handleLogout={this.handleLogout} />
+           )} />
           <Route path='/dashboard' render={
             (props) => {
               return this.state.isLoggedIn
-              ? <Dashboard user={this.state.user} logout={this.handleLogout}/>
+              ? <DashboardRouting user={this.state.user} />
               : <Redirect to={{
                   pathname: "/nologin",
                   state: { from: props.location }

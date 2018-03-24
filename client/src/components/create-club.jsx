@@ -33,16 +33,22 @@ class CreateClub extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let formData = this.state;
-    this.props.createNewClub(formData);
-    this.props.toggleModal();
+    $.ajax({
+      type: 'POST',
+      url: '/clubs',
+      data: formData,
+      success: (data) => {
+        console.log(data.confirmRequest)
+      },
+      error: (data) => {
+        console.log(data);
+      }
+    });
   }
 
   render() {
-    const externalCloseBtn = <button className="close" onClick={this.toggle}>x</button>;
-
     return (
-      <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} >
-        <ModalBody>
+        <div>
           <h1 className="centerize">Create a Club</h1>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group">
@@ -66,8 +72,7 @@ class CreateClub extends React.Component {
             </div>
             <input type="submit" className="btn btn-primary centerize" value="Submit" />
           </form>
-        </ModalBody>
-      </Modal>
+        </div>
     );
   }
 }
