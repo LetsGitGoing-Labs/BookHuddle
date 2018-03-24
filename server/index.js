@@ -19,7 +19,7 @@ let gameName = 'Untitled';
 let players = [];
 let host = {};
 let questions = require('../client/MockQuestions/questions.js');
-
+let currentQuestion = false;
 
 let ioServer = app.listen(4000)
 let io = require('socket.io').listen(ioServer);
@@ -35,7 +35,7 @@ io.sockets.on('connection', (socket) => {
           console.log('%s has left, GAME OVER!', host.name)
           host = {};
           gameName = 'Untitled';
-          io.sockets.emit('end', {gameName: 'GAME OVER!', host: ''})
+          io.sockets.emit('end', {gameName: 'GAME OVER!', host: '', currentQuestion: false})
         }
       }
     }
@@ -72,11 +72,18 @@ io.sockets.on('connection', (socket) => {
     console.log("Trivia has started: '%s' by %s", payload.gameName, host.name)
   })
 
+  socket.on('ask', function(question){
+    currentQuestion = question;
+    io.sockets.emit('ask', currentQuestion);
+    console.log('question: %s', question.q);
+  })
+
   socket.emit('welcome', {
     gameName: gameName,
     players: players,
     host: host.name,
-    questions: questions
+    questions: questions,
+    currentQuestion: currentQuestion
   })
   console.log('welcome', gameName,players,host)
 

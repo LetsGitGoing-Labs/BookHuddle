@@ -1,19 +1,37 @@
 import React from 'react';
-import { Table } from 'reactstrap';
+import { Table, Card, Button, CardTitle, CardText} from 'reactstrap';
 
 class Questions extends React.Component {
+  constructor(props) {
+  	super(props);
+  	this.state = {
+       
+  	}
+  	this.ask = this.ask.bind(this);
+  	this.addQuestion = this.addQuestion.bind(this);
+  }
+
+  
 
   ask(question) {
   	this.props.emit('ask', question )
+  	console.log(question)
   }
 
   addQuestion(question, i) {
+    
     return (
       <div key={i} className="col-xs-12 col-sm-6 col-md-3">
-        <span onClick={this.ask.bind(null, question)}>{question.q}</span>
+        <Card body>
+          <CardTitle>Question {i + 1}</CardTitle>
+          <CardText>{question.q}</CardText>
+          <button ref={btn => { this.btn = btn; }} onClick={this.ask.bind(null, question)}>Ask</button>
+        </Card>
       </div>
     )
+   
   }
+
   render() {
   	return (
       <div id="questions" className="row">

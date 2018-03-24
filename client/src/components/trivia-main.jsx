@@ -36,6 +36,7 @@ class TriviaMain extends React.Component {
     this.onGameChange = this.onGameChange.bind(this);
     this.clickHostRedirect = this.clickHostRedirect.bind(this);
     this.starter = this.starter.bind(this);
+    this.ask = this.ask.bind(this);
   }
 
   componentWillMount() {
@@ -132,6 +133,7 @@ class TriviaMain extends React.Component {
 
   updateState(serverState) {
   	this.setState(serverState)
+    console.log(serverState)
   }
 
   joined(player) {
@@ -155,9 +157,10 @@ class TriviaMain extends React.Component {
   }
 
   ask(question) {
-    setState({
+    this.setState({
       currentQuestion: question
     })
+    console.log(this.currentQuestion)
   }
 
   render() {
@@ -166,7 +169,7 @@ class TriviaMain extends React.Component {
         
           <h1> {this.state.gameName} </h1>
           <p> Host: {this.state.host}</p>
-          <p> {this.state.players.length}</p>
+          
         
         
           <span>connected</span>
@@ -176,7 +179,7 @@ class TriviaMain extends React.Component {
 	      
 	     
        {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} clickHostRedirect={this.clickHostRedirect}/>}
-       {this.state.viewState === 'players' && <TriviaPlayers player={this.state.player} currentQuestion={this.currentQuestion} players={this.state.players}/>} 
+       {this.state.viewState === 'players' && <TriviaPlayers player={this.state.player} currentQuestion={this.state.currentQuestion} players={this.state.players}/>} 
        {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange}/>}
        {this.state.viewState === 'hostpage' && <HostPage players={this.state.players} questions={this.state.questions} emit={this.emit}/>}
       </div>
