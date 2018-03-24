@@ -4,32 +4,23 @@ import ReactDOM from 'react-dom'
 class TriviaJoin extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      playerName: ''
-    }
-    this.join = this.join.bind(this);
-    this.nameChange = this.nameChange.bind(this);
+  
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  join(event) {
-    
-    alert('hi ' + this.state.playerName)
-    event.preventDefault();
+  handleChange(event) {
+    this.props.onNameChange(event.target.value)
   }
 
-  nameChange(event) {
-    this.setState({
-      playerName: event.target.value
-    })
-  }
 
   render() {
   	return (
-      <form action="javascript:void(0)" onSubmit={this.join}>
+      <form action="javascript:void(0)" onSubmit={this.props.submit}>
         <input 
           type="text"
-          value={this.state.value}
-          onChange={this.nameChange}
+          name="playerName"
+          value={this.props.playerName}
+          onChange={this.handleChange}
           className="form-control"
           placeholder="Enter a username"
           required /> 

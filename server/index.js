@@ -17,6 +17,7 @@ const LocalStrategy = require('passport-local').Strategy;
 let connections = [];
 let gameName = 'Untitled';
 let players = [];
+let host = {};
 
 
 let ioServer = app.listen(4000)
@@ -33,7 +34,7 @@ io.sockets.on('connection', (socket) => {
       }
     }
     player(players);
-    console.log('players remaingin', players);
+    console.log('players remaining', players);
     connections.splice(connections.indexOf(socket), 1);
     socket.disconnect();
 
@@ -43,12 +44,23 @@ io.sockets.on('connection', (socket) => {
   socket.on('join', function(payload) {
     let newPlayer = {
       id: this.id,
-      playerName: payload.playerName
+      playerName: payload.playerName,
+      type: 'player'
     };
     this.emit('joined', newPlayer)
     players.push(newPlayer);
     io.sockets.emit('players', players);
     console.log('username: ' + payload.playerName)
+  })
+
+  socket.on('start', function(payload) {
+    console.log('payload:',payload)
+    console.log('hostserver', host)
+    host.name = payload.hostName;
+    host.id = this.id;
+    host.type = 'host';
+    this.emit('joined', host);
+    console.log("Trivia has started: '%s' by %s", payload.gameName, host.name)
   })
 
   socket.emit('welcome', {

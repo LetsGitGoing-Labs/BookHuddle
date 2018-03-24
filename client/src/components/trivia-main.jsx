@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import io from 'socket.io-client';
 import TriviaPlayers from './trivia-players.jsx';
 import TriviaHost from './trivia-host.jsx';
@@ -9,21 +10,27 @@ class TriviaMain extends React.Component {
   constructor(props) {
   	super(props);
   	this.state = {
-      gameName: '',
+      gameName: 'Untitled',
       status: 'disconnected',
       playerName: '',
       player: {},
-      players: []
+      players: [],
+      host: {},
+      hostName: '',
+      hostJoin: false
   	}
 
   	this.connect = this.connect.bind(this);
   	this.disconnect = this.disconnect.bind(this);
   	this.welcome = this.welcome.bind(this);
     this.join = this.join.bind(this);
-    this.nameChange = this.nameChange.bind(this);
     this.emit = this.emit.bind(this);
     this.joined = this.joined.bind(this);
     this.updatePlayers = this.updatePlayers.bind(this);
+    this.start = this.start.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onHostChange = this.onHostChange.bind(this);
+    this.onGameChange = this.onGameChange.bind(this);
   }
 
   componentWillMount() {
@@ -36,15 +43,42 @@ class TriviaMain extends React.Component {
   }
 
   join(event) {
-    
-    
+    console.log('clicked')
     this.emit('join', {playerName: this.state.playerName})
     event.preventDefault();
   }
 
-  nameChange(event) {
+  start() {
+    
+    this.emit('start', {
+      hostName: this.state.hostName, 
+      gameName: this.state.gameName
+    })
+  }
+
+   
+  onHostChange(e) {
     this.setState({
-      playerName: event.target.value
+      hostName: e.target.value,
+    })
+  }
+
+  onGameChange(e) {
+    this.setState({
+      gameName: e.target.value,
+    })
+  }
+
+  onNameChange(playerName) {
+   console.log(event)
+    this.setState({
+      playerName: playerName
+    })
+  }
+
+  clickJoinHost(event) {
+    this.setState({
+      hostJoin: true
     })
   }
 
@@ -58,7 +92,7 @@ class TriviaMain extends React.Component {
     if (player) {
       this.emit('join', player);
     } 
-    
+
   	this.setState({
   	  status: 'connected'
   	})
@@ -78,10 +112,10 @@ class TriviaMain extends React.Component {
 
   joined(player) {
     sessionStorage.player =  JSON.stringify(player);
+    
     this.setState({
       player: player
     })
-
   }
 
   updatePlayers(newPlayer) {
@@ -101,23 +135,20 @@ class TriviaMain extends React.Component {
           <span> connected</span>
         </div>
       </header>
-      {!this.state.player.playerName && 
-        <form action="javascript:void(0)" onSubmit={this.join}>
-         <input 
-           type="text"
-           value={this.state.value}
-           onChange={this.nameChange}
-           className="form-control"
-           placeholder="Enter a username"
-           required /> 
-         <button className="btn btn-primary">Join Trivia!</button>
-       </form> }
-       {this.state.player.playerName && <TriviaPlayers player={this.state.player} players={this.state.players}/>} 
+       
+      <div>
+        <TriviaJoin submit={this.join} onNameChange={this.onNameChange}/>
+       
+        {this.state.player.playerName && <TriviaPlayers player={this.state.player} players={this.state.players}/>} 
+        <TriviaHost start={this.start} 
+          onHostChange={this.onHostChange} 
+          onGameChange={this.onGameChange}
+         />
       
 	      
-	      <TriviaHost />
-	      <TriviaScore />
 	      
+	      <TriviaScore />
+	     </div>
       </div>
   	)
   }
