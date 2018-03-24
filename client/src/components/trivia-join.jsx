@@ -15,17 +15,20 @@ class TriviaJoin extends React.Component {
 
   render() {
   	return (
-      <form action="javascript:void(0)" onSubmit={this.props.submit}>
-        <input 
-          type="text"
-          name="playerName"
-          value={this.props.playerName}
-          onChange={this.handleChange}
-          className="form-control"
-          placeholder="Enter a username"
-          required /> 
-        <button className="btn btn-primary">Join Trivia!</button>
-      </form>
+      <div>
+        <form action="javascript:void(0)" onSubmit={this.props.submit}>
+          <input 
+            type="text"
+            name="playerName"
+            value={this.props.playerName}
+            onChange={this.handleChange}
+            className="form-control"
+            placeholder="Enter a username"
+            required /> 
+          <button className="btn btn-primary">Join Trivia!</button>
+        </form>
+        <a href="#" onClick={this.props.clickHostRedirect}>Join as the host</a>
+      </div> 
   	)
   }
 }

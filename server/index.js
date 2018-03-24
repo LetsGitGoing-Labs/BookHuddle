@@ -30,6 +30,11 @@ io.sockets.on('connection', (socket) => {
         if (players[i].id === this.id) {
           players.splice(i,1);
           io.sockets.emit('players', players);
+        } else if (this.id === host.id) {
+          console.log('%s has left, GAME OVER!', host.name)
+          host = {};
+          gameName = 'Untitled';
+          io.sockets.emit('end', {gameName: gameName, host: ''})
         }
       }
     }
@@ -55,17 +60,23 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('start', function(payload) {
     console.log('payload:',payload)
-    console.log('hostserver', host)
-    host.name = payload.hostName;
+    
+    gameName = payload.gameName;
+    host.name = payload.host;
     host.id = this.id;
     host.type = 'host';
     this.emit('joined', host);
+    console.log('start', host)
+    io.sockets.emit('start', {gameName: gameName, host: host.name})
     console.log("Trivia has started: '%s' by %s", payload.gameName, host.name)
   })
 
   socket.emit('welcome', {
-    gameName: gameName
+    gameName: gameName,
+    players: players,
+    host: host.name
   })
+  console.log('welcome', gameName,players,host)
 
   connections.push(socket);
   console.log('connect: %s sockets connected', connections.length);
