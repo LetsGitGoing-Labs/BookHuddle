@@ -16,7 +16,7 @@ let app = express();
 // callback for responses to client requests that require DB queries
 let sendData = (responseData, statusCode, res) => {
   let results = JSON.stringify(responseData);
-  console.log(results, '<-- the object sent to client')
+  //console.log(results, '<-- the object sent to client');
   res.status(statusCode).send(results);
 };
 
@@ -95,8 +95,7 @@ app.get('/getBooksDB', (req, res) => {
 
 app.get('/getBooksAPI', (req, res) => {
   // get search term to use for API lookup
-
-  var searchTerm = undefined;
+  var searchTerm = req._parsedOriginalUrl.query.slice(11);
   amazonHelpers.retrieveBooksAPI(searchTerm)
     .then(function(books) {
       var parsedData = parseString(books.data, function(err, result) {
@@ -146,8 +145,9 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-  let newUser = req.body
+  let newUser = req.body;
   database.addUser(sendData, newUser, res);
+
 });
 
 app.get('/logout', (req, res) => {
