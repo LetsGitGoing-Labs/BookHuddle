@@ -18,6 +18,7 @@ let connections = [];
 let gameName = 'Untitled';
 let players = [];
 let host = {};
+let questions = require('../client/MockQuestions/questions.js');
 
 
 let ioServer = app.listen(4000)
@@ -34,7 +35,7 @@ io.sockets.on('connection', (socket) => {
           console.log('%s has left, GAME OVER!', host.name)
           host = {};
           gameName = 'Untitled';
-          io.sockets.emit('end', {gameName: gameName, host: ''})
+          io.sockets.emit('end', {gameName: 'GAME OVER!', host: ''})
         }
       }
     }
@@ -43,7 +44,7 @@ io.sockets.on('connection', (socket) => {
     connections.splice(connections.indexOf(socket), 1);
     socket.disconnect();
 
-    console.log('Discounted: %s sockets remaining', connections.length)
+    console.log('Disconnected: %s sockets remaining', connections.length)
   })
 
   socket.on('join', function(payload) {
@@ -74,7 +75,8 @@ io.sockets.on('connection', (socket) => {
   socket.emit('welcome', {
     gameName: gameName,
     players: players,
-    host: host.name
+    host: host.name,
+    questions: questions
   })
   console.log('welcome', gameName,players,host)
 
