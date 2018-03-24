@@ -14,15 +14,17 @@ const retrieveClubs = (cb, dataObj, res) => {
 };
 
 const checkUser = (user, res, cb) => {
-  console.log(user);
+  // console.log(user);
    return db.knex('user')
   .where({
     email: user.email,
     password: user.password
   })
-  .select('*')
+  .select()
   .then((data) => {
+    //placeholder for using bcrypt
     if (data.length > 0 ) {
+      data[0].password = 'encrypted';
       cb(data, 200, res);
     } else {
       cb(data, 401, res);
@@ -42,11 +44,11 @@ const clubNameIsTaken = (clubName) => {
     } else {
       return false;
     }
-  })
+  });
 };
 
 const retrieveClub = (clubID, cb ) => {
-  console.log('retrieving club from db');
+  //console.log('retrieving club from db');
   return db.knex('club')
   .where({
     id:clubID
@@ -62,7 +64,7 @@ const retrieveClub = (clubID, cb ) => {
 };
 
 const retrieveUser = (email, res, cb) => {
-  console.log('retrieving user from db');
+  //console.log('retrieving user from db');
   return db.knex('user')
   .where({
     email: email
@@ -115,11 +117,11 @@ const addUser = (cb, user, res) => {
         });
       });
     } else {
-      let err = 'Error.  An account with that email address already exists.'
+      let err = 'Error.  An account with that email address already exists.';
       console.log(err);
       cb(err, 401, res);
     }
-  })
+  });
 };
 
 const saveMeeting = (cb, meeting, res) => {
@@ -136,7 +138,7 @@ const saveMeeting = (cb, meeting, res) => {
   .then(function(meetingID) {
     retrieveMeeting(meetingID, function(userData, statusCode) {
       cb(userData, statusCode, res);
-    })
+    });
   });
 };
 
@@ -156,14 +158,14 @@ const addClub = (cb, club, res) => {
       .then(function(clubID) {
         retrieveClub(clubID, function(clubData) {
           cb(clubData, 200, res);
-        })
-      })
+        });
+      });
     }  else {
-      let err = 'Error.  A club with that name already exists.'
+      let err = 'Error.  A club with that name already exists.';
       console.log(err);
       cb(err, 401, res);
     }
-  })
+  });
 };
 
 const emailIsInUse = (email) => {

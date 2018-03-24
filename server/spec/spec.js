@@ -3,12 +3,28 @@ var server = require('../index.js');
 var path = require('path');
 var supertest = require('supertest');
 var db = require('../../database/index.js');
+var dbMethods = require('../../database/queries.js');
 
 var request = supertest.agent(server);
 
 describe('', function() {
 
   beforeEach(function() {
+
+  //Add user Mike Smith to db so it can be accessed later for the test
+  db.knex
+    .insert({
+      first_name: 'Mike',
+      last_name: 'Smith',
+      email: 'mike@smith.com',
+      password: 'mikeys',
+      user_city: 'Boston',
+      user_state_province: 'MA'
+    })
+    .into('user')
+    .catch(function(error) {
+      console.log(error);
+    });
 
   // delete user Bob Jones from db so it can be created later for the test
   db.knex('user')
@@ -19,7 +35,25 @@ describe('', function() {
       console.log(error);
     });
 
+  });
 
+  afterEach(function() {
+    // delete user Mike Smith from db to prevent storing mock data in db
+    db.knex('user')
+      .where({ email : 'mike@smith.com' })
+      .select()
+      .del()
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    db.knex('user')
+      .where({ email: 'tim@whitley.com' })
+      .select()
+      .del()
+      .catch(function(error) {
+        console.log(error);
+      });
   });
 
 
@@ -59,6 +93,8 @@ describe('', function() {
       });
     });
 
+
+
     describe('POST', function() {
       it('should accept user data posted to signup and return posted user data', function(done) {
         request.post('/signup').send({ firstName: 'Bob', lastName: 'Jones', email: 'bob@jones.com', password: 'bobbyj', user_city: 'Seattle', user_state_province: 'WA' }).expect(200).end(function (err, res) {
@@ -72,7 +108,72 @@ describe('', function() {
             }
           });
         });
+
+        it('should accept user login and return encrypted data for that user', function(done) {
+          request.post('/login').send({ email: 'mike@smith.com', password: 'mikeys' }).expect(200).end(function (err, res) {
+            if (!err) {
+              var user = (JSON.parse(res.text)[0]);
+              expect(user.first_name).to.equal('Mike');
+              expect(user.password).to.equal('encrypted');
+              done();
+            } else {
+              done(err);
+            }
+          });
+        });
       });
     });
 
+  describe('database', function() {
+    it('should add a user to the database and then verify user', function(done) {
+      dbMethods.addUser((userData, statusCode, res) =>
+      {
+        expect(statusCode).to.equal(200);
+
+        dbMethods.checkUser({ email: 'tim@whitley.com', password: 'timmyw' }, null, function(checkedUserData, checkedStatusCode, res) {
+
+          expect(checkedStatusCode).to.equal(200);
+          expect(checkedUserData[0].first_name).to.equal('Tim');
+          expect(checkedUserData[0].email).to.equal('tim@whitley.com');
+          done();
+
+        });
+      },
+      {
+        firstName: 'Tim',
+        lastName: 'Whitley',
+        email: 'tim@whitley.com',
+        password: 'timmyw',
+        user_city: 'Denver',
+        user_state_province: 'CO'
+      },
+      null);
+    });
+
+    it('should return 401 for a nonexistent user', function(done) {
+      dbMethods.checkUser(
+        {
+          email: 'bill@reed.com',
+          password: 'billyr'
+        },
+        null,
+        function(userData, statusCode, res) {
+          expect(statusCode).to.equal(401);
+          expect(userData.length).to.equal(0);
+          done();
+        }
+      );
+    });
+  });
+
+
+  describe('server/db integration', function() {
+    xit('should allow a user to be added through the server and then verified by the database', function(done) {
+
+    });
+
+    xit('should reject attempt by server to add duplicate club', function(done) {
+
+    });
+  });
 });
