@@ -1,11 +1,17 @@
 const knex = require('./index.js');
 
-const retrieveClubs = (cb, dataObj) => {
-  return knex.select().from('club').then(function(clubs, cb) {
-    cb(clubs, dataObj);
+const retrieveClubs = (cb, dataObj, res) => {
+  return knex
+  .select()
+  .from('club')
+  .then(function(clubs, err) {
+    if (err) {
+      cb(clubs, 500, res);
+    } else {
+      cb(clubs, 200, res);
+    }
   });
 };
-
 
 const checkUser = (user, res, cb) => {
   console.log(user);
@@ -14,7 +20,7 @@ const checkUser = (user, res, cb) => {
     email: user.email,
     password: user.password
   })
-  .select('email')
+  .select('*')
   .then((data) => {
     if (data.length > 0 ) {
       cb(data, 200, res);
@@ -81,7 +87,7 @@ const retrieveMeeting = (meetingID, cb) => {
     if (meetingData.length > 0 ) {
       cb(meetingData, 200);
     } else {
-      cb('Internal Server Error84', 500);
+      cb('Internal Server Error', 500);
     }
   });
 };

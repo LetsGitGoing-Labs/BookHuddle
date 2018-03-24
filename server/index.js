@@ -13,11 +13,10 @@ var { buildSchema } = require('graphql');
 
 let app = express();
 
-// callback for DB queries
+// callback for responses to client requests that require DB queries
 let sendData = (responseData, statusCode, res) => {
-  console.log(responseData, '<-- responseData');
-  console.log(statusCode, '<-- status code');
   let results = JSON.stringify(responseData);
+  console.log(results, '<-- the object sent to client')
   res.status(statusCode).send(results);
 };
 
@@ -73,38 +72,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/clubs', (req, res) => {
-  console.log(req, '<-- req.body in get clubs');
-  let dataObj = {
-    confirmRequest: req.body
-  }
-  database.retrieveClubs(sendData, dataObj);
-  // database.retrieveClubs( req.body, function(validate) {
-  //   if (validate) {
-  //     database.
-  //   }
-  // })
-
+  let clubObj = req.body;
+  database.retrieveClubs(sendData, clubObj, res);
 });
 
-// app.post('/login', (req, res) => {
-//   //Login auth goes here
-//   console.log('Logged in!', req.body);
-//   database.checkUser(req.body, function (validate) {
-//     console.log(validate, 'line 248 in func');
-//     if (validate) {
-//       database.retrieveUser(req.body.email, function(userData){
-//         sendData(userData, userData, res);
-//       });
-//     } else {
-//       res.status(401).send('Email or password did not match');
-//     }
-//   });
-// });
-
 app.get('/meetings', (req, res) => {
-  // database function here to retrieve clubs
+  // this will have to be refactored to get only the meetings of a specific club or user
   database.retrieveMeetings(function(meetings) {
-    // send back clubs data with response
     res.send(meetings);
   });
 });
@@ -163,13 +137,11 @@ app.post('/booksdb', (req, res) => {
 
 app.post('/meetings', (req, res) => {
   let newMeeting = req.body;
-  console.log(newMeeting);
   database.saveMeeting(sendData, newMeeting, res);
 });
 
 app.post('/login', (req, res) => {
   //Login auth goes here
-  console.log('Logged in!', req.body);
   database.checkUser(req.body, res, sendData);
 });
 
