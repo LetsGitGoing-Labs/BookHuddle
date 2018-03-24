@@ -20,7 +20,7 @@ const checkUser = (user, res, cb) => {
     email: user.email,
     password: user.password
   })
-  .select('email')
+  .select('*')
   .then((data) => {
     if (data.length > 0 ) {
       cb(data, 200, res);
