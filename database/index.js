@@ -9,7 +9,9 @@ const knex = require('knex')({
   }
 });
 
-knex.schema.hasTable('user').then(function(exists) {
+var db = require('bookshelf')(knex);
+
+db.knex.schema.hasTable('user').then(function(exists) {
   if(!exists) {
     return knex.schema.createTable('user',function (t) {
       t.increments('id').primary().unsigned();
@@ -26,7 +28,7 @@ knex.schema.hasTable('user').then(function(exists) {
     });
   }
 }).then(function(){
-  knex.schema.hasTable('club').then(function(exists) {
+  db.knex.schema.hasTable('club').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('club', function (t) {
         t.increments('id').primary().unsigned();
@@ -42,7 +44,7 @@ knex.schema.hasTable('user').then(function(exists) {
     }
   });
 }).then(function() {
-  knex.schema.hasTable('meeting').then(function(exists) {
+  db.knex.schema.hasTable('meeting').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('meeting', function(t) {
         t.increments('id').primary();
@@ -60,7 +62,7 @@ knex.schema.hasTable('user').then(function(exists) {
     }
   });
 }).then(function() {
-  knex.schema.hasTable('book').then(function(exists){
+  db.knex.schema.hasTable('book').then(function(exists){
     if(!exists) {
       return knex.schema.createTable('book', function(t) {
         t.increments('id').primary();
@@ -75,7 +77,7 @@ knex.schema.hasTable('user').then(function(exists) {
     }
   });
 }).then(function() {
-  knex.schema.hasTable('genre').then(function(exists) {
+  db.knex.schema.hasTable('genre').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('genre', function(t) {
         t.increments('id').primary();
@@ -84,7 +86,7 @@ knex.schema.hasTable('user').then(function(exists) {
     }
   });
 }).then(function() {
-  knex.schema.hasTable('user_club').then(function(exists) {
+  db.knex.schema.hasTable('user_club').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('user_club', function(t) {
         t.integer('user_id').references('user.id');
@@ -93,7 +95,7 @@ knex.schema.hasTable('user').then(function(exists) {
     }
   });
 }).then(function() {
-  knex.schema.hasTable('club_book').then(function(exists) {
+  db.knex.schema.hasTable('club_book').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('club_book', function(t) {
         t.integer('club_id').references('club.id');
@@ -102,7 +104,7 @@ knex.schema.hasTable('user').then(function(exists) {
     }
   });
 }).then(function() {
-  knex.schema.hasTable('genre_club').then(function(exists) {
+  db.knex.schema.hasTable('genre_club').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('genre_club', function(t) {
         t.integer('genre_id').references('genre.id');
@@ -111,7 +113,7 @@ knex.schema.hasTable('user').then(function(exists) {
     }
   });
 }).then(function() {
-  knex.schema.hasTable('genre_book').then(function(exists){
+  db.knex.schema.hasTable('genre_book').then(function(exists){
     if(!exists){
       return knex.schema.createTable('genre_book', function(t) {
         t.integer('genre_id').references('genre.id');
@@ -121,7 +123,7 @@ knex.schema.hasTable('user').then(function(exists) {
   });
 });
 
-module.exports = knex;
+module.exports = db;
 
 
 

@@ -1,4 +1,4 @@
-const knex = require('./index.js');
+const db = require('./index.js');
 
 const retrieveClubs = (cb, dataObj, res) => {
   return knex
@@ -15,7 +15,7 @@ const retrieveClubs = (cb, dataObj, res) => {
 
 const checkUser = (user, res, cb) => {
   console.log(user);
-   return knex('user')
+   return db.knex('user')
   .where({
     email: user.email,
     password: user.password
@@ -31,7 +31,7 @@ const checkUser = (user, res, cb) => {
 };
 
 const clubNameIsTaken = (clubName) => {
-  return knex('club')
+  return db.knex('club')
   .where({
     club_name: clubName
   })
@@ -47,7 +47,7 @@ const clubNameIsTaken = (clubName) => {
 
 const retrieveClub = (clubID, cb ) => {
   console.log('retrieving club from db');
-  return knex('club')
+  return db.knex('club')
   .where({
     id:clubID
   })
@@ -63,7 +63,7 @@ const retrieveClub = (clubID, cb ) => {
 
 const retrieveUser = (email, res, cb) => {
   console.log('retrieving user from db');
-  return knex('user')
+  return db.knex('user')
   .where({
     email: email
   })
@@ -78,7 +78,7 @@ const retrieveUser = (email, res, cb) => {
 };
 
 const retrieveMeeting = (meetingID, cb) => {
-  return knex('meeting')
+  return db.knex('meeting')
   .where({
     id: meetingID
   })
@@ -96,7 +96,7 @@ const addUser = (cb, user, res) => {
   let checkDatabase = emailIsInUse(user.email);
   checkDatabase.then(function(exists) {
     if (exists === false ) {
-      return knex.insert({
+      return db.knex.insert({
         first_name: user.firstName,
         last_name: user.lastName,
         email: user.email,
@@ -124,7 +124,7 @@ const addUser = (cb, user, res) => {
 
 const saveMeeting = (cb, meeting, res) => {
   console.log(meeting, '<-- meeting');
-  return knex.insert({
+  return db.knex.insert({
     meeting_date: meeting.date,
     meeting_time: meeting.time,
     meeting_host: meeting.host,
@@ -145,7 +145,7 @@ const addClub = (cb, club, res) => {
   checkDatabase.then((exists) => {
     if (exists === false ) {
       console.log(`getting ready to add new club: ${club.clubName}`);
-      return knex.insert({
+      return db.knex.insert({
         club_name: club.clubName,
         club_city: club.clubCity,
         club_state_province: club.clubState,
@@ -167,7 +167,7 @@ const addClub = (cb, club, res) => {
 };
 
 const emailIsInUse = (email) => {
-  return knex('user')
+  return db.knex('user')
   .where({
     email: email
   })

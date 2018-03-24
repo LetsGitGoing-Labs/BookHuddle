@@ -12,8 +12,14 @@ describe('', function() {
 
   // delete user Bob Jones from db so it can be created later for the test
   db.knex('user')
-    .where('email', '=', 'bob@jones.com')
-    .del();
+    .where({ email : 'bob@jones.com' })
+    .select()
+    .del()
+    .catch(function(error) {
+      console.log(error);
+    });
+
+
   });
 
 
@@ -55,10 +61,14 @@ describe('', function() {
 
     describe('POST', function() {
       it('should accept user data posted to signup and return posted user data', function(done) {
-        request.post('/signup').send({ firstName: 'Bob', lastName: 'Jones', email: 'bob@jones.com', password: 'bobbyj', user_city: 'Seattle', user_state_province: 'WA' }).expect(201).end(function (err, res) {
+        request.post('/signup').send({ firstName: 'Bob', lastName: 'Jones', email: 'bob@jones.com', password: 'bobbyj', user_city: 'Seattle', user_state_province: 'WA' }).expect(200).end(function (err, res) {
+            var user = JSON.parse(res.text)[0];
             if (!err) {
-              expect(res.body[0].first_name === 'Bob' && res.body[0].last_name === 'Jones' && res.body[0].email === 'bob@jones.com').to.be.true;
-            done();
+              expect(user.first_name === 'Bob' && user.last_name === 'Jones' && user.email === 'bob@jones.com').to.be.true;
+              done();
+            } else {
+              console.log(err);
+              done();
             }
           });
         });
