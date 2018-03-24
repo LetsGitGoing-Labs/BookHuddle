@@ -26,10 +26,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Authentication Packages
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-//Passport init
+// Passport init
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Configure local strategy
+passport.use(new LocalStrategy((email, password, done) => {
+    database.checkUser({ email: email }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
 
 // Serve static files to client
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -221,9 +233,15 @@ app.post('/meetings', (req, res) => {
   database.saveMeeting(sendData, newMeeting, res);
 });
 
-app.post('/login', (req, res) => {
-  //Login auth goes here
-  database.checkUser(req.body, res, sendData);
+// app.post('/login', (req, res) => {
+//   //Login auth goes here
+//   database.checkUser(req.body, res, sendData);
+// });
+
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+    function(req, res) {
+      res.redirect('/');
 });
 
 app.post('/signup', (req, res) => {

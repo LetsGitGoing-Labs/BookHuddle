@@ -13,8 +13,38 @@ const retrieveClubs = (cb, dataObj, res) => {
   });
 };
 
-const checkUser = (user, res, cb) => {
-  // console.log(user);
+// CHECKUSER FN BEFORE IMPLEMENTING PASSPORT
+// const checkUser = (user, res, cb) => {
+//   console.log(user);
+//    return db.knex('user')
+//   .where({
+//     email: user.email,
+//     password: user.password
+//   })
+//   .select()
+//   .then((data) => {
+//     if (data.length > 0 ) {
+//       cb(data, 200, res);
+//     } else {
+//       cb(data, 401, res);
+//     }
+//   });
+// };
+
+// CHECKUSER FN AFTER IMPLEMENTING PASSPORT
+const checkUser = (user, cb) => {
+   return db.knex('user')
+  .where({
+    email: user.email,
+  })
+  .select()
+  .then((err, user) => {
+    cb(err, user)
+  });
+};
+
+// CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT
+const checkPassword = (user, cb) => {
    return db.knex('user')
   .where({
     email: user.email,
@@ -29,6 +59,8 @@ const checkUser = (user, res, cb) => {
     } else {
       cb(data, 401, res);
     }
+  .then((err, user) => {
+    cb(err, user)
   });
 };
 
