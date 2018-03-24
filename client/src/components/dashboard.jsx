@@ -3,7 +3,6 @@ import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
 import Profile from './profile.jsx';
-import MeetingList from './meeting-list-dashboard.jsx';
 import ClubList from './your-club-list-dashboard.jsx';
 import CreateClub from './create-club.jsx';
 import Club from './club.jsx';
@@ -51,7 +50,34 @@ class Dashboard extends React.Component {
      return (
       <div>
         <h1>{this.props.user.first_name}'s Dashboard</h1>
-        <MeetingList meetingList= {this.state.meetings}/>
+        { /* Meetings list */
+          (!this.state.meetings || this.state.meetings.length === 0) ?
+          (
+            <div className="ui segment">
+              <h2 className="dashboard-header">Upcoming Meetings:</h2>
+              <div>No meetings yet!</div>
+            </div>
+          ) : (
+            <div className="ui segment">
+              <h2 className="dashboard-header">Upcoming Meetings:</h2>
+              <div className="ui four cards">
+                {this.state.meetings.map((meeting, id) =>
+                  ( <div key={id} className="card">
+                      <div className="content">
+                        <h2 className="header">{meeting.meeting_date + ' at ' + meeting.meeting_time}</h2>
+                      </div>
+                      <div className="content">
+                        <div className="ui sub header">{meeting.meeting_street_address}</div>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+          )
+        }
+
+
         <ClubList clubs={this.props.clubs}/>
         { /*BookList*/
           (!this.state.books || this.state.books.length === 0) ?
