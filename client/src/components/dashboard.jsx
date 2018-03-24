@@ -2,11 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
-import Profile from './profile.jsx';
-import ClubList from './your-club-list-dashboard.jsx';
-import CreateClub from './create-club.jsx';
 import Club from './club.jsx';
-import '../styles/main.css';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -77,8 +73,31 @@ class Dashboard extends React.Component {
           )
         }
 
+        { /* Clubs list */
+          (!this.props.clubs || this.props.clubs.length === 0) ?
+          (
+            <div className="ui segment">
+              <h2 className="dashboard-header">Your Book Clubs:</h2>
+              <div>You're not in any book clubs!</div>
+            </div>
+          ) : (
+            <div className="ui segment">
+              <h2 className="dashboard-header">Your Book Clubs:</h2>
+              <div className="ui seven link cards">
+                { this.props.clubs.map((club) =>
+                  <div className="card" key={club.title} style={{padding: '1em'}} >
+                    <img className="carousel-card-img" src={club.image}/>
+                    <div className="content">
+                      <div className="header">{club.title}</div>
+                      <Link to={`/dashboard/${club.id}`}>Details</Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )
+        }
 
-        <ClubList clubs={this.props.clubs}/>
         { /*BookList*/
           (!this.state.books || this.state.books.length === 0) ?
           (
