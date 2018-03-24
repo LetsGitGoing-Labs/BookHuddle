@@ -1,7 +1,7 @@
 const db = require('./index.js');
 
 const retrieveClubs = (cb, dataObj, res) => {
-  return knex
+  return db.knex
   .select()
   .from('club')
   .then(function(clubs, err) {
