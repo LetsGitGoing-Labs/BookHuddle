@@ -15,6 +15,8 @@ import MainNavbar from './main-navbar.jsx';
 import Club from './club.jsx';
 import DashboardRouting from './dashboard-routing.jsx';
 
+import '../styles/style.css';
+
 class App extends React.Component {
   constructor(props) {
     super(props);

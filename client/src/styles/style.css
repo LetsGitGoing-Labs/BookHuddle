@@ -1,0 +1,139 @@
+/*
+
+################################################################# */
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
+/*  ################################################################
+  1. GENERAL STRUCTURES
+################################################################# */
+
+* {
+  margin: 0;
+  padding: 0px;
+}
+
+body {
+  background: #ffffff;
+  margin: 0;
+  height: 100%;
+  color: #384452;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+p {
+  padding: 0;
+  margin-bottom: 12px;
+  line-height: 24px;
+  color: #384452;
+  margin-top: 10px;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+
+.book-cover {
+  width: 190px;
+  height: 260px;
+  object-fit: cover;
+}
+
+.centered {
+  text-align: center
+}
+
+.content-wrapper {
+  padding: 40px 0;
+}
+
+.hline {
+  border-bottom: 2px solid #384452;
+}
+
+.hline-w {
+  border-bottom: 2px solid #ffffff;
+  margin-bottom: 25px;
+}
+
+/*  ################################################################
+  BOOTSTRAP MODIFICATIONS & TWEAKS
+################################################################# */
+
+.navbar {
+  min-height: 65px;
+  padding-top: 10px;
+  margin-bottom: 0px;
+}
+
+.navbar-brand {
+  font-weight: 900;
+  color: white;
+}
+
+
+/*  ################################################################
+  SITE WRAPS
+################################################################# */
+
+/*Frontpage Header*/
+
+#headerwrap {
+  background-color: #E85E4F;
+  min-height: 550px;
+  padding-top: 25%;
+  padding-bottom: 0px;
+  text-align: center;
+}
+
+#headerwrap h3, #headerwrap h5 {
+  color: white;
+  font-weight: 400;
+}
+
+#headerwrap h1 {
+  color: white;
+  margin-bottom: 25px;
+}
+
+/*How it Works Section*/
+#service i {
+  color: #00b3fe;
+  font-size: 40px;
+  padding: 15px;
+}
+
+/*Book Feature Section*/
+#feature {
+  background-color: lightblue;
+}
+
+#feature h3 {
+  margin-bottom: 25px;
+}
+
+#feature h4 {
+  margin-top: 25px;
+}
+
+/*Footer Section*/
+
+#footerwrap {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background: #333;
+}
+
+#footerwrap p {
+  color: #bfc9d3;
+}
+
+#footerwrap h4 {
+  color: white;
+}
