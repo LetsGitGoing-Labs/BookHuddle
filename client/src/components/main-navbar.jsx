@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LoginModal from './login-modal.jsx'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+import LoginModal from './login-modal.jsx';
 
 class MainNavbar extends React.Component {
   constructor(props) {
@@ -42,9 +40,6 @@ class MainNavbar extends React.Component {
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
               <Link to="/about" className="nav-link">Our Team</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/faq" className="nav-link">FAQ</Link>
               </li>
               <li className="nav-item active">
                 <Link to="" name='signup' className="nav-link" onClick={this.toggleModal}>Signup</Link>

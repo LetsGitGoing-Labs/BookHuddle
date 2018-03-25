@@ -27,7 +27,6 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
   padding: 0;
-  margin-bottom: 12px;
   line-height: 24px;
   color: #384452;
   margin-top: 10px;
@@ -38,10 +37,9 @@ img {
   max-width: 100%;
 }
 
-
 .book-cover {
-  width: 190px;
-  height: 260px;
+  width: 160px;
+  height: 240px;
   object-fit: cover;
 }
 
@@ -67,9 +65,7 @@ img {
 ################################################################# */
 
 .navbar {
-  min-height: 65px;
-  padding-top: 10px;
-  margin-bottom: 0px;
+  min-height: 70px;
 }
 
 .navbar-brand {
@@ -77,41 +73,66 @@ img {
   color: white;
 }
 
+.btn {
+  text-decoration: none;
+  padding: 0.8em 1.5em;
+  color: #fff;
+  background: #292624;
+  border: 1px solid #666;
+  margin: .5em 0;
+  display: inline-block;
+}
+
 
 /*  ################################################################
-  SITE WRAPS
+  HOMEPAGE
 ################################################################# */
 
 /*Frontpage Header*/
+#showcase .bg-image {
+  position: absolute;
+  background: url('https://source.unsplash.com/IMtEliM53Lc') no-repeat center;
+  background-size: cover;
+  width: 100%;
+  height: 500px;
+  z-index: -1;
+  opacity: 1;
+}
 
-#headerwrap {
-  background-color: #E85E4F;
-  min-height: 550px;
-  padding-top: 25%;
-  padding-bottom: 0px;
+.bg-overlay {
+  background-color: #333;
+  opacity: 0.3;
+  position: absolute;
+  height: 500px;
+  width: 100%;
+  z-index: -1;
+}
+
+#showcase {
+  height: 500px;
+  color: #fff;
   text-align: center;
+  color: #fff;
+/*  background-color: #E85E4F;*/
+}
+#showcasewrap {
+  padding-top: 25%;
 }
 
-#headerwrap h3, #headerwrap h5 {
-  color: white;
+#showcasewrap h3, #showcasewrap h5 {
   font-weight: 400;
-}
-
-#headerwrap h1 {
-  color: white;
-  margin-bottom: 25px;
 }
 
 /*How it Works Section*/
 #service i {
-  color: #00b3fe;
+  color: #E85E4F;
   font-size: 40px;
   padding: 15px;
 }
 
 /*Book Feature Section*/
 #feature {
-  background-color: lightblue;
+  background-color: #A7D2CB;
 }
 
 #feature h3 {
@@ -137,3 +158,51 @@ img {
 #footerwrap h4 {
   color: white;
 }
+
+
+/*  ################################################################
+  LOGIN MODAL
+################################################################# */
+
+.modal-dialog {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  background: transparent;
+  margin: 3em auto 4em;
+  cursor: auto;
+}
+
+.modal-tab {
+  width: 50%;
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #e6e6e6;
+  color: #8f908f;
+}
+.modal-tab.active {
+  background-color: #fff;
+  color: #333;
+}
+.nav-link, .nav-link.active {
+  border: none;
+}
+.nav-link:hover {
+  border: none;
+}
+
+.nav-tabs li:last-child {
+  border-top-right-radius: 0.3em;
+}
+
+.nav-tabs li:first-child {
+  border-top-left-radius: 0.3em;
+}
+.tab-content {
+  padding: 2em 2em 0.5em 2em;
+}
+
+.modal-content, .modal-body {
+  padding: 0;
+}
+
