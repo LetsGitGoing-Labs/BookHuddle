@@ -20,6 +20,12 @@ let players = [];
 let host = {};
 let questions = require('../client/MockQuestions/questions.js');
 let currentQuestion = false;
+let results = {
+  a: 0,
+  b: 0,
+  c: 0,
+  d: 0
+};
 
 let ioServer = app.listen(4000)
 let io = require('socket.io').listen(ioServer);
@@ -74,8 +80,14 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('ask', function(question){
     currentQuestion = question;
+    results = {a: 0, b: 0, c: 0, d: 0};
     io.sockets.emit('ask', currentQuestion);
     console.log('question: %s', question.q);
+  })
+
+  socket.on('answer', function(payload) {
+    results[payload.answer]++;
+    console.log('answer: %s', payload.choice, results)
   })
 
   socket.emit('welcome', {

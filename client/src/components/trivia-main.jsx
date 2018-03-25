@@ -157,6 +157,7 @@ class TriviaMain extends React.Component {
   }
 
   ask(question) {
+    sessionStorage.answer = '';
     this.setState({
       currentQuestion: question
     })
@@ -179,7 +180,7 @@ class TriviaMain extends React.Component {
 	      
 	     
        {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} clickHostRedirect={this.clickHostRedirect}/>}
-       {this.state.viewState === 'players' && <TriviaPlayers player={this.state.player} currentQuestion={this.state.currentQuestion} players={this.state.players}/>} 
+       {this.state.viewState === 'players' && <TriviaPlayers player={this.state.player} currentQuestion={this.state.currentQuestion} players={this.state.players} emit={this.emit}/>} 
        {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange}/>}
        {this.state.viewState === 'hostpage' && <HostPage players={this.state.players} questions={this.state.questions} emit={this.emit}/>}
       </div>

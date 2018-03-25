@@ -1,4 +1,5 @@
 import React from 'react';
+import Ask from './trivia-ask.jsx';
 
 class TriviaPlayers extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class TriviaPlayers extends React.Component {
         <p>Players: {this.props.players.length}</p>
   	  </div>}
   	  {this.props.currentQuestion &&
-        <h2>{this.props.currentQuestion.q}</h2>
+        <Ask question={this.props.currentQuestion} emit={this.props.emit}/>
   	  }
   	  </div>
   	)
