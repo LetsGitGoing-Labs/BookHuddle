@@ -39,14 +39,41 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // Schema
 var schema = buildSchema(`
   type Mutation {
-    setMessage(message: String):
-      String
+    getBooksAPI(searchBy: String): String
   }
 
   type Query {
-    getMessage: String
+    getBooksAPI: String
   }
 `);
+
+let amazonPromise = (searchBy) => {
+  return new Promise((resolve, reject) => {
+    amazonHelpers.retrieveBooksAPI(searchBy)
+        .then(function(books) {
+          var parsedData = parseString(books.data, function(err, result) {
+            result = result.ItemSearchResponse.Items[0].Item;
+            var bookData = result.map((bookObject) => {
+                if (bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage[0].URL) {
+                  return {
+                  book_amazon_id: bookObject.ASIN,
+                  book_title: bookObject.ItemAttributes[0].Title,
+                  book_author: bookObject.ItemAttributes[0].Author,
+                  book_image: bookObject.MediumImage[0].URL,
+                  book_url: bookObject.DetailPageURL
+                  };
+                }
+              }
+            );
+
+            resolve(JSON.stringify(bookData.slice(0, 7)));
+          });
+        })
+        .then((err) => {
+          console.log(err);
+        });
+      });
+};
 
 // Resolvers
 var root = {
@@ -56,6 +83,9 @@ var root = {
   },
   getMessage: function () {
     return fakeDatabase.message;
+  },
+  getBooksAPI: ({searchBy}) => {
+  return amazonPromise(searchBy);
   }
 };
 

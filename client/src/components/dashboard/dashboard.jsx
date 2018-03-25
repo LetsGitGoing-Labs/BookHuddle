@@ -23,17 +23,27 @@ class Dashboard extends React.Component {
   }
 
   getBooks() {
-    let context = this;
+    var searchTerm = 'Harry Potter';
+
+    var query = `mutation GetBooksAPI($searchTerm: String) {
+      getBooksAPI(searchBy: $searchTerm)
+    }`;
+
     $.ajax({
-      type: 'GET',
-      url: '/getBooksAPI',
-      data: { searchTerm: 'Jane Austen' },
-      success: function(books) {
-        context.setState({
-          books: books.slice(0,3)
+      type: 'POST',
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query: query,
+        variables: { searchTerm: searchTerm }
+      }),
+      success: (booksData) => {
+        let books = JSON.parse(booksData.data.getBooksAPI);
+        this.setState({
+          books: books
         });
       },
-      error: function(err) {
+      error: (err) => {
         console.log(err);
       }
     });
