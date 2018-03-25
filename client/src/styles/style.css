@@ -210,3 +210,48 @@ ul {
   padding: 0;
 }
 
+#button2 {
+  width:50%;
+  padding: 3%;
+  margin-bottom: 10%;
+
+}
+
+#login-err {
+  color: red;
+  text-align: left;
+  font-family: Arial;
+  font-size: 80%;
+}
+
+.close {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 20px;
+  top: 15px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  opacity: 1;
+}
+
+.close:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+#button1 {
+  width: 30%;
+  color: white;
+  padding: 0.82em;
+  background-color: #c75959;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.btn:hover, #button1:hover {
+  color: #292624;
+  background: #e6e6e6;
+}
+
