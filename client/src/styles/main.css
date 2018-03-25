@@ -29,64 +29,6 @@
   background: #e6e6e6;
 }
 
-/*Header*/
-.dashboard-header {
-  font-size: 1.4em;
-  color: #000;
-}
-
-.dashboard-title {
-  font-size: 1.8em;
-  color: #000;
-}
-
-
-/*Info Section*/
-
-.book-carousel {
-  background-color: #e6e6e6;
-}
-
-.carousel-list {
-  margin-top: 1em;
-}
-
-/*Section B */
-.carousel-card-img {
-  height: 270px;
-  width: 180px;
-  object-fit: cover;
-  margin:  0 auto;
-}
-
-.carousel-card {
-  padding-bottom: 20px;
-}
-
-/*Section C */
-
-#section-c .box {
-  padding: 2em;
-  color: #292624;
-  background: #fff;
-  text-align: center;
-}
-
-#section-c .box:first-child {
-  background: #c75959;
-  color: #fff;
-}
-
-/*Footer*/
-
-#main-footer {
-  padding: 1em;
-  background: #292624;
-  color: #fff;
-  text-align: center;
-  padding-bottom: 10px;
-}
-
 /* Login signup */
 
 #button1 {

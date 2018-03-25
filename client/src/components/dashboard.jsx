@@ -44,51 +44,47 @@ class Dashboard extends React.Component {
   render() {
     const index = this.state.index;
      return (
-      <div>
-        <h1>{this.props.user.first_name}'s Dashboard</h1>
-        { /* Meetings list */
-          (!this.state.meetings || this.state.meetings.length === 0) ?
-          (
-            <div className="ui segment">
-              <h2 className="dashboard-header">Upcoming Meetings:</h2>
-              <div>No meetings yet!</div>
-            </div>
-          ) : (
-            <div className="ui segment">
-              <h2 className="dashboard-header">Upcoming Meetings:</h2>
-              <div className="ui four cards">
-                {this.state.meetings.map((meeting, id) =>
-                  ( <div key={id} className="card">
-                      <div className="content">
-                        <h2 className="header">{meeting.meeting_date + ' at ' + meeting.meeting_time}</h2>
-                      </div>
-                      <div className="content">
-                        <div className="ui sub header">{meeting.meeting_street_address}</div>
-                      </div>
-                    </div>
-                  )
-                )}
+      <div id="dashboard">
+        <div class="container col-md-8">
+          <div class="content-wrapper">
+            { /* Meetings list */
+            (!this.state.meetings || this.state.meetings.length === 0) ?
+            (
+              <div>
+                <h3>Upcoming Meetings:</h3>
+                <div>No meetings yet!</div>
               </div>
-            </div>
-          )
-        }
-
-        { /* Clubs list */
+            ) : (
+              <div>
+                <h3>Upcoming Meetings:</h3>
+                  {this.state.meetings.map((meeting, id) =>
+                    ( <div className="meeting-card" key={id}>
+                        <h5>{meeting.meeting_date + ' at ' + meeting.meeting_time}</h5>
+                        <p>{meeting.meeting_street_address}</p>
+                      </div>
+                    )
+                  )}
+                </div>
+            )
+          }
+          </div>
+          <div class="content-wrapper">
+            { /* Clubs list */
           (!this.props.clubs || this.props.clubs.length === 0) ?
           (
-            <div className="ui segment">
-              <h2 className="dashboard-header">Your Book Clubs:</h2>
+            <div>
+              <h3>Your Book Clubs:</h3>
               <div>You're not in any book clubs!</div>
             </div>
           ) : (
-            <div className="ui segment">
-              <h2 className="dashboard-header">Your Book Clubs:</h2>
-              <div className="ui seven link cards">
+            <div>
+              <h3>Your Book Clubs:</h3>
+              <div>
                 { this.props.clubs.map((club) =>
                   <div className="card" key={club.title} style={{padding: '1em'}} >
-                    <img className="carousel-card-img" src={club.image}/>
-                    <div className="content">
-                      <div className="header">{club.title}</div>
+                    <img className="book-cover" src={club.image}/>
+                    <div>
+                      <p>{club.title}</p>
                       <Link to={`/dashboard/${club.id}`}>Details</Link>
                     </div>
                   </div>
@@ -97,8 +93,9 @@ class Dashboard extends React.Component {
             </div>
           )
         }
-
-        { /*BookList*/
+          </div>
+          <div class="row">
+           { /*BookList*/
           (!this.state.books || this.state.books.length === 0) ?
           (
             <div className="ui segment">
@@ -123,6 +120,8 @@ class Dashboard extends React.Component {
             </div>
           )
         }
+          </div>
+        </div>
       </div>
     )
   }
@@ -143,34 +142,6 @@ const meetings = [
           title: 'Persuasion',
           author: 'Jane Austen',
           imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/41uM9MBn1CL._SX326_BO1,204,203,200_.jpg'
-        }
-      },
-      {
-        id: 2,
-        meeting_date: 'April 1st, 2018',
-        meeting_time: '7:30 PM',
-        meeting_host: 'joey@gamil.com',
-        meeting_street_address: '123 Main Street, Houston, TX 12345',
-        meeting_notes: 'Next month we\'re reading Sense and Sensibility.  Amy and Stan are bringing refreshments.',
-        meeting_book: {
-          amazon_id: null,
-          title: 'Sense and Sensibility',
-          author: 'Jane Austen',
-          imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/414hu6Q4xFL._SX324_BO1,204,203,200_.jpg'
-        }
-      },
-      {
-        id: 3,
-        meeting_date: 'May 3rd, 2018',
-        meeting_time: '10 am',
-        meeting_host: 'joey@gamil.com',
-        meeting_street_address: 'TBD',
-        meeting_notes: 'For May we need someone to volunteer to host the meeting.  We\'ll be done with Persuasion, Thinking of reading .',
-        meeting_book: {
-          amazon_id: null,
-          title: 'Mansfield park',
-          author: 'Jane Austen',
-          imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/41jTnx6I%2BbL._SX324_BO1,204,203,200_.jpg'
         }
       }
       ]

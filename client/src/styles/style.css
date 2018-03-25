@@ -37,6 +37,10 @@ img {
   max-width: 100%;
 }
 
+ul {
+  list-style: none;
+}
+
 .book-cover {
   width: 160px;
   height: 240px;
