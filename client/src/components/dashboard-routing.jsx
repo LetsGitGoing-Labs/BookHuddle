@@ -29,11 +29,17 @@ class DashboardRouting extends React.Component {
         {/* Sidebar*/}
         <div id="sidebar"class="col-md-3">
           <div className="sidebar-content">
-            <p class="centered"><a href="profile.html"><img src="http://source.unsplash.com/aZm98bjnA20" class="img-circle"/></a></p>
-            <h6 class="centered">Joe Smalls</h6>
-            <ul class="centered">
-              <li class="mt">
-                <a href="index.html">Dashboard</a>
+            <p class="centered"><a href="profile.html"><img src="http://source.unsplash.com/aZm98bjnA20" className="img-circle"/></a></p>
+            <h6 className="centered">Joe Smalls</h6>
+            <ul className="centered">
+              <li>
+                <a href="#">Dashboard</a>
+              </li>
+              <li>
+                <a href="#">Create a Club</a>
+              </li>
+              <li>
+                <a href="#">Logout</a>
               </li>
             </ul>
           </div>

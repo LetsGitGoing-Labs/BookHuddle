@@ -7,7 +7,6 @@ import Signup from './signup.jsx';
 import Login from './login.jsx';
 import Dashboard from './dashboard.jsx';
 import Logout from './logout.jsx';
-import '../styles/main.css';
 import CreateClub from './create-club.jsx';
 import Profile from './profile.jsx';
 import LoginModal from './login-modal.jsx';

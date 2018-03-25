@@ -2,7 +2,6 @@ import React from 'react';
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
 import { Modal, ModalBody } from 'reactstrap';
-import '../styles/main.css';
 
 class CreateClub extends React.Component {
   constructor(props) {
