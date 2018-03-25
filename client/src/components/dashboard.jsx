@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
                   <div>
                     <h3>Upcoming Meetings:</h3>
                     {this.state.meetings.map((meeting, id) =>
-                      ( <div className="meeting-card" key={id}>
+                      ( <div key={id}>
                           <h5>{meeting.meeting_date + ' at ' + meeting.meeting_time}</h5>
                           <p>{meeting.meeting_street_address}</p>
                         </div>
@@ -73,8 +73,9 @@ class Dashboard extends React.Component {
               ) : (
                 <div>
                   <h3>Your Book Clubs:</h3>
+                  <div className="row">
                   { this.props.clubs.map((club) =>
-                    <div className="card" key={club.title} style={{padding: '1em'}} >
+                    <div className="col-md-4" key={club.title}>
                       <img className="book-cover" src={club.image}/>
                       <div>
                         <p>{club.title}</p>
@@ -82,6 +83,7 @@ class Dashboard extends React.Component {
                       </div>
                     </div>
                   )}
+                  </div>
                 </div>
               )
             }
@@ -91,22 +93,22 @@ class Dashboard extends React.Component {
               (!this.state.books || this.state.books.length === 0) ?
               (
                 <div>
-                  <h2>Recommended Books</h2>
+                  <h3>Recommended Books</h3>
                   <div>No recommendations yet!</div>
                 </div>
               ) : (
                 <div>
-                  <h2>Recommended Books:</h2>
-                  <div>
+                  <h3>Recommended Books:</h3>
+                  <div className="row">
                     {this.state.books.map((book, i) =>
-                      (<a key={i} href={book.book_url} target='blank' className="card">
-                        <div className="image">
-                          <img src={book.book_image[0]}/>
+                      (
+                        <div className="col-md-4">
+                          <a key={i} href={book.book_url} target='blank'>
+                            <img className="book-cover" src={book.book_image[0]}/>
+                            <p>{book.book_title[0].slice(0, 30)}</p>
+                          </a>
                         </div>
-                        <div className="content">
-                          <h2 className="ui sub header">{book.book_title[0].slice(0, 30)}</h2>
-                        </div>
-                      </a>)
+                      )
                     )}
                   </div>
                 </div>

@@ -22,8 +22,8 @@
 }
 
 .img-circle {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -43,7 +43,7 @@
   position: fixed;
   padding-top: 30px;
   margin: 0 auto;
-  width: 240px;
+  width: 25%;
 }
 
 #sidebar {
