@@ -68,7 +68,6 @@ class Club extends React.Component {
             </ul>
           </nav>
         </div>
-        <div className="container">
           <div className="btnDiv">
             <button className="btn btn-primary">New Meeting</button>
           </div>
@@ -88,7 +87,6 @@ class Club extends React.Component {
               </div>
             )}
         </div>
-      </div>
     )
   }
 }

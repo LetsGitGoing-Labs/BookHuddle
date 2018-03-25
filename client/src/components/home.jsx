@@ -60,7 +60,7 @@ class Home extends React.Component {
             </section>
 
           <section id="feature" className="content-wrapper">
-            <div className="container centered">
+            <div className="centered">
               <h3>Our Top Picks</h3>
               <p><em>Popular books from our book clubs!</em></p>
               <div className="row">
@@ -75,13 +75,13 @@ class Home extends React.Component {
               </div>
             </div>
           </section>
-          <section id='action'>
+          <section id='action' className="container">
             <div className='row'>
-              <div className="col-md-6 content-wrapper centered">
+              <div className="col-md-6 centered content-wrapper">
                 <h3>What Others Are Saying</h3>
                 <p>Enlightenment self philosophy enlightenment of.</p>
               </div>
-              <div className="col-md-6 content-wrapper centered">
+              <div className="col-md-6 centered content-wrapper">
                 <h3>Get in the Huddle</h3>
                 <p>Read your next classic with friends.</p>
                 <a href='#' className='btn'>Sign up</a>
