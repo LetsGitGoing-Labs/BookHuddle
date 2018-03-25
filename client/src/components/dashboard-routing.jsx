@@ -27,23 +27,20 @@ class DashboardRouting extends React.Component {
         <DashboardNavbar />
         <div className="row">
         {/* Sidebar*/}
-        <div class="col-md-3">
-          <div id="sidebar">
-            <div className="sidebar-content">
-              <p class="centered"><a href="profile.html"><img src="http://source.unsplash.com/aZm98bjnA20" class="img-circle"/></a></p>
-              <h6 class="centered">Joe Smalls</h6>
-              <ul class="centered">
-                <li class="mt">
-                  <a href="index.html">Dashboard</a>
-                </li>
-              </ul>
-            </div>
+        <div id="sidebar"class="col-md-3">
+          <div className="sidebar-content">
+            <p class="centered"><a href="profile.html"><img src="http://source.unsplash.com/aZm98bjnA20" class="img-circle"/></a></p>
+            <h6 class="centered">Joe Smalls</h6>
+            <ul class="centered">
+              <li class="mt">
+                <a href="index.html">Dashboard</a>
+              </li>
+            </ul>
           </div>
         </div>
 
         <Switch>
           <Route path='/dashboard/create-club' component={ CreateClub } />
-          <Route path='/dashboard/profile' component={ Profile } />
           <Route path='/dashboard/:clubId' render={
             (props) => ( <Club {...props} clubs={this.state.clubs}/>)
           } />

@@ -26,7 +26,7 @@ class Dashboard extends React.Component {
       data: { searchTerm: 'Jane Austen' },
       success: function(books) {
         context.setState({
-          books: books
+          books: books.slice(0,3)
         });
       },
       error: function(err) {
@@ -35,91 +35,83 @@ class Dashboard extends React.Component {
     });
   }
 
-  onCreateClubClick() {
-    this.setState({
-      createClubRedirect: true
-    });
-  }
-
   render() {
     const index = this.state.index;
      return (
-      <div id="dashboard">
-        <div class="container col-md-8">
-          <div class="content-wrapper">
+      <div id="dashboard" className="col-md-9">
+        <div className="container">
+          <div id="meetings-list" class="content-wrapper">
             { /* Meetings list */
-            (!this.state.meetings || this.state.meetings.length === 0) ?
-            (
-              <div>
-                <h3>Upcoming Meetings:</h3>
-                <div>No meetings yet!</div>
-              </div>
-            ) : (
-              <div>
-                <h3>Upcoming Meetings:</h3>
-                  {this.state.meetings.map((meeting, id) =>
-                    ( <div className="meeting-card" key={id}>
-                        <h5>{meeting.meeting_date + ' at ' + meeting.meeting_time}</h5>
-                        <p>{meeting.meeting_street_address}</p>
+              (!this.state.meetings || this.state.meetings.length === 0) ?
+                (
+                  <div>
+                    <h3>Upcoming Meetings:</h3>
+                    <div>No meetings yet!</div>
+                  </div>
+                ) : (
+                  <div>
+                    <h3>Upcoming Meetings:</h3>
+                    {this.state.meetings.map((meeting, id) =>
+                      ( <div className="meeting-card" key={id}>
+                          <h5>{meeting.meeting_date + ' at ' + meeting.meeting_time}</h5>
+                          <p>{meeting.meeting_street_address}</p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                )
+              }
+          </div>
+          <div id ="clubs-list" class="content-wrapper">
+            { /* Clubs list */
+              (!this.props.clubs || this.props.clubs.length === 0) ?
+              (
+                <div>
+                  <h3>Your Book Clubs:</h3>
+                  <div>You're not in any book clubs!</div>
+                </div>
+              ) : (
+                <div>
+                  <h3>Your Book Clubs:</h3>
+                  { this.props.clubs.map((club) =>
+                    <div className="card" key={club.title} style={{padding: '1em'}} >
+                      <img className="book-cover" src={club.image}/>
+                      <div>
+                        <p>{club.title}</p>
+                        <Link to={`/dashboard/${club.id}`}>Details</Link>
                       </div>
-                    )
+                    </div>
                   )}
                 </div>
-            )
-          }
+              )
+            }
           </div>
-          <div class="content-wrapper">
-            { /* Clubs list */
-          (!this.props.clubs || this.props.clubs.length === 0) ?
-          (
-            <div>
-              <h3>Your Book Clubs:</h3>
-              <div>You're not in any book clubs!</div>
-            </div>
-          ) : (
-            <div>
-              <h3>Your Book Clubs:</h3>
-              <div>
-                { this.props.clubs.map((club) =>
-                  <div className="card" key={club.title} style={{padding: '1em'}} >
-                    <img className="book-cover" src={club.image}/>
-                    <div>
-                      <p>{club.title}</p>
-                      <Link to={`/dashboard/${club.id}`}>Details</Link>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )
-        }
-          </div>
-          <div class="row">
+          <div id="books-list" class="content-wrapper">
            { /*BookList*/
-          (!this.state.books || this.state.books.length === 0) ?
-          (
-            <div className="ui segment">
-              <h2 className="dashboard-header">Recommended Books</h2>
-              <div>No recommendations yet!</div>
-            </div>
-          ) : (
-            <div className="ui segment">
-              <h2 className="dashboard-header">Recommended Books:</h2>
-              <div className="ui seven link cards">
-                {this.state.books.map((book, i) =>
-                  (<a key={i} href={book.book_url} target='blank' className="card">
-                    <div className="image">
-                      <img src={book.book_image[0]}/>
-                    </div>
-                    <div className="content">
-                      <h2 className="ui sub header">{book.book_title[0].slice(0, 30)}</h2>
-                    </div>
-                  </a>)
-                )}
-              </div>
-            </div>
-          )
-        }
+              (!this.state.books || this.state.books.length === 0) ?
+              (
+                <div>
+                  <h2>Recommended Books</h2>
+                  <div>No recommendations yet!</div>
+                </div>
+              ) : (
+                <div>
+                  <h2>Recommended Books:</h2>
+                  <div>
+                    {this.state.books.map((book, i) =>
+                      (<a key={i} href={book.book_url} target='blank' className="card">
+                        <div className="image">
+                          <img src={book.book_image[0]}/>
+                        </div>
+                        <div className="content">
+                          <h2 className="ui sub header">{book.book_title[0].slice(0, 30)}</h2>
+                        </div>
+                      </a>)
+                    )}
+                  </div>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

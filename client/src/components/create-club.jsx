@@ -48,7 +48,8 @@ class CreateClub extends React.Component {
 
   render() {
     return (
-        <div>
+      <div id="create-club-form" className="col-md-9">
+        <div className="container">
           <h1 className="centerize">Create a Club</h1>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group">
@@ -73,6 +74,7 @@ class CreateClub extends React.Component {
             <input type="submit" className="btn btn-primary centerize" value="Submit" />
           </form>
         </div>
+      </div>
     );
   }
 }

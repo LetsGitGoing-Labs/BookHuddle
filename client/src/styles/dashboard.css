@@ -15,11 +15,10 @@
 }
 
 /*SIDEBAR*/
+
 #sidebar {
-    height: 100%;
-    background: #424a5d;
-    padding: 15px 0;
-    color: #fff;
+  background: #424a5d;
+  color: #fff;
 }
 
 .img-circle {
@@ -39,15 +38,15 @@
 
 
 @media only screen and (min-width: 768px) {
-  #sidebar {
-    width: 210px;
-    height: 100%;
-    position: absolute;
-}
 
 .sidebar-content {
   position: fixed;
-  padding: 20px 60px;
-  text-align: center;
+  padding-top: 30px;
+  margin: 0 auto;
+  width: 240px;
+}
+
+#sidebar {
+  min-height: 90vh;
 }
 }

@@ -24,9 +24,6 @@ export default class DashboardNavbar extends React.Component {
                 <Link to="/dashboard/create-club">Create a club</Link>
               </li>
               <li className="nav-item">
-                <Link to="/dashboard/profile">Profile</Link>
-              </li>
-              <li className="nav-item">
                 <Link to="/logout">Logout</Link>
               </li>
             </ul>
