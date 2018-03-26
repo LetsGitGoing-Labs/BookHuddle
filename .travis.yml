@@ -4,5 +4,4 @@ node_js:
 service:
   - mysql
 before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS bookapp;'
   - mysql -u root --password=""
