@@ -36,9 +36,38 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Begin GraphQL
 
-//GraphQL Helper Functions
-let amazonPromise = (searchBy) => {
-  return new Promise((resolve, reject) => {
+// Schema
+var schema = buildSchema(`
+  type Mutation {
+
+    getBooksAPI(searchBy: String): String
+
+    handleLogin(userData: String): String
+
+    handleSignup(userData: String): String
+
+    handleLogout(userData: String): String
+
+  }
+
+  type Query {
+
+    getBooksAPI: String
+
+  }
+`);
+
+// Resolvers
+var root = {
+  setMessage: ({message}) => {
+    fakeDatabase.message = message;
+    return message;
+  },
+  getMessage: () => {
+    return fakeDatabase.message;
+  },
+  getBooksAPI: ({searchBy}) => {
+    return new Promise((resolve, reject) => {
     amazonHelpers.retrieveBooksAPI(searchBy)
         .then(function(books) {
           var parsedData = parseString(books.data, function(err, result) {
@@ -63,50 +92,29 @@ let amazonPromise = (searchBy) => {
           console.log(err);
         });
       });
-};
-
-let loginPromise = (userData) => {
-
-  return new Promise((resolve, reject) => {
-    database.checkUser(userData, null, function(data, statusCode, res) {
-      resolve(JSON.stringify(data));
-    });
-  });
-
-};
-
-// Schema
-var schema = buildSchema(`
-  type Mutation {
-
-    getBooksAPI(searchBy: String): String
-
-    handleLogin(userData: String): String
-
-  }
-
-  type Query {
-
-    getBooksAPI: String
-
-  }
-`);
-
-// Resolvers
-var root = {
-  setMessage: ({message}) => {
-    fakeDatabase.message = message;
-    return message;
-  },
-  getMessage: function () {
-    return fakeDatabase.message;
-  },
-  getBooksAPI: ({searchBy}) => {
-    return amazonPromise(searchBy);
   },
   handleLogin: ({userData}) => {
     userData = JSON.parse(userData);
-    return loginPromise(userData);
+    return new Promise((resolve, reject) => {
+    database.checkUser(userData,
+      null,
+      (data, statusCode, res) => {
+      resolve(JSON.stringify(data));
+    });
+  });
+  },
+  handleSignup: ({userData}) => {
+    userData = JSON.parse(userData);
+    return new Promise((resolve, reject) => {
+      database.addUser((data, statusCode, res) => {
+        resolve(JSON.stringify(data));
+      },
+      userData,
+      null);
+    });
+  },
+  handleLogout: ({userData}) => {
+    console.log('Logged out!');
   }
 };
 
@@ -174,7 +182,7 @@ app.get('/getBooksAPI', (req, res) => {
 });
 
 app.post('/clubs', (req, res) => {
-  let newClub = req.body
+  let newClub = req.body;
   database.addClub(sendData, newClub, res);
 });
 
