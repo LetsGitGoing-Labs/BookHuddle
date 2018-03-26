@@ -1,5 +1,4 @@
 import React from 'react';
-import Book from './book.jsx';
 import MainNavbar from './main-navbar.jsx';
 
 class Home extends React.Component {
@@ -24,68 +23,93 @@ class Home extends React.Component {
       <div>
         <MainNavbar login={this.props.login} signup={this.props.signup}
           isLoggedIn={this.props.isLoggedIn}/>
-        <header id="showcase" className="grid info-section">
+        <header id="showcase">
           <div className='bg-image'></div>
           <div className="bg-overlay"></div>
-          <div className="content-wrapper">
-            <h1 className="showcase-header">BookHuddle</h1>
-            <p className="showcase-text pars">BookHuddle is an app for creating, joining and managing book clubs. Meet new friends who share your reading tastes, and through your book club, find the perfect next books to read!</p>
-            <button className='btn' onClick={this.smoothScroll.bind(this)}>Read More</button>
+          <div id="showcasewrap">
+            <div className="container">
+                <h1>BookHuddle</h1>
+                <h5 className="showcase-text pars">Create, join and manage your book clubs. Meet new friends who share your reading tastes, and find the perfect next books to read!</h5>
+                <button className='btn' onClick={this.smoothScroll.bind(this)}>Read More</button>
+            </div>
           </div>
         </header>
         <main id='main'>
-          <section id='how-it-works' className='grid'>
-            <div className='content-wrapper'>
-              <h2 className="content-title">How it Works</h2>
-            <div className="content-wrapper info-cards">
-              <div className="card-box">
-                <div className="card-content">
-                  <h3 className ="card-title">Create a free account</h3>
+          <section id="service" className="content-wrapper">
+            <div className="container centered">
+              <h3>How it Works</h3>
+              <div className="row">
+                <div className="col-md-4">
+                  <i className="fa fa-heart"></i>
+                  <h4>Signup for free</h4>
                   <p>Sign up and start browsing book clubs by book genre or search by keywords or location. </p>
                 </div>
-              </div>
-              <div className="card-box">
-                <div className="card-content">
-                  <h3 className ="card-title">Create a club</h3>
+                <div className="col-md-4">
+                  <i className="fa fa-heart"></i>
+                  <h4>Create a club</h4>
                   <p>Start your own club that you can make public or private. Pick what genres your club will be reading and add a description to help other readers find you.</p>
                   </div>
-                </div>
-                <div className="card-box">
-                  <div className="card-content">
-                    <h3 className ="card-title">Get Connected</h3>
+                  <div className="col-md-4">
+                    <i className="fa fa-heart"></i>
+                    <h4>Get Connected</h4>
                     <p>Stay up to date with your book club and join in the discussion using your club's message board. Get notified of upcoming meetings.</p>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section id="section-b" className="grid book-carousel">
-            <div className='content-wrapper'>
-              <h2 className="content-title">Our Top Picks</h2>
+          <section id="feature" className="content-wrapper">
+            <div className="centered">
+              <h3>Our Top Picks</h3>
               <p><em>Popular books from our book clubs!</em></p>
-              <div className="carousel-list">
-                { bookList.map((book, index) => <Book key={index} book={book} /> ) }
+              <div className="row">
+                { bookList.map((book, i) =>
+                  <div key={i} className="col-md-4">
+                    <img className="book-cover" src={book.cover} />
+                    <h4>{book.title}</h4>
+                    <p>By {book.author}</p>
+                  </div>
+                  )
+                }
               </div>
             </div>
           </section>
-
-          <section id='section-c' className='grid'>
-            <div className='box'>
-              <h2 className="content-title">What Others Are Saying</h2>
-              <p>Enlightenment self philosophy enlightenment of.</p>
-            </div>
-            <div className='box'>
-              <h2 className="content-title">Get in the Huddle</h2>
-              <p>Read your next classic with friends.</p>
-              <a href='#' className='btn'>Sign up</a>
+          <section id='action' className="container">
+            <div className='row'>
+              <div className="col-md-6 centered content-wrapper">
+                <h3>What Others Are Saying</h3>
+                <p>Enlightenment self philosophy enlightenment of.</p>
+              </div>
+              <div className="col-md-6 centered content-wrapper">
+                <h3>Get in the Huddle</h3>
+                <p>Read your next classic with friends.</p>
+                <a href='#' className='btn'>Sign up</a>
+              </div>
             </div>
           </section>
         </main>
 
-        <footer id='main-footer' className='grid'>
-          <p>Book Huddle</p>
-          <p>Project by LetsGetGoing</p>
+        <footer id="footerwrap">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4">
+                <h4>About</h4>
+                <div className="hline-w"></div>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+              </div>
+              <div className="col-md-4">
+                <h4>FAQ</h4>
+                <div className="hline-w"></div>
+                <p>Do I have to pay anything?</p>
+                <p>How do I create an account?</p>
+                <p>Does my bookclub have to be online?</p>
+              </div>
+              <div className="col-md-4">
+                <h4>Github Repo</h4>
+                <div className="hline-w"></div>
+              </div>
+            </div>
+          </div>
         </footer>
       </div>
     );

@@ -1,54 +1,34 @@
 import React from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
-} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import '../styles/dashboard.css';
 
 export default class DashboardNavbar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isOpen: false
     };
-
-    this.toggle = this.toggle.bind(this);
-  }
-
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
 
   render() {
     return (
       <div>
-        <Navbar color="faded" light expand="md">
-          <NavbarBrand href="/">BookHuddle</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <Link to="/dashboard">My Dashboard-</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/dashboard/create-club">Create a club-</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/dashboard/profile">Profile-</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/logout">Logout </Link>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
+        <nav className="navbar navbar-expand-md navbar-light bg-light">
+          <Link to='/' className="navbar-brand">BookHuddle</Link>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to="/dashboard">My Dashboard</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/dashboard/create-club">Create a club</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/logout">Logout</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
     );
   }

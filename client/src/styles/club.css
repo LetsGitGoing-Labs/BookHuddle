@@ -1,0 +1,38 @@
+.clubHeader {
+  text-align: left;
+  padding-top: 20px;
+  padding-left: 15px;
+}
+
+#club-page .content-wrapper {
+  padding: 0 30px;
+}
+
+.btnDiv {
+  text-align: right;
+}
+
+#club-page-nav {
+  width: 100%;
+}
+
+#club-page-nav li {
+  display: inline-block;
+}
+
+#club-page-nav a {
+  color: #333;
+  padding: 10px;
+}
+
+#club-page {
+  padding: 0;
+}
+
+.meeting-text p {
+  margin: 0;
+}
+
+.meeting-content {
+  padding: 10px;
+}

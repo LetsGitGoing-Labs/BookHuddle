@@ -1,0 +1,52 @@
+/*  ################################################################
+  DASHBOARD
+################################################################# */
+#dashboard h3 {
+  font-weight: 400;
+}
+
+#dashboard .content-wrapper {
+  padding-bottom: 0;
+}
+/*NAVBAR*/
+.nav-item a {
+  padding-right: 10px;
+  color: #333;
+}
+
+/*SIDEBAR*/
+
+#sidebar {
+  background: #424a5d;
+  color: #fff;
+}
+
+.img-circle {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
+
+.meeting-card {
+  margin: 1em 0;
+  border: 1px solid #e6e6e6;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+
+.sidebar-content {
+  position: fixed;
+  padding-top: 30px;
+  margin: 0 auto;
+  width: 22.5%;
+}
+
+#sidebar {
+  min-height: 90vh;
+}
+}

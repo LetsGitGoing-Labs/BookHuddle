@@ -2,13 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
-import Profile from './profile.jsx';
-import MeetingList from './meeting-list-dashboard.jsx';
-import BookList from './book-list-dashboard.jsx';
-import ClubList from './your-club-list-dashboard.jsx';
-import CreateClub from './create-club.jsx';
 import Club from './club.jsx';
-import '../styles/main.css';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -32,7 +26,7 @@ class Dashboard extends React.Component {
       data: { searchTerm: 'Jane Austen' },
       success: function(books) {
         context.setState({
-          books: books
+          books: books.slice(0,3)
         });
       },
       error: function(err) {
@@ -41,27 +35,87 @@ class Dashboard extends React.Component {
     });
   }
 
-  // renderClubPage(e) {
-  //   this.setState({
-  //     index: e.target.id,
-  //     clubRedirect: true
-  //   });
-  // }
-
-  onCreateClubClick() {
-    this.setState({
-      createClubRedirect: true
-    });
-  }
-
   render() {
     const index = this.state.index;
      return (
-      <div>
-        <h1>{this.props.user.first_name}'s Dashboard</h1>
-        <MeetingList meetingList= {this.state.meetings}/>
-        <ClubList clubs={this.props.clubs}/>
-        <BookList onBookClick = {this.onBookClick} bookList={this.state.books}/>
+      <div id="dashboard" className="col-md-9">
+        <div className="container">
+          <div id="meetings-list" class="content-wrapper">
+            { /* Meetings list */
+              (!this.state.meetings || this.state.meetings.length === 0) ?
+                (
+                  <div>
+                    <h3>Upcoming Meetings:</h3>
+                    <div>No meetings yet!</div>
+                  </div>
+                ) : (
+                  <div>
+                    <h3>Upcoming Meetings:</h3>
+                    {this.state.meetings.map((meeting, id) =>
+                      ( <div key={id}>
+                          <h5>{meeting.meeting_date + ' at ' + meeting.meeting_time}</h5>
+                          <p>{meeting.meeting_street_address}</p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                )
+              }
+          </div>
+          <div id ="clubs-list" class="content-wrapper">
+            { /* Clubs list */
+              (!this.props.clubs || this.props.clubs.length === 0) ?
+              (
+                <div>
+                  <h3>Your Book Clubs:</h3>
+                  <div>You're not in any book clubs!</div>
+                </div>
+              ) : (
+                <div>
+                  <h3>Your Book Clubs:</h3>
+                  <div className="row">
+                  { this.props.clubs.map((club) =>
+                    <div className="col-md-4" key={club.title}>
+                      <img className="book-cover" src={club.image}/>
+                      <div>
+                        <p>{club.title}</p>
+                        <Link to={`/dashboard/${club.id}`}>Details</Link>
+                      </div>
+                    </div>
+                  )}
+                  </div>
+                </div>
+              )
+            }
+          </div>
+          <div id="books-list" class="content-wrapper">
+           { /*BookList*/
+              (!this.state.books || this.state.books.length === 0) ?
+              (
+                <div>
+                  <h3>Recommended Books</h3>
+                  <div>No recommendations yet!</div>
+                </div>
+              ) : (
+                <div>
+                  <h3>Recommended Books:</h3>
+                  <div className="row">
+                    {this.state.books.map((book, i) =>
+                      (
+                        <div className="col-md-4">
+                          <a key={i} href={book.book_url} target='blank'>
+                            <img className="book-cover" src={book.book_image[0]}/>
+                            <p>{book.book_title[0].slice(0, 30)}</p>
+                          </a>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              )
+            }
+          </div>
+        </div>
       </div>
     )
   }
@@ -82,34 +136,6 @@ const meetings = [
           title: 'Persuasion',
           author: 'Jane Austen',
           imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/41uM9MBn1CL._SX326_BO1,204,203,200_.jpg'
-        }
-      },
-      {
-        id: 2,
-        meeting_date: 'April 1st, 2018',
-        meeting_time: '7:30 PM',
-        meeting_host: 'joey@gamil.com',
-        meeting_street_address: '123 Main Street, Houston, TX 12345',
-        meeting_notes: 'Next month we\'re reading Sense and Sensibility.  Amy and Stan are bringing refreshments.',
-        meeting_book: {
-          amazon_id: null,
-          title: 'Sense and Sensibility',
-          author: 'Jane Austen',
-          imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/414hu6Q4xFL._SX324_BO1,204,203,200_.jpg'
-        }
-      },
-      {
-        id: 3,
-        meeting_date: 'May 3rd, 2018',
-        meeting_time: '10 am',
-        meeting_host: 'joey@gamil.com',
-        meeting_street_address: 'TBD',
-        meeting_notes: 'For May we need someone to volunteer to host the meeting.  We\'ll be done with Persuasion, Thinking of reading .',
-        meeting_book: {
-          amazon_id: null,
-          title: 'Mansfield park',
-          author: 'Jane Austen',
-          imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/41jTnx6I%2BbL._SX324_BO1,204,203,200_.jpg'
         }
       }
       ]

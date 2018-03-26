@@ -1,0 +1,257 @@
+/*
+
+################################################################# */
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
+/*  ################################################################
+  1. GENERAL STRUCTURES
+################################################################# */
+
+* {
+  margin: 0;
+  padding: 0px;
+}
+
+body {
+  background: #ffffff;
+  margin: 0;
+  height: 100%;
+  color: #384452;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+p {
+  padding: 0;
+  line-height: 24px;
+  color: #384452;
+  margin-top: 10px;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+.book-cover {
+  width: 160px;
+  height: 240px;
+  object-fit: cover;
+}
+
+.centered {
+  text-align: center
+}
+
+.content-wrapper {
+  padding: 40px 0;
+}
+
+.hline {
+  border-bottom: 2px solid #384452;
+}
+
+.hline-w {
+  border-bottom: 2px solid #ffffff;
+  margin-bottom: 25px;
+}
+
+/*  ################################################################
+  BOOTSTRAP MODIFICATIONS & TWEAKS
+################################################################# */
+
+.navbar {
+  min-height: 70px;
+}
+
+.navbar-brand {
+  font-weight: 900;
+  color: white;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 0.8em 1.5em;
+  color: #fff;
+  background: #292624;
+  border: 1px solid #666;
+  margin: .5em 0;
+  display: inline-block;
+}
+
+
+/*  ################################################################
+  HOMEPAGE
+################################################################# */
+
+/*Frontpage Header*/
+#showcase .bg-image {
+  position: absolute;
+  background: url('https://source.unsplash.com/IMtEliM53Lc') no-repeat center;
+  background-size: cover;
+  width: 100%;
+  height: 500px;
+  z-index: -1;
+  opacity: 1;
+}
+
+.bg-overlay {
+  background-color: #333;
+  opacity: 0.3;
+  position: absolute;
+  height: 500px;
+  width: 100%;
+  z-index: -1;
+}
+
+#showcase {
+  height: 500px;
+  color: #fff;
+  text-align: center;
+  color: #fff;
+/*  background-color: #E85E4F;*/
+}
+#showcasewrap {
+  padding-top: 15%;
+}
+
+#showcasewrap h3, #showcasewrap h5 {
+  font-weight: 400;
+}
+
+/*How it Works Section*/
+#service i {
+  color: #E85E4F;
+  font-size: 40px;
+  padding: 15px;
+}
+
+/*Book Feature Section*/
+#feature {
+  background-color: #A7D2CB;
+}
+
+#feature h3 {
+  margin-bottom: 25px;
+}
+
+#feature h4 {
+  margin-top: 25px;
+}
+
+/*Footer Section*/
+
+#footerwrap {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background: #333;
+}
+
+#footerwrap p {
+  color: #bfc9d3;
+}
+
+#footerwrap h4 {
+  color: white;
+}
+
+
+/*  ################################################################
+  LOGIN MODAL
+################################################################# */
+
+.modal-dialog {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  background: transparent;
+  margin: 3em auto 4em;
+  cursor: auto;
+}
+
+.modal-tab {
+  width: 50%;
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #e6e6e6;
+  color: #8f908f;
+}
+.modal-tab.active {
+  background-color: #fff;
+  color: #333;
+}
+.nav-link, .nav-link.active {
+  border: none;
+}
+.nav-link:hover {
+  border: none;
+}
+
+.nav-tabs li:last-child {
+  border-top-right-radius: 0.3em;
+}
+
+.nav-tabs li:first-child {
+  border-top-left-radius: 0.3em;
+}
+.tab-content {
+  padding: 2em 2em 0.5em 2em;
+}
+
+.modal-content, .modal-body {
+  padding: 0;
+}
+
+#button2 {
+  width:50%;
+  padding: 3%;
+  margin-bottom: 10%;
+
+}
+
+#login-err {
+  color: red;
+  text-align: left;
+  font-family: Arial;
+  font-size: 80%;
+}
+
+.close {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 20px;
+  top: 15px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  opacity: 1;
+}
+
+.close:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+#button1 {
+  width: 30%;
+  color: white;
+  padding: 0.82em;
+  background-color: #c75959;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.btn:hover, #button1:hover {
+  color: #292624;
+  background: #e6e6e6;
+}
+
