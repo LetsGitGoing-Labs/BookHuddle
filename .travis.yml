@@ -1,14 +1,14 @@
 language: node_js
 node_js:
   - "9"
+sudo: required
 addons:
   apt:
-    sources:
-      - mysql-5.7-trusty
     packages:
-      - mysql-server
-      - mysql-client
-before_install:
-  - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('test') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-  - sudo mysql_upgrade
-  - sudo service mysql restart
+    - mysql-server-5.6
+    - mysql-client-core-5.6
+    - mysql-client-5.6
+before_script:
+- mysql -u root -e 'CREATE DATABASE bookapp;'
+- mysql -u root -e "CREATE USER 'travis'@'localhost' IDENTIFIED BY 'travis';"
+- mysql -u root -e "GRANT ALL ON bookapp.* TO 'travis'@'localhost';"
