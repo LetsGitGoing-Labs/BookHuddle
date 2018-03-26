@@ -3,3 +3,6 @@ node_js:
   - "9"
 services:
   - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
