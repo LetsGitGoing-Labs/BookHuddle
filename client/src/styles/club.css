@@ -4,6 +4,10 @@
   padding-left: 15px;
 }
 
+#club-page .content-wrapper {
+  padding: 0 30px;
+}
+
 .btnDiv {
   text-align: right;
 }

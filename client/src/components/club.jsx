@@ -56,36 +56,40 @@ class Club extends React.Component {
     const clubData = this.props.clubs.find((ind) => ind.id === this.props.match.params.clubId)
     return (
       <div id="club-page" className="col-md-9">
-        <h2 className="clubHeader">{clubData.title}</h2>
-        <div>
-          <nav id="club-page-nav">
-            <ul>
-              <li><Link to="#">Upcoming</Link></li>
-              <li><Link to="#">Members</Link></li>
-              <li><Link to="#">Book History</Link></li>
-              <li><Link to="#">Recommendations</Link></li>
-              <li><Link to="#">Discussion</Link></li>
-            </ul>
-          </nav>
-        </div>
-          <div className="btnDiv">
-            <button className="btn btn-primary">New Meeting</button>
+      <div className="container">
+          <h2 className="clubHeader">{clubData.title}</h2>
+          <div>
+            <nav id="club-page-nav">
+              <ul>
+                <li><Link to="#">Upcoming</Link></li>
+                <li><Link to="#">Members</Link></li>
+                <li><Link to="#">Book History</Link></li>
+                <li><Link to="#">Recommendations</Link></li>
+                <li><Link to="#">Discussion</Link></li>
+              </ul>
+            </nav>
           </div>
-            {this.state.meetings.map((meeting) =>
-              <div className="row meeting-content">
-                <div className="col-md-4">
-                  <img className="book-cover" src={meeting.meeting_book.imgSrc}/>
-                </div>
-                <div key={meeting.id} className="meeting-text col-md-8">
-                  <p>{meeting.meeting_date} @ {meeting.meeting_time}</p>
-                  <p>{meeting.meeting_book.author}'s {meeting.meeting_book.title}</p>
-                  <p>Hosted by {meeting.meeting_host}</p>
-                  <p>{meeting.meeting_street_address}</p>
-                  <p>{meeting.meeting_notes}</p>
-                </div>
+          <div className="content-wrapper">
+            <div className="btnDiv">
+              <button className="btn btn-primary">New Meeting</button>
+            </div>
+              {this.state.meetings.map((meeting) =>
+                <div className="row meeting-content">
+                  <div className="col-md-4">
+                    <img className="book-cover" src={meeting.meeting_book.imgSrc}/>
+                  </div>
+                  <div key={meeting.id} className="meeting-text col-md-8">
+                    <p>{meeting.meeting_date} @ {meeting.meeting_time}</p>
+                    <p>{meeting.meeting_book.author}'s {meeting.meeting_book.title}</p>
+                    <p>Hosted by {meeting.meeting_host}</p>
+                    <p>{meeting.meeting_street_address}</p>
+                    <p>{meeting.meeting_notes}</p>
+                  </div>
 
-              </div>
-            )}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
     )
   }
