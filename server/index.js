@@ -37,7 +37,8 @@ passport.use(new LocalStrategy((email, password, done) => {
     database.checkUser({ email: email }, function (err, user) {
       if (err) { return done(err); }
       if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
+      if (!user.checkCredentials(email, password)) { return done(null, false); }
+      console.log( '<-- user from after authentication');
       return done(null, user);
     });
   }
@@ -233,25 +234,42 @@ app.post('/meetings', (req, res) => {
   database.saveMeeting(sendData, newMeeting, res);
 });
 
+// creates passport session for user by serialized ID
+passport.serializeUser((user_id, done) => {
+  console.log('serializing user');
+  done(null, user_id);
+});
+
+// deserializes the user ID for passport to deliver to the session
+passport.deserializeUser((user_id, done) => {
+  console.log('deserializing user');
+  User.getUserById(user_id, (err, user) => {
+    done(err, user);
+  })
+});
+
+// NEW LOGIN CODE FOR USE WITH PASSPORT
+app.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    res.redirect('/dashboard');
+  })
+
+// OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
 // app.post('/login', (req, res) => {
 //   //Login auth goes here
 //   database.checkUser(req.body, res, sendData);
 // });
 
-app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
-    function(req, res) {
-      res.redirect('/');
-});
-
 app.post('/signup', (req, res) => {
   let newUser = req.body;
   database.addUser(sendData, newUser, res);
-
 });
 
 app.get('/logout', (req, res) => {
-  console.log('Logged out!');
+  console.log('line 192');
+  req.logOut();
+  res.clearCookie('connect.sid', {path: '/'}).send('cleared');
 });
 
 app.get('/*', (req, res) => {

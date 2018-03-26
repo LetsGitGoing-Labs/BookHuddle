@@ -44,24 +44,21 @@ const checkUser = (user, cb) => {
 };
 
 // CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT
-const checkPassword = (user, cb) => {
+const checkCredentials = (email, password) => {
    return db.knex('user')
   .where({
-    email: user.email,
-    password: user.password
+    email: email,
+    password: password
   })
   .select()
   .then((data) => {
     //placeholder for using bcrypt
     if (data.length > 0 ) {
-      data[0].password = 'encrypted';
-      cb(data, 200, res);
+      return true;
     } else {
-      cb(data, 401, res);
+      return false;
     }
-  .then((err, user) => {
-    cb(err, user)
-  });
+  })
 };
 
 const clubNameIsTaken = (clubName) => {
@@ -109,6 +106,17 @@ const retrieveUser = (email, res, cb) => {
       cb('Internal Server Error', 500, res);
     }
   });
+};
+
+const getUserById = (user_id) => {
+  return db.knex('user')
+  .where({
+    id: user_id
+  })
+  .select()
+  .then((err, user) => {
+    cb(err, user);
+  })
 };
 
 const retrieveMeeting = (meetingID, cb) => {
@@ -222,6 +230,7 @@ module.exports = {
   addUser,
   addClub,
   checkUser,
-  saveMeeting
+  saveMeeting,
+  getUserById
 };
 
