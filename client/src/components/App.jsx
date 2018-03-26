@@ -12,8 +12,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: {},
-      isLoggedIn: true
-    }
+      isLoggedIn: false
+    };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);

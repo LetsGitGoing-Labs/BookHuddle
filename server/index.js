@@ -48,11 +48,15 @@ var schema = buildSchema(`
 
     handleLogout(userData: String): String
 
+    handleClubCreate(clubData: String): String
+
   }
 
   type Query {
 
     getBooksAPI: String
+
+    getClubs: String
 
   }
 `);
@@ -115,6 +119,25 @@ var root = {
   },
   handleLogout: ({userData}) => {
     console.log('Logged out!');
+  },
+  handleClubCreate: ({clubData}) => {
+    clubData = JSON.parse(clubData);
+    return new Promise((resolve, reject) => {
+      database.addClub((clubData, statusCode, res) => {
+        resolve(JSON.stringify(clubData));
+      },
+      clubData,
+      null);
+    });
+  },
+  getClubs: () => {
+    return new Promise((resolve, reject) => {
+      database.retrieveClubs((clubs, statusCode, res) => {
+        resolve(JSON.stringify(clubs));
+      },
+      null,
+      null);
+    });
   }
 };
 
