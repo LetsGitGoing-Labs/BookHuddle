@@ -1,14 +1,8 @@
 language: node_js
 node_js:
   - "9"
-sudo: required
-addons:
-  apt:
-    packages:
-    - mysql-server-5.6
-    - mysql-client-core-5.6
-    - mysql-client-5.6
-before_script:
-- mysql -u root -e 'CREATE DATABASE bookapp;'
-- mysql -u root -e "CREATE USER 'travis'@'localhost' IDENTIFIED BY 'travis';"
-- mysql -u root -e "GRANT ALL ON bookapp.* TO 'travis'@'localhost';"
+service:
+  - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS bookapp;'
+  - mysql -u root
