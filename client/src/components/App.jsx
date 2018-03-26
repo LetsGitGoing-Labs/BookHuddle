@@ -28,10 +28,20 @@ class App extends React.Component {
   }
 
   handleLogin(formData, cb) {
+
+    formData = JSON.stringify(formData);
+    let query = `mutation HandleLogin($formData: String) {
+      handleLogin(userData: $formData)
+    }`;
+
     $.ajax({
-      url: '/login',
       type: 'POST',
-      data: formData,
+      url: '/graphql',
+      data: JSON.stringify({
+        query: query,
+        variables: { formData : formData }
+      }),
+      contentType: 'application/json',
       success: (data) => {
         // this.setState({
         //   user: data[0],

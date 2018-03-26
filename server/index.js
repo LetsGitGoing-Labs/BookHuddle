@@ -34,19 +34,9 @@ app.use(passport.session());
 // Serve static files to client
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// Begin GraphQL attempt
+// Begin GraphQL
 
-// Schema
-var schema = buildSchema(`
-  type Mutation {
-    getBooksAPI(searchBy: String): String
-  }
-
-  type Query {
-    getBooksAPI: String
-  }
-`);
-
+//GraphQL Helper Functions
 let amazonPromise = (searchBy) => {
   return new Promise((resolve, reject) => {
     amazonHelpers.retrieveBooksAPI(searchBy)
@@ -75,6 +65,23 @@ let amazonPromise = (searchBy) => {
       });
 };
 
+// Schema
+var schema = buildSchema(`
+  type Mutation {
+
+    getBooksAPI(searchBy: String): String
+
+    handleLogin(userData: String): String
+
+  }
+
+  type Query {
+
+    getBooksAPI: String
+
+  }
+`);
+
 // Resolvers
 var root = {
   setMessage: ({message}) => {
@@ -85,7 +92,10 @@ var root = {
     return fakeDatabase.message;
   },
   getBooksAPI: ({searchBy}) => {
-  return amazonPromise(searchBy);
+    return amazonPromise(searchBy);
+  },
+  handleLogin: ({userData}) => {
+    return userData;
   }
 };
 
@@ -95,7 +105,7 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true,
 }));
 
-// End GraphQL attempt
+// End GraphQL
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
