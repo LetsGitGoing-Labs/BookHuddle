@@ -44,7 +44,7 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (data) => {
         // this.setState({
-        //   user: data[0],
+        //   user: data,
         //   isLoggedIn: true
         // });
       },

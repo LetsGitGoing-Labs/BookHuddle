@@ -65,6 +65,16 @@ let amazonPromise = (searchBy) => {
       });
 };
 
+let loginPromise = (userData) => {
+
+  return new Promise((resolve, reject) => {
+    database.checkUser(userData, null, function(data, statusCode, res) {
+      resolve(JSON.stringify(data));
+    });
+  });
+
+};
+
 // Schema
 var schema = buildSchema(`
   type Mutation {
@@ -95,7 +105,8 @@ var root = {
     return amazonPromise(searchBy);
   },
   handleLogin: ({userData}) => {
-    return userData;
+    userData = JSON.parse(userData);
+    return loginPromise(userData);
   }
 };
 
