@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import Home from './home.jsx';
 import About from './about.jsx';
-import FAQ from './faq.jsx';
 import Signup from './signup.jsx';
 import Login from './login.jsx';
 import Dashboard from './dashboard.jsx';
@@ -95,7 +94,6 @@ class App extends React.Component {
               }
             } />
           <Route path='/about' component={ About } />
-          <Route path='/faq' component={ FAQ } />
           <Route path='/logout' render={ (props) => (
             <Logout handleLogout={this.handleLogout} />
            )} />

@@ -1,5 +1,4 @@
 import React from 'react';
-import Book from './book.jsx';
 import MainNavbar from './main-navbar.jsx';
 
 class Home extends React.Component {
