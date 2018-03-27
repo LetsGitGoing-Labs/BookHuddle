@@ -108,7 +108,7 @@ const retrieveUser = (email, res, cb) => {
   });
 };
 
-const getUserById = (user_id) => {
+const getUserById = (user_id, cb) => {
   return db.knex('user')
   .where({
     id: user_id
