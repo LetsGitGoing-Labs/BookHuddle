@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import UpcomingMeetings from './upcoming.jsx';
+import CreateMeeting from './create-meeting.jsx';
+import ClubPageNavbar from '../navigation/club-nav.jsx';
+
 import '../../styles/club.css';
 
 class Club extends React.Component {
@@ -18,23 +21,21 @@ class Club extends React.Component {
       <div id="club-page" className="col-md-9">
         <div className="container">
           <h2 className="club-title">{clubData.title}</h2>
-          <div>
-            <nav id="club-page-nav" className="centered">
-              <ul>
-                <li><Link to="#">Upcoming</Link></li>
-                <li><Link to="#">Members</Link></li>
-                <li><Link to="#">Book History</Link></li>
-                <li><Link to="#">Recommendations</Link></li>
-                <li><Link to="#">Discussion</Link></li>
-              </ul>
-            </nav>
-          </div>
-          <div className="content-wrapper">
-            <div className="btnDiv">
-              <button className="btn btn-primary">New Meeting</button>
+            <ClubPageNavbar />
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-upcoming" role="tabpanel" aria-labelledby="nav-home-tab">
+              <UpcomingMeetings meetings={this.state.meetings}/>
+              </div>
+              <div class="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
+                Members
+              </div>
+              <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
+                Book History
+              </div>
+              <div class="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
+                <CreateMeeting />
+              </div>
             </div>
-            <UpcomingMeetings meetings={this.state.meetings}/>
-          </div>
         </div>
       </div>
     )
