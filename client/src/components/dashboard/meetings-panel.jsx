@@ -1,8 +1,8 @@
 import React from 'react';
 
 const NoMeetings = () => (
-  <div id="meetings-list" className="content-wrapper">
-    <h3>Upcoming Meetings:</h3>
+  <div id="meetings-list" className="panel-card">
+    <h3>UPCOMING MEETINGS</h3>
     <div>No meetings yet!</div>
   </div>
 )
@@ -11,8 +11,8 @@ const MeetingsPanel = (props) => (
   !props.meetings || props.meetings.length === 0 ?
     <NoMeetings />
   : (
-      <div id="meetings-list" className="content-wrapper">
-        <h3>Upcoming Meetings:</h3>
+      <div id="meetings-list" className="panel-card">
+        <h3>UPCOMING MEETINGS</h3>
         {props.meetings.map((meeting, id) =>
           (
             <div key={id}>

@@ -64,12 +64,24 @@
 }
 
 
-
-.meeting-card {
-  margin: 1em 0;
-  border: 1px solid #e6e6e6;
+/*PANELS*/
+.panel-card {
+  margin: 1em;
+  padding: 1em;
+  border-color: #fff;
+  box-shadow: 0px 3px 2px #aab2bd;
 }
 
+.panel-card h3 {
+  color: #ffffff;
+  font-size: 16px;
+  padding: 0 10px;
+  line-height: 60px;
+  height: 60px;
+  margin: 0;
+  background: #5FABB9;
+  text-align: center;
+}
 
 
 @media only screen and (min-width: 768px) {
