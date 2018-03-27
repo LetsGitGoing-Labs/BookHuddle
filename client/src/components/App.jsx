@@ -1,17 +1,9 @@
 import React from 'react';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import Home from './home.jsx';
-import About from './about.jsx';
-import Signup from './signup.jsx';
-import Login from './login.jsx';
-import Dashboard from './dashboard.jsx';
-import Logout from './logout.jsx';
-import CreateClub from './create-club.jsx';
-import Profile from './profile.jsx';
-import LoginModal from './login-modal.jsx';
-import MainNavbar from './main-navbar.jsx';
-import Club from './club.jsx';
-import DashboardRouting from './dashboard-routing.jsx';
+import Home from './home/home.jsx';
+import About from './home/about.jsx';
+import Logout from './home/logout.jsx';
+import DashboardRouting from './dashboard/dashboard-routing.jsx';
 
 import '../styles/style.css';
 
@@ -20,7 +12,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: {},
-      isLoggedIn: false
+      isLoggedIn: true
     }
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
@@ -41,10 +33,10 @@ class App extends React.Component {
       type: 'POST',
       data: formData,
       success: (data) => {
-        this.setState({
-          user: data[0],
-          isLoggedIn: true
-        });
+        // this.setState({
+        //   user: data[0],
+        //   isLoggedIn: true
+        // });
       },
       error: (err) => {
         console.log('errror logging in', err);

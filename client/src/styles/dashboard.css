@@ -17,8 +17,43 @@
 /*SIDEBAR*/
 
 #sidebar {
-  background: #424a5d;
+  background: #1B1C26;
   color: #fff;
+}
+
+#sidebar h5 {
+  color: #f2f2f2;
+  font-weight: 500;
+}
+
+#sidebar ul li {
+  position: relative;
+  margin-bottom: 5px;
+  margin-left: 15px;
+}
+
+#sidebar li > a{
+ color: #aeb2b7;
+  text-decoration: none;
+  display: block;
+  padding: 15px 0 15px 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+#sidebar a span {
+  display: inline-block;
+}
+#sidebar a i {
+  font-size: 15px;
+  padding-right: 10px;
+}
+
+#sidebar li a.active, #sidebar li a:hover, #sidebar li a:focus {
+  background: #FFCC5E;
+  color: #fff;
+  display: block;
+  transition: all 0.3s ease;
 }
 
 .img-circle {
@@ -29,24 +64,77 @@
 }
 
 
-
-.meeting-card {
-  margin: 1em 0;
-  border: 1px solid #e6e6e6;
+/*PANELS*/
+.panel-card {
+  margin: 1em;
+  padding: 1em;
+  border-color: #fff;
+  box-shadow: 0px 3px 2px #aab2bd;
 }
 
+.panel-card h3 {
+  color: #ffffff;
+  font-size: 16px;
+  padding: 0 10px;
+  line-height: 60px;
+  height: 60px;
+  margin: 0;
+  background: #5FABB9;
+  text-align: center;
+}
 
+/*Meetings*/
+#meetings-list p {
+  margin: 0;
+}
+#meetings-list h3 {
+  margin-bottom: 1em;
+}
+
+.panel-content {
+  background: #ffffff;
+  border: 1px solid #aab2bd;
+  padding-top: 15px;
+  padding-bottom: 5px;
+}
+
+.date-panel {
+  padding: 0.6em 2em;
+  text-align: center;
+  border-right: 1px solid #e6e6e6;
+}
+.date-panel h6, .date-panel h2 {
+  margin: 0;
+}
+.date-panel p {
+  color: grey;
+}
+.panel-body {
+  padding: 1em;
+  padding-left: 0;
+  display: inline-block;
+  width: 65%;
+}
+.panel-body button {
+  display: inline-block;
+}
+.panel-button {
+  display:  inline-block;
+  position: relative;
+  bottom: 50px;
+  left:  30px;
+}
 
 @media only screen and (min-width: 768px) {
 
-.sidebar-content {
-  position: fixed;
-  padding-top: 30px;
-  margin: 0 auto;
-  width: 22.5%;
-}
+  .sidebar-content {
+    position: fixed;
+    padding-top: 30px;
+    margin: 0 auto;
+    width: 22.5%;
+  }
 
-#sidebar {
-  min-height: 90vh;
-}
+  #sidebar {
+    min-height: 90vh;
+  }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import MainNavbar from './main-navbar.jsx';
+import MainNavbar from '../navigation/main-navbar.jsx';
 
 class Home extends React.Component {
   constructor(props) {
