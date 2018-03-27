@@ -1,7 +1,6 @@
-.clubHeader {
-  text-align: left;
+.club-title {
   padding-top: 20px;
-  padding-left: 15px;
+  text-align: center;
 }
 
 #club-page .content-wrapper {
@@ -13,6 +12,7 @@
 }
 
 #club-page-nav {
+  margin-top: 20px;
   width: 100%;
 }
 
@@ -29,10 +29,14 @@
   padding: 0;
 }
 
+#club-page .meeting-content img {
+  width: 130px;
+  height: 200px;
+}
 .meeting-text p {
   margin: 0;
 }
 
 .meeting-content {
-  padding: 10px;
+  padding: 20px;
 }
