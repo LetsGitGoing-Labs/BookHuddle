@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-// styles
 
 // components
 import DashboardNavbar from '../navigation/dashboard-navbar.jsx';
@@ -26,18 +25,18 @@ class DashboardRouting extends React.Component {
       <div>
         <DashboardNavbar />
         <div className="row">
-        <Sidebar />
+          <Sidebar />
 
-        <Switch>
-          <Route path='/dashboard/create-club' component={ CreateClub } />
-          <Route path='/dashboard/:clubId' render={
-            (props) => ( <Club {...props} clubs={this.state.clubs}/>)
-          } />
-          <Route render={(props) => {
-          return <Dashboard user={this.props.user} clubs={this.state.clubs}/>
-         } } />
-        </Switch>
-      </div>
+          <Switch>
+            <Route path='/dashboard/create-club' component={ CreateClub } />
+            <Route path='/dashboard/:clubId' render={
+              (props) => ( <Club {...props} clubs={this.state.clubs}/>)
+            } />
+            <Route render={(props) => {
+            return <Dashboard user={this.props.user} clubs={this.state.clubs}/>
+           } } />
+          </Switch>
+        </div>
       </div>
     );
   }
