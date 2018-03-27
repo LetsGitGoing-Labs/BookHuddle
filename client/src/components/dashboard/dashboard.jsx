@@ -2,7 +2,9 @@ import React from 'react';
 import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
+import MeetingsPanel from './meetings-panel.jsx';
 import Club from '../clubs/club.jsx';
+
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -39,54 +41,32 @@ class Dashboard extends React.Component {
     const index = this.state.index;
      return (
       <div id="dashboard" className="col-md-9">
-        <div className="container">
-          <div id="meetings-list" class="content-wrapper">
-            { /* Meetings list */
-              (!this.state.meetings || this.state.meetings.length === 0) ?
-                (
-                  <div>
-                    <h3>Upcoming Meetings:</h3>
-                    <div>No meetings yet!</div>
-                  </div>
-                ) : (
-                  <div>
-                    <h3>Upcoming Meetings:</h3>
-                    {this.state.meetings.map((meeting, id) =>
-                      ( <div key={id}>
-                          <h5>{meeting.meeting_date + ' at ' + meeting.meeting_time}</h5>
-                          <p>{meeting.meeting_street_address}</p>
-                        </div>
-                      )
-                    )}
-                  </div>
-                )
-              }
-          </div>
-          <div id ="clubs-list" class="content-wrapper">
-            { /* Clubs list */
-              (!this.props.clubs || this.props.clubs.length === 0) ?
-              (
-                <div>
-                  <h3>Your Book Clubs:</h3>
-                  <div>You're not in any book clubs!</div>
-                </div>
-              ) : (
-                <div>
-                  <h3>Your Book Clubs:</h3>
-                  <div className="row">
-                  { this.props.clubs.map((club) =>
-                    <div className="col-md-4" key={club.title}>
-                      <img className="book-cover" src={club.image}/>
-                      <div>
-                        <p>{club.title}</p>
-                        <Link to={`/dashboard/${club.id}`}>Details</Link>
-                      </div>
+        <MeetingsPanel meetings={this.state.meetings}/>
+        <div id ="clubs-list" class="content-wrapper">
+          { /* Clubs list */
+            (!this.props.clubs || this.props.clubs.length === 0) ?
+            (
+              <div>
+                <h3>Your Book Clubs:</h3>
+                <div>You're not in any book clubs!</div>
+              </div>
+            ) : (
+              <div>
+                <h3>Your Book Clubs:</h3>
+                <div className="row">
+                { this.props.clubs.map((club) =>
+                  <div className="col-md-4" key={club.title}>
+                    <img className="book-cover" src={club.image}/>
+                    <div>
+                      <p>{club.title}</p>
+                      <Link to={`/dashboard/${club.id}`}>Details</Link>
                     </div>
-                  )}
                   </div>
+                )}
                 </div>
-              )
-            }
+              </div>
+            )
+          }
           </div>
           <div id="books-list" class="content-wrapper">
            { /*BookList*/
@@ -116,7 +96,6 @@ class Dashboard extends React.Component {
             }
           </div>
         </div>
-      </div>
     )
   }
 }
