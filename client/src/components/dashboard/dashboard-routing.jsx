@@ -4,6 +4,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 // components
 import DashboardNavbar from '../navigation/dashboard-navbar.jsx';
+import Sidebar from '../navigation/sidebar.jsx';
 import Dashboard from './dashboard.jsx';
 import CreateClub from './create-club.jsx';
 import Club from '../clubs/club.jsx';
@@ -25,24 +26,7 @@ class DashboardRouting extends React.Component {
       <div>
         <DashboardNavbar />
         <div className="row">
-        {/* Sidebar*/}
-        <div id="sidebar"class="col-md-3">
-          <div className="sidebar-content">
-            <p class="centered"><a href="profile.html"><img src="http://source.unsplash.com/aZm98bjnA20" className="img-circle"/></a></p>
-            <h6 className="centered">Joe Smalls</h6>
-            <ul className="centered">
-              <li>
-                <a href="#">Dashboard</a>
-              </li>
-              <li>
-                <a href="#">Create a Club</a>
-              </li>
-              <li>
-                <a href="#">Logout</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <Sidebar />
 
         <Switch>
           <Route path='/dashboard/create-club' component={ CreateClub } />
