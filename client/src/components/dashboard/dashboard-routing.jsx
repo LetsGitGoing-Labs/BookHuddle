@@ -3,11 +3,10 @@ import { Link, Route, Switch } from 'react-router-dom';
 // styles
 
 // components
-import DashboardNavbar from './dashboard-navbar.jsx';
+import DashboardNavbar from '../navigation/dashboard-navbar.jsx';
 import Dashboard from './dashboard.jsx';
-import Profile from './profile.jsx';
 import CreateClub from './create-club.jsx';
-import Club from './club.jsx';
+import Club from '../clubs/club.jsx';
 
 class DashboardRouting extends React.Component {
   constructor(props) {

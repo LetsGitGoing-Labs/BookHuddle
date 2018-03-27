@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/dashboard.css';
+import '../../styles/dashboard.css';
 
 export default class DashboardNavbar extends React.Component {
   constructor(props) {

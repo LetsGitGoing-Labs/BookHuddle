@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LoginModal from './login-modal.jsx';
+import LoginModal from '../signin/login-modal.jsx';
 
 class MainNavbar extends React.Component {
   constructor(props) {

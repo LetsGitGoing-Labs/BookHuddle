@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
-import Club from './club.jsx';
+import Club from '../clubs/club.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
