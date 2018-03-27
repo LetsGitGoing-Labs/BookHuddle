@@ -4,6 +4,7 @@ import { Route, Link, Redirect } from 'react-router-dom';
 
 import MeetingsPanel from './panel-meetings.jsx';
 import ClubsPanel from './panel-clubs.jsx';
+import SuggestedPanel from './panel-suggested.jsx';
 import Club from '../clubs/club.jsx';
 
 
@@ -39,39 +40,12 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const index = this.state.index;
-     return (
+    return (
       <div id="dashboard" className="col-md-9">
         <MeetingsPanel meetings={this.state.meetings}/>
         <ClubsPanel clubs={this.props.clubs}/>
-          <div id="books-list" className="content-wrapper">
-           { /*BookList*/
-              (!this.state.books || this.state.books.length === 0) ?
-              (
-                <div>
-                  <h3>Recommended Books</h3>
-                  <div>No recommendations yet!</div>
-                </div>
-              ) : (
-                <div>
-                  <h3>Recommended Books:</h3>
-                  <div className="row">
-                    {this.state.books.map((book, i) =>
-                      (
-                        <div className="col-md-4">
-                          <a key={i} href={book.book_url} target='blank'>
-                            <img className="book-cover" src={book.book_image[0]}/>
-                            <p>{book.book_title[0].slice(0, 30)}</p>
-                          </a>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </div>
-              )
-            }
-          </div>
-        </div>
+        <SuggestedPanel books={this.state.books}/>
+      </div>
     )
   }
 }
