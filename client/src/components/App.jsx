@@ -27,24 +27,42 @@ class App extends React.Component {
     });
   }
 
+  // handleLogin(formData, cb) {
+
+  //   formData = JSON.stringify(formData);
+  //   let query = `mutation HandleLogin($formData: String) {
+  //     handleLogin(userData: $formData)
+  //   }`;
+
+  //   $.ajax({
+  //     type: 'POST',
+  //     url: '/graphql',
+  //     data: JSON.stringify({
+  //       query: query,
+  //       variables: { formData : formData }
+  //     }),
+  //     contentType: 'application/json',
+  //     success: (userData) => {
+  //       this.setState({
+  //         user: JSON.parse(userData.data.handleLogin)[0],
+  //         isLoggedIn: true
+  //       });
+  //     },
+  //     error: (err) => {
+  //       console.log('errror logging in', err);
+  //       cb(err);
+  //     }
+  //   });
+  // }
+
   handleLogin(formData, cb) {
-
-    formData = JSON.stringify(formData);
-    let query = `mutation HandleLogin($formData: String) {
-      handleLogin(userData: $formData)
-    }`;
-
     $.ajax({
+      url: '/login',
       type: 'POST',
-      url: '/graphql',
-      data: JSON.stringify({
-        query: query,
-        variables: { formData : formData }
-      }),
-      contentType: 'application/json',
-      success: (userData) => {
+      data: formData,
+      success: (data) => {
         this.setState({
-          user: JSON.parse(userData.data.handleLogin)[0],
+          user: data[0],
           isLoggedIn: true
         });
       },
@@ -55,51 +73,51 @@ class App extends React.Component {
     });
   }
 
-  handleSignup(formData, cb) {
+    handleSignup(formData, cb) {
+  //
+  //   formData = JSON.stringify(formData);
 
-    formData = JSON.stringify(formData);
+  //   let query = `mutation HandleSignup($formData: String) {
+  //     handleSignup(userData: $formData)
+  //   }`;
 
-    let query = `mutation HandleSignup($formData: String) {
-      handleSignup(userData: $formData)
-    }`;
+  //   $.ajax({
+  //     type: 'POST',
+  //     url: '/graphql',
+  //     contentType: 'application/json',
+  //     data: JSON.stringify({
+  //       query: query,
+  //       variables: {
+  //         formData: formData
+  //       }
+  //     }),
+  //     success: (userData) => {
+  //       this.setState({
+  //         user: JSON.parse(userData.data.handleSignup)[0],
+  //         isLoggedIn: true
+  //       });
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     }
+  //   });
 
+  //Restful HTTP request that was replaced with graphQL query
     $.ajax({
+      url: '/signup',
       type: 'POST',
-      url: '/graphql',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        query: query,
-        variables: {
-          formData: formData
-        }
-      }),
-      success: (userData) => {
+      data: formData,
+      success: (data) => {
         this.setState({
-          user: JSON.parse(userData.data.handleSignup)[0],
+          user: data,
           isLoggedIn: true
         });
       },
-      error: (err) => {
-        console.log(err);
+      error: function(err){
+        console.log('error in ajax', err);
+        cb(err);
       }
     });
-
-  //Restful HTTP request that was replaced with graphQL query
-    // $.ajax({
-    //   url: '/signup',
-    //   type: 'POST',
-    //   data: formData,
-    //   success: (data) => {
-    //     this.setState({
-    //       user: data,
-    //       isLoggedIn: true
-    //     });
-    //   },
-    //   error: function(err){
-    //     console.log('error in ajax', err);
-    //     cb(err);
-    //   }
-    // });
   }
 
   handleLogout() {

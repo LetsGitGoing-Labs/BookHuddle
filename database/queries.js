@@ -33,12 +33,13 @@ const retrieveClubs = (cb, dataObj, res) => {
 
 // CHECKUSER FN AFTER IMPLEMENTING PASSPORT
 const checkUser = (user, cb) => {
-   return db.knex('user')
+  return db.knex('user')
   .where({
-    email: user.email,
+    email: 'user.email',
   })
   .select()
   .then((err, user) => {
+    console.log(user, '<--user retrieved from db');
     cb(err, user)
   });
 };

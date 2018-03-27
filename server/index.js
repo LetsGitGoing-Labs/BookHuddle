@@ -8,7 +8,7 @@ const amazonHelpers = require('./api-helpers/amazon-helpers.js');
 const database = require('../database/queries.js');
 const parseString = require('xml2js').parseString;
 const graphqlHTTP = require('express-graphql');
-const { buildSchema } = require('graphql');
+const { buildSchema, graphql } = require('graphql');
 const app = express();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -29,10 +29,10 @@ passport.use(new LocalStrategy(
   { usernameField: 'email' },
   (email, password, done) => {
     database.checkUser({ email: email }, function (err, user) {
+      console.log(user, '<-- user after checkUser')
       if (err) { return done(err); }
       if (!user) { return done(null, false); }
       if (!user.checkCredentials(email, password)) { return done(null, false); }
-      console.log( user, '<-- user from after authentication');
       return done(null, user);
     });
   }
@@ -50,7 +50,7 @@ passport.deserializeUser((user_id, done) => {
     if (err) {
       return done(err, false);
     } else {
-    done(err, res.user);
+    done(err, user);
     }
   })
 });
@@ -60,19 +60,25 @@ app.use(session({
     return uuid() // use UUIDs for session IDs
   },
   // store: new FileStore(),
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
+  secret: 'bookHuddleSecret'
 }))
 app.use(passport.initialize());
 app.use(passport.session());
 
-// NEW LOGIN CODE FOR USE WITH PASSPORT
+//New login for use with graphql
 app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    res.redirect('/dashboard');
-  })
+  passport.authenticate('local', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/login',
+  failureFlash: true
+}) );
+
+// NEW LOGIN CODE FOR USE WITH PASSPORT
+// app.post('/login',
+//   passport.authenticate('local'),
+//   function(req, res) {
+//     res.redirect('/dashboard');
+//   })
 
 // OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
 // app.post('/login', (req, res) => {
@@ -85,10 +91,10 @@ app.post('/signup', (req, res) => {
   database.addUser(sendData, newUser, res);
 });
 
-app.get('/logout', (req, res) => {
-  console.log('line 192');
-  req.logOut();
-  res.clearCookie('connect.sid', {path: '/'}).send('cleared');
+app.get('/logout', function (req, res){
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
 });
 
 // Serve static files to client
@@ -120,6 +126,8 @@ var schema = buildSchema(`
 
   }
 `);
+
+
 
 // Resolvers
 var root = {
@@ -158,6 +166,15 @@ var root = {
       });
   },
   handleLogin: ({userData}) => {
+    // passport.authenticate('local', (err, user, info) => {
+    //   if(info) {return res.send(info.message)}
+    //   if (err) { return next(err); }
+    //   if (!user) { return res.redirect('/login'); }
+    //   req.login(user, (err) => {
+    //     if (err) { return next(err); }
+    //     return res.redirect('/authrequired');
+    //   })
+    // })(req, res, next);
     userData = JSON.parse(userData);
     return new Promise((resolve, reject) => {
     database.checkUser(userData,
@@ -179,6 +196,9 @@ var root = {
   },
   handleLogout: ({userData}) => {
     console.log('Logged out!');
+    req.session.destroy(function (err) {
+      res.redirect('/'); //Inside a callback… bulletproof!
+    });
   },
   handleClubCreate: ({clubData}) => {
     clubData = JSON.parse(clubData);
@@ -206,6 +226,13 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true,
 }));
+
+app.post('/graphql', (req, res) => {
+  graphql(schema, req.body, { user: req.user })
+  .then((data) => {
+    res.send(JSON.stringify(data));
+  });
+});
 
 // End GraphQL
 
