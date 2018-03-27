@@ -89,7 +89,7 @@ var root = {
               }
             );
 
-            resolve(JSON.stringify(bookData.slice(0, 7)));
+            resolve(JSON.stringify(bookData));
           });
         })
         .then((err) => {

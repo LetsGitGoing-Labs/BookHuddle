@@ -38,7 +38,7 @@ class Dashboard extends React.Component {
         variables: { searchTerm: searchTerm }
       }),
       success: (booksData) => {
-        let books = JSON.parse(booksData.data.getBooksAPI);
+        let books = JSON.parse(booksData.data.getBooksAPI).slice(0, 3);
         this.setState({
           books: books
         });
