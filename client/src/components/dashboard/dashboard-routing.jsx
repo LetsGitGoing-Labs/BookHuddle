@@ -47,6 +47,7 @@ const userData = {
   first_name: 'Jane',
   last_name: 'Smith',
   location: 'New York, NY',
+  profile_url: 'https://source.unsplash.com/aZm98bjnA20',
   clubs: [
     { id: 'jane-austin-book-club',
       club_name: 'Jane Austen Book Club',
