@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import UpcomingMeetings from './upcoming.jsx';
 import '../../styles/club.css';
 
 class Club extends React.Component {
@@ -31,24 +33,10 @@ class Club extends React.Component {
             <div className="btnDiv">
               <button className="btn btn-primary">New Meeting</button>
             </div>
-              {this.state.meetings.map((meeting) =>
-                <div className="row meeting-content">
-                  <div className="col-md-3">
-                    <img className="book-cover" src={meeting.meeting_book.imgSrc}/>
-                  </div>
-                  <div key={meeting.id} className="meeting-text col-md-9">
-                    <p>{meeting.meeting_topic}</p>
-                    <p>{meeting.meeting_description}</p>
-                    <p>{meeting.meeting_date} @ {meeting.meeting_time}</p>
-                    <p>Hosted by {meeting.meeting_host}</p>
-                    <p>{meeting.meeting_street_address}</p>
-                  </div>
-
-                </div>
-              )}
-            </div>
+            <UpcomingMeetings meetings={this.state.meetings}/>
           </div>
         </div>
+      </div>
     )
   }
 }
@@ -69,4 +57,6 @@ const meetings = [
           title: 'Persuasion',
           author: 'Jane Austen',
           imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/41uM9MBn1CL._SX326_BO1,204,203,200_.jpg'
-      }]
+        }
+      }
+    ];
