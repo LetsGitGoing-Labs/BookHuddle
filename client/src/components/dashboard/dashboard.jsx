@@ -2,7 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
-import MeetingsPanel from './meetings-panel.jsx';
+import MeetingsPanel from './panel-meetings.jsx';
+import ClubsPanel from './panel-clubs.jsx';
 import Club from '../clubs/club.jsx';
 
 
@@ -42,33 +43,8 @@ class Dashboard extends React.Component {
      return (
       <div id="dashboard" className="col-md-9">
         <MeetingsPanel meetings={this.state.meetings}/>
-        <div id ="clubs-list" class="content-wrapper">
-          { /* Clubs list */
-            (!this.props.clubs || this.props.clubs.length === 0) ?
-            (
-              <div>
-                <h3>Your Book Clubs:</h3>
-                <div>You're not in any book clubs!</div>
-              </div>
-            ) : (
-              <div>
-                <h3>Your Book Clubs:</h3>
-                <div className="row">
-                { this.props.clubs.map((club) =>
-                  <div className="col-md-4" key={club.title}>
-                    <img className="book-cover" src={club.image}/>
-                    <div>
-                      <p>{club.title}</p>
-                      <Link to={`/dashboard/${club.id}`}>Details</Link>
-                    </div>
-                  </div>
-                )}
-                </div>
-              </div>
-            )
-          }
-          </div>
-          <div id="books-list" class="content-wrapper">
+        <ClubsPanel clubs={this.props.clubs}/>
+          <div id="books-list" className="content-wrapper">
            { /*BookList*/
               (!this.state.books || this.state.books.length === 0) ?
               (
