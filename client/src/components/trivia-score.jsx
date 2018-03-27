@@ -1,30 +1,3 @@
-// import React from 'react';
-// import { Table } from 'reactstrap';
-
-// class Score extends React.Component {
-//   render() {
-//   	return (
-// 	    <Table striped>
-// 	    <thead>
-// 	      <tr>
-// 	        <th>Player Name</th>
-// 	        <th>Score</th>
-	        
-// 	      </tr>
-// 	    </thead>
-// 	    <tbody>
-// 	      <tr>
-// 	        <td>Mark</td>
-// 	        <td>2</td>
-// 	      </tr>
-// 	    </tbody>
-// 	    </Table>
-//   	)
-//   }
-// }
-
-// export default Score;
-
 import React from 'react';
 import { Table, Container, Row, Col } from 'reactstrap';
 
