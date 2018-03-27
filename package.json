@@ -32,6 +32,7 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "express-graphql": "^0.6.12",
+    "express-session": "^1.15.6",
     "graphql": "^0.13.2",
     "jquery": "^3.3.1",
     "knex": "^0.14.4",
@@ -51,6 +52,7 @@
     "reactstrap": "^5.0.0-beta.3",
     "request-promise": "^4.2.2",
     "sequelize": "^4.37.0",
+    "uuid": "^3.2.1",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {

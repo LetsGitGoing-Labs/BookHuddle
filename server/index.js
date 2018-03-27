@@ -1,17 +1,17 @@
 require('dotenv').config();
 const express = require('express');
+const uuid = require('uuid/v4');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const amazonHelpers = require('./api-helpers/amazon-helpers.js');
 const database = require('../database/queries.js');
-
-var parseString = require('xml2js').parseString;
-
-var graphqlHTTP = require('express-graphql');
-var { buildSchema } = require('graphql');
-
-
-let app = express();
+const parseString = require('xml2js').parseString;
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
+const app = express();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 // callback for responses to client requests that require DB queries
 let sendData = (responseData, statusCode, res) => {
@@ -24,25 +24,72 @@ let sendData = (responseData, statusCode, res) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Authentication Packages
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
-// Passport init
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Configure local strategy
-passport.use(new LocalStrategy((email, password, done) => {
+passport.use(new LocalStrategy(
+  { usernameField: 'email' },
+  (email, password, done) => {
     database.checkUser({ email: email }, function (err, user) {
       if (err) { return done(err); }
       if (!user) { return done(null, false); }
       if (!user.checkCredentials(email, password)) { return done(null, false); }
-      console.log( '<-- user from after authentication');
+      console.log( user, '<-- user from after authentication');
       return done(null, user);
     });
   }
 ));
+
+// creates passport session for user by serialized ID (tell passport how to serialize the user)
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// deserializes the user ID for passport to deliver to the session
+passport.deserializeUser((user_id, done) => {
+  console.log('deserializing user');
+  User.getUserById(user_id, (err, user) => {
+    if (err) {
+      return done(err, false);
+    } else {
+    done(err, res.user);
+    }
+  })
+});
+
+app.use(session({
+  genid: (req) => {
+    return uuid() // use UUIDs for session IDs
+  },
+  // store: new FileStore(),
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+
+// NEW LOGIN CODE FOR USE WITH PASSPORT
+app.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    res.redirect('/dashboard');
+  })
+
+// OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
+// app.post('/login', (req, res) => {
+//   //Login auth goes here
+//   database.checkUser(req.body, res, sendData);
+// });
+
+app.post('/signup', (req, res) => {
+  let newUser = req.body;
+  database.addUser(sendData, newUser, res);
+});
+
+app.get('/logout', (req, res) => {
+  console.log('line 192');
+  req.logOut();
+  res.clearCookie('connect.sid', {path: '/'}).send('cleared');
+});
 
 // Serve static files to client
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -232,44 +279,6 @@ app.post('/booksdb', (req, res) => {
 app.post('/meetings', (req, res) => {
   let newMeeting = req.body;
   database.saveMeeting(sendData, newMeeting, res);
-});
-
-// creates passport session for user by serialized ID
-passport.serializeUser((user_id, done) => {
-  console.log('serializing user');
-  done(null, user_id);
-});
-
-// deserializes the user ID for passport to deliver to the session
-passport.deserializeUser((user_id, done) => {
-  console.log('deserializing user');
-  User.getUserById(user_id, (err, user) => {
-    done(err, user);
-  })
-});
-
-// NEW LOGIN CODE FOR USE WITH PASSPORT
-app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    res.redirect('/dashboard');
-  })
-
-// OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
-// app.post('/login', (req, res) => {
-//   //Login auth goes here
-//   database.checkUser(req.body, res, sendData);
-// });
-
-app.post('/signup', (req, res) => {
-  let newUser = req.body;
-  database.addUser(sendData, newUser, res);
-});
-
-app.get('/logout', (req, res) => {
-  console.log('line 192');
-  req.logOut();
-  res.clearCookie('connect.sid', {path: '/'}).send('cleared');
 });
 
 app.get('/*', (req, res) => {
