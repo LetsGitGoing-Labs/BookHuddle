@@ -10,7 +10,7 @@ class TriviaPlayers extends React.Component {
   	  <Container>
         <Row>
           <Col xs="6"><p className="left"> Player: {player}</p></Col>
-          <Col xs="6"><Button size="sm" color="info" className="right" onClick={this.props.scoreRedirect}>Scoreboard</Button></Col>
+          <Col xs="6"><Button size="sm" color="info" className="right " onClick={this.props.scoreRedirect}>Scoreboard</Button></Col>
 
         </Row>
 
@@ -18,13 +18,13 @@ class TriviaPlayers extends React.Component {
  <div>
   	  {!this.props.currentQuestion &&
   	  <div>
-        <h1>Get ready {player}!</h1>
+        <h1 className="centerize">Get ready {player}!</h1>
         
         
   	  </div>}
   	  {this.props.currentQuestion &&
   	  	<div>
-        <Ask question={this.props.currentQuestion} results={this.props.results} player={this.props.player} emit={this.props.emit}/>
+        <Ask question={this.props.currentQuestion} gameOver={this.props.gameOver} results={this.props.results} player={this.props.player} score={this.props.score} emit={this.props.emit}/>
   	    </div>
   	  }
   	  

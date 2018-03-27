@@ -23,6 +23,7 @@ let currentQuestion = false;
 let results = undefined;
 let score = {}
 
+
 let ioServer = app.listen(4000)
 let io = require('socket.io').listen(ioServer);
 
@@ -54,13 +55,13 @@ io.sockets.on('connection', (socket) => {
     let newPlayer = {
       id: this.id,
       playerName: payload.playerName,
-      type: 'player',
-      score: payload.score
+      type: 'player'
     };
     this.emit('joined', newPlayer)
     players.push(newPlayer);
     score[newPlayer.playerName] = 0;
     io.sockets.emit('players', players);
+    io.sockets.emit('score', score)
     console.log('username: ' + payload.playerName)
     console.log('joined line 63', payload, score)
   })
@@ -76,6 +77,11 @@ io.sockets.on('connection', (socket) => {
     console.log('start', host)
     io.sockets.emit('start', {gameName: gameName, host: host.name})
     console.log("Trivia has started: '%s' by %s", payload.gameName, host.name)
+  })
+
+  socket.on('gameover', function(score){
+    io.sockets.emit('gameover', score)
+    console.log('the game is over', score)
   })
 
   socket.on('ask', function(question){

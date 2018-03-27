@@ -24,7 +24,9 @@ class TriviaMain extends React.Component {
       questions: [],
       currentQuestion: false,
       results: undefined,
-      score: {}
+      score: {},
+      gameOver: false,
+      curWinner: ''
   	}
 
   	this.connect = this.connect.bind(this);
@@ -45,6 +47,7 @@ class TriviaMain extends React.Component {
     this.updateScore = this.updateScore.bind(this);
     this.scoreRedirect = this.scoreRedirect.bind(this);
     this.playerRedirect = this.playerRedirect.bind(this);
+    this.gameOver = this.gameOver.bind(this);
   }
 
   componentWillMount() {
@@ -59,6 +62,7 @@ class TriviaMain extends React.Component {
     this.socket.on('ask', this.ask);
     this.socket.on('results', this.updateResults);
     this.socket.on('score', this.updateScore);
+    this.socket.on('gameover', this.gameOver);
   }
 
   join(event) {
@@ -132,7 +136,7 @@ class TriviaMain extends React.Component {
   }
 
   connect() {
-console.log(sessionStorage.player, sessionStorage.score)
+
     let player = (sessionStorage.player) ? JSON.parse(sessionStorage.player) : null;
     if (player && player.type === 'player') {
       this.emit('join', player);
@@ -152,6 +156,14 @@ console.log(sessionStorage.player, sessionStorage.score)
       gameName: 'disconnected',
       host: ''
   	})
+  }
+
+  gameOver(score) {
+    console.log('game over bitches', score)
+    this.setState({
+      gameOver: true
+    })
+    this.scoreRedirect();
   }
 
   updateState(serverState) {
@@ -207,8 +219,8 @@ console.log(sessionStorage.player, sessionStorage.score)
   	return (
       <Container id="trivia">
         <Row id="title">
-          <Col xs="11">{this.state.gameName}</Col>
-          <Col xs="1"><span data-toggle="tooltip" data-placement="left" title={this.state.status} className={this.state.status}></span></Col>
+          <Col xs="12">{this.state.gameName}<span data-toggle="tooltip" data-placement="left" title={this.state.status} className={this.state.status}></span></Col>
+
             <Col xs="8">
               <p className="title-sub"> Host: {this.state.host}</p>
             </Col>
@@ -232,8 +244,8 @@ console.log(sessionStorage.player, sessionStorage.score)
        {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} host={this.state.host} clickHostRedirect={this.clickHostRedirect}/>}
        {this.state.viewState === 'players' && <TriviaPlayers scoreRedirect={this.scoreRedirect} score={this.state.score} player={this.state.player} currentQuestion={this.state.currentQuestion} results={this.state.results} players={this.state.players} emit={this.emit}/>} 
        {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange}/>}
-       {this.state.viewState === 'hostpage' && <HostPage scoreRedirect={this.scoreRedirect} players={this.state.players} questions={this.state.questions} emit={this.emit} score={this.state.score}/>}
-       {this.state.viewState === 'score' && <Score hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit}/>}
+       {this.state.viewState === 'hostpage' && <HostPage gameOver={this.gameOver} scoreRedirect={this.scoreRedirect} players={this.state.players} questions={this.state.questions} emit={this.emit} score={this.state.score}/>}
+       {this.state.viewState === 'score' && <Score gameOver={this.state.gameOver} hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit}/>}
      
       </div>
       </Container>

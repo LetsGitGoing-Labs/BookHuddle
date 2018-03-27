@@ -43,9 +43,11 @@ class Ask extends React.Component {
     console.log('selection line 40',this.props.question)
   }
 
+
+
   addAnswers(answer, i) {
     return(
-      <Button onClick={this.selection.bind(null, answer)} className="col-xs-12 col-sm-6"key={i}> {answer}: {this.props.question[answer]}</Button>
+      <button onClick={this.selection.bind(null, answer)} className="col-xs-12 col-sm-6 ans-button1 ans-button2"key={i}> {answer}: {this.props.question[answer]}</button>
     )
   }
 
@@ -55,19 +57,20 @@ class Ask extends React.Component {
       {this.state.answer &&
       	<div>
         <h2> You answered: {this.props.question[this.state.answer]}</h2>
-         {this.props.results && <h2> This answer is: Correct</h2> }
+         {this.props.results && <h2 id="text-answer"> This answer is: Correct</h2> }
          {!this.props.results && <h2> This answer is: Incorrect</h2>}
         <h2> Please wait for the next question...</h2>
         </div>
       }
       {!this.state.answer &&
       	<div>
-	        <h2>{this.props.question.q}</h2>
+	        <button className="q-button centerize">{this.props.question.q}</button>
 	        <div className="row">
 	          {this.state.answers.map(this.addAnswers)}
 	        </div>
         </div>
       }
+     
       </div>
   	)
   }

@@ -17,10 +17,13 @@
 }
 
 #title {
-  background: #77cd94;
+  background: #5fabb9;
   font-weight: bold;
   font-size: 120%;
   text-transform: uppercase;
+  text-align: center;
+  color: #fffcf4;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 .title-sub {
@@ -43,6 +46,51 @@
 }
 
 #trivia {
-background:white;	
+background:#fffcf4;	
 
 }
+
+.ans-button1:hover{
+  background: #5fabb9;
+  margin-top: 5%;
+  font-weight: bold;
+  font-size: 120%;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 8px;
+  color: #fffcf4;
+  text-shadow: 2px 2px 4px #000000;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.ans-button2{
+  background: #5fabb9;
+  margin-top: 5%;
+  font-weight: bold;
+  font-size: 120%;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 8px;
+  color: #fffcf4;
+  text-shadow: 2px 2px 4px #000000;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.q-button {
+  background: #a5a5af;
+  color: #fffcf4;
+  border-radius: 8px;
+  font-size: 140%;
+  margin-top:40px;
+  margin-bottom: 40px;
+}
+
+.score-board {
+  margin-top: 40px;
+}
+
+
+
+
+
+

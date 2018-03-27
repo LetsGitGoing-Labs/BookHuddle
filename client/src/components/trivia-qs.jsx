@@ -9,6 +9,7 @@ class Questions extends React.Component {
   	}
   	this.ask = this.ask.bind(this);
   	this.addQuestion = this.addQuestion.bind(this);
+  	this.endGame = this.endGame.bind(this);
   }
 
   
@@ -16,6 +17,10 @@ class Questions extends React.Component {
   ask(question) {
   	this.props.emit('ask', question )
   	console.log(question)
+  }
+
+  endGame(score) {
+  	this.props.emit('gameover', this.props.score)
   }
 
   addQuestion(question, i) {
@@ -34,10 +39,19 @@ class Questions extends React.Component {
 
   render() {
   	return (
+  		<div>
       <div id="questions" className="row">
-        <h2> Questions </h2>
+     
         {this.props.questions.map(this.addQuestion)}
       
+      </div>
+      <div>
+      <Card body>
+          <CardTitle>Game Over</CardTitle>
+          <CardText>Click below to reveal the winner!</CardText>
+          <button onClick={this.endGame}>The END!</button>
+        </Card>
+      </div>
       </div>
   	)
   }
