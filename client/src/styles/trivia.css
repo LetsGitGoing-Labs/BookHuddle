@@ -1,0 +1,48 @@
+.connected {
+  height: 15px;
+  width: 15px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  float: right;
+}
+
+.disconnected {
+  height: 15px;
+  width: 15px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  float: right;
+}
+
+#title {
+  background: #77cd94;
+  font-weight: bold;
+  font-size: 120%;
+  text-transform: uppercase;
+}
+
+.title-sub {
+  font-size: 75%;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.right {
+  text-align: right;
+  float: right;
+}
+
+.left {
+  text-align: left;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+#trivia {
+background:white;	
+
+}

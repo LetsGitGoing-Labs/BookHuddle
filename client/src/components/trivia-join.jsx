@@ -22,12 +22,13 @@ class TriviaJoin extends React.Component {
             name="playerName"
             value={this.props.playerName}
             onChange={this.handleChange}
-            className="form-control"
+            className="form-control uppercase"
             placeholder="Enter a username"
             required /> 
           <button className="btn btn-primary">Join Trivia!</button>
         </form>
-        <a href="#" onClick={this.props.clickHostRedirect}>Join as the host</a>
+        {!this.props.host && 
+        <a href="#" onClick={this.props.clickHostRedirect}>Join as the host</a>}
       </div> 
   	)
   }

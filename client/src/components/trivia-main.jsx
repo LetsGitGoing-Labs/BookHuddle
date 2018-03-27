@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link, Redirect, Switch } from 'react-router-dom';
+import { Badge, Container, Row, Col } from 'reactstrap';
 import io from 'socket.io-client';
 import TriviaPlayers from './trivia-players.jsx';
 import TriviaHost from './trivia-host.jsx';
-import TriviaScore from './trivia-score.jsx';
+import Score from './trivia-score.jsx';
 import TriviaJoin from './trivia-join.jsx';
 import HostPage from './trivia-hostpage.jsx';
+import '../styles/trivia.css';
 
 class TriviaMain extends React.Component {
   constructor(props) {
@@ -20,7 +22,9 @@ class TriviaMain extends React.Component {
       host: '',
       viewState: 'join',
       questions: [],
-      currentQuestion: false
+      currentQuestion: false,
+      results: undefined,
+      score: {}
   	}
 
   	this.connect = this.connect.bind(this);
@@ -32,11 +36,15 @@ class TriviaMain extends React.Component {
     this.updatePlayers = this.updatePlayers.bind(this);
     this.start = this.start.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
-    this.onHostChange = this.onHostChange.bind(this);
+    this.hostPageRedirect = this.hostPageRedirect.bind(this);
     this.onGameChange = this.onGameChange.bind(this);
     this.clickHostRedirect = this.clickHostRedirect.bind(this);
     this.starter = this.starter.bind(this);
     this.ask = this.ask.bind(this);
+    this.updateResults = this.updateResults.bind(this);
+    this.updateScore = this.updateScore.bind(this);
+    this.scoreRedirect = this.scoreRedirect.bind(this);
+    this.playerRedirect = this.playerRedirect.bind(this);
   }
 
   componentWillMount() {
@@ -49,13 +57,15 @@ class TriviaMain extends React.Component {
     this.socket.on('start', this.starter);
     this.socket.on('end', this.updateState);
     this.socket.on('ask', this.ask);
+    this.socket.on('results', this.updateResults);
+    this.socket.on('score', this.updateScore);
   }
 
   join(event) {
-    console.log('clicked')
     this.emit('join', {
-      playerName: this.state.playerName,  
+      playerName: this.state.playerName 
     })
+  
     this.setState({
       viewState: 'players'
     })
@@ -89,13 +99,13 @@ class TriviaMain extends React.Component {
   onNameChange(playerName) {
    console.log(event)
     this.setState({
-      playerName: playerName,
+      playerName: playerName.toUpperCase()
     })
   }
 
-  clickJoinHost(event) {
+  hostPageRedirect() {
     this.setState({
-      hostJoin: true
+      viewState: 'hostpage'
     })
   }
 
@@ -105,11 +115,24 @@ class TriviaMain extends React.Component {
     })
   }
 
+  scoreRedirect() {
+    this.setState({
+      viewState: 'score'
+    })
+  }
+
+  playerRedirect() {
+    this.setState({
+      viewState: 'players'
+    })
+  }
+
   emit(eventName, payload) {
     this.socket.emit(eventName, payload);
   }
 
   connect() {
+console.log(sessionStorage.player, sessionStorage.score)
     let player = (sessionStorage.player) ? JSON.parse(sessionStorage.player) : null;
     if (player && player.type === 'player') {
       this.emit('join', player);
@@ -149,6 +172,14 @@ class TriviaMain extends React.Component {
     })
   }
 
+  updateScore(score) {
+    
+    this.setState({
+      score : score
+    })
+   
+  }
+
   starter(game) {
     if (this.state.player.type === 'host') {
       sessionStorage.gameName = game.gameName;
@@ -164,26 +195,48 @@ class TriviaMain extends React.Component {
     console.log(this.currentQuestion)
   }
 
+  updateResults(data) {
+    console.log('update results', data, this.player, this.playerName)
+    this.setState({results: data})
+  }
+
+
+
   render() {
+    let player = this.state.player.playerName
   	return (
-  	  <div>
-        
-          <h1> {this.state.gameName} </h1>
-          <p> Host: {this.state.host}</p>
+      <Container id="trivia">
+        <Row id="title">
+          <Col xs="11">{this.state.gameName}</Col>
+          <Col xs="1"><span data-toggle="tooltip" data-placement="left" title={this.state.status} className={this.state.status}></span></Col>
+            <Col xs="8">
+              <p className="title-sub"> Host: {this.state.host}</p>
+            </Col>
+            <Col xs="4">
+              <p className="title-sub right">Players: {this.state.players.length}</p>
+            </Col>
+        </Row>
+        <Row>
+         
+        </Row>
+         
           
         
         
-          <span>connected</span>
+          
         
       
 	      
-	      
+	     <div> 
 	     
-       {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} clickHostRedirect={this.clickHostRedirect}/>}
-       {this.state.viewState === 'players' && <TriviaPlayers player={this.state.player} currentQuestion={this.state.currentQuestion} players={this.state.players} emit={this.emit}/>} 
+       {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} host={this.state.host} clickHostRedirect={this.clickHostRedirect}/>}
+       {this.state.viewState === 'players' && <TriviaPlayers scoreRedirect={this.scoreRedirect} score={this.state.score} player={this.state.player} currentQuestion={this.state.currentQuestion} results={this.state.results} players={this.state.players} emit={this.emit}/>} 
        {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange}/>}
-       {this.state.viewState === 'hostpage' && <HostPage players={this.state.players} questions={this.state.questions} emit={this.emit}/>}
+       {this.state.viewState === 'hostpage' && <HostPage scoreRedirect={this.scoreRedirect} players={this.state.players} questions={this.state.questions} emit={this.emit} score={this.state.score}/>}
+       {this.state.viewState === 'score' && <Score hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit}/>}
+     
       </div>
+      </Container>
   	)
   }
 

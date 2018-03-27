@@ -20,12 +20,8 @@ let players = [];
 let host = {};
 let questions = require('../client/MockQuestions/questions.js');
 let currentQuestion = false;
-let results = {
-  a: 0,
-  b: 0,
-  c: 0,
-  d: 0
-};
+let results = undefined;
+let score = {}
 
 let ioServer = app.listen(4000)
 let io = require('socket.io').listen(ioServer);
@@ -40,6 +36,7 @@ io.sockets.on('connection', (socket) => {
         } else if (this.id === host.id) {
           console.log('%s has left, GAME OVER!', host.name)
           host = {};
+          score = {};
           gameName = 'Untitled';
           io.sockets.emit('end', {gameName: 'GAME OVER!', host: '', currentQuestion: false})
         }
@@ -57,12 +54,15 @@ io.sockets.on('connection', (socket) => {
     let newPlayer = {
       id: this.id,
       playerName: payload.playerName,
-      type: 'player'
+      type: 'player',
+      score: payload.score
     };
     this.emit('joined', newPlayer)
     players.push(newPlayer);
+    score[newPlayer.playerName] = 0;
     io.sockets.emit('players', players);
     console.log('username: ' + payload.playerName)
+    console.log('joined line 63', payload, score)
   })
 
   socket.on('start', function(payload) {
@@ -80,14 +80,21 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('ask', function(question){
     currentQuestion = question;
-    results = {a: 0, b: 0, c: 0, d: 0};
+    results = undefined;
     io.sockets.emit('ask', currentQuestion);
     console.log('question: %s', question.q);
   })
 
   socket.on('answer', function(payload) {
-    results[payload.answer]++;
-    console.log('answer: %s', payload.choice, results)
+    if (payload.answer === payload.question.ans) {
+      results = true;
+      score[payload.player]++;
+    } else {
+      results = false;
+    }
+    io.sockets.emit('results', results)
+    io.sockets.emit('score', score)
+    console.log('answer: %s', payload.answer, results, payload, payload.question.ans,score)
   })
 
   socket.emit('welcome', {
@@ -95,9 +102,11 @@ io.sockets.on('connection', (socket) => {
     players: players,
     host: host.name,
     questions: questions,
-    currentQuestion: currentQuestion
+    currentQuestion: currentQuestion,
+    results: results,
+    score: score
   })
-  console.log('welcome', gameName,players,host)
+  console.log('welcome', gameName,players,host, score)
 
   connections.push(socket);
   console.log('connect: %s sockets connected', connections.length);

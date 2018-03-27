@@ -7,7 +7,8 @@ class Ask extends React.Component {
   	super(props);
   	this.state = {
       answers: [],
-      answer: undefined
+      answer: undefined,
+      correctAns: undefined,
   	}
   	this.setAnswers = this.setAnswers.bind(this);
   	this.addAnswers = this.addAnswers.bind(this);
@@ -29,13 +30,17 @@ class Ask extends React.Component {
   	this.setState({answers: answers, answer: sessionStorage.answer});
   }
 
+
   selection(answer) {
     this.setState({answer: answer})
     sessionStorage.answer = answer;
     this.props.emit('answer', {
       question: this.props.question,
-      answer: answer
+      answer: answer,
+      correctAns: this.props.question.ans,
+      player: this.props.player.playerName
     })
+    console.log('selection line 40',this.props.question)
   }
 
   addAnswers(answer, i) {
@@ -50,6 +55,8 @@ class Ask extends React.Component {
       {this.state.answer &&
       	<div>
         <h2> You answered: {this.props.question[this.state.answer]}</h2>
+         {this.props.results && <h2> This answer is: Correct</h2> }
+         {!this.props.results && <h2> This answer is: Incorrect</h2>}
         <h2> Please wait for the next question...</h2>
         </div>
       }

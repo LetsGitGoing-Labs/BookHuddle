@@ -12,6 +12,7 @@ class CurPlayers extends React.Component {
       <tr key={i}>
         <th scope="row">{i + 1}</th>
         <td>{player.playerName}</td>
+        <td>{this.props.score.player}</td>
       </tr>
     )
   }
@@ -23,6 +24,7 @@ class CurPlayers extends React.Component {
           <tr>
             <th>#</th>
             <th>Player Name</th>
+            <th>Score</th>
           </tr>
         </thead>
         <tbody>

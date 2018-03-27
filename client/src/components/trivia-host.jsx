@@ -14,7 +14,7 @@ return(
            name="hostName"
            value={this.props.hostName}
            onChange={this.props.onHostChange}
-           className="form-control"
+           className="form-control uppercase"
            placeholder="Enter a host name"
            required /> 
         <input 
@@ -22,7 +22,7 @@ return(
            name="gameName"
            value={this.props.gameName}
            onChange={this.props.onGameChange}
-           className="form-control"
+           className="form-control uppercase"
            placeholder="Enter a name for your Trivia game..."
            required />
          <button className="btn btn-primary">Join as the Host!</button>
