@@ -58,7 +58,7 @@ describe('', function() {
 
 
   describe('server', function() {
-    describe('GET /', function () {
+    describe('GET', function () {
       it('should return the content of index.html', function (done) {
         // just assume that if it contains an id for rendering the app component that its index.html
         request

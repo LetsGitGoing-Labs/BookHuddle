@@ -34,17 +34,30 @@ app.use(passport.session());
 // Serve static files to client
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// Begin GraphQL attempt
+// Begin GraphQL
 
 // Schema
 var schema = buildSchema(`
   type Mutation {
-    setMessage(message: String):
-      String
+
+    getBooksAPI(searchBy: String): String
+
+    handleLogin(userData: String): String
+
+    handleSignup(userData: String): String
+
+    handleLogout(userData: String): String
+
+    handleClubCreate(clubData: String): String
+
   }
 
   type Query {
-    getMessage: String
+
+    getBooksAPI: String
+
+    getClubs: String
+
   }
 `);
 
@@ -54,8 +67,77 @@ var root = {
     fakeDatabase.message = message;
     return message;
   },
-  getMessage: function () {
+  getMessage: () => {
     return fakeDatabase.message;
+  },
+  getBooksAPI: ({searchBy}) => {
+    return new Promise((resolve, reject) => {
+    amazonHelpers.retrieveBooksAPI(searchBy)
+        .then(function(books) {
+          var parsedData = parseString(books.data, function(err, result) {
+            result = result.ItemSearchResponse.Items[0].Item;
+            var bookData = result.map((bookObject) => {
+                if (bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage[0].URL) {
+                  return {
+                  book_amazon_id: bookObject.ASIN,
+                  book_title: bookObject.ItemAttributes[0].Title,
+                  book_author: bookObject.ItemAttributes[0].Author,
+                  book_image: bookObject.MediumImage[0].URL,
+                  book_url: bookObject.DetailPageURL
+                  };
+                }
+              }
+            );
+
+            resolve(JSON.stringify(bookData));
+          });
+        })
+        .then((err) => {
+          console.log(err);
+        });
+      });
+  },
+  handleLogin: ({userData}) => {
+    userData = JSON.parse(userData);
+    return new Promise((resolve, reject) => {
+    database.checkUser(userData,
+      null,
+      (data, statusCode, res) => {
+      resolve(JSON.stringify(data));
+    });
+  });
+  },
+  handleSignup: ({userData}) => {
+    userData = JSON.parse(userData);
+    return new Promise((resolve, reject) => {
+      database.addUser((data, statusCode, res) => {
+        resolve(JSON.stringify(data));
+      },
+      userData,
+      null);
+    });
+  },
+  handleLogout: ({userData}) => {
+    console.log('Logged out!');
+  },
+  handleClubCreate: ({clubData}) => {
+    clubData = JSON.parse(clubData);
+    return new Promise((resolve, reject) => {
+      database.addClub((clubData, statusCode, res) => {
+        resolve(JSON.stringify(clubData));
+      },
+      clubData,
+      null);
+    });
+  },
+  getClubs: () => {
+    return new Promise((resolve, reject) => {
+      database.retrieveClubs((clubs, statusCode, res) => {
+        resolve(JSON.stringify(clubs));
+      },
+      null,
+      null);
+    });
   }
 };
 
@@ -65,7 +147,7 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true,
 }));
 
-// End GraphQL attempt
+// End GraphQL
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
@@ -123,7 +205,7 @@ app.get('/getBooksAPI', (req, res) => {
 });
 
 app.post('/clubs', (req, res) => {
-  let newClub = req.body
+  let newClub = req.body;
   database.addClub(sendData, newClub, res);
 });
 

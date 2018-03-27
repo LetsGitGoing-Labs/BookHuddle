@@ -12,8 +12,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: {},
-      isLoggedIn: true
-    }
+      isLoggedIn: false
+    };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);
@@ -28,15 +28,25 @@ class App extends React.Component {
   }
 
   handleLogin(formData, cb) {
+
+    formData = JSON.stringify(formData);
+    let query = `mutation HandleLogin($formData: String) {
+      handleLogin(userData: $formData)
+    }`;
+
     $.ajax({
-      url: '/login',
       type: 'POST',
-      data: formData,
-      success: (data) => {
-        // this.setState({
-        //   user: data[0],
-        //   isLoggedIn: true
-        // });
+      url: '/graphql',
+      data: JSON.stringify({
+        query: query,
+        variables: { formData : formData }
+      }),
+      contentType: 'application/json',
+      success: (userData) => {
+        this.setState({
+          user: JSON.parse(userData.data.handleLogin)[0],
+          isLoggedIn: true
+        });
       },
       error: (err) => {
         console.log('errror logging in', err);
@@ -46,21 +56,50 @@ class App extends React.Component {
   }
 
   handleSignup(formData, cb) {
+
+    formData = JSON.stringify(formData);
+
+    let query = `mutation HandleSignup($formData: String) {
+      handleSignup(userData: $formData)
+    }`;
+
     $.ajax({
-      url: '/signup',
       type: 'POST',
-      data: formData,
-      success: (data) => {
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query: query,
+        variables: {
+          formData: formData
+        }
+      }),
+      success: (userData) => {
         this.setState({
-          user: data,
+          user: JSON.parse(userData.data.handleSignup)[0],
           isLoggedIn: true
         });
       },
-      error: function(err){
-        console.log('error in ajax', err);
-        cb(err);
+      error: (err) => {
+        console.log(err);
       }
     });
+
+  //Restful HTTP request that was replaced with graphQL query
+    // $.ajax({
+    //   url: '/signup',
+    //   type: 'POST',
+    //   data: formData,
+    //   success: (data) => {
+    //     this.setState({
+    //       user: data,
+    //       isLoggedIn: true
+    //     });
+    //   },
+    //   error: function(err){
+    //     console.log('error in ajax', err);
+    //     cb(err);
+    //   }
+    // });
   }
 
   handleLogout() {

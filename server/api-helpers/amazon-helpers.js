@@ -12,6 +12,8 @@ function sha256(stringToSign, secretKey) {
 
 //Amazon API request that returns an array of 10 books based on search term
 var retrieveBooksAPI = function(searchTerm) {
+  searchTerm = searchTerm.replace(' ', '%20');
+
   var today = new Date();
   time = today.toISOString();
   time = encodeURIComponent(time);
@@ -38,8 +40,6 @@ var retrieveBooksAPI = function(searchTerm) {
 
   return axios.get(amazonUrl);
 
-  // return axios.get(`
-  //   http://webservices.amazon.com/onca/xml?Service=AWSECommerceService&AWSAccessKeyId=${process.env.AWS_ACCESS_KEY_ID}&AssociateTag=${process.env.ASSOCIATE_ID}&Operation=ItemSearch&Keywords=the%20hunger%20games&SearchIndex=Books&Timestamp=${time}&Version=2011-08-01&Signature=${process.env.signature}`);
 };
 
 module.exports.retrieveBooksAPI = retrieveBooksAPI;

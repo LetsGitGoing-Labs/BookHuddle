@@ -31,18 +31,43 @@ class CreateClub extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let formData = this.state;
+
+    let clubData = JSON.stringify(this.state);
+
+    var query = `mutation HandleClubCreate($clubData: String) {
+      handleClubCreate(clubData: $clubData)
+    }`;
+
     $.ajax({
       type: 'POST',
-      url: '/clubs',
-      data: formData,
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query: query,
+        variables: {
+          clubData: clubData
+        }
+      }),
       success: (data) => {
-        console.log(data.confirmRequest)
+        console.log(data);
       },
       error: (data) => {
         console.log(data);
       }
     });
+
+    // let formData = this.state;
+    // $.ajax({
+    //   type: 'POST',
+    //   url: '/clubs',
+    //   data: formData,
+    //   success: (data) => {
+    //     console.log(data.confirmRequest)
+    //   },
+    //   error: (data) => {
+    //     console.log(data);
+    //   }
+    // });
   }
 
   render() {
