@@ -13,23 +13,52 @@ const retrieveClubs = (cb, dataObj, res) => {
   });
 };
 
-const checkUser = (user, res, cb) => {
-  // console.log(user);
+// CHECKUSER FN BEFORE IMPLEMENTING PASSPORT
+// const checkUser = (user, res, cb) => {
+//   console.log(user);
+//    return db.knex('user')
+//   .where({
+//     email: user.email,
+//     password: user.password
+//   })
+//   .select()
+//   .then((data) => {
+//     if (data.length > 0 ) {
+//       cb(data, 200, res);
+//     } else {
+//       cb(data, 401, res);
+//     }
+//   });
+// };
+
+// CHECKUSER FN AFTER IMPLEMENTING PASSPORT
+const checkUser = (user, cb) => {
    return db.knex('user')
   .where({
     email: user.email,
-    password: user.password
+  })
+  .select()
+  .then((err, user) => {
+    cb(err, user)
+  });
+};
+
+// CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT
+const checkCredentials = (email, password) => {
+   return db.knex('user')
+  .where({
+    email: email,
+    password: password
   })
   .select()
   .then((data) => {
     //placeholder for using bcrypt
     if (data.length > 0 ) {
-      data[0].password = 'encrypted';
-      cb(data, 200, res);
+      return true;
     } else {
-      cb(data, 401, res);
+      return false;
     }
-  });
+  })
 };
 
 const clubNameIsTaken = (clubName) => {
@@ -71,12 +100,37 @@ const retrieveUser = (email, res, cb) => {
   })
   .select('*')
   .then((userData) => {
-    if (userData.length > 0) {
-      cb(userData, 200, res);
-    } else {
+    cb(userData, 200, res);
+  })
+  .catch((err) => {
       cb('Internal Server Error', 500, res);
-    }
-  });
+  })
+};
+
+const retrieveClubByName = (clubName, res, cb) => {
+  //console.log('retrieving user from db');
+  return db.knex('club')
+  .where({
+    club_name: clubName
+  })
+  .select('*')
+  .then((clubData) => {
+    cb(clubData, 200, res);
+  })
+  .catch((err) => {
+      cb('Internal Server Error', 500, res);
+  })
+};
+
+const getUserById = (user_id, cb) => {
+  return db.knex('user')
+  .where({
+    id: user_id
+  })
+  .select()
+  .then((err, user) => {
+    cb(err, user);
+  })
 };
 
 const retrieveMeeting = (meetingID, cb) => {
@@ -189,6 +243,7 @@ module.exports = {
   addUser,
   addClub,
   checkUser,
-  saveMeeting
+  saveMeeting,
+  getUserById
 };
 
