@@ -19,8 +19,7 @@ db.knex.schema.hasTable('user').then(function(exists) {
       t.string('password',100);
       t.string('first_name', 100);
       t.string('last_name', 100);
-      t.string('user_city', 100);
-      t.string('user_state_province', 100);
+      t.string('user_location', 100);
       t.string('user_facebook_token', 100);
       t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
     }).then(function(table) {

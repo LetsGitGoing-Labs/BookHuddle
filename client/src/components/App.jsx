@@ -28,7 +28,6 @@ class App extends React.Component {
   }
 
   handleLogin(formData, cb) {
-
     formData = JSON.stringify(formData);
     let query = `mutation HandleLogin($formData: String) {
       handleLogin(userData: $formData)
@@ -43,6 +42,7 @@ class App extends React.Component {
       }),
       contentType: 'application/json',
       success: (userData) => {
+        console.log(JSON.parse(userData.data.handleLogin)[0]);
         this.setState({
           user: JSON.parse(userData.data.handleLogin)[0],
           isLoggedIn: true
@@ -56,7 +56,6 @@ class App extends React.Component {
   }
 
   handleSignup(formData, cb) {
-
     formData = JSON.stringify(formData);
 
     let query = `mutation HandleSignup($formData: String) {
@@ -74,6 +73,7 @@ class App extends React.Component {
         }
       }),
       success: (userData) => {
+        console.log(userData);
         this.setState({
           user: JSON.parse(userData.data.handleSignup)[0],
           isLoggedIn: true

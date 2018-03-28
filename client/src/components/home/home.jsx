@@ -45,12 +45,12 @@ class Home extends React.Component {
                   <p>Sign up and start browsing book clubs by book genre or search by keywords or location. </p>
                 </div>
                 <div className="col-md-4">
-                  <i className="fa fa-heart"></i>
+                  <i className="fas fa-desktop"></i>
                   <h4>Create a club</h4>
                   <p>Start your own club that you can make public or private. Pick what genres your club will be reading and add a description to help other readers find you.</p>
                   </div>
                   <div className="col-md-4">
-                    <i className="fa fa-heart"></i>
+                    <i className="fas fa-users"></i>
                     <h4>Get Connected</h4>
                     <p>Stay up to date with your book club and join in the discussion using your club's message board. Get notified of upcoming meetings.</p>
                   </div>

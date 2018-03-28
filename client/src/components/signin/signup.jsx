@@ -10,8 +10,7 @@ class Signup extends React.Component {
       lastName: '',
       email: '',
       password: '',
-      city: '',
-      state: ''
+      location: ''
     }
     this.change = this.change.bind(this);
     this.signupSubmit = this.signupSubmit.bind(this);
@@ -30,8 +29,7 @@ class Signup extends React.Component {
       lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
-      city: this.state.city,
-      state: this.state.state
+      location: this.state.location
     }
 
     this.props.signup(formData, (err) => {
@@ -61,17 +59,7 @@ class Signup extends React.Component {
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <input name="city" onChange={event => this.change(event)} type="text" className="form-control" id="inputCity" placeholder="City"/>
-          </div>
-          <div className="form-group col-md-4">
-            <select name="state" onChange={event => this.change(event)} id="inputState" className="form-control">
-              <option defaultValue>State/Province</option>
-              <option>...</option>
-              <option>CA</option>
-              <option>CO</option>
-              <option>TX</option>
-              <option>CANADA</option>
-            </select>
+            <input name="location" onChange={event => this.change(event)} type="text" className="form-control" id="userLocation" placeholder="Location"/>
           </div>
         </div>
         <div className="centerize">
