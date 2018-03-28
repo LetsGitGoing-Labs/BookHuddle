@@ -1,28 +1,11 @@
 import React from 'react';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-<<<<<<< HEAD
 import Home from './home/home.jsx';
 import About from './home/about.jsx';
 import Logout from './home/logout.jsx';
 import DashboardRouting from './dashboard/dashboard-routing.jsx';
 
 import '../styles/style.css';
-=======
-import Home from './home.jsx';
-import About from './about.jsx';
-import FAQ from './faq.jsx';
-import Signup from './signup.jsx';
-import Login from './login.jsx';
-import Dashboard from './dashboard.jsx';
-import Logout from './logout.jsx';
-import '../styles/main.css';
-import CreateClub from './create-club.jsx';
-import Profile from './profile.jsx';
-import LoginModal from './login-modal.jsx';
-import MainNavbar from './main-navbar.jsx';
-import Club from './club.jsx';
-import TriviaMain from './trivia-main.jsx';
->>>>>>> create trivia skeleton
 
 class App extends React.Component {
   constructor(props) {
@@ -142,17 +125,9 @@ class App extends React.Component {
               }
             } />
           <Route path='/about' component={ About } />
-<<<<<<< HEAD
           <Route path='/logout' render={ (props) => (
             <Logout handleLogout={this.handleLogout} />
            )} />
-=======
-          <Route path='/faq' component={ FAQ } />
-          <Route path='/logout' component={ Logout } />
-          <Route path='/profile' component={ Profile } />
-          <Route path='/club' component={ Club } />
-          <Route path='/trivia-main' component={ TriviaMain } />
->>>>>>> create trivia skeleton
           <Route path='/dashboard' render={
             (props) => {
               return this.state.isLoggedIn
