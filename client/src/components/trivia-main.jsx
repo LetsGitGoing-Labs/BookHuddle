@@ -95,7 +95,7 @@ class TriviaMain extends React.Component {
 
   onGameChange(e) {
     this.setState({
-      gameName: e.target.value,
+      gameName: e.target.value
     })
   }
 
@@ -160,7 +160,8 @@ class TriviaMain extends React.Component {
   gameOver(score) {
     console.log('game over bitches', score)
     this.setState({
-      gameOver: true
+      gameOver: true,
+      currentQuestion: false 
     })
     this.scoreRedirect();
   }
@@ -207,7 +208,7 @@ class TriviaMain extends React.Component {
   }
 
   updateResults(data) {
-    console.log('update results', data, this.player, this.playerName)
+    console.log('update results', data, this.state.player, this.state.playerName)
     this.setState({results: data})
   }
 

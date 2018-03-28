@@ -77,10 +77,10 @@ class Score extends React.Component {
        
          {this.props.gameOver && this.state.leader.length === 1 &&
          <div> The winner is...
-         <h1>{this.state.rank[0]}</h1></div>}
+         <h1 className="centered">{this.state.rank[0]}</h1></div>}
          {this.props.gameOver && this.state.leader.length > 1 &&
-         <div> Unbelievable...
-         <h1>It's a {this.state.leader.length}-way tie!!!</h1></div>}
+         <div> <h2>Unbelievable...</h2>
+         <h1 className="centered">It's a {this.state.leader.length}-way tie!!!</h1></div>}
         
          
        

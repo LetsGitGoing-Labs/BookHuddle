@@ -29,7 +29,7 @@ class Questions extends React.Component {
   addQuestion(question, i) {
     
     return (
-      <div key={i} className="col-xs-12 col-sm-6 col-md-3">
+      <div key={i} className="col-xs-12 col-sm-6 col-md-3 centered score-board">
         <Card body>
           <CardTitle>Question {i + 1}</CardTitle>
           <CardText>{question.q}</CardText>

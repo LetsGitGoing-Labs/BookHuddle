@@ -77,7 +77,6 @@ background:#fffcf4;
   text-align: center;
   border-radius: 8px;
   color: #5fabb9;
-  
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
@@ -105,6 +104,18 @@ background:#fffcf4;
 
 .score-board {
   margin-top: 40px;
+  margin-left: 10px;
+  margin-right: 30px;
+}
+
+#incorrect {
+  color: red;
+  text-shadow: 2px 2px 4px #000000; 
+}
+
+#correct {
+  color: green;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 
