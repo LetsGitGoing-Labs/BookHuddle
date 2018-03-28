@@ -26,6 +26,14 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.getBooks();
     this.getMeetings();
+    this.findNearClubs();
+  }
+
+  findNearClubs() {
+    var location = 'San Francisco, California';
+
+    var query = ``;
+
   }
 
   getBooks() {

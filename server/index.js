@@ -220,6 +220,8 @@ var schema = buildSchema(`
 
     handleClubCreate(clubData: String): String
 
+    findNearClubs(clubData: String): String
+
   }
 
   type Query {
@@ -249,11 +251,11 @@ var root = {
             var bookData = result.map((bookObject) => {
                 if (bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage[0].URL) {
                   return {
-                  book_amazon_id: bookObject.ASIN,
-                  book_title: bookObject.ItemAttributes[0].Title,
-                  book_author: bookObject.ItemAttributes[0].Author,
-                  book_image: bookObject.MediumImage[0].URL,
-                  book_url: bookObject.DetailPageURL
+                    book_amazon_id: bookObject.ASIN,
+                    book_title: bookObject.ItemAttributes[0].Title,
+                    book_author: bookObject.ItemAttributes[0].Author,
+                    book_image: bookObject.MediumImage[0].URL,
+                    book_url: bookObject.DetailPageURL
                   };
                 }
               }
@@ -307,6 +309,11 @@ var root = {
       },
       null,
       null);
+    });
+  },
+  findNearClubs: () => {
+    return new Promise((resolve, reject) => {
+
     });
   }
 };
