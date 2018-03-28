@@ -101,7 +101,7 @@ const retrieveUser = (email, res, cb) => {
   .select('*')
   .then((userData) => {
     cb(userData, 200, res);
-  });
+  })
   .catch((err) => {
       cb('Internal Server Error', 500, res);
   })
@@ -116,7 +116,7 @@ const retrieveClubByName = (clubName, res, cb) => {
   .select('*')
   .then((clubData) => {
     cb(clubData, 200, res);
-  });
+  })
   .catch((err) => {
       cb('Internal Server Error', 500, res);
   })
