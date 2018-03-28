@@ -13,6 +13,22 @@ const retrieveClubs = (cb, dataObj, res) => {
   });
 };
 
+const retrieveClubByName = (cb, clubName, res) => {
+  return db.knex
+  .where({
+    club_name: clubName
+  })
+  .select()
+  .from('club')
+  .then(function(clubs, err) {
+    if (err) {
+      cb(clubs, 500, res);
+    } else {
+      cb(clubs, 200, res);
+    }
+  });
+};
+
 // CHECKUSER FN BEFORE IMPLEMENTING PASSPORT
 // const checkUser = (user, res, cb) => {
 //   console.log(user);
@@ -230,6 +246,7 @@ module.exports = {
   addClub,
   checkUser,
   saveMeeting,
-  getUserById
+  getUserById,
+  retrieveClubByName
 };
 
