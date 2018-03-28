@@ -108,7 +108,6 @@ const retrieveUser = (email, res, cb) => {
 };
 
 const retrieveClubsByName = (clubName, res, cb) => {
-  //console.log('retrieving user from db');
   return db.knex('club')
   .where({
     club_name: clubName
@@ -219,7 +218,7 @@ const addClub = (cb, club, res) => {
         club_name: club.clubName,
         club_city: club.clubCity,
         club_state_province: club.clubState,
-        club_admin_email: club.clubAdminEmail,
+        // club_admin_email: club.clubAdminEmail,
         club_description: club.description,
       })
       .into('club')

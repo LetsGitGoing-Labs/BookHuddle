@@ -14,12 +14,11 @@ class DashboardRouting extends React.Component {
     this.state = {
       userTest: userData,
       searchResults: []
-    }
-    this.search.bind(this);
+    };
+    this.search = this.search.bind(this);
   }
 
   search(searchTerm) {
-
     var query = `mutation getClubsByName($searchTerm: String) {
       getClubsByName(clubName: $searchTerm)
     }`;
@@ -35,12 +34,12 @@ class DashboardRouting extends React.Component {
       success: (clubsData) => {
         clubsData = JSON.parse(clubsData.data.getClubsByName);
         console.log(clubsData);
-        this.setState({
+        this.setState ({
           searchResults: clubsData
         });
       },
       error: (err) => {
-        console.log(err);
+        console.log(err + 'This was the error');
       }
     });
   }
@@ -55,7 +54,7 @@ class DashboardRouting extends React.Component {
           <Switch>
             <Route path='/dashboard/create-club' component={ CreateClub } />
             <Route path='/dashboard/:clubId' render={
-              (props) => ( <Club {...props} clubs={this.state.userTest.clubs}/>)
+              (props) => ( <Club {...props} clubs={this.state.userTest.clubs} searchResults={this.state.searchResults}/>)
             } />
             <Route render={(props) => {
             return <Dashboard user={this.state.userTest} searchResults={this.state.searchResults}/>

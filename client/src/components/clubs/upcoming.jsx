@@ -3,7 +3,7 @@ import React from 'react';
 import DateCard from '../dashboard/pretty-date.jsx';
 
 
-const NoUpcomingMeetings = () => (
+const NoMeetings = () => (
   <div id="upcoming-meetings" className="panel-card">
     <div>No meetings yet!</div>
   </div>

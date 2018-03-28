@@ -26,7 +26,6 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.getBooks();
     this.getMeetings();
-    this.getClubsByName();
     this.getNearClubs();
   }
 
@@ -69,31 +68,6 @@ class Dashboard extends React.Component {
 
     this.setState({
       upcomingMeetings: meetings
-    });
-  }
-
-  getClubsByName() {
-    var clubName = 'Jane Austen Book Club';
-
-    var query = `mutation getClubsByName($name: String) {
-      getClubsByName(clubName: $name)
-    }`;
-
-    $.ajax({
-      type: 'POST',
-      url: '/graphql',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        query: query,
-        variables: { clubs: clubName }
-      }),
-      success: (clubsData) => {
-        let clubs = JSON.parse(clubsData.data.getClubsByName)
-        console.log(clubs);
-      },
-      error: (err) => {
-        console.log(err);
-      }
     });
   }
 

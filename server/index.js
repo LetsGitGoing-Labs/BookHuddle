@@ -266,9 +266,6 @@ var root = {
             resolve(JSON.stringify(bookData));
           });
         })
-        .then((err) => {
-          console.log(err);
-        });
       });
   },
   handleLogin: ({userData}) => {
@@ -322,7 +319,6 @@ var root = {
     });
   },
   getClubsByName: ({clubName}) => {
-    clubName = JSON.parse(clubName);
     return new Promise((resolve, reject) => {
       database.retrieveClubsByName(clubName, null, (clubs, statusCode, res) => {
         resolve(JSON.stringify(clubs));

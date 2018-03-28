@@ -13,7 +13,13 @@ class Club extends React.Component {
   }
 
   render () {
-    const clubData = this.props.clubs.find((club) => club.id === this.props.match.params.clubId)
+    var clubData;
+    if (this.props.searchResults.length) {
+      clubData = this.props.searchResults.find((club) => club.id === Number(this.props.match.params.clubId));
+    } else {
+      clubData = this.props.clubs.find((club) => club.id === this.props.match.params.clubId);
+    }
+    console.log(this.props);
     return (
       <div id="club-page" className="col-md-9">
         <div className="container">
