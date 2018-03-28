@@ -107,7 +107,7 @@ const retrieveUser = (email, res, cb) => {
   })
 };
 
-const retrieveClubByName = (clubName, res, cb) => {
+const retrieveClubsByName = (clubName, res, cb) => {
   //console.log('retrieving user from db');
   return db.knex('club')
   .where({
@@ -122,7 +122,7 @@ const retrieveClubByName = (clubName, res, cb) => {
   });
 };
 
-const retrieveClubByLocation = (clubLocation, res, cb) => {
+const retrieveClubsByLocation = (clubLocation, res, cb) => {
   //console.log('retrieving user from db');
   return db.knex('club')
   .where({
@@ -260,7 +260,7 @@ module.exports = {
   checkUser,
   saveMeeting,
   getUserById,
-  retrieveClubByName,
-  retrieveClubByLocation
+  retrieveClubsByName,
+  retrieveClubsByLocation
 };
 

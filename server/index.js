@@ -222,6 +222,8 @@ var schema = buildSchema(`
 
     getNearClubs(clubLocation: String): String
 
+    getClubsByName(clubName: String): String
+
   }
 
   type Query {
@@ -314,10 +316,18 @@ var root = {
   getNearClubs: ({clubLocation}) => {
     clubLocation = JSON.parse(clubLocation);
     return new Promise((resolve, reject) => {
-      database.retrieveClubByLocation(clubLocation, null, (clubs, statusCode, res) => {
+      database.retrieveClubsByLocation(clubLocation, null, (clubs, statusCode, res) => {
         resolve(JSON.stringify(clubs));
       })
     });
+  },
+  getClubsByName: ({clubName}) => {
+    clubName = JSON.parse(clubName);
+    return new Promise((resolve, reject) => {
+      database.retrieveClubsByName(clubName, null, (clubs, statusCode, res) => {
+        resolve(JSON.stringify(clubs));
+      })
+    })
   }
 };
 
