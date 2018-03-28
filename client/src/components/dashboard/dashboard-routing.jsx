@@ -13,7 +13,7 @@ class DashboardRouting extends React.Component {
     super(props);
     this.state = {
       userTest: userData,
-      searchResults: ''
+      searchResults: []
     }
     this.search.bind(this);
   }

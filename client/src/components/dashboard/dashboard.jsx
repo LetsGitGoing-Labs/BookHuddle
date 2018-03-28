@@ -6,6 +6,7 @@ import { Route, Link, Redirect } from 'react-router-dom';
 import '../../styles/dashboard.css';
 
 //components
+import SearchResultsPanel from './panel-search-results.jsx';
 import MeetingsPanel from './panel-meetings.jsx';
 import ClubsPanel from './panel-clubs.jsx';
 import SuggestedPanel from './panel-suggested.jsx';
@@ -72,6 +73,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div id="dashboard" className="col-md-9">
+        <SearchResultsPanel results={this.props.searchResults}/>
         <MeetingsPanel meetings={this.state.upcomingMeetings}/>
         <ClubsPanel clubs={this.props.user.clubs}/>
         <SuggestedPanel books={this.state.books}/>
