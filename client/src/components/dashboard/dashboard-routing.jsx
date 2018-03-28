@@ -12,14 +12,20 @@ class DashboardRouting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userTest: userData
+      userTest: userData,
+      searchResults: ''
     }
+    this.search.bind(this);
+  }
+
+  search(term) {
+    console.log(term);
   }
 
   render() {
     return (
       <div>
-        <DashboardNavbar />
+        <DashboardNavbar search={this.search}/>
         <div className="row">
           <Sidebar user={this.state.userTest}/>
 
@@ -29,7 +35,7 @@ class DashboardRouting extends React.Component {
               (props) => ( <Club {...props} clubs={this.state.userTest.clubs}/>)
             } />
             <Route render={(props) => {
-            return <Dashboard user={this.state.userTest} />
+            return <Dashboard user={this.state.userTest} searchResults={this.state.searchResults}/>
            } } />
           </Switch>
         </div>
