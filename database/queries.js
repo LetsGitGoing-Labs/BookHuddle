@@ -13,22 +13,6 @@ const retrieveClubs = (cb, dataObj, res) => {
   });
 };
 
-const retrieveClubByName = (cb, clubName, res) => {
-  return db.knex
-  .where({
-    club_name: clubName
-  })
-  .select()
-  .from('club')
-  .then(function(clubs, err) {
-    if (err) {
-      cb(clubs, 500, res);
-    } else {
-      cb(clubs, 200, res);
-    }
-  });
-};
-
 // CHECKUSER FN BEFORE IMPLEMENTING PASSPORT
 // const checkUser = (user, res, cb) => {
 //   console.log(user);
@@ -116,12 +100,26 @@ const retrieveUser = (email, res, cb) => {
   })
   .select('*')
   .then((userData) => {
-    if (userData.length > 0) {
-      cb(userData, 200, res);
-    } else {
-      cb('Internal Server Error', 500, res);
-    }
+    cb(userData, 200, res);
   });
+  .catch((err) => {
+      cb('Internal Server Error', 500, res);
+  })
+};
+
+const retrieveClubByName = (clubName, res, cb) => {
+  //console.log('retrieving user from db');
+  return db.knex('club')
+  .where({
+    club_name: clubName
+  })
+  .select('*')
+  .then((clubData) => {
+    cb(clubData, 200, res);
+  });
+  .catch((err) => {
+      cb('Internal Server Error', 500, res);
+  })
 };
 
 const getUserById = (user_id, cb) => {
@@ -246,7 +244,6 @@ module.exports = {
   addClub,
   checkUser,
   saveMeeting,
-  getUserById,
-  retrieveClubByName
+  getUserById
 };
 
