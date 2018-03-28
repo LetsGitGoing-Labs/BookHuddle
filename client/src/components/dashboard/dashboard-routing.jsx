@@ -18,8 +18,31 @@ class DashboardRouting extends React.Component {
     this.search.bind(this);
   }
 
-  search(term) {
-    console.log(term);
+  search(searchTerm) {
+
+    var query = `mutation getClubsByName($searchTerm: String) {
+      getClubsByName(clubName: $searchTerm)
+    }`;
+
+    $.ajax({
+      type: 'POST',
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query: query,
+        variables: { searchTerm: searchTerm }
+      }),
+      success: (clubsData) => {
+        clubsData = JSON.parse(clubsData.data.getClubsByName);
+        console.log(clubsData);
+        this.setState({
+          searchResults: clubsData
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   render() {

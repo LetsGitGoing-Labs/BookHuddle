@@ -90,6 +90,9 @@ class Dashboard extends React.Component {
       success: (clubsData) => {
         let clubs = JSON.parse(clubsData.data.getClubsByName)
         console.log(clubs);
+      },
+      error: (err) => {
+        console.log(err);
       }
     });
   }
