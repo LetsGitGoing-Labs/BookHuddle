@@ -2,6 +2,10 @@ import React from 'react';
 import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
+//stylesheets
+import '../../styles/dashboard.css';
+
+//components
 import MeetingsPanel from './panel-meetings.jsx';
 import ClubsPanel from './panel-clubs.jsx';
 import SuggestedPanel from './panel-suggested.jsx';
@@ -13,13 +17,14 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       books: [],
-      meetings: meetings,
+      upcomingMeetings: [],
       index: ''
     };
   }
 
   componentDidMount() {
     this.getBooks();
+    this.getMeetings();
   }
 
   getBooks() {
@@ -49,11 +54,26 @@ class Dashboard extends React.Component {
     });
   }
 
+  getMeetings() {
+    let clubs = this.props.user.clubs;
+    let meetings = [];
+    clubs.map((club) => {
+    meetings = meetings.concat(club.meetings);
+    });
+    meetings.sort((a,b) => {
+      return a.meeting_date - a.meeting_date;
+    });
+
+    this.setState({
+      upcomingMeetings: meetings
+    });
+  }
+
   render() {
     return (
       <div id="dashboard" className="col-md-9">
-        <MeetingsPanel meetings={this.state.meetings}/>
-        <ClubsPanel clubs={this.props.clubs}/>
+        <MeetingsPanel meetings={this.state.upcomingMeetings}/>
+        <ClubsPanel clubs={this.props.user.clubs}/>
         <SuggestedPanel books={this.state.books}/>
       </div>
     )
@@ -61,20 +81,3 @@ class Dashboard extends React.Component {
 }
 
 export default Dashboard;
-
-const meetings = [
-      {
-        id: 1,
-        meeting_date: 'March 30th, 2018',
-        meeting_time: '7:30 PM',
-        meeting_host: 'joey@gamil.com',
-        meeting_street_address: '123 Main Street, Houston, TX 12345',
-        meeting_notes: 'Hey everyone! Same place as usual.  We\'ll be finishing our discussion of Persuasion.  It\'s Bob\'s turn to bring refreshments.  I\'ll email the discussion questions the day of.',
-        meeting_book: {
-          amazon_id: null,
-          title: 'Persuasion',
-          author: 'Jane Austen',
-          imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/41uM9MBn1CL._SX326_BO1,204,203,200_.jpg'
-        }
-      }
-      ]

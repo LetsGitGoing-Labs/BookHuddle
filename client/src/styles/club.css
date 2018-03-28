@@ -1,7 +1,6 @@
-.clubHeader {
-  text-align: left;
+.club-title {
   padding-top: 20px;
-  padding-left: 15px;
+  text-align: center;
 }
 
 #club-page .content-wrapper {
@@ -13,7 +12,10 @@
 }
 
 #club-page-nav {
-  width: 100%;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 20px;
+  width: 80%;
 }
 
 #club-page-nav li {
@@ -29,10 +31,62 @@
   padding: 0;
 }
 
+#club-page p {
+  margin: 0;
+}
+
+#club-page .meeting-content img {
+  width: 130px;
+  height: 200px;
+}
 .meeting-text p {
   margin: 0;
 }
 
 .meeting-content {
-  padding: 10px;
+  padding: 20px;
+}
+
+.meeting-dh {
+  display: inline-block;
+  width: 60%;
+}
+
+.meeting-loc {
+  display: inline-block;
+  width: 40%;
+  padding-left: 15px;
+}
+.map-pin {
+  display: inline-block;
+  font-size: 22px;
+  vertical-align: top;
+}
+
+.map-address {
+  display: inline-block;
+  margin: 5px 0;
+  padding: 5px;
+  width: 80%;
+  font-size: 14px;
+}
+
+.map-address p {
+  margin: 0;
+  line-height: 1;
+}
+.meeting-description {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.vline-l {
+  border-left: 1px solid #e6e6e6;
+}
+#upcoming-meetings .date-panel {
+  border: none;
+  padding: 0.5em;
+}
+address {
+  margin: 0;
 }
