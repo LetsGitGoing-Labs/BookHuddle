@@ -76,7 +76,7 @@ const clubNameIsTaken = (clubName) => {
   });
 };
 
-const retrieveClub = (clubID, cb ) => {
+const retrieveClub = (clubID, cb) => {
   //console.log('retrieving club from db');
   return db.knex('club')
   .where({
@@ -119,7 +119,22 @@ const retrieveClubByName = (clubName, res, cb) => {
   })
   .catch((err) => {
       cb('Internal Server Error', 500, res);
+  });
+};
+
+const retrieveClubByLocation = (clubLocation, res, cb) => {
+  //console.log('retrieving user from db');
+  return db.knex('club')
+  .where({
+    club_location: clubLocation
   })
+  .select('*')
+  .then((clubData) => {
+    cb(clubData, 200, res);
+  })
+  .catch((err) => {
+      cb('Internal Server Error', 500, res);
+  });
 };
 
 const getUserById = (user_id, cb) => {
@@ -244,6 +259,8 @@ module.exports = {
   addClub,
   checkUser,
   saveMeeting,
-  getUserById
+  getUserById,
+  retrieveClubByName,
+  retrieveClubByLocation
 };
 

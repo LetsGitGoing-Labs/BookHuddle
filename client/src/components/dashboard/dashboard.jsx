@@ -29,13 +29,6 @@ class Dashboard extends React.Component {
     this.findNearClubs();
   }
 
-  findNearClubs() {
-    var location = 'San Francisco, California';
-
-    var query = ``;
-
-  }
-
   getBooks() {
     var searchTerm = 'Harry Potter';
 
@@ -75,6 +68,31 @@ class Dashboard extends React.Component {
 
     this.setState({
       upcomingMeetings: meetings
+    });
+  }
+
+
+  getNearClubs() {
+    var location = 'San Francisco, California';
+
+    var query = `mutation FindNearClubs($location: String) {
+      getNearClubs(clubLocation: $location)
+    }`;
+
+    $.ajax({
+      type: 'POST',
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query: query,
+        variables: { location: location }
+      }),
+      success: (clubsData) => {
+        let books = JSON.parse(clubsData.data.getNearClubs);
+      },
+      error: (err) => {
+        console.log(err);
+      }
     });
   }
 

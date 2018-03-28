@@ -220,7 +220,7 @@ var schema = buildSchema(`
 
     handleClubCreate(clubData: String): String
 
-    findNearClubs(clubData: String): String
+    getNearClubs(clubLocation: String): String
 
   }
 
@@ -311,9 +311,12 @@ var root = {
       null);
     });
   },
-  findNearClubs: () => {
+  getNearClubs: ({clubLocation}) => {
+    clubLocation = JSON.parse(clubLocation);
     return new Promise((resolve, reject) => {
-
+      database.retrieveClubByLocation(clubLocation, null, (clubs, statusCode, res) => {
+        resolve(JSON.stringify(clubs));
+      })
     });
   }
 };
