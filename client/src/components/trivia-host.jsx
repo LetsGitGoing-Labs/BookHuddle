@@ -12,7 +12,7 @@ return(
          <input 
            type="text"
            name="hostName"
-           value={this.props.hostName}
+           value={this.props.host}
            onChange={this.props.onHostChange}
            className="form-control uppercase"
            placeholder="Enter a host name"

@@ -1,6 +1,7 @@
 import React from 'react';
 import Score from './trivia-score.jsx';
 import Questions from './trivia-qs.jsx';
+import '../styles/trivia.css';
 import { Container, Row, Col, Button } from 'reactstrap';
 
 
@@ -13,8 +14,8 @@ class HostPage extends React.Component {
   	return (
   	  <Container>
         <Row>
-          <Col xs="6"><Button size="sm" color="info"  onClick={this.props.gameOver}>Game Over</Button></Col>
-          <Col xs="6"><Button size="sm" color="info" className="right" onClick={this.props.scoreRedirect}>Scoreboard</Button></Col>
+          <Col xs="6"><button  className="nav-buttons" onClick={this.props.gameOver}>Game Over</button></Col>
+          <Col xs="6"><button className="right nav-buttons" onClick={this.props.scoreRedirect}>Scoreboard</button></Col>
 
         </Row>
     <div>

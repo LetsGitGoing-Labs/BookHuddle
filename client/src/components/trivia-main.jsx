@@ -18,15 +18,13 @@ class TriviaMain extends React.Component {
       playerName: '',
       player: {},
       players: [],
-      host: {},
       host: '',
       viewState: 'join',
       questions: [],
       currentQuestion: false,
       results: undefined,
       score: {},
-      gameOver: false,
-      curWinner: ''
+      gameOver: false
   	}
 
   	this.connect = this.connect.bind(this);
@@ -38,6 +36,7 @@ class TriviaMain extends React.Component {
     this.updatePlayers = this.updatePlayers.bind(this);
     this.start = this.start.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
+    this.onHostChange = this.onHostChange.bind(this);
     this.hostPageRedirect = this.hostPageRedirect.bind(this);
     this.onGameChange = this.onGameChange.bind(this);
     this.clickHostRedirect = this.clickHostRedirect.bind(this);
@@ -220,34 +219,20 @@ class TriviaMain extends React.Component {
       <Container id="trivia">
         <Row id="title">
           <Col xs="12">{this.state.gameName}<span data-toggle="tooltip" data-placement="left" title={this.state.status} className={this.state.status}></span></Col>
-
             <Col xs="8">
               <p className="title-sub"> Host: {this.state.host}</p>
             </Col>
             <Col xs="4">
               <p className="title-sub right">Players: {this.state.players.length}</p>
             </Col>
-        </Row>
-        <Row>
-         
-        </Row>
-         
-          
-        
-        
-          
-        
-      
-	      
-	     <div> 
-	     
-       {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} host={this.state.host} clickHostRedirect={this.clickHostRedirect}/>}
-       {this.state.viewState === 'players' && <TriviaPlayers scoreRedirect={this.scoreRedirect} score={this.state.score} player={this.state.player} currentQuestion={this.state.currentQuestion} results={this.state.results} players={this.state.players} emit={this.emit}/>} 
-       {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange}/>}
-       {this.state.viewState === 'hostpage' && <HostPage gameOver={this.gameOver} scoreRedirect={this.scoreRedirect} players={this.state.players} questions={this.state.questions} emit={this.emit} score={this.state.score}/>}
-       {this.state.viewState === 'score' && <Score gameOver={this.state.gameOver} hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit}/>}
-     
-      </div>
+        </Row> 
+        <div> 
+          {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} host={this.state.host} clickHostRedirect={this.clickHostRedirect}/>}
+          {this.state.viewState === 'players' && <TriviaPlayers scoreRedirect={this.scoreRedirect} score={this.state.score} player={this.state.player} currentQuestion={this.state.currentQuestion} results={this.state.results} players={this.state.players} emit={this.emit}/>} 
+          {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange}/>}
+          {this.state.viewState === 'hostpage' && <HostPage gameOver={this.gameOver} scoreRedirect={this.scoreRedirect} players={this.state.players} questions={this.state.questions} emit={this.emit} score={this.state.score}/>}
+          {this.state.viewState === 'score' && <Score gameOver={this.state.gameOver} hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit}/>}
+        </div>
       </Container>
   	)
   }

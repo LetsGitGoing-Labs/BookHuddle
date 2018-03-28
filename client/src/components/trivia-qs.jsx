@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, Card, Button, CardTitle, CardText} from 'reactstrap';
+import '../styles/trivia.css';
 
 class Questions extends React.Component {
   constructor(props) {
@@ -42,18 +43,13 @@ class Questions extends React.Component {
   render() {
   	return (
   		<div>
-      <div id="questions" className="row">
+      <div id="questions" className="row centered">
      
         {this.props.questions.map(this.addQuestion)}
       
       </div>
-      <div>
-      <Card body>
-          <CardTitle>Game Over</CardTitle>
-          <CardText>Click below to reveal the winner!</CardText>
-          <button onClick={this.endGame}>And the winner is...</button>
-          <Button color="danger">danger</Button>
-        </Card>
+      <div className="centered">
+        <Button color="danger"onClick={this.endGame}>And the winner is...</Button>
       </div>
       </div>
   	)

@@ -27,6 +27,7 @@
 }
 
 .title-sub {
+  color: #fffcf4;
   font-size: 75%;
   text-align: left;
   text-transform: uppercase;
@@ -39,6 +40,10 @@
 
 .left {
   text-align: left;
+}
+
+.centered {
+  text-align: center
 }
 
 .uppercase {
@@ -80,8 +85,21 @@ background:#fffcf4;
   background: #5fabb9;
   color: #fffcf4;
   border-radius: 8px;
+  padding:10px;
   font-size: 200%;
   margin-top:40px;
+  margin-bottom: 40px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.nav-buttons {
+  background: #5fabb9;
+  color: #fffcf4;
+  border-radius: 8px;
+  padding:10px;
+  font-size: 10px%;
+  
+  margin-top:10px;
   margin-bottom: 40px;
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
