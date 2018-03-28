@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
     let clubs = this.props.user.clubs;
     let meetings = [];
     clubs.map((club) => {
-      meetings.push(club.meetings);
+    meetings = meetings.concat(club.meetings);
     });
     meetings.sort((a,b) => {
       return a.meeting_date - a.meeting_date;

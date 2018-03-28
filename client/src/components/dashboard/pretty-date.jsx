@@ -25,7 +25,7 @@ class DateCard extends React.Component {
 
   render() {
     return (
-      <div class="date-panel">
+      <div className="date-panel">
         <p>{this.state.year}</p>
         <h2>{this.state.date}</h2>
         <p>{this.state.month}</p>

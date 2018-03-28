@@ -57,8 +57,10 @@ const userData = {
       meetings: [
         {
           id: 1,
-          meeting_date: '2018-04-30 21:00:00',
-          meeting_host: 'joey@gamil.com',
+          club_name: 'Jane Austen Book Club',
+          meeting_name: 'Wrapping up Persuasion',
+          meeting_date: '2018-04-30T21:00:00',
+          meeting_host: 'James Brown',
           location: '123 Main Street, Houston, TX 12345',
           meeting_description: ' We\'ll be finishing our discussion of Persuasion.',
           meeting_details: 'Hey everyone! Same place as usual. It\'s Bob\'s turn to bring refreshments.  I\'ll email the discussion questions the day of.'

@@ -1,4 +1,5 @@
 import React from 'react';
+import DateCard from './pretty-date.jsx';
 
 const NoMeetings = () => (
   <div id="meetings-list" className="panel-card">
@@ -18,18 +19,13 @@ const MeetingsPanel = (props) => (
             <div key={id} class="panel-content">
               <div class="row">
                 <div class="col-md-3">
-                  <div class="date-panel">
-                    <p>Monday</p>
-                    <h2>24</h2>
-                    <p>March</p>
-                    <h6>9:00 AM</h6>
-                  </div>
+                  <DateCard />
                 </div>
                 <div class="col-md-9">
                   <div class="panel-body">
-                    <h4>Finishing Persuasion</h4>
-                    <p><em>This will be the last meeting to wrap up Jane Austen's Persuation.</em></p>
-                    <p>Host by James Brown</p>
+                    <h4>{meeting.meeting_name}</h4>
+                    <p><em>{meeting.meeting_description}</em></p>
+                    <p>hosted by {meeting.meeting_host}</p>
                   </div>
                   <div class="panel-button">
                     <button className="btn btn-danger">See Details</button>
