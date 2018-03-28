@@ -17,7 +17,7 @@ class TriviaPlayers extends React.Component {
         <div>
   	      {!this.props.currentQuestion &&
   	        <div>
-              <h1 className="centerize">Get ready {player}!</h1> 
+              <h1 className="centered">Get ready {player}!</h1> 
 						</div>
 					}
   	      {this.props.currentQuestion &&
