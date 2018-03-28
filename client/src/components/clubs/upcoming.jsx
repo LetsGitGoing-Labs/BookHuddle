@@ -1,5 +1,8 @@
 import React from 'react';
 
+import DateCard from '../dashboard/pretty-date.jsx';
+
+
 const NoUpcomingMeetings = () => (
   <div id="upcoming-meetings" className="panel-card">
     <div>No meetings yet!</div>
@@ -18,16 +21,13 @@ const UpcomingMeetings = (props) => (
               <div class="row">
                 <div class="col-md-3">
                   <div class="date-panel">
-                    <p>Monday</p>
-                    <h2>24</h2>
-                    <p>March</p>
-                    <h6>9:00 AM</h6>
+                    <DateCard time={meeting.meeting_date}/>
                   </div>
                 </div>
                 <div class="col-md-9 vline-l">
                   <div className="meeting-dh">
-                    <h4>Finishing Persuasion</h4>
-                    <h6>Hosted by James Brown</h6>
+                    <h4>{meeting.meeting_name}</h4>
+                    <h6>Hosted by {meeting.meeting_host}</h6>
                   </div>
                   <div className="meeting-loc">
                     <div class="map-pin">
@@ -38,8 +38,8 @@ const UpcomingMeetings = (props) => (
                       <p>123 Main Street<br/>Houston, TX</p>
                     </address>
                   </div>
-                    <h6 className="meeting-description"><em>This will be the last meeting to wrap up Jane Austen's Persuasion.</em></h6>
-                    <p className="meeting-description">Hey everyone! Same place as usual.  We'll be finishing our discussion of Persuasion.  It's Bob's turn to bring refreshments.  I'll email the discussion questions the day of.</p>
+                    <h6 className="meeting-description"><em>{meeting.meeting_description}</em></h6>
+                    <p className="meeting-description">{meeting.meeting_details}</p>
                 </div>
               </div>
             </div>

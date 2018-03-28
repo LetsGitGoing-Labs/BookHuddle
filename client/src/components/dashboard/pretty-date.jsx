@@ -13,7 +13,8 @@ class DateCard extends React.Component {
   }
 
   componentDidMount() {
-    let date = DateTime.fromISO("2018-04-30T21:00:00").toFormat('yyyy LLL dd t').split(' ');
+    let timeStamp = this.props.time;
+    let date = DateTime.fromISO(timeStamp).toFormat('yyyy LLL dd t').split(' ');
     let time = date[3] + ' ' + date[4];
     this.setState({
       date: date[2],
