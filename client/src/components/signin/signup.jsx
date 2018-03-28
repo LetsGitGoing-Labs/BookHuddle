@@ -1,6 +1,9 @@
-import React from 'react';
+
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import Place from 'react-algolia-places';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -14,11 +17,19 @@ class Signup extends React.Component {
     }
     this.change = this.change.bind(this);
     this.signupSubmit = this.signupSubmit.bind(this);
+    this.location = this.location.bind(this);
   }
 
   change(event) {
     this.setState({
       [event.target.name]: event.target.value
+    })
+  }
+
+  location(event) {
+    console.log(event)
+    this.setState({
+      location: (`${event.suggestion.name}, ${event.suggestion.administrative}`) 
     })
   }
 
@@ -57,10 +68,8 @@ class Signup extends React.Component {
         <div className="form-group">
           <input name="password" onChange={event => this.change(event)} type="password" className="form-control" autoComplete="current-password" id="inputPassword" placeholder="Password"/>
         </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <input name="location" onChange={event => this.change(event)} type="text" className="form-control" id="userLocation" placeholder="Location"/>
-          </div>
+        <div className="form-group">
+          <Place placeholder="Password" onChange={event => this.location(event)}/>
         </div>
         <div className="centerize">
         <button onClick={this.signupSubmit} type="submit" className="btn-primary btn">Sign Up</button>

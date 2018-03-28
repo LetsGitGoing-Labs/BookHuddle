@@ -47,6 +47,7 @@
     "path": "^0.12.7",
     "popper.js": "^1.14.1",
     "react": "^16.2.0",
+    "react-algolia-places": "^0.1.2",
     "react-dom": "^16.2.0",
     "react-facebook-login": "^4.0.1",
     "react-router-dom": "^4.2.2",
@@ -54,6 +55,8 @@
     "request-promise": "^4.2.2",
     "sequelize": "^4.37.0",
     "uuid": "^3.2.1",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {

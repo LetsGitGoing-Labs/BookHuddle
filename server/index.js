@@ -13,8 +13,118 @@ const app = express();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-// callback for responses to client requests that require DB queries
-let sendData = (responseData, statusCode, res) => {
+
+
+
+// socket.io Trivia game
+let connections = [];
+let gameName = 'Untitled';
+let players = [];
+let host = {};
+let questions = require('../client/MockQuestions/questions.js');
+let currentQuestion = false;
+let results = undefined;
+let score = {}
+
+
+let ioServer = app.listen(4000)
+let io = require('socket.io').listen(ioServer);
+
+io.sockets.on('connection', (socket) => {
+  socket.once('disconnect', function(){
+    let player = (players) => {
+      for (let i = 0; i < players.length; i++) {
+        if (players[i].id === this.id) {
+          players.splice(i,1);
+          io.sockets.emit('players', players);
+        } else if (this.id === host.id) {
+          console.log('%s has left, GAME OVER!', host.name)
+          host = {};
+          score = {};
+          gameName = 'Untitled';
+          io.sockets.emit('end', {gameName: 'GAME OVER!', host: '', currentQuestion: false})
+        }
+      }
+    }
+    player(players);
+    console.log('players remaining', players);
+    connections.splice(connections.indexOf(socket), 1);
+    socket.disconnect();
+
+    console.log('Disconnected: %s sockets remaining', connections.length)
+  })
+
+  socket.on('join', function(payload) {
+    let newPlayer = {
+      id: this.id,
+      playerName: payload.playerName,
+      type: 'player'
+    };
+    this.emit('joined', newPlayer)
+    players.push(newPlayer);
+    score[newPlayer.playerName] = 0;
+    io.sockets.emit('players', players);
+    io.sockets.emit('score', score)
+    console.log('username: ' + payload.playerName)
+    console.log('joined line 63', payload, score)
+  })
+
+  socket.on('start', function(payload) {
+    console.log('payload:',payload)
+    
+    gameName = payload.gameName;
+    host.name = payload.host;
+    host.id = this.id;
+    host.type = 'host';
+    this.emit('joined', host);
+    console.log('start', host)
+    io.sockets.emit('start', {gameName: gameName, host: host.name})
+    console.log("Trivia has started: '%s' by %s", payload.gameName, host.name)
+  })
+
+  socket.on('gameover', function(score){
+    io.sockets.emit('gameover', score)
+    console.log('the game is over', score)
+  })
+
+  socket.on('ask', function(question){
+    currentQuestion = question;
+    results = undefined;
+    io.sockets.emit('ask', currentQuestion);
+    console.log('question: %s', question.q);
+  })
+
+  socket.on('answer', function(payload) {
+    if (payload.answer === payload.question.ans) {
+      results = true;
+      score[payload.player]++;
+    } else {
+      results = false;
+    }
+    io.sockets.emit('results', results)
+    io.sockets.emit('score', score)
+    console.log('answer: %s', payload.answer, results, payload, payload.question.ans,score)
+  })
+
+  socket.emit('welcome', {
+    gameName: gameName,
+    players: players,
+    host: host.name,
+    questions: questions,
+    currentQuestion: currentQuestion,
+    results: results,
+    score: score
+  })
+  console.log('welcome', gameName,players,host, score)
+
+  connections.push(socket);
+  console.log('connect: %s sockets connected', connections.length);
+})
+
+//End of socket.io
+
+// callback for DB queries
+let sendData = (responseData, dataObj, res) => {
   let results = JSON.stringify(responseData);
   //console.log(results, '<-- the object sent to client');
   res.status(statusCode).send(results);
