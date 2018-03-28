@@ -16,18 +16,18 @@ const MeetingsPanel = (props) => (
         <h3>UPCOMING MEETINGS</h3>
         {props.meetings.map((meeting, id) =>
           (
-            <div key={id} class="panel-content">
-              <div class="row">
-                <div class="col-md-3">
+            <div key={id} className="panel-content">
+              <div className="row">
+                <div className="col-md-3">
                   <DateCard />
                 </div>
-                <div class="col-md-9">
-                  <div class="panel-body">
+                <div className="col-md-9">
+                  <div className="panel-body">
                     <h4>{meeting.meeting_name}</h4>
                     <p><em>{meeting.meeting_description}</em></p>
                     <p>hosted by {meeting.meeting_host}</p>
                   </div>
-                  <div class="panel-button">
+                  <div className="panel-button">
                     <button className="btn btn-danger">See Details</button>
                   </div>
                 </div>
