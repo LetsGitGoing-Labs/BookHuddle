@@ -49,7 +49,7 @@ class Questions extends React.Component {
       
       </div>
       <div className="centered">
-        <Button color="danger"onClick={this.endGame}>And the winner is...</Button>
+        <button className="nav-buttons"onClick={this.endGame}>And the winner is...</button>
       </div>
       </div>
   	)
