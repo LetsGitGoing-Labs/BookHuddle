@@ -57,7 +57,7 @@ class Ask extends React.Component {
       {this.state.answer &&
       	<div>
         <h2> You answered: {this.props.question[this.state.answer]}</h2>
-         {this.props.results && <h2 id="text-answer"> This answer is: Correct</h2> }
+         {this.props.results && <h2 className="is-correct"> This answer is: Correct</h2> }
          {!this.props.results && <h2> This answer is: Incorrect</h2>}
         <h2> Please wait for the next question...</h2>
         </div>

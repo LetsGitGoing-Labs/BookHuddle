@@ -5,18 +5,20 @@ class Questions extends React.Component {
   constructor(props) {
   	super(props);
   	this.state = {
+
        
   	}
   	this.ask = this.ask.bind(this);
   	this.addQuestion = this.addQuestion.bind(this);
   	this.endGame = this.endGame.bind(this);
   }
-
   
+ 
 
   ask(question) {
   	this.props.emit('ask', question )
   	console.log(question)
+    
   }
 
   endGame(score) {
@@ -49,7 +51,8 @@ class Questions extends React.Component {
       <Card body>
           <CardTitle>Game Over</CardTitle>
           <CardText>Click below to reveal the winner!</CardText>
-          <button onClick={this.endGame}>The END!</button>
+          <button onClick={this.endGame}>And the winner is...</button>
+          <Button color="danger">danger</Button>
         </Card>
       </div>
       </div>

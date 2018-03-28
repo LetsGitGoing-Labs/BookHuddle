@@ -64,30 +64,33 @@ background:#fffcf4;
 }
 
 .ans-button2{
-  background: #5fabb9;
+  background: white;
   margin-top: 5%;
   font-weight: bold;
   font-size: 120%;
   text-transform: uppercase;
   text-align: center;
   border-radius: 8px;
-  color: #fffcf4;
-  text-shadow: 2px 2px 4px #000000;
+  color: #5fabb9;
+  
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .q-button {
-  background: #a5a5af;
+  background: #5fabb9;
   color: #fffcf4;
   border-radius: 8px;
-  font-size: 140%;
+  font-size: 200%;
   margin-top:40px;
   margin-bottom: 40px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .score-board {
   margin-top: 40px;
 }
+
+
 
 
 
