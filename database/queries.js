@@ -103,8 +103,7 @@ const addUser = (cb, user, res) => {
         last_name: user.lastName,
         email: user.email,
         password: user.password,
-        user_city: user.city,
-        user_state_province: user.state,
+        user_location: user.location,
         // user_facebook_token: user.confirmRequest.user.facebook.token
       })
       .into('user')
