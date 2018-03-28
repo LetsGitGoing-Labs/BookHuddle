@@ -19,7 +19,7 @@ const MeetingsPanel = (props) => (
             <div key={id} className="panel-content">
               <div className="row">
                 <div className="col-md-3">
-                  <DateCard />
+                  <DateCard time={meeting.meeting_date}/>
                 </div>
                 <div className="col-md-9">
                   <div className="panel-body">
