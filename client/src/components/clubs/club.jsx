@@ -35,6 +35,7 @@ class Club extends React.Component {
               <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
                 Book History
               </div>
+              <button className="btn center">Join Club</button>
               <div class="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
                 <CreateMeeting />
               </div>
