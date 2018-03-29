@@ -88,7 +88,6 @@ class Dashboard extends React.Component {
       }),
       success: (clubsData) => {
         let clubs = JSON.parse(clubsData.data.getNearClubs);
-        console.log(clubs);
       },
       error: (err) => {
         console.log(err);

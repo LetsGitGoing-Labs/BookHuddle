@@ -71,7 +71,7 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('start', function(payload) {
     console.log('payload:',payload)
-    
+
     gameName = payload.gameName;
     host.name = payload.host;
     host.id = this.id;
@@ -271,8 +271,8 @@ var root = {
   handleLogin: ({userData}) => {
     userData = JSON.parse(userData);
     return new Promise((resolve, reject) => {
-    database.checkUser(userData,
-      null,
+    database.checkUser(
+      userData,
       (data, statusCode, res) => {
       resolve(JSON.stringify(data));
     });
