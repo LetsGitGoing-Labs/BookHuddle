@@ -138,39 +138,19 @@ const retrieveMeetingsByClubID = (clubID, cb ) => {
   })
 }
 
-const userJoinClub = (userID, clubID ) => {
-
+const userJoinClub = (userID, clubID, cb ) => {
+  return db.knex.insert({
+    user_id: userID,
+    club_id: clubID,
+  })
+  .into('user_club')
+  .then((data) => {
+      cb(data);
+    })
+  .catch((err) => {
+    cb(err);
+  })
 }
-
-// const retrieveMeetingsByUserID = (userID, cb ) => {
-//   retrieveClubIDsByUser(userID, (clubs) => {
-//     let calls = [];
-//     for (var i = 0; i < clubs.length; i++ ) {
-//       calls.push(retrieveMeetingsByClubID(clubs[i], (meetings) => {
-//         return meetings;
-//       }))
-//     }
-//     Promise.all(calls).then((nestedArray) => {
-//       let allMeetings = [];
-//       for (var j = 0; j < nestedArray.length; j++ ) {
-//         allMeetings.concat(nestedArray[j]);
-//       }
-//       return allMeetings;
-//     })
-//   });
-
-//   // O an array of meeting objects all pertaining to a userID
-//   // I user ID and a cb (resolve)
-//   // C none
-//   // E xample: if user 8218 is a member of club 231 and 876,
-//   //       get the meetings of club 231: an array of meeting ids
-//   //       get the meetings of club 876; an array of meeting ids
-//   //       combine these arrays into one array of meeting ids
-//   //             retrive each meeting object by its ID and push into an array
-//   //             return array
-//   //
-//   //
-// }
 
 const retrieveUser = (email, res, cb) => {
   //console.log('retrieving user from db');
@@ -325,8 +305,9 @@ module.exports = {
   saveMeeting,
   getUserById,
   retrieveClubsByName,
-  retrieveClubsByLocation
+  retrieveClubsByLocation,
   checkCredentials,
-  retrieveClubIDsByUser
+  retrieveClubIDsByUser,
+  getUserById
 };
 
