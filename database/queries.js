@@ -33,15 +33,71 @@ const retrieveClubs = (cb, dataObj, res) => {
 
 // CHECKUSER FN AFTER IMPLEMENTING PASSPORT
 const checkUser = (user, cb) => {
-   return db.knex('user')
+  // retrieve user Object from db matchig provided credentials.
+  return db.knex('user')
   .where({
     email: user.email,
     password: user.password
   })
   .select()
-  .then((err, user) => {
-    cb(err, user)
-  });
+  .then((retrievedUser) => {
+    // retrieve club ID's for clubs of which user is a member
+    return new Promise ((resolve, reject ) => {
+      resolve(retrieveClubIDsByUser(retrievedUser.id))
+    })
+  })
+  .then((retrievedClubIDs) => {
+    // get all of the clubs for all of the ID's just retrieved
+    let clubObjs = [];
+    for ( var a = 0; a < retrievedClubIDs.length; a++ ) {
+      clubObjs.push(retrieveClub(retrievedClubIDs[a], (club) => {
+        return club;
+      }))
+    }
+    Promise.all(clubObjs)
+    .then((clubsOfGivenUser) => {
+      return new Promise((resolve, reject) => {
+        resolve(clubsOfGivenUser);
+    })
+  })
+  .then((clubArray) => {
+    // now that you have an array  of club objs, iterate through each one and add all meetings as a property to each meeting
+
+    let afdsafdsfasdfasdf = [];
+    for (var b = 0; b < clubArray.length; b++ ) {
+      meetingObjs.push(retrieveMeetingsByClubID(clubArray[b].id))
+    }
+
+      }
+    })
+  })
+
+
+
+
+
+    let calls = [];
+    for (var i = 0; i < retrievedClubIDs.length; i++ ) {
+      calls.push(retrieveMeetingsByClubID(clubs[i], (meetings) => {
+        return meetings;
+      }))
+    }
+    Promise.all(calls).then((nestedArray) => {
+      return new Promise ((resolve, reject) => {
+        let allMeetings = [];
+        for (var j = 0; j < nestedArray.length; j++ ) {
+          allMeetings.concat(nestedArray[j]);
+        }
+        resolve(allMeetings);
+      })
+    })
+    // push each club object into a temp array
+    // add that array to the user object
+  })
+    cb(user)
+  .catch((err) => {
+    cb(err)
+  })
 };
 
 // CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT
@@ -125,7 +181,7 @@ const retrieveClubIDsByUser = (user, cb ) => {
   })
 }
 
-const retrieveMeetingsByClubID = (clubID, cb ) => {
+const retrieveMeetingsByClubID = (clubID) => {
   return db.knex('meeting')
   .where({
     club_id: clubID
@@ -215,7 +271,6 @@ const retrieveMeeting = (meetingID, cb) => {
   })
   .select('*')
   .then((meetingData) => {
-    if (meetingData.length > 0 ) {
       cb(meetingData, 200);
     } else {
       cb('Internal Server Error', 500);
