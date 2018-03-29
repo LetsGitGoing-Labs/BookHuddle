@@ -18,7 +18,7 @@ class Home extends React.Component {
       { title: "The Pillars of the Earth", author: "Ken Follet", cover: "http://covers.openlibrary.org/b/isbn/0451207149-M.jpg"},
       { title: "Where'd You Go Bernadette", author: "Maria Semple", cover: "http://covers.openlibrary.org/b/isbn/0316204277-M.jpg"},
       {title: "The Help", author:"Kathryn Stockett", cover:"http://covers.openlibrary.org/b/isbn/0399155341-M.jpg"}
-    ]
+    ];
     return (
       <div>
         <MainNavbar login={this.props.login} signup={this.props.signup}

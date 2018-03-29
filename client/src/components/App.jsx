@@ -50,7 +50,7 @@ class App extends React.Component {
         });
       },
       error: (err) => {
-        console.log('errror logging in', err);
+        console.log('error logging in', err);
         cb(err);
       }
     });
@@ -84,23 +84,6 @@ class App extends React.Component {
         console.log(err);
       }
     });
-
-  //Restful HTTP request that was replaced with graphQL query
-    // $.ajax({
-    //   url: '/signup',
-    //   type: 'POST',
-    //   data: formData,
-    //   success: (data) => {
-    //     this.setState({
-    //       user: data,
-    //       isLoggedIn: true
-    //     });
-    //   },
-    //   error: function(err){
-    //     console.log('error in ajax', err);
-    //     cb(err);
-    //   }
-    // });
   }
 
   handleLogout() {
