@@ -90,6 +90,7 @@ db.knex.schema.hasTable('user').then(function(exists) {
       return knex.schema.createTable('user_club', function(t) {
         t.integer('user_id').references('user.id');
         t.integer('club_id').references('club.id');
+        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
       });
     }
   });
@@ -99,6 +100,7 @@ db.knex.schema.hasTable('user').then(function(exists) {
       return knex.schema.createTable('club_book', function(t) {
         t.integer('club_id').references('club.id');
         t.integer('book_id').references('book.id');
+        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
       });
     }
   });
@@ -108,6 +110,7 @@ db.knex.schema.hasTable('user').then(function(exists) {
       return knex.schema.createTable('genre_club', function(t) {
         t.integer('genre_id').references('genre.id');
         t.integer('club_id').references('club_id');
+        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
       });
     }
   });
@@ -117,6 +120,7 @@ db.knex.schema.hasTable('user').then(function(exists) {
       return knex.schema.createTable('genre_book', function(t) {
         t.integer('genre_id').references('genre.id');
         t.integer('book_id').references('book.id');
+        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
       });
     }
   });

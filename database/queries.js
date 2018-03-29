@@ -61,6 +61,21 @@ const checkCredentials = (email, password) => {
   })
 };
 
+const emailIsInUse = (email) => {
+  return db.knex('user')
+  .where({
+    email: email
+  })
+  .select('first_name')
+  .then((x) => {
+    if (x.length > 0 ) {
+    return true;
+    } else {
+      return false;
+    }
+  });
+};
+
 const clubNameIsTaken = (clubName) => {
   return db.knex('club')
   .where({
@@ -89,8 +104,53 @@ const retrieveClub = (clubID, cb) => {
     } else {
       cb(null);
     }
-  });
+  })
+  .catch((err) => {
+    cb(err);
+  })
 };
+
+const retrieveClubIDsByUser = (user, cb ) => {
+  return db.knex('user_club')
+  .where({
+    user_id: user
+  })
+  .select()
+  .then((clubs) => {
+    cb(clubs);
+  })
+  .catch((err) => {
+    cb(err);
+  })
+}
+
+const retrieveMeetingsByClubID = (clubID, cb ) => {
+  return db.knex('meeting')
+  .where({
+    club_id: clubID
+  })
+  .select()
+  .then((meetings) => {
+    cb(meetings);
+  })
+  .catch((err) => {
+    cb(err);
+  })
+}
+
+const userJoinClub = (userID, clubID, cb ) => {
+  return db.knex.insert({
+    user_id: userID,
+    club_id: clubID,
+  })
+  .into('user_club')
+  .then((data) => {
+      cb(data);
+    })
+  .catch((err) => {
+    cb(err);
+  })
+}
 
 const retrieveUser = (email, res, cb) => {
   //console.log('retrieving user from db');
@@ -191,7 +251,7 @@ const addUser = (cb, user, res) => {
   });
 };
 
-const saveMeeting = (cb, meeting, res) => {
+const saveMeeting = (cb, meeting/*, user*/, res) => { // <-- need to add user as arg
   console.log(meeting, '<-- meeting');
   return db.knex.insert({
     meeting_date: meeting.date,
@@ -199,9 +259,9 @@ const saveMeeting = (cb, meeting, res) => {
     meeting_host: meeting.host,
     meeting_street_address: meeting.address,
     meeting_notes: meeting.notes,
+    // club_id: user,  // <-- need to add user as arg
   })
   .into('meeting')
-  // .then(ADD RECORD TO THE MEETING_CLUB JOIN TABLE)
   .then(function(meetingID) {
     retrieveMeeting(meetingID, function(userData, statusCode) {
       cb(userData, statusCode, res);
@@ -235,21 +295,6 @@ const addClub = (cb, club, res) => {
   });
 };
 
-const emailIsInUse = (email) => {
-  return db.knex('user')
-  .where({
-    email: email
-  })
-  .select('first_name')
-  .then((x) => {
-    if (x.length > 0 ) {
-    return true;
-    } else {
-      return false;
-    }
-  });
-};
-
 module.exports = {
   retrieveClubs,
   retrieveClub,
@@ -260,6 +305,9 @@ module.exports = {
   saveMeeting,
   getUserById,
   retrieveClubsByName,
-  retrieveClubsByLocation
+  retrieveClubsByLocation,
+  checkCredentials,
+  retrieveClubIDsByUser,
+  getUserById
 };
 
