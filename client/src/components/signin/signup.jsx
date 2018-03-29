@@ -69,7 +69,7 @@ class Signup extends React.Component {
           <input name="password" onChange={event => this.change(event)} type="password" className="form-control" autoComplete="current-password" id="inputPassword" placeholder="Password"/>
         </div>
         <div className="form-group">
-          <Place placeholder="Password" onChange={event => this.location(event)}/>
+          <Place placeholder="Location" onChange={event => this.location(event)}/>
         </div>
         <div className="centerize">
         <button onClick={this.signupSubmit} type="submit" className="btn-primary btn">Sign Up</button>
