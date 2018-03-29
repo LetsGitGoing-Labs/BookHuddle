@@ -224,6 +224,8 @@ var schema = buildSchema(`
 
     getClubsByName(clubName: String): String
 
+    handleJoinClub(userID: Int, clubID: Int): String
+
   }
 
   type Query {
@@ -323,6 +325,13 @@ var root = {
       database.retrieveClubsByName(clubName, null, (clubs, statusCode, res) => {
         resolve(JSON.stringify(clubs));
       })
+    })
+  },
+  handleJoinClub: ({userID, clubID}) => {
+    return new Promise((resolve, reject) => {
+      database.userJoinClub(userID, clubID, (data) => {
+        resolve(JSON.stringify(data))
+      });
     })
   }
 };

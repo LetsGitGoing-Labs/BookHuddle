@@ -33,7 +33,6 @@ class DashboardRouting extends React.Component {
       }),
       success: (clubsData) => {
         clubsData = JSON.parse(clubsData.data.getClubsByName);
-        console.log(clubsData);
         this.setState ({
           searchResults: clubsData
         });
@@ -54,7 +53,7 @@ class DashboardRouting extends React.Component {
           <Switch>
             <Route path='/dashboard/create-club' component={ CreateClub } />
             <Route path='/dashboard/:clubId' render={
-              (props) => ( <Club {...props} clubs={this.state.userTest.clubs} searchResults={this.state.searchResults}/>)
+              (props) => ( <Club {...props} clubs={this.state.userTest.clubs} searchResults={this.state.searchResults} user={this.props.user}/>)
             } />
             <Route render={(props) => {
             return <Dashboard user={this.state.userTest} searchResults={this.state.searchResults}/>

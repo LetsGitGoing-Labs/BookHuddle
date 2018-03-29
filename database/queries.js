@@ -36,6 +36,7 @@ const checkUser = (user, cb) => {
    return db.knex('user')
   .where({
     email: user.email,
+    password: user.password
   })
   .select()
   .then((err, user) => {
@@ -250,6 +251,20 @@ const emailIsInUse = (email) => {
   });
 };
 
+const userJoinClub = (userID, clubID, cb ) => {
+  return db.knex.insert({
+    user_id: userID,
+    club_id: clubID,
+  })
+  .into('user_club')
+  .then((data) => {
+      cb(data);
+    })
+  .catch((err) => {
+    cb(err);
+  })
+}
+
 module.exports = {
   retrieveClubs,
   retrieveClub,
@@ -260,6 +275,7 @@ module.exports = {
   saveMeeting,
   getUserById,
   retrieveClubsByName,
-  retrieveClubsByLocation
+  retrieveClubsByLocation,
+  userJoinClub
 };
 

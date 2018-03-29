@@ -12,7 +12,6 @@ import ClubsPanel from './panel-clubs.jsx';
 import SuggestedPanel from './panel-suggested.jsx';
 import Club from '../clubs/club.jsx';
 
-
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
