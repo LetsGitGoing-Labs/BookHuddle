@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
 import { Modal, ModalBody } from 'reactstrap';
+import Place from 'react-algolia-places';
 
 class CreateClub extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class CreateClub extends React.Component {
       genre: ''
     };
     this.onChange = this.onChange.bind(this);
+    this.setLocation = this.setLocation.bind(this);
   }
 
   onChange(e) {
@@ -20,6 +22,12 @@ class CreateClub extends React.Component {
     this.setState ({
       [ target ]: e.target.value
     });
+  }
+
+  setLocation(e) {
+    this.setState({
+      clubCity: (`${e.suggestion.name}, ${e.suggestion.administrative}`) 
+    })
   }
 
   onSelect(e) {
@@ -83,7 +91,7 @@ class CreateClub extends React.Component {
               <textarea className="form-control" id="inputClubDescription" rows="3" name="description" placeholder="Add a brief description to attract club members"value={this.state.description} onChange={this.onChange}></textarea>
             </div>
             <div className="form-group">
-              <input type="text" className="form-control" id="inputClubLocation" placeholder="City" name="clubCity" value={this.state.clubCity} onChange={this.onChange}/>
+            <Place placeholder="Location" onChange={e => this.setLocation(e)}/>
             </div>
             <div className="form-group">
               <select className="form-control" id="inputClubGenres" name="genre"  onChange={this.onSelect.bind(this)}>
@@ -93,6 +101,7 @@ class CreateClub extends React.Component {
                 <option>Historical Fiction</option>
                 <option>Mystery</option>
                 <option>Non-Fiction</option>
+                <option>Variety</option>
               </select>
             </div>
             <input type="submit" className="btn btn-primary centerize" value="Submit" />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'reactstrap';
+import '../styles/trivia.css';
 
 
 class Ask extends React.Component {
@@ -57,14 +58,14 @@ class Ask extends React.Component {
       {this.state.answer &&
       	<div>
         <h2> You answered: {this.props.question[this.state.answer]}</h2>
-         {this.props.results && <h2 className="is-correct"> This answer is: Correct</h2> }
-         {!this.props.results && <h2> This answer is: Incorrect</h2>}
-        <h2> Please wait for the next question...</h2>
+         {this.props.results && <h2 id="correct" className="centered"> CORRECT!!!</h2> }
+         {!this.props.results && <h2 id="incorrect" className="centered"> WRONG!!!</h2>}
+        <h5 className="centered"> Please wait for the next question...</h5>
         </div>
       }
       {!this.state.answer &&
-      	<div>
-	        <button className="q-button centerize">{this.props.question.q}</button>
+      	<div className="centered">
+	        <button className="q-button">{this.props.question.q}</button>
 	        <div className="row">
 	          {this.state.answers.map(this.addAnswers)}
 	        </div>
