@@ -11,6 +11,7 @@ import MeetingsPanel from './panel-meetings.jsx';
 import ClubsPanel from './panel-clubs.jsx';
 import SuggestedPanel from './panel-suggested.jsx';
 import Club from '../clubs/club.jsx';
+import ClubsNearYouPanel from './panel-clubs-near-you.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Dashboard extends React.Component {
     this.state = {
       books: [],
       upcomingMeetings: [],
+      clubs: [],
       index: ''
     };
   }
@@ -86,7 +88,10 @@ class Dashboard extends React.Component {
         variables: { location: location }
       }),
       success: (clubsData) => {
-        let clubs = JSON.parse(clubsData.data.getNearClubs);
+        clubsData = JSON.parse(clubsData.data.getNearClubs);
+        this.setState({
+          clubs: clubsData
+        });
       },
       error: (err) => {
         console.log(err);
@@ -100,6 +105,7 @@ class Dashboard extends React.Component {
         <SearchResultsPanel results={this.props.searchResults}/>
         <MeetingsPanel meetings={this.state.upcomingMeetings}/>
         <ClubsPanel clubs={this.props.user.clubs}/>
+        <ClubsNearYouPanel clubs={this.state.clubs}/>
         <SuggestedPanel books={this.state.books}/>
       </div>
     )
