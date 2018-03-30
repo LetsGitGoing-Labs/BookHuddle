@@ -10,7 +10,6 @@ class CreateMeeting extends React.Component {
       meetingName: '',
       description: '',
       location: '',
-      userId: this.props.userId
     };
     this.onChange = this.onChange.bind(this);
     this.setLocation = this.setLocation.bind(this);
