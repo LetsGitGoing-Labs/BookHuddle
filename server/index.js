@@ -134,6 +134,7 @@ let sendData = (responseData, dataObj, res) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/*
 // Configure local strategy
 passport.use(new LocalStrategy(
   { usernameField: 'email' },
@@ -183,6 +184,7 @@ app.post('/login',
   function(req, res) {
     res.redirect('/dashboard');
   })
+*/
 
 // OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
 // app.post('/login', (req, res) => {
@@ -273,9 +275,8 @@ var root = {
   handleLogin: ({userData}) => {
     userData = JSON.parse(userData);
     return new Promise((resolve, reject) => {
-    database.checkUser(
-      userData,
-      (data, statusCode, res) => {
+    database.checkUser(userData,
+      (data) => {
       resolve(JSON.stringify(data));
     });
   });
@@ -413,7 +414,8 @@ app.post('/booksdb', (req, res) => {
 
 app.post('/meetings', (req, res) => {
   let newMeeting = req.body;
-  database.saveMeeting(sendData, newMeeting, res);
+  console.log('saveMeeting function signature has changed')
+  database.saveMeeting(sendData, newMeeting, res); //<--deprecated fn signature for saveMeeting
 });
 
 app.get('/*', (req, res) => {
