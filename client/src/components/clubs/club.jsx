@@ -17,11 +17,12 @@ class Club extends React.Component {
   }
 
   userJoinClub() {
-    // We are accessing and slicing the page's url to obtain the club's ID
-    const addUserID = this.props.user.id;
-    const url = window.location.href;
 
-    for (let i = url.length; i > 0; i--) {
+    //We are accessing and slicing the page's url to obtain the club's ID
+    var addUserID = this.props.user.id;
+    var url = window.location.href;
+
+    for (var i = url.length; i > 0; i--) {
       if (url[i] === '/') {
         var addClubID = url.slice(i + 1);
         break;

@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: {},
-      isLoggedIn: false,
+      isLoggedIn: false
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
@@ -43,10 +43,10 @@ class App extends React.Component {
       }),
       contentType: 'application/json',
       success: (userData) => {
-        console.log(JSON.parse(userData.data.handleLogin)[0]);
+        console.log(JSON.parse(userData.data.handleLogin));
         this.setState({
-          user: JSON.parse(userData.data.handleLogin)[0],
-          isLoggedIn: true,
+          user: JSON.parse(userData.data.handleLogin),
+          isLoggedIn: true
         });
       },
       error: (err) => {
