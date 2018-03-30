@@ -11,7 +11,8 @@ class CreateClub extends React.Component {
       clubName: '',
       description: '',
       clubCity: '',
-      genre: ''
+      genre: '',
+      userId: this.props.user.id
     };
     this.onChange = this.onChange.bind(this);
     this.setLocation = this.setLocation.bind(this);
@@ -26,7 +27,7 @@ class CreateClub extends React.Component {
 
   setLocation(e) {
     this.setState({
-      clubCity: (`${e.suggestion.name}, ${e.suggestion.administrative}`) 
+      clubCity: (`${e.suggestion.name}, ${e.suggestion.administrative}`)
     })
   }
 
