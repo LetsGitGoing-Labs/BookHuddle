@@ -29,16 +29,66 @@ const retrieveClubs = (cb, dataObj, res) => db.knex
 //   });
 // };
 
-// CHECKUSER FN AFTER IMPLEMENTING PASSPORT
-const checkUser = (user, cb) => db.knex('user')
+const checkUser = (user, cb) => {
+  var userData = {};
+  var clubsData = {};
+  return db.knex('user')
   .where({
     email: user.email,
     password: user.password,
   })
   .select()
-  .then((user, err ) => {
-    cb(user, err );
+  .then((user, err) => {
+    userData = user[0];
+    return db.knex('user_club')
+    .where({
+      user_id: user[0].id
+    })
+    .select('club_id')
+    .then((clubIDs, err) => {
+      var query;
+      if (clubIDs.length > 0) {
+        //return db.knex('club')
+        query = db.knex('club')
+        .where({
+          id: clubIDs[0].club_id
+        });
+        for (var i = 1; i < clubIDs.length; i++) {
+          query = query.orWhere({
+            id: clubIDs[i].club_id
+          });
+        }
+        query.select()
+        .then((clubs, err) => {
+          clubsData = clubs;
+          console.log(userData);
+          console.log(clubsData);
+        }).then(() => {
+          clubsData.forEach((club, j) => {
+            db.knex('meeting')
+            .where({
+              club_id: clubsData[j].id
+            })
+            .select()
+            .then((meetings, err) => {
+              clubsData[j].meetings = meetings;
+            }).then(() => {
+              if (j === clubsData.length - 1) {
+                userData.clubs = clubsData;
+                cb(userData);
+              }
+            });
+          });
+        });
+      } else {
+        cb(userData);
+      }
+    });
   });
+  // .then((err, user) => {
+  //   cb(err, user)
+  // });
+};
 
 // CHECKUSER refactor for huge object response
 // const checkUser = (user, cb) => {
@@ -238,7 +288,7 @@ const addUser = (cb, user, res) => {
   });
 };
 
-const saveMeeting = (cb, meeting, res) => { 
+const saveMeeting = (cb, meeting, res) => {
   console.log(meeting, '<-- meeting');
   return db.knex.insert({
     meeting_date: meeting.date,

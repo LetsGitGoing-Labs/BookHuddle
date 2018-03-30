@@ -262,7 +262,6 @@ var root = {
                 }
               }
             );
-
             resolve(JSON.stringify(bookData));
           });
         })
