@@ -8,7 +8,8 @@ class CreateMeeting extends React.Component {
     this.state= {
       meetingName: '',
       description: '',
-      location: ''
+      location: '',
+      userId: this.props.userId
     };
     this.onChange = this.onChange.bind(this);
   }
