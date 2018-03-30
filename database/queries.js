@@ -227,6 +227,7 @@ const saveMeeting = (cb, meeting, res) => {
     meeting_host: meeting.host,
     meeting_street_address: meeting.address,
     meeting_notes: meeting.notes,
+    club_id: meeting.clubID,
   })
     .into('meeting')
   // .then(ADD RECORD TO THE MEETING_CLUB JOIN TABLE)
@@ -248,7 +249,7 @@ const addClub = (cb, club, res) => {
       return db.knex.insert({
         club_name: club.clubName,
         club_location: club.clubCity,
-        club_admin_user_id: club.userId,
+        club_admin_user_id: club.userID,
         club_description: club.description,
       })
       .into('club')
