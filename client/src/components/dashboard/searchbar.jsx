@@ -1,10 +1,10 @@
 import React from 'react';
 
 class Searchbar extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      term: ''
+      term: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -12,14 +12,14 @@ class Searchbar extends React.Component {
 
   handleSearch(e) {
     e.preventDefault();
-    let term = this.state.term;
+    const term = this.state.term;
     this.props.search(term);
   }
 
   handleChange(e) {
-    let target = e.target.id;
-    this.setState ({
-      [ target ]: e.target.value
+    const target = e.target.id;
+    this.setState({
+      [target]: e.target.value,
     });
   }
 
@@ -27,11 +27,11 @@ class Searchbar extends React.Component {
     return (
       <div className="input-group">
         <form onSubmit={this.handleSearch}>
-          <input type="text" id="term" placeholder="Search for clubs" value={this.state.term} onChange={this.handleChange}/>
+          <input type="text" id="term" placeholder="Search for clubs" value={this.state.term} onChange={this.handleChange} />
           <input type="submit" value="Submit" />
         </form>
       </div>
-    )
+    );
   }
 }
 

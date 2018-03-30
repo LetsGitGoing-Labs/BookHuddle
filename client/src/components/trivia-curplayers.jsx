@@ -6,7 +6,7 @@ class CurPlayers extends React.Component {
   	super(props);
   	this.addPlayerRow = this.addPlayerRow.bind(this);
   }
-  
+
   addPlayerRow(player, i) {
     return (
       <tr key={i}>
@@ -14,24 +14,24 @@ class CurPlayers extends React.Component {
         <td>{player.playerName}</td>
         <td>{this.props.score.player}</td>
       </tr>
-    )
+    );
   }
 
   render() {
-  	return(
-  	 <Table striped>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Player Name</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.players.map(this.addPlayerRow)}
-       </tbody>
-     </Table>
-  	)
+  	return (
+    <Table striped>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player Name</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {this.props.players.map(this.addPlayerRow)}
+      </tbody>
+    </Table>
+  	);
   }
 }
 

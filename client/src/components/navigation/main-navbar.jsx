@@ -7,8 +7,8 @@ class MainNavbar extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      activeTab: ''
-    }
+      activeTab: '',
+    };
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleTab = this.toggleTab.bind(this);
   }
@@ -16,40 +16,40 @@ class MainNavbar extends React.Component {
   toggleModal(e) {
     const activeTab = e.target.name ? e.target.name : null;
     this.setState({
-      activeTab: activeTab,
-      modal: !this.state.modal
+      activeTab,
+      modal: !this.state.modal,
     });
   }
 
   toggleTab(tab) {
     this.setState({
-      activeTab: tab
-    })
+      activeTab: tab,
+    });
   }
 
   render() {
     return (
       <div>
         <nav className="navbar navbar-expand-md navbar-light bg-light">
-          <Link to='/' className="navbar-brand">BookHuddle</Link>
+          <Link to="/" className="navbar-brand">BookHuddle</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon" />
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-              <Link to="/about" className="nav-link">Our Team</Link>
+                <Link to="/about" className="nav-link">Our Team</Link>
               </li>
               <li className="nav-item active">
-                <Link to="" name='signup' className="nav-link" onClick={this.toggleModal}>Signup</Link>
+                <Link to="" name="signup" className="nav-link" onClick={this.toggleModal}>Signup</Link>
               </li>
               <li className="nav-item">
-                <Link to="" name='login' className="nav-link" onClick={this.toggleModal}>Login</Link>
+                <Link to="" name="login" className="nav-link" onClick={this.toggleModal}>Login</Link>
               </li>
             </ul>
-  </div>
-</nav>
+          </div>
+        </nav>
         <LoginModal
           modal={this.state.modal}
           activeTab={this.state.activeTab}

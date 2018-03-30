@@ -14,7 +14,7 @@ class Logout extends React.Component {
     return (
       <div>
         <h3>You've successfully logged out.</h3>
-        <Link to='/'>
+        <Link to="/">
           <button>Home</button>
         </Link>
       </div>

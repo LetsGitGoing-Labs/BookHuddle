@@ -2,12 +2,12 @@ import React from 'react';
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
 import { Modal, ModalBody } from 'reactstrap';
-import Place from 'react-algolia-places';
+import AlgoliaPlaces from 'algolia-places-react';
 
 class CreateClub extends React.Component {
   constructor(props) {
     super(props);
-    this.state= {
+    this.state = {
       clubName: '',
       description: '',
       clubCity: '',
@@ -19,31 +19,31 @@ class CreateClub extends React.Component {
   }
 
   onChange(e) {
-    let target = e.target.name;
-    this.setState ({
-      [ target ]: e.target.value
+    const target = e.target.name;
+    this.setState({
+      [target]: e.target.value,
     });
   }
 
   setLocation(e) {
     this.setState({
       clubCity: (`${e.suggestion.name}, ${e.suggestion.administrative}`)
-    })
+    });
   }
 
   onSelect(e) {
-    let target = e.target.options;
+    const target = e.target.options;
     this.setState({
-      genre: target[e.target.selectedIndex].text
+      genre: target[e.target.selectedIndex].text,
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    let clubData = JSON.stringify(this.state);
+    const clubData = JSON.stringify(this.state);
 
-    var query = `mutation HandleClubCreate($clubData: String) {
+    const query = `mutation HandleClubCreate($clubData: String) {
       handleClubCreate(clubData: $clubData)
     }`;
 
@@ -52,17 +52,17 @@ class CreateClub extends React.Component {
       url: '/graphql',
       contentType: 'application/json',
       data: JSON.stringify({
-        query: query,
+        query,
         variables: {
-          clubData: clubData
-        }
+          clubData,
+        },
       }),
       success: (data) => {
         console.log(data);
       },
       error: (data) => {
         console.log(data);
-      }
+      },
     });
 
     // let formData = this.state;
@@ -86,16 +86,16 @@ class CreateClub extends React.Component {
           <h1 className="centerize">Create a Club</h1>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group">
-              <input type="text" className="form-control" id="inputClubName" placeholder="Club name" name="clubName" value={this.state.clubName} onChange={this.onChange}/>
+              <input type="text" className="form-control" id="inputClubName" placeholder="Club name" name="clubName" value={this.state.clubName} onChange={this.onChange} />
             </div>
             <div className="form-group">
-              <textarea className="form-control" id="inputClubDescription" rows="3" name="description" placeholder="Add a brief description to attract club members"value={this.state.description} onChange={this.onChange}></textarea>
+              <textarea className="form-control" id="inputClubDescription" rows="3" name="description" placeholder="Add a brief description to attract club members"value={this.state.description} onChange={this.onChange} />
             </div>
             <div className="form-group">
-            <Place placeholder="Location" onChange={e => this.setLocation(e)}/>
+              <AlgoliaPlaces placeholder="Location by city" onChange={e => this.setLocation(e)} />
             </div>
             <div className="form-group">
-              <select className="form-control" id="inputClubGenres" name="genre"  onChange={this.onSelect.bind(this)}>
+              <select className="form-control" id="inputClubGenres" name="genre" onChange={this.onSelect.bind(this)}>
                 <option disabled defaultValue>Choose a Genre</option>
                 <option>Fantasy</option>
                 <option>Thrillers</option>
