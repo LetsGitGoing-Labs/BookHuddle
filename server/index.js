@@ -101,7 +101,7 @@ io.sockets.on('connection', (socket) => {
     } else {
       results = false;
     }
-    io.sockets.emit('results', results)
+    this.emit('results', results)
     io.sockets.emit('score', score)
     console.log('answer: %s', payload.answer, results, payload, payload.question.ans,score)
   })

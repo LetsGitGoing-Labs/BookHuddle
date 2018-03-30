@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from 'reactstrap';
 import '../styles/trivia.css';
 
-
 class Ask extends React.Component {
   constructor(props) {
   	super(props);
@@ -31,7 +30,6 @@ class Ask extends React.Component {
   	this.setState({ answers, answer: sessionStorage.answer });
   }
 
-
   selection(answer) {
     this.setState({ answer });
     sessionStorage.answer = answer;
@@ -43,7 +41,6 @@ class Ask extends React.Component {
     });
     console.log('selection line 40', this.props.question);
   }
-
 
   addAnswers(answer, i) {
     return (

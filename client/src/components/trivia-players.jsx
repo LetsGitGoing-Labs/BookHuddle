@@ -9,24 +9,24 @@ class TriviaPlayers extends React.Component {
   render() {
   	const player = this.props.player.playerName;
   	return (
-    <Container>
-      <Row>
-        <Col xs="6"><p className="left"> Player: {player}</p></Col>
-        <Col xs="6"><button className="right nav-buttons " onClick={this.props.scoreRedirect}>Scoreboard</button></Col>
-      </Row>
-      <div>
-        {!this.props.currentQuestion &&
+      <Container>
+        <Row>
+          <Col xs="6"><p className="left"> Player: {player}</p></Col>
+          <Col xs="6"><button className="right nav-buttons " onClick={this.props.scoreRedirect}>Scoreboard</button></Col>
+        </Row>
         <div>
-          <h1 className="centered">Get ready {player}!</h1>
+          {!this.props.currentQuestion &&
+          <div>
+            <h1 className="centered">Get ready {player}!</h1>
+          </div>
+            }
+          {this.props.currentQuestion &&
+          <div>
+            <Ask question={this.props.currentQuestion} gameOver={this.props.gameOver} results={this.props.results} player={this.props.player} score={this.props.score} emit={this.props.emit} />
+          </div>
+            }
         </div>
-					}
-        {this.props.currentQuestion &&
-        <div>
-          <Ask question={this.props.currentQuestion} gameOver={this.props.gameOver} results={this.props.results} player={this.props.player} score={this.props.score} emit={this.props.emit} />
-        </div>
-  	      }
-      </div>
-    </Container>
+      </Container>
   	);
   }
 }
