@@ -51,7 +51,12 @@ class DashboardRouting extends React.Component {
           <Sidebar user={this.state.userTest} />
 
           <Switch>
-            <Route path="/dashboard/create-club" component={CreateClub} />
+            <Route 
+              path="/dashboard/create-club" 
+              render={
+              props => <CreateClub {...props} userID={this.props.user.id} />
+              }
+            />
             <Route
               path="/dashboard/:clubId"
               render={
