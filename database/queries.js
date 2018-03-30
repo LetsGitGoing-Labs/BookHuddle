@@ -85,9 +85,6 @@ const checkUser = (user, cb) => {
       }
     });
   });
-  // .then((err, user) => {
-  //   cb(err, user)
-  // });
 };
 
 // CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT

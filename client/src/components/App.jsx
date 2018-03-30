@@ -15,10 +15,10 @@ class App extends React.Component {
       user: {},
       isLoggedIn: false
     };
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleSignup = this.handleSignup.bind(this);
     this.checkLoginState = this.checkLoginState.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
   }
 
   checkLoginState() {
@@ -29,6 +29,7 @@ class App extends React.Component {
   }
 
   handleLogin(formData, cb) {
+    console.log(formData);
     formData = JSON.stringify(formData);
     const query = `mutation HandleLogin($formData: String) {
       handleLogin(userData: $formData)
