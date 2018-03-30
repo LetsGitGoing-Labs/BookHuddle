@@ -90,75 +90,6 @@ const checkUser = (user, cb) => {
   // });
 };
 
-// CHECKUSER refactor for huge object response
-// const checkUser = (user, cb) => {
-//   // retrieve user Object from db matchig provided credentials.
-//   return db.knex('user')
-//   .where({
-//     email: user.email,
-//     password: user.password
-//   })
-//   .select()
-//   .then((retrievedUser) => {
-//     // retrieve club ID's for clubs of which user is a member
-//     return new Promise ((resolve, reject ) => {
-//       resolve(retrieveClubIDsByUser(retrievedUser.id))
-//     })
-//   })
-//   .then((retrievedClubIDs) => {
-//     // get all of the clubs for all of the ID's just retrieved
-//     let clubObjs = [];
-//     for ( var a = 0; a < retrievedClubIDs.length; a++ ) {
-//       clubObjs.push(retrieveClub(retrievedClubIDs[a], (club) => {
-//         return club;
-//       }))
-//     }
-//     Promise.all(clubObjs)
-//     .then((clubsOfGivenUser) => {
-//       return new Promise((resolve, reject) => {
-//         resolve(clubsOfGivenUser);
-//     })
-//   })
-//   .then((clubArray) => {
-//     // now that you have an array  of club objs, iterate through each one and add all meetings as a property to each meeting
-
-//     let afdsafdsfasdfasdf = [];
-//     for (var b = 0; b < clubArray.length; b++ ) {
-//       meetingObjs.push(retrieveMeetingsByClubID(clubArray[b].id))
-//     }
-
-//       }
-//     })
-//   })
-
-
-
-
-
-//     let calls = [];
-//     for (var i = 0; i < retrievedClubIDs.length; i++ ) {
-//       calls.push(retrieveMeetingsByClubID(clubs[i], (meetings) => {
-//         return meetings;
-//       }))
-//     }
-//     Promise.all(calls).then((nestedArray) => {
-//       return new Promise ((resolve, reject) => {
-//         let allMeetings = [];
-//         for (var j = 0; j < nestedArray.length; j++ ) {
-//           allMeetings.concat(nestedArray[j]);
-//         }
-//         resolve(allMeetings);
-//       })
-//     })
-//     // push each club object into a temp array
-//     // add that array to the user object
-//   })
-//     cb(user)
-//   .catch((err) => {
-//     cb(err)
-//   })
-// };
-
 // CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT
 const checkCredentials = (email, password) => db.knex('user')
   .where({
@@ -307,7 +238,10 @@ const saveMeeting = (cb, meeting, res) => {
 };
 
 const addClub = (cb, club, res) => {
+  let newClubId;
+  let clubResponse;
   const checkDatabase = clubNameIsTaken(club.clubName);
+  console.log('club: ', club);
   checkDatabase.then((exists) => {
     if (exists === false) {
       console.log(`getting ready to add new club: ${club.clubName}`);
@@ -317,12 +251,31 @@ const addClub = (cb, club, res) => {
         club_admin_user_id: club.userId,
         club_description: club.description,
       })
-        .into('club')
-        .then((clubID) => {
-          retrieveClub(clubID, (clubData) => {
-            cb(clubData, 200, res);
+      .into('club')
+      .then((clubID) => {
+        return new Promise((resolve, reject) => {
+          newClubId = clubID;
+          retrieveClub(clubID, function(clubData) {
+            resolve(clubData);
           });
-        });
+        })
+      })
+      .then((clubData) => {
+        console.log('clubData obj[0]: ', clubData[0]);
+        clubResponse = clubData;
+        return db.knex.insert({
+          club_id: clubData[0].id,
+          user_id: clubData[0].club_admin_user_id,
+        })
+        .into('user_club')
+      })
+      .then(() => {
+        cb(clubResponse)
+      })
+    }  else {
+      let err = 'Error.  A club with that name already exists.';
+      console.log(err);
+      cb(err, 401, res);
     }
     const err = 'Error.  A club with that name already exists.';
     cb(err, 401, res);
