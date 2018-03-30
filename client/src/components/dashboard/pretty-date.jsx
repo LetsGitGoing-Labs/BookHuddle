@@ -8,19 +8,19 @@ class DateCard extends React.Component {
       date: '',
       month: '',
       time: '',
-      year: ''
-    }
+      year: '',
+    };
   }
 
   componentDidMount() {
-    let timeStamp = this.props.time;
-    let date = DateTime.fromISO(timeStamp).toFormat('yyyy LLL dd t').split(' ');
-    let time = date[3] + ' ' + date[4];
+    const timeStamp = this.props.time;
+    const date = DateTime.fromISO(timeStamp).toFormat('yyyy LLL dd t').split(' ');
+    const time = `${date[3]} ${date[4]}`;
     this.setState({
       date: date[2],
       month: date[1],
-      time: time,
-      year: date[0]
+      time,
+      year: date[0],
     });
   }
 
@@ -32,7 +32,7 @@ class DateCard extends React.Component {
         <p>{this.state.month}</p>
         <h6>{this.state.time}</h6>
       </div>
-    )
+    );
   }
 }
 

@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: {},
-      isLoggedIn: false
+      isLoggedIn: false,
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   checkLoginState() {
-    FB.getLoginStatus(function(response) {
+    FB.getLoginStatus((response) => {
       console.log(response);
       statusChangeCallback(response);
     });
@@ -30,7 +30,7 @@ class App extends React.Component {
 
   handleLogin(formData, cb) {
     formData = JSON.stringify(formData);
-    let query = `mutation HandleLogin($formData: String) {
+    const query = `mutation HandleLogin($formData: String) {
       handleLogin(userData: $formData)
     }`;
 
@@ -38,28 +38,28 @@ class App extends React.Component {
       type: 'POST',
       url: '/graphql',
       data: JSON.stringify({
-        query: query,
-        variables: { formData : formData }
+        query,
+        variables: { formData },
       }),
       contentType: 'application/json',
       success: (userData) => {
         console.log(JSON.parse(userData.data.handleLogin)[0]);
         this.setState({
           user: JSON.parse(userData.data.handleLogin)[0],
-          isLoggedIn: true
+          isLoggedIn: true,
         });
       },
       error: (err) => {
         console.log('error logging in', err);
         cb(err);
-      }
+      },
     });
   }
 
   handleSignup(formData, cb) {
     formData = JSON.stringify(formData);
 
-    let query = `mutation HandleSignup($formData: String) {
+    const query = `mutation HandleSignup($formData: String) {
       handleSignup(userData: $formData)
     }`;
 
@@ -68,27 +68,27 @@ class App extends React.Component {
       url: '/graphql',
       contentType: 'application/json',
       data: JSON.stringify({
-        query: query,
+        query,
         variables: {
-          formData: formData
-        }
+          formData,
+        },
       }),
       success: (userData) => {
         console.log(userData);
         this.setState({
           user: JSON.parse(userData.data.handleSignup)[0],
-          isLoggedIn: true
+          isLoggedIn: true,
         });
       },
       error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
 
   handleLogout() {
     this.setState({
-      isLoggedIn: false
+      isLoggedIn: false,
     });
     console.log('logged out');
   }
@@ -98,33 +98,37 @@ class App extends React.Component {
       <div>
         <Switch>
           <Route
-            exact path='/'
+            exact
+            path="/"
             render={
-              (props) => {
-                return <Home {...props}
-                  login={this.handleLogin}
-                  signup={this.handleSignup}
-                  isLoggedIn={this.state.isLoggedIn}
-                />
-              }
-            } />
-          <Route path='/trivia-main' component={ TriviaMain }/>
-          <Route path='/about' component={ About } />
-          <Route path='/logout' render={ (props) => (
-            <Logout handleLogout={this.handleLogout} />
-           )} />
-          <Route path='/dashboard' render={
-            (props) => {
-              return this.state.isLoggedIn
+              props => (<Home
+                {...props}
+                login={this.handleLogin}
+                signup={this.handleSignup}
+                isLoggedIn={this.state.isLoggedIn}
+              />)
+            }
+          />
+          <Route path="/trivia-main" component={TriviaMain} />
+          <Route path="/about" component={About} />
+          <Route
+            path="/logout"
+            render={props => (
+              <Logout handleLogout={this.handleLogout} />
+           )}
+          />
+          <Route
+            path="/dashboard"
+            render={
+            props => (this.state.isLoggedIn
               ? <DashboardRouting user={this.state.user} />
               : <Redirect to={{
-                  pathname: "/nologin",
-                  state: { from: props.location }
+                  pathname: '/nologin',
+                  state: { from: props.location },
                 }}
-              />
-            }}
+              />)}
           />
-          <Route component={ NotFound } />
+          <Route component={NotFound} />
         </Switch>
       </div>
     );
@@ -135,6 +139,6 @@ const NotFound = ({ location }) => (
   <div>
     <h2>Sorry could not find <code>{ location.pathname }</code></h2>
   </div>
-)
+);
 
-export default App
+export default App;

@@ -1,9 +1,9 @@
 
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Place from 'react-algolia-places';
+import AlgoliaPlaces from 'algolia-places-react';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -13,8 +13,8 @@ class Signup extends React.Component {
       lastName: '',
       email: '',
       password: '',
-      location: ''
-    }
+      location: '',
+    };
     this.change = this.change.bind(this);
     this.signupSubmit = this.signupSubmit.bind(this);
     this.location = this.location.bind(this);
@@ -22,57 +22,57 @@ class Signup extends React.Component {
 
   change(event) {
     this.setState({
-      [event.target.name]: event.target.value
-    })
+      [event.target.name]: event.target.value,
+    });
   }
 
   location(event) {
-    console.log(event)
+    console.log('line 31', event);
     this.setState({
-      location: (`${event.suggestion.name}, ${event.suggestion.administrative}`) 
-    })
+      location: (`${event.suggestion.name}, ${event.suggestion.administrative}`),
+    });
   }
 
   signupSubmit(e) {
     e.preventDefault();
-    let formData = {
+    const formData = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
-      location: this.state.location
-    }
+      location: this.state.location,
+    };
 
     this.props.signup(formData, (err) => {
-      console.log('error signing in:', err)
+      console.log('error signing in:', err);
     });
   }
 
   render() {
     if (this.props.isLoggedIn) {
-      <Redirect to='/dashboard'/>
+      <Redirect to="/dashboard" />;
     }
     return (
       <form >
         <div className="form-row">
           <div className="form-group col-md-6">
-            <input name="firstName" onChange={event => this.change(event)} type="text" className="form-control" id="inputFirstName" placeholder="First name"/>
+            <input name="firstName" onChange={event => this.change(event)} type="text" className="form-control" id="inputFirstName" placeholder="First name" />
           </div>
           <div className="form-group col-md-6">
-            <input name="lastName" onChange={event => this.change(event)} type="text" className="form-control" id="inputLastName" placeholder="Last name"/>
+            <input name="lastName" onChange={event => this.change(event)} type="text" className="form-control" id="inputLastName" placeholder="Last name" />
           </div>
         </div>
         <div className="form-group">
-          <input name="email" onChange={event => this.change(event)} type="email" className="form-control" id="inputEmail" autoComplete="email" placeholder="Email"/>
+          <input name="email" onChange={event => this.change(event)} type="email" className="form-control" id="inputEmail" autoComplete="email" placeholder="Email" />
         </div>
         <div className="form-group">
-          <input name="password" onChange={event => this.change(event)} type="password" className="form-control" autoComplete="current-password" id="inputPassword" placeholder="Password"/>
+          <input name="password" onChange={event => this.change(event)} type="password" className="form-control" autoComplete="current-password" id="inputPassword" placeholder="Password" />
         </div>
         <div className="form-group">
-          <Place placeholder="Location" onChange={event => this.location(event)}/>
+          <AlgoliaPlaces placeholder="Location by city" onChange={event => this.location(event)} />
         </div>
         <div className="centerize">
-        <button onClick={this.signupSubmit} type="submit" className="btn-primary btn">Sign Up</button>
+          <button onClick={this.signupSubmit} type="submit" className="btn-primary btn">Sign Up</button>
         </div>
       </form>
     );

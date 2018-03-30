@@ -18,25 +18,25 @@ class Login extends React.Component {
   }
 
   onChange(e) {
-    let target = e.target.name;
-    this.setState ({
+    const target = e.target.name;
+    this.setState({
       errMsg: '',
-      [ target ]: e.target.value
+      [target]: e.target.value,
     });
   }
 
-  handleSubmit (e) {
+  handleSubmit(e) {
     e.preventDefault();
-    let data = {
+    const data = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
 
     this.props.login(data, (responseData) => {
       this.setState({
         email: '',
         password: '',
-        errMsg: 'User not found'
+        errMsg: 'User not found',
       });
     });
   }
@@ -44,11 +44,11 @@ class Login extends React.Component {
   render() {
     if (this.props.isLoggedIn) {
       return (
-          <Redirect to='/dashboard'/>)
+        <Redirect to="/dashboard" />);
     }
     return (
       <div>
-        <div  className="centerize">
+        <div className="centerize">
           <form>
             <div className="form-group">
               <input
@@ -59,7 +59,8 @@ class Login extends React.Component {
                 name="email"
                 autoComplete="email"
                 value={this.state.email}
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+              />
             </div>
             <div className="form-group">
               <input
@@ -70,13 +71,14 @@ class Login extends React.Component {
                 name="password"
                 autoComplete="current-password"
                 value={this.state.password}
-                onChange={this.onChange}/>
+                onChange={this.onChange}
+              />
             </div>
-              {this.state.errMsg.length > 1 && <div id="login-err"><p>{this.state.errMsg}</p></div>}
+            {this.state.errMsg.length > 1 && <div id="login-err"><p>{this.state.errMsg}</p></div>}
             <div className="form-group">
-                <button id="button1" type="submit" onClick={this.handleSubmit}>Login
-                </button>
-              <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span> Facebook</a>
+              <button id="button1" type="submit" onClick={this.handleSubmit}>Login
+              </button>
+              <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook" /> Facebook</a>
             </div>
           </form>
         </div>

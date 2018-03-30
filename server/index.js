@@ -71,7 +71,7 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('start', function(payload) {
     console.log('payload:',payload)
-
+    
     gameName = payload.gameName;
     host.name = payload.host;
     host.id = this.id;
@@ -134,7 +134,6 @@ let sendData = (responseData, dataObj, res) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/*
 // Configure local strategy
 passport.use(new LocalStrategy(
   { usernameField: 'email' },
@@ -184,7 +183,6 @@ app.post('/login',
   function(req, res) {
     res.redirect('/dashboard');
   })
-*/
 
 // OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
 // app.post('/login', (req, res) => {
@@ -225,8 +223,6 @@ var schema = buildSchema(`
     getNearClubs(clubLocation: String): String
 
     getClubsByName(clubName: String): String
-
-    handleJoinClub(userID: Int, clubID: Int): String
 
   }
 
@@ -276,7 +272,7 @@ var root = {
     userData = JSON.parse(userData);
     return new Promise((resolve, reject) => {
     database.checkUser(userData,
-      (data) => {
+      (data, statusCode, res) => {
       resolve(JSON.stringify(data));
     });
   });
@@ -326,13 +322,6 @@ var root = {
       database.retrieveClubsByName(clubName, null, (clubs, statusCode, res) => {
         resolve(JSON.stringify(clubs));
       })
-    })
-  },
-  handleJoinClub: ({userID, clubID}) => {
-    return new Promise((resolve, reject) => {
-      database.userJoinClub(userID, clubID, (data) => {
-        resolve(JSON.stringify(data))
-      });
     })
   }
 };
@@ -414,8 +403,7 @@ app.post('/booksdb', (req, res) => {
 
 app.post('/meetings', (req, res) => {
   let newMeeting = req.body;
-  console.log('saveMeeting function signature has changed')
-  database.saveMeeting(sendData, newMeeting, res); //<--deprecated fn signature for saveMeeting
+  database.saveMeeting(sendData, newMeeting, res);
 });
 
 app.get('/*', (req, res) => {

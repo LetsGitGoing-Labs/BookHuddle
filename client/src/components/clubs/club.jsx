@@ -8,8 +8,8 @@ import ClubPageNavbar from '../navigation/club-nav.jsx';
 import '../../styles/club.css';
 
 class Club extends React.Component {
-  constructor (props) {
-    super(props);this.state = {
+  constructor(props) {
+    super(props); this.state = {
       joinMsg: '',
     };
 
@@ -17,18 +17,18 @@ class Club extends React.Component {
   }
 
   userJoinClub() {
-    //We are accessing and slicing the page's url to obtain the club's ID
-    var addUserID = this.props.user.id;
-    var url = window.location.href;
+    // We are accessing and slicing the page's url to obtain the club's ID
+    const addUserID = this.props.user.id;
+    const url = window.location.href;
 
-    for (var i = url.length; i > 0; i--) {
+    for (let i = url.length; i > 0; i--) {
       if (url[i] === '/') {
         var addClubID = url.slice(i + 1);
         break;
       }
     }
 
-    var query = `mutation HandleJoinClub($addUserID: Int, $addClubID: Int) {
+    const query = `mutation HandleJoinClub($addUserID: Int, $addClubID: Int) {
       handleJoinClub(userID: $addUserID, clubID: $addClubID)
     }`;
 
@@ -37,52 +37,52 @@ class Club extends React.Component {
       url: '/graphql',
       contentType: 'application/json',
       data: JSON.stringify({
-        query: query,
-        variables: { addUserID: addUserID, addClubID: addClubID }
+        query,
+        variables: { addUserID, addClubID },
       }),
       success: (data) => {
         console.log(data);
         this.setState({
-          joinMsg: 'Club joined!'
+          joinMsg: 'Club joined!',
         });
       },
       error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
 
-  render () {
-    var clubData;
+  render() {
+    let clubData;
     if (this.props.searchResults.length) {
-      clubData = this.props.searchResults.find((club) => club.id === Number(this.props.match.params.clubId));
+      clubData = this.props.searchResults.find(club => club.id === Number(this.props.match.params.clubId));
     } else {
-      clubData = this.props.clubs.find((club) => club.id === this.props.match.params.clubId);
+      clubData = this.props.clubs.find(club => club.id === this.props.match.params.clubId);
     }
     return (
       <div id="club-page" className="col-md-9">
         <div className="container">
           <h2 className="club-title">{clubData.club_name}</h2>
-            <ClubPageNavbar />
-            <div className="tab-content" id="nav-tabContent">
-              <div className="tab-pane fade show active" id="nav-upcoming" role="tabpanel" aria-labelledby="nav-home-tab">
-              <UpcomingMeetings meetings={clubData.meetings}/>
-              </div>
-              <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
-                Members
-              </div>
-              <div className="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
-                Book History
-              </div>
-              <button className="btn" onClick={this.userJoinClub}>Join Club</button>
-              {this.state.joinMsg.length > 1 && <div id="join-msg"><p>{this.state.joinMsg}</p></div>}
-              <div className="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
-                <CreateMeeting />
-              </div>
+          <ClubPageNavbar />
+          <div className="tab-content" id="nav-tabContent">
+            <div className="tab-pane fade show active" id="nav-upcoming" role="tabpanel" aria-labelledby="nav-home-tab">
+              <UpcomingMeetings meetings={clubData.meetings} />
             </div>
+            <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
+                Members
+            </div>
+            <div className="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
+                Book History
+            </div>
+            <button className="btn" onClick={this.userJoinClub}>Join Club</button>
+            {this.state.joinMsg.length > 1 && <div id="join-msg"><p>{this.state.joinMsg}</p></div>}
+            <div className="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
+              <CreateMeeting />
+            </div>
+          </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

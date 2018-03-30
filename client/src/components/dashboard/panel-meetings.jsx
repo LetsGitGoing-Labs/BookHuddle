@@ -6,12 +6,12 @@ const NoMeetings = () => (
     <h3>UPCOMING MEETINGS</h3>
     <div>No meetings yet!</div>
   </div>
-)
+);
 
-const MeetingsPanel = (props) => (
+const MeetingsPanel = props => (
   !props.meetings || props.meetings.length === 0 ?
     <NoMeetings />
-  : (
+    : (
       <div id="meetings-list" className="panel-card">
         <h3>UPCOMING MEETINGS</h3>
         {props.meetings.map((meeting, id) =>
@@ -19,7 +19,7 @@ const MeetingsPanel = (props) => (
             <div key={id} className="panel-content">
               <div className="row">
                 <div className="col-md-3">
-                  <DateCard time={meeting.meeting_date}/>
+                  <DateCard time={meeting.meeting_date} />
                 </div>
                 <div className="col-md-9">
                   <div className="panel-body">
@@ -33,10 +33,9 @@ const MeetingsPanel = (props) => (
                 </div>
               </div>
             </div>
-          )
-        )}
+          ))}
       </div>
     )
-)
+);
 
 export default MeetingsPanel;

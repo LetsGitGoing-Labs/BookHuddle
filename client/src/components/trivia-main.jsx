@@ -24,8 +24,8 @@ class TriviaMain extends React.Component {
       currentQuestion: false,
       results: undefined,
       score: {},
-      gameOver: false
-  	}
+      gameOver: false,
+  	};
 
   	this.connect = this.connect.bind(this);
   	this.disconnect = this.disconnect.bind(this);
@@ -51,7 +51,7 @@ class TriviaMain extends React.Component {
 
   componentWillMount() {
     this.socket = io('http://localhost:4000');
-    this.socket.on('connect', this.connect );
+    this.socket.on('connect', this.connect);
     this.socket.on('disconnect', this.disconnect);
     this.socket.on('welcome', this.updateState);
     this.socket.on('joined', this.joined);
@@ -66,68 +66,67 @@ class TriviaMain extends React.Component {
 
   join(event) {
     this.emit('join', {
-      playerName: this.state.playerName 
-    })
-  
+      playerName: this.state.playerName,
+    });
+
     this.setState({
-      viewState: 'players'
-    })
-    
+      viewState: 'players',
+    });
   }
 
   start() {
-    console.log('start client', this.state.host, this.state.gameName)
+    console.log('start client', this.state.host, this.state.gameName);
     this.emit('start', {
-      host: this.state.host, 
-      gameName: this.state.gameName
-    })
+      host: this.state.host,
+      gameName: this.state.gameName,
+    });
     this.setState({
-      viewState: 'hostpage'
-    })
+      viewState: 'hostpage',
+    });
   }
 
-   
+
   onHostChange(e) {
     this.setState({
       host: e.target.value,
-    })
+    });
   }
 
   onGameChange(e) {
     this.setState({
-      gameName: e.target.value
-    })
+      gameName: e.target.value,
+    });
   }
 
   onNameChange(playerName) {
-   console.log(event)
+    console.log(event);
     this.setState({
-      playerName: playerName.toUpperCase()
-    })
+      playerName: playerName.toUpperCase(),
+    });
   }
 
   hostPageRedirect() {
     this.setState({
-      viewState: 'hostpage'
-    })
+      viewState: 'hostpage',
+    });
   }
 
   clickHostRedirect() {
     this.setState({
-      viewState: 'host'
-    })
+      viewState: 'host',
+    });
   }
 
   scoreRedirect() {
     this.setState({
-      viewState: 'score'
-    })
+      viewState: 'score',
+    });
   }
 
   playerRedirect() {
     this.setState({
-      viewState: 'players'
-    })
+      viewState: 'players',
+    });
   }
 
   emit(eventName, payload) {
@@ -135,61 +134,58 @@ class TriviaMain extends React.Component {
   }
 
   connect() {
-
-    let player = (sessionStorage.player) ? JSON.parse(sessionStorage.player) : null;
+    const player = (sessionStorage.player) ? JSON.parse(sessionStorage.player) : null;
     if (player && player.type === 'player') {
       this.emit('join', player);
-      this.setState({viewState: 'players'})
+      this.setState({ viewState: 'players' });
     } else if (player && player.type === 'host') {
-      this.emit('start', {host: player.name, gameName:sessionStorage.gameName})
-      this.setState({viewState: 'hostpage'})
+      this.emit('start', { host: player.name, gameName: sessionStorage.gameName });
+      this.setState({ viewState: 'hostpage' });
     }
   	this.setState({
   	  status: 'connected',
-  	})
+  	});
   }
 
   disconnect() {
   	this.setState({
   	  status: 'disconnected',
       gameName: 'disconnected',
-      host: ''
-  	})
+      host: '',
+  	});
   }
 
   gameOver(score) {
-    console.log('game over bitches', score)
+    console.log('game over bitches', score);
     this.setState({
       gameOver: true,
-      currentQuestion: false 
-    })
+      currentQuestion: false,
+    });
     this.scoreRedirect();
   }
 
   updateState(serverState) {
-  	this.setState(serverState)
-    console.log(serverState)
+  	this.setState(serverState);
+    console.log(serverState);
   }
 
   joined(player) {
-    sessionStorage.player =  JSON.stringify(player);
+    sessionStorage.player = JSON.stringify(player);
     this.setState({
-      player: player
-    })
+      player,
+    });
   }
 
   updatePlayers(newPlayer) {
     this.setState({
-      players: newPlayer
-    })
+      players: newPlayer,
+    });
   }
 
   updateScore(score) {
-    
     this.setState({
-      score : score
-    })
-   
+      score,
+    });
   }
 
   starter(game) {
@@ -202,42 +198,40 @@ class TriviaMain extends React.Component {
   ask(question) {
     sessionStorage.answer = '';
     this.setState({
-      currentQuestion: question
-    })
-    console.log(this.currentQuestion)
+      currentQuestion: question,
+    });
+    console.log(this.currentQuestion);
   }
 
   updateResults(data) {
-    console.log('update results', data, this.state.player, this.state.playerName)
-    this.setState({results: data})
+    console.log('update results', data, this.state.player, this.state.playerName);
+    this.setState({ results: data });
   }
-
 
 
   render() {
-    let player = this.state.player.playerName
+    const player = this.state.player.playerName;
   	return (
-      <Container id="trivia">
-        <Row id="title">
-          <Col xs="12">{this.state.gameName}<span data-toggle="tooltip" data-placement="left" title={this.state.status} className={this.state.status}></span></Col>
-            <Col xs="8">
-              <p className="title-sub"> Host: {this.state.host}</p>
-            </Col>
-            <Col xs="4">
-              <p className="title-sub right">Players: {this.state.players.length}</p>
-            </Col>
-        </Row> 
-        <div> 
-          {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} host={this.state.host} clickHostRedirect={this.clickHostRedirect}/>}
-          {this.state.viewState === 'players' && <TriviaPlayers scoreRedirect={this.scoreRedirect} score={this.state.score} player={this.state.player} currentQuestion={this.state.currentQuestion} results={this.state.results} players={this.state.players} emit={this.emit}/>} 
-          {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange}/>}
-          {this.state.viewState === 'hostpage' && <HostPage gameOver={this.gameOver} scoreRedirect={this.scoreRedirect} players={this.state.players} questions={this.state.questions} emit={this.emit} score={this.state.score}/>}
-          {this.state.viewState === 'score' && <Score gameOver={this.state.gameOver} hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit}/>}
-        </div>
-      </Container>
-  	)
+    <Container id="trivia">
+      <Row id="title">
+        <Col xs="12">{this.state.gameName}<span data-toggle="tooltip" data-placement="left" title={this.state.status} className={this.state.status} /></Col>
+        <Col xs="8">
+          <p className="title-sub"> Host: {this.state.host}</p>
+        </Col>
+        <Col xs="4">
+          <p className="title-sub right">Players: {this.state.players.length}</p>
+        </Col>
+      </Row>
+      <div>
+        {this.state.viewState === 'join' && <TriviaJoin submit={this.join} onNameChange={this.onNameChange} host={this.state.host} clickHostRedirect={this.clickHostRedirect} />}
+        {this.state.viewState === 'players' && <TriviaPlayers scoreRedirect={this.scoreRedirect} score={this.state.score} player={this.state.player} currentQuestion={this.state.currentQuestion} results={this.state.results} players={this.state.players} emit={this.emit} />}
+        {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange} />}
+        {this.state.viewState === 'hostpage' && <HostPage gameOver={this.gameOver} scoreRedirect={this.scoreRedirect} players={this.state.players} questions={this.state.questions} emit={this.emit} score={this.state.score} />}
+        {this.state.viewState === 'score' && <Score gameOver={this.state.gameOver} hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit} />}
+      </div>
+    </Container>
+  	);
   }
-
 }
 
 export default TriviaMain;
