@@ -31,74 +31,86 @@ const retrieveClubs = (cb, dataObj, res) => {
 //   });
 // };
 
-// CHECKUSER FN AFTER IMPLEMENTING PASSPORT
 const checkUser = (user, cb) => {
-  // retrieve user Object from db matchig provided credentials.
   return db.knex('user')
   .where({
     email: user.email,
     password: user.password
   })
   .select()
-  .then((retrievedUser) => {
-    // retrieve club ID's for clubs of which user is a member
-    return new Promise ((resolve, reject ) => {
-      resolve(retrieveClubIDsByUser(retrievedUser.id))
-    })
-  })
-  .then((retrievedClubIDs) => {
-    // get all of the clubs for all of the ID's just retrieved
-    let clubObjs = [];
-    for ( var a = 0; a < retrievedClubIDs.length; a++ ) {
-      clubObjs.push(retrieveClub(retrievedClubIDs[a], (club) => {
-        return club;
-      }))
-    }
-    Promise.all(clubObjs)
-    .then((clubsOfGivenUser) => {
-      return new Promise((resolve, reject) => {
-        resolve(clubsOfGivenUser);
-    })
-  })
-  .then((clubArray) => {
-    // now that you have an array  of club objs, iterate through each one and add all meetings as a property to each meeting
-
-    let afdsafdsfasdfasdf = [];
-    for (var b = 0; b < clubArray.length; b++ ) {
-      meetingObjs.push(retrieveMeetingsByClubID(clubArray[b].id))
-    }
-
-      }
-    })
-  })
-
-
-
-
-
-    let calls = [];
-    for (var i = 0; i < retrievedClubIDs.length; i++ ) {
-      calls.push(retrieveMeetingsByClubID(clubs[i], (meetings) => {
-        return meetings;
-      }))
-    }
-    Promise.all(calls).then((nestedArray) => {
-      return new Promise ((resolve, reject) => {
-        let allMeetings = [];
-        for (var j = 0; j < nestedArray.length; j++ ) {
-          allMeetings.concat(nestedArray[j]);
-        }
-        resolve(allMeetings);
-      })
-    })
-    // push each club object into a temp array
-    // add that array to the user object
-  })
-    cb(user)
-  .catch((err) => {
-    cb(err)
-  })
+  .then((err, user) => {
+    cb(err, user)
+  });
 };
+
+// CHECKUSER refactor for huge object response
+// const checkUser = (user, cb) => {
+//   // retrieve user Object from db matchig provided credentials.
+//   return db.knex('user')
+//   .where({
+//     email: user.email,
+//     password: user.password
+//   })
+//   .select()
+//   .then((retrievedUser) => {
+//     // retrieve club ID's for clubs of which user is a member
+//     return new Promise ((resolve, reject ) => {
+//       resolve(retrieveClubIDsByUser(retrievedUser.id))
+//     })
+//   })
+//   .then((retrievedClubIDs) => {
+//     // get all of the clubs for all of the ID's just retrieved
+//     let clubObjs = [];
+//     for ( var a = 0; a < retrievedClubIDs.length; a++ ) {
+//       clubObjs.push(retrieveClub(retrievedClubIDs[a], (club) => {
+//         return club;
+//       }))
+//     }
+//     Promise.all(clubObjs)
+//     .then((clubsOfGivenUser) => {
+//       return new Promise((resolve, reject) => {
+//         resolve(clubsOfGivenUser);
+//     })
+//   })
+//   .then((clubArray) => {
+//     // now that you have an array  of club objs, iterate through each one and add all meetings as a property to each meeting
+
+//     let afdsafdsfasdfasdf = [];
+//     for (var b = 0; b < clubArray.length; b++ ) {
+//       meetingObjs.push(retrieveMeetingsByClubID(clubArray[b].id))
+//     }
+
+//       }
+//     })
+//   })
+
+
+
+
+
+//     let calls = [];
+//     for (var i = 0; i < retrievedClubIDs.length; i++ ) {
+//       calls.push(retrieveMeetingsByClubID(clubs[i], (meetings) => {
+//         return meetings;
+//       }))
+//     }
+//     Promise.all(calls).then((nestedArray) => {
+//       return new Promise ((resolve, reject) => {
+//         let allMeetings = [];
+//         for (var j = 0; j < nestedArray.length; j++ ) {
+//           allMeetings.concat(nestedArray[j]);
+//         }
+//         resolve(allMeetings);
+//       })
+//     })
+//     // push each club object into a temp array
+//     // add that array to the user object
+//   })
+//     cb(user)
+//   .catch((err) => {
+//     cb(err)
+//   })
+// };
 
 // CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT
 const checkCredentials = (email, password) => {
@@ -272,10 +284,10 @@ const retrieveMeeting = (meetingID, cb) => {
   .select('*')
   .then((meetingData) => {
       cb(meetingData, 200);
-    } else {
-      cb('Internal Server Error', 500);
-    }
-  });
+  })
+  .catch((err) => {
+    cb(err);
+  })
 };
 
 const addUser = (cb, user, res) => {
@@ -327,14 +339,13 @@ const saveMeeting = (cb, meeting/*, user*/, res) => { // <-- need to add user as
 
 const addClub = (cb, club, res) => {
   let checkDatabase = clubNameIsTaken(club.clubName);
+  console.log('club: ', club);
   checkDatabase.then((exists) => {
     if (exists === false ) {
-      console.log(`getting ready to add new club: ${club.clubName}`);
       return db.knex.insert({
         club_name: club.clubName,
-        club_city: club.clubCity,
-        club_state_province: club.clubState,
-        // club_admin_email: club.clubAdminEmail,
+        club_location: club.clubCity,
+        club_admin_user_id: club.userId,
         club_description: club.description,
       })
       .into('club')
@@ -351,35 +362,6 @@ const addClub = (cb, club, res) => {
   });
 };
 
-const emailIsInUse = (email) => {
-  return db.knex('user')
-  .where({
-    email: email
-  })
-  .select('first_name')
-  .then((x) => {
-    if (x.length > 0 ) {
-    return true;
-    } else {
-      return false;
-    }
-  });
-};
-
-const userJoinClub = (userID, clubID, cb ) => {
-  return db.knex.insert({
-    user_id: userID,
-    club_id: clubID,
-  })
-  .into('user_club')
-  .then((data) => {
-      cb(data);
-    })
-  .catch((err) => {
-    cb(err);
-  })
-}
-
 module.exports = {
   retrieveClubs,
   retrieveClub,
@@ -391,7 +373,7 @@ module.exports = {
   getUserById,
   retrieveClubsByName,
   retrieveClubsByLocation,
-  userJoinClub
+  userJoinClub,
   checkCredentials,
   retrieveClubIDsByUser,
   getUserById

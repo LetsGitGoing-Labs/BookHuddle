@@ -32,9 +32,8 @@ db.knex.schema.hasTable('user').then(function(exists) {
       return knex.schema.createTable('club', function (t) {
         t.increments('id').primary().unsigned();
         t.string('club_name', 100);
-        t.string('club_city', 100);
-        t.string('club_state_province', 100);
-        t.string('club_admin_email', 100);
+        t.string('club_location', 100);
+        t.integer('club_admin_user_id', 100);
         t.text('club_description', 280);
         t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
       }).then(function(table) {
