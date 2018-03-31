@@ -7,6 +7,7 @@ import Sidebar from '../navigation/sidebar.jsx';
 import Dashboard from './dashboard.jsx';
 import CreateClub from './create-club.jsx';
 import Club from '../clubs/club.jsx';
+import Meeting from '../meetings/meeting.jsx';
 
 class DashboardRouting extends React.Component {
   constructor(props) {
@@ -51,17 +52,24 @@ class DashboardRouting extends React.Component {
           <Sidebar user={this.state.userTest} />
 
           <Switch>
-            <Route 
-              path="/dashboard/create-club" 
+            <Route
+              path="/dashboard/create-club"
               render={
               props => <CreateClub {...props} userID={this.props.user.id} />
+              }
+            />
+
+            <Route
+              path="/dashboard/:clubId/:meetingId"
+              render={
+              props => (<Meeting {...props} clubs={this.state.userTest.clubs} searchResults={this.state.searchResults} />)
               }
             />
             <Route
               path="/dashboard/:clubId"
               render={
               props => (<Club {...props} clubs={this.state.userTest.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
-            }
+              }
             />
             <Route render={props => <Dashboard user={this.state.userTest} searchResults={this.state.searchResults} />} />
           </Switch>
@@ -92,6 +100,7 @@ const userData = {
         {
           id: 1,
           club_name: 'Jane Austen Book Club',
+          club_id: 'jane-austin-book-club',
           meeting_name: 'Wrapping up Persuasion',
           meeting_date: '2018-04-30T21:00:00',
           meeting_host: 'James Brown',
