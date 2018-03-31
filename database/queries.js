@@ -266,7 +266,7 @@ const addUser = (cb, user, res) => {
         .into('user')
         .then(() => {
           retrieveUserData(user.email, (userData) => {
-            user.password = 'encrypted';
+            userData.password = 'encrypted';
             cb(userData);
           })
         });
