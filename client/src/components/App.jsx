@@ -19,6 +19,7 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
+    this.getUserData = this.getUserData.bind(this);
   }
 
   checkLoginState() {
@@ -28,8 +29,31 @@ class App extends React.Component {
     });
   }
 
+  getUserData(email) {
+    const query = `mutation GetUserData($email: String) {
+      getUserData(userEmail: $email)
+    }`;
+
+    $.ajax({
+      type: 'POST',
+      url: '/graphql',
+      data: JSON.stringify({
+        query,
+        variables: { email }
+      }),
+      contentType: 'application/json',
+      success: (userData) => {
+        userData = JSON.parse(userData.data.getUserData);
+        if (userData) {
+          this.setState({
+            user: userData
+          });
+        }
+      }
+    });
+  }
+
   handleLogin(formData, cb) {
-    console.log(formData);
     formData = JSON.stringify(formData);
     const query = `mutation HandleLogin($formData: String) {
       handleLogin(userData: $formData)
@@ -44,11 +68,15 @@ class App extends React.Component {
       }),
       contentType: 'application/json',
       success: (userData) => {
-        console.log(JSON.parse(userData.data.handleLogin));
-        this.setState({
-          user: JSON.parse(userData.data.handleLogin),
-          isLoggedIn: true
-        });
+        userData = JSON.parse(userData.data.handleLogin);
+        if (userData) {
+          this.setState({
+            user: userData,
+            isLoggedIn: true
+          });
+        } else {
+          cb();
+        }
       },
       error: (err) => {
         console.log('error logging in', err);
@@ -77,7 +105,7 @@ class App extends React.Component {
       success: (userData) => {
         console.log(userData);
         this.setState({
-          user: JSON.parse(userData.data.handleSignup)[0],
+          user: JSON.parse(userData.data.handleSignup),
           isLoggedIn: true,
         });
       },
@@ -122,7 +150,7 @@ class App extends React.Component {
             path="/dashboard"
             render={
             props => (this.state.isLoggedIn
-              ? <DashboardRouting user={this.state.user} />
+              ? <DashboardRouting user={this.state.user} getUserData={this.getUserData}/>
               : <Redirect to={{
                   pathname: '/nologin',
                   state: { from: props.location },

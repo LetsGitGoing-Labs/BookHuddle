@@ -21,6 +21,7 @@ db.knex.schema.hasTable('user').then((exists) => {
       t.string('last_name', 100);
       t.string('user_location', 100);
       t.string('user_facebook_token', 100);
+      t.string('profile_url', 300);
       t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
     }).then((table) => {
       console.log('Created table user');

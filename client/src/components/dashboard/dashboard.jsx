@@ -28,6 +28,7 @@ class Dashboard extends React.Component {
     this.getBooks();
     this.getMeetings();
     this.getNearClubs();
+    this.props.getUserData(this.props.user.email);
   }
 
   getBooks() {
