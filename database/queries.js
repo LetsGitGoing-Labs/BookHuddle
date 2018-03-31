@@ -11,23 +11,55 @@ const retrieveClubs = (cb, dataObj, res) => db.knex
     }
   });
 
-// CHECKUSER FN BEFORE IMPLEMENTING PASSPORT
-// const checkUser = (user, res, cb) => {
-//   console.log(user);
-//    return db.knex('user')
-//   .where({
-//     email: user.email,
-//     password: user.password
-//   })
-//   .select()
-//   .then((data) => {
-//     if (data.length > 0 ) {
-//       cb(data, 200, res);
-//     } else {
-//       cb(data, 401, res);
-//     }
-//   });
-// };
+const dropMeetings = () => {
+  return db.knex('meeting')
+  .where('id', '>', 0)
+  .del()
+  .then(() => {
+    console.log('dropped meetings')
+  })
+}
+
+const dropDatabase = () => {
+  return db.knex('user')
+  .where('id', '>', 0)
+  .del()
+  .then(() =>{
+    return db.knex('club')
+    .where('id', '>', 0)
+    .del()
+    .then(() => {
+      return db.knex('meeting')
+      .where('id', '>', 0)
+      .del()
+      .then(() => {
+        return db.knex('book')
+        .where('id', '>', 0)
+        .del()
+        .then(() => {
+          return db.knex('user_club')
+          .where('user_id', '>', 0)
+          .del()
+          .then(() => {
+            return db.knex('club_book')
+            .where('club_id', '>', 0)
+            .del()
+            .then(() => {
+              return db.knex('genre_club')
+              .where('club_id', '>', 0)
+              .del()
+              .then(() => {
+                return db.knex('genre_book')
+                .where('book_id', '>', 0)
+                .del()
+              })
+            })
+          })
+        })
+      })
+    })
+  })
+}
 
 const checkUser = (user, cb) => {
   var userData = {};
@@ -251,6 +283,9 @@ const retrieveMeeting = (meetingID, cb) => db.knex('meeting')
   });
 
 const addUser = (cb, user, res) => {
+  // console.log('addUser cb ', cb);
+  // console.log('addUser user ', user);
+  // console.log('addUser res ', res)
   const checkDatabase = emailIsInUse(user.email);
   checkDatabase.then((exists) => {
     if (exists === false) {
@@ -297,6 +332,9 @@ const saveMeeting = (cb, meeting, res) => {
 };
 
 const addClub = (cb, club, res) => {
+  console.log('addClub cb ', cb);
+  console.log('addClub club ', club);
+  console.log('addClub res ', res)
   let newClubId;
   let clubResponse;
   const checkDatabase = clubNameIsTaken(club.clubName);
@@ -379,7 +417,7 @@ module.exports = {
   userJoinClub,
   checkCredentials,
   retrieveUserData
-  // retrieveClubIDsByUser,
-  // getUserById
+  dropDatabase,
+  dropMeetings
 };
 

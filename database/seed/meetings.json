@@ -1,6 +1,7 @@
 [{
   "clubID": 1,
-  "meetingTimestamp": "2018-02-15T19:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Sandy Anderson",
   "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
   "meetingBook": 1,
@@ -8,7 +9,8 @@
   },
   {
   "clubID": 1,
-  "meetingTimestamp": "2018-03-15T19:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Sandy Anderson",
   "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
   "meetingBook": 2,
@@ -16,7 +18,8 @@
   },
   {
   "clubID": 1,
-  "meetingTimestamp": "2018-04-15T19:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Harry Bartley",
   "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
   "meetingBook": 3,
@@ -24,17 +27,17 @@
   },
   {
   "clubID": 1,
-  "meetingTimestamp": "2018-05-15T19:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Harry Bartley",
   "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
   "meetingBook": 3,
   "meetingNotes": "Meeting at Harry's again.  Ivan will bring food.  Since it's Jessica's bday it's her turn to choose a book and she chose \"a day in the life of ivan denisovich\" by Yevtushenko."
   },
-
-
   {
   "clubID": 2,
-  "meetingTimestamp": "2018-02-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Bonnie Drew",
   "meetingLocation": "98 N Water Tower St., Chicago, Illinois",
   "meetingBook": 1,
@@ -42,7 +45,8 @@
   },
   {
   "clubID": 2,
-  "meetingTimestamp": "2018-03-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Barbara Anderson",
   "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
   "meetingBook": 2,
@@ -50,7 +54,8 @@
   },
   {
   "clubID": 2,
-  "meetingTimestamp": "2018-04-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Timothy Bartley",
   "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
   "meetingBook": 3,
@@ -58,7 +63,8 @@
   },
   {
   "clubID": 2,
-  "meetingTimestamp": "2018-05-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Lester Streusi",
   "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
   "meetingBook": 3,
@@ -67,7 +73,8 @@
 
   {
   "clubID": 3,
-  "meetingTimestamp": "2018-05-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Amy Pilsley",
   "meetingLocation": "4566 E Shannon St. Apt 4, Chicago, Illinois",
   "meetingBook": 3,
@@ -75,7 +82,8 @@
   },
   {
   "clubID": 3,
-  "meetingTimestamp": "2018-02-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Frita Riggins",
   "meetingLocation": "123 N Oak Tower St., Chicago, Illinois",
   "meetingBook": 1,
@@ -83,7 +91,8 @@
   },
   {
   "clubID": 3,
-  "meetingTimestamp": "2018-03-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Betty Anderson",
   "meetingLocation": "660 W Oak St., Chicago, Illinois",
   "meetingBook": 2,
@@ -91,7 +100,8 @@
   },
   {
   "clubID": 3,
-  "meetingTimestamp": "2018-04-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Tommy Bartley",
   "meetingLocation": "112 S 289th St. Apt 09, Chicago, Illinois",
   "meetingBook": 3,
@@ -100,7 +110,8 @@
 
   {
   "clubID": 4,
-  "meetingTimestamp": "2018-02-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Jenny Wright",
   "meetingLocation": "6555 N Oak Grove St., Chicago, Illinois",
   "meetingBook": 1,
@@ -108,7 +119,8 @@
   },
   {
   "clubID": 4,
-  "meetingTimestamp": "2018-03-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Lisa Anderson",
   "meetingLocation": "788 W Liverton St., Chicago, Illinois",
   "meetingBook": 2,
@@ -116,7 +128,8 @@
   },
   {
   "clubID": 4,
-  "meetingTimestamp": "2018-04-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Thomas Barnesi",
   "meetingLocation": "12 S 111 St. Apt 09, Chicago, Illinois",
   "meetingBook": 3,
@@ -124,7 +137,8 @@
   },
   {
   "clubID": 4,
-  "meetingTimestamp": "2018-05-20T18:00:00",
+  "meetingDate": "2018-05-15",
+  "meetingTime": "12:15:04.1237",
   "meetingHost": "Annie Smith",
   "meetingLocation": "102 E Borris St. Apt 4, Chicago, Illinois",
   "meetingBook": 3,
