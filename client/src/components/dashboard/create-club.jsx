@@ -12,7 +12,7 @@ class CreateClub extends React.Component {
       description: '',
       clubCity: '',
       genre: '',
-      userId: this.props.user.id
+      userID: this.props.userID,
     };
     this.onChange = this.onChange.bind(this);
     this.setLocation = this.setLocation.bind(this);
