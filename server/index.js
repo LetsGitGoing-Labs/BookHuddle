@@ -45,14 +45,14 @@ io.sockets.on('connection', (socket) => {
           io.sockets.emit('end', {gameName: 'GAME OVER!', host: '', currentQuestion: false})
         }
       }
-    }
+    };
     player(players);
     console.log('players remaining', players);
     connections.splice(connections.indexOf(socket), 1);
     socket.disconnect();
 
-    console.log('Disconnected: %s sockets remaining', connections.length)
-  })
+    console.log('Disconnected: %s sockets remaining', connections.length);
+  });
 
   socket.on('join', function(payload) {
     let newPlayer = {
@@ -60,39 +60,39 @@ io.sockets.on('connection', (socket) => {
       playerName: payload.playerName,
       type: 'player'
     };
-    this.emit('joined', newPlayer)
+    this.emit('joined', newPlayer);
     players.push(newPlayer);
     score[newPlayer.playerName] = 0;
     io.sockets.emit('players', players);
-    io.sockets.emit('score', score)
-    console.log('username: ' + payload.playerName)
-    console.log('joined line 63', payload, score)
-  })
+    io.sockets.emit('score', score);
+    console.log('username: ' + payload.playerName);
+    console.log('joined line 63', payload, score);
+  });
 
   socket.on('start', function(payload) {
-    console.log('payload:',payload)
-    
+    console.log('payload:',payload);
+
     gameName = payload.gameName;
     host.name = payload.host;
     host.id = this.id;
     host.type = 'host';
     this.emit('joined', host);
-    console.log('start', host)
-    io.sockets.emit('start', {gameName: gameName, host: host.name})
-    console.log("Trivia has started: '%s' by %s", payload.gameName, host.name)
-  })
+    console.log('start', host);
+    io.sockets.emit('start', {gameName: gameName, host: host.name});
+    console.log("Trivia has started: '%s' by %s", payload.gameName, host.name);
+  });
 
   socket.on('gameover', function(score){
-    io.sockets.emit('gameover', score)
-    console.log('the game is over', score)
-  })
+    io.sockets.emit('gameover', score);
+    console.log('the game is over', score);
+  });
 
   socket.on('ask', function(question){
     currentQuestion = question;
     results = undefined;
     io.sockets.emit('ask', currentQuestion);
     console.log('question: %s', question.q);
-  })
+  });
 
   socket.on('answer', function(payload) {
     if (payload.answer === payload.question.ans) {
@@ -101,10 +101,10 @@ io.sockets.on('connection', (socket) => {
     } else {
       results = false;
     }
-    this.emit('results', results)
-    io.sockets.emit('score', score)
-    console.log('answer: %s', payload.answer, results, payload, payload.question.ans,score)
-  })
+    this.emit('results', results);
+    io.sockets.emit('score', score);
+    console.log('answer: %s', payload.answer, results, payload, payload.question.ans,score);
+  });
 
   socket.emit('welcome', {
     gameName: gameName,
@@ -114,12 +114,12 @@ io.sockets.on('connection', (socket) => {
     currentQuestion: currentQuestion,
     results: results,
     score: score
-  })
-  console.log('welcome', gameName,players,host, score)
+  });
+  console.log('welcome', gameName,players,host, score);
 
   connections.push(socket);
   console.log('connect: %s sockets connected', connections.length);
-})
+});
 
 //End of socket.io
 
@@ -162,18 +162,18 @@ passport.deserializeUser((user_id, done) => {
     } else {
     done(err, res.user);
     }
-  })
+  });
 });
 
 app.use(session({
   genid: (req) => {
-    return uuid() // use UUIDs for session IDs
+    return uuid(); // use UUIDs for session IDs
   },
   // store: new FileStore(),
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true
-}))
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -182,7 +182,7 @@ app.post('/login',
   passport.authenticate('local'),
   function(req, res) {
     res.redirect('/dashboard');
-  })
+  });
 
 // OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
 // app.post('/login', (req, res) => {
@@ -223,6 +223,8 @@ var schema = buildSchema(`
     getNearClubs(clubLocation: String): String
 
     getClubsByName(clubName: String): String
+
+    getUserData(userEmail: String): String
 
   }
 
@@ -272,7 +274,7 @@ var root = {
     return new Promise((resolve, reject) => {
     database.checkUser(userData,
       (data, statusCode, res) => {
-      resolve(JSON.stringify(data));
+        resolve(JSON.stringify(data));
     });
   });
   },
@@ -320,6 +322,13 @@ var root = {
     return new Promise((resolve, reject) => {
       database.retrieveClubsByName(clubName, null, (clubs, statusCode, res) => {
         resolve(JSON.stringify(clubs));
+      })
+    })
+  },
+  getUserData: ({userEmail}) => {
+    return new Promise((resolve, reject) => {
+      database.retrieveUserData(userEmail, (userData) => {
+        resolve(JSON.stringify(userData));
       })
     })
   }

@@ -13,7 +13,6 @@ class DashboardRouting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userTest: userData,
       searchResults: [],
     };
     this.search = this.search.bind(this);
@@ -49,7 +48,7 @@ class DashboardRouting extends React.Component {
       <div>
         <DashboardNavbar search={this.search} />
         <div className="row">
-          <Sidebar user={this.state.userTest} />
+          <Sidebar user={this.props.user} />
 
           <Switch>
             <Route
@@ -68,10 +67,10 @@ class DashboardRouting extends React.Component {
             <Route
               path="/dashboard/:clubId"
               render={
-              props => (<Club {...props} clubs={this.state.userTest.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
-              }
+              props => (<Club {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user}/>)
+            }
             />
-            <Route render={props => <Dashboard user={this.state.userTest} searchResults={this.state.searchResults} />} />
+            <Route render={props => <Dashboard user={this.props.user} searchResults={this.state.searchResults}  getUserData={this.props.getUserData} />} />
           </Switch>
         </div>
       </div>

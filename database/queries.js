@@ -39,6 +39,66 @@ const checkUser = (user, cb) => {
   })
   .select()
   .then((user, err) => {
+    if (user.length !== 0) {
+      userData = user[0];
+      return db.knex('user_club')
+      .where({
+        user_id: user[0].id
+      })
+      .select('club_id')
+      .then((clubIDs, err) => {
+        var query;
+        if (clubIDs.length > 0) {
+          query = db.knex('club')
+          .where({
+            id: clubIDs[0].club_id
+          });
+          for (var i = 1; i < clubIDs.length; i++) {
+            query = query.orWhere({
+              id: clubIDs[i].club_id
+            });
+          }
+          query.select()
+          .then((clubs, err) => {
+            clubsData = clubs;
+          }).then(() => {
+            clubsData.forEach((club, j) => {
+              db.knex('meeting')
+              .where({
+                club_id: clubsData[j].id
+              })
+              .select()
+              .then((meetings, err) => {
+                clubsData[j].meetings = meetings;
+              }).then(() => {
+                if (j === clubsData.length - 1) {
+                  userData.clubs = clubsData;
+                  cb(userData);
+                }
+              });
+            });
+          });
+        } else {
+          userData.clubs = [];
+          userData.meetings = [];
+          cb(userData);
+        }
+      });
+    } else {
+      cb(null);
+    }
+  });
+};
+
+const retrieveUserData = (email, cb) => {
+  var userData = {};
+  var clubsData = {};
+  return db.knex('user')
+  .where({
+    email: email,
+  })
+  .select()
+  .then((user, err) => {
     userData = user[0];
     return db.knex('user_club')
     .where({
@@ -81,6 +141,8 @@ const checkUser = (user, cb) => {
           });
         });
       } else {
+        userData.meetings = [];
+        userData.clubs = [];
         cb(userData);
       }
     });
@@ -198,16 +260,15 @@ const addUser = (cb, user, res) => {
         email: user.email,
         password: user.password,
         user_location: user.location,
+        profile_url: user.profileUrl
         // user_facebook_token: user.confirmRequest.user.facebook.token
       })
         .into('user')
         .then(() => {
-          retrieveUser(user.email, res, (userData, statusCode, res) => {
-            for (let i = 0; i < userData.length; i++) {
-              userData[i].password = 'encrypted';
-            }
-            cb(userData, statusCode, res);
-          });
+          retrieveUserData(user.email, (userData) => {
+            userData.password = 'encrypted';
+            cb(userData);
+          })
         });
     }
     const err = 'Error.  An account with that email address already exists.';
@@ -317,6 +378,7 @@ module.exports = {
   retrieveClubsByLocation,
   userJoinClub,
   checkCredentials,
+  retrieveUserData
   // retrieveClubIDsByUser,
   // getUserById
 };
