@@ -25,13 +25,13 @@ class Home extends React.Component {
           signup={this.props.signup}
           isLoggedIn={this.props.isLoggedIn}
         />
-        <header id="showcase">
-          <div className="bg-image" />
+        <header className="showcase">
+          <div className="showcase_image" />
           <div className="bg-overlay" />
-          <div id="showcasewrap">
+          <div className="showcase_wrap">
             <div className="container">
               <h1>BookHuddle</h1>
-              <h5 className="showcase-text pars">Create, join and manage your book clubs. Meet new friends who share your reading tastes, and find the perfect next books to read!</h5>
+              <h5 className="showcase_wrap_text">Create, join and manage your book clubs. Meet new friends who share your reading tastes, and find the perfect next books to read!</h5>
               <button className="btn" onClick={this.smoothScroll.bind(this)}>Read More</button>
             </div>
           </div>

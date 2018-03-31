@@ -97,7 +97,7 @@ ul {
 ################################################################# */
 
 /*Frontpage Header*/
-#showcase .bg-image {
+.showcase_image {
   position: absolute;
   background: url('https://source.unsplash.com/IMtEliM53Lc') no-repeat center;
   background-size: cover;
@@ -116,19 +116,21 @@ ul {
   z-index: -1;
 }
 
-#showcase {
+.showcase {
   height: 500px;
   color: #fff;
   text-align: center;
   color: #fff;
-/*  background-color: #E85E4F;*/
 }
-#showcasewrap {
+
+.showcase_wrap {
   padding-top: 15%;
 }
 
-#showcasewrap h3, #showcasewrap h5 {
+.showcase_wrap_text {
   font-weight: 400;
+  margin: 0 auto;
+  width: 80%;
 }
 
 /*How it Works Section*/
