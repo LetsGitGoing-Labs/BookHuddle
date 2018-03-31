@@ -1,5 +1,10 @@
 const db = require('./index.js');
 
+const sampleUserData = require('./seed/users.json');
+const sampleClubData = require('./seed/clubs.json');
+const sampleMeetingData = require('./seed/meetings.json');
+const sampleBookData = require('./seed/books.json');
+
 const retrieveClubs = (cb, dataObj, res) => db.knex
   .select()
   .from('club')
@@ -10,56 +15,6 @@ const retrieveClubs = (cb, dataObj, res) => db.knex
       cb(clubs, 200, res);
     }
   });
-
-const dropMeetings = () => {
-  return db.knex('meeting')
-  .where('id', '>', 0)
-  .del()
-  .then(() => {
-    console.log('dropped meetings')
-  })
-}
-
-const dropDatabase = () => {
-  return db.knex('user')
-  .where('id', '>', 0)
-  .del()
-  .then(() =>{
-    return db.knex('club')
-    .where('id', '>', 0)
-    .del()
-    .then(() => {
-      return db.knex('meeting')
-      .where('id', '>', 0)
-      .del()
-      .then(() => {
-        return db.knex('book')
-        .where('id', '>', 0)
-        .del()
-        .then(() => {
-          return db.knex('user_club')
-          .where('user_id', '>', 0)
-          .del()
-          .then(() => {
-            return db.knex('club_book')
-            .where('club_id', '>', 0)
-            .del()
-            .then(() => {
-              return db.knex('genre_club')
-              .where('club_id', '>', 0)
-              .del()
-              .then(() => {
-                return db.knex('genre_book')
-                .where('book_id', '>', 0)
-                .del()
-              })
-            })
-          })
-        })
-      })
-    })
-  })
-}
 
 const checkUser = (user, cb) => {
   var userData = {};
@@ -221,9 +176,6 @@ const retrieveMeeting = (meetingID, cb) => db.knex('meeting')
   });
 
 const addUser = (cb, user, res) => {
-  // console.log('addUser cb ', cb);
-  // console.log('addUser user ', user);
-  // console.log('addUser res ', res)
   const checkDatabase = emailIsInUse(user.email);
   checkDatabase.then((exists) => {
     if (exists === false) {
@@ -244,10 +196,11 @@ const addUser = (cb, user, res) => {
             cb(userData, statusCode, res);
           });
         });
+    } else {
+      const err = 'Error.  An account with that email address already exists.';
+      console.log(err);
+      cb(err, 401, res);
     }
-    const err = 'Error.  An account with that email address already exists.';
-    console.log(err);
-    cb(err, 401, res);
   });
 };
 
@@ -271,9 +224,6 @@ const saveMeeting = (cb, meeting, res) => {
 };
 
 const addClub = (cb, club, res) => {
-  console.log('addClub cb ', cb);
-  console.log('addClub club ', club);
-  console.log('addClub res ', res)
   let newClubId;
   let clubResponse;
   const checkDatabase = clubNameIsTaken(club.clubName);
@@ -354,8 +304,6 @@ module.exports = {
   retrieveClubsByName,
   retrieveClubsByLocation,
   userJoinClub,
-  checkCredentials,
-  dropDatabase,
-  dropMeetings
+  checkCredentials
 };
 
