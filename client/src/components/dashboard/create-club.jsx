@@ -40,9 +40,7 @@ class CreateClub extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
     const clubData = JSON.stringify(this.state);
-
     const query = `mutation HandleClubCreate($clubData: String) {
       handleClubCreate(clubData: $clubData)
     }`;
@@ -58,29 +56,20 @@ class CreateClub extends React.Component {
         },
       }),
       success: (data) => {
-        console.log(data);
+        console.log('success')
+        this.setState({
+          isSubmitted: true
+        });
       },
       error: (data) => {
         console.log(data);
       },
     });
-
-    // let formData = this.state;
-    // $.ajax({
-    //   type: 'POST',
-    //   url: '/clubs',
-    //   data: formData,
-    //   success: (data) => {
-    //     console.log(data.confirmRequest)
-    //   },
-    //   error: (data) => {
-    //     console.log(data);
-    //   }
-    // });
   }
 
   render() {
-    return (
+    return this.state.isSubmitted ? (<Redirect to='/dashboard' />) :
+    (
       <div id="create-club-form" className="col-md-9">
         <div className="container">
           <h1 className="centerize">Create a Club</h1>

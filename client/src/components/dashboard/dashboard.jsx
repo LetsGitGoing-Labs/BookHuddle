@@ -101,7 +101,7 @@ class Dashboard extends React.Component {
     return (
       <div id="dashboard" className="col-md-9">
         <SearchResultsPanel results={this.props.searchResults} />
-        <MeetingsPanel meetings={this.state.upcomingMeetings} />
+        <MeetingsPanel clubs={this.props.user.clubs} />
         <ClubsPanel clubs={this.props.user.clubs} />
         <ClubsNearYouPanel clubs={this.state.clubs} />
         <SuggestedPanel books={this.state.books} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import DateCard from './pretty-date.jsx';
 
 const NoMeetings = () => (
@@ -9,12 +10,12 @@ const NoMeetings = () => (
 );
 
 const MeetingsPanel = props => (
-  !props.meetings || props.meetings.length === 0 ?
+  !props.clubs || props.clubs.length === 0 ?
     <NoMeetings />
     : (
       <div id="meetings-list" className="panel-card">
         <h3>UPCOMING MEETINGS</h3>
-        {props.meetings.map((meeting, id) =>
+        {props.clubs[0].meetings.map((meeting, id) =>
           (
             <div key={id} className="panel-content">
               <div className="row">
@@ -28,7 +29,7 @@ const MeetingsPanel = props => (
                     <p>hosted by {meeting.meeting_host}</p>
                   </div>
                   <div className="panel-button">
-                    <button className="btn btn-danger">See Details</button>
+                    <Link to={`dashboard/${meeting.club_id}/${id}`} ><button className="btn btn-danger">See Details</button></Link>
                   </div>
                 </div>
               </div>
