@@ -38,6 +38,7 @@
   "email": "markws@gmail.com",
   "password": "9iuh8",
   "location": "Chicago, Illinois" },
+
   { "firstName": "Bonnie",
   "lastName": "Drew",
   "email": "bwd1978@gmail.com",
@@ -159,5 +160,5 @@
   "lastName": "Samdnes",
   "email": "mikesamdnes@gmail.com",
   "password": "9iuh8",
-  "location": "Chicago, Illinois" },
+  "location": "Chicago, Illinois" }
 ]

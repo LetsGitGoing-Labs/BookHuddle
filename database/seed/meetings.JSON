@@ -1,1 +1,133 @@
-[]
+[{
+  "clubID": 1,
+  "meetingTimestamp": "2018-02-15T19:00:00",
+  "meetingHost": "Sandy Anderson",
+  "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
+  "meetingBook": 1,
+  "meetingNotes": "Meeting at Sandy's again.  Jessica will bring the snacks.  This month we'll be reading a book about five immigrant families in NYC who lived in one tenement."
+  },
+  {
+  "clubID": 1,
+  "meetingTimestamp": "2018-03-15T19:00:00",
+  "meetingHost": "Sandy Anderson",
+  "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
+  "meetingBook": 2,
+  "meetingNotes": "Meeting at Sandy's again.  Harry will make snacks.  This month we'll be reading a book about the history of Chicago.  It's Ivan's turn to suggest a book for the following month."
+  },
+  {
+  "clubID": 1,
+  "meetingTimestamp": "2018-04-15T19:00:00",
+  "meetingHost": "Harry Bartley",
+  "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
+  "meetingBook": 3,
+  "meetingNotes": "Meeting at Harry's this month.  Amy will bring donuts.  Ivan chose Robert Louis Stevenson's classic novel \"Kidnapped\".  It's set in 1800's Scotland."
+  },
+  {
+  "clubID": 1,
+  "meetingTimestamp": "2018-05-15T19:00:00",
+  "meetingHost": "Harry Bartley",
+  "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
+  "meetingBook": 3,
+  "meetingNotes": "Meeting at Harry's again.  Ivan will bring food.  Since it's Jessica's bday it's her turn to choose a book and she chose \"a day in the life of ivan denisovich\" by Yevtushenko."
+  },
+
+
+  {
+  "clubID": 2,
+  "meetingTimestamp": "2018-02-20T18:00:00",
+  "meetingHost": "Bonnie Drew",
+  "meetingLocation": "98 N Water Tower St., Chicago, Illinois",
+  "meetingBook": 1,
+  "meetingNotes": "Meeting at Bonnie's again.  Angela will bring the snacks.  Reading the Betrayed Dutchess."
+  },
+  {
+  "clubID": 2,
+  "meetingTimestamp": "2018-03-20T18:00:00",
+  "meetingHost": "Barbara Anderson",
+  "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
+  "meetingBook": 2,
+  "meetingNotes": "Meeting at Barbara's this month.  Bonnie will make snacks.  Reading the Puzzled Earl."
+  },
+  {
+  "clubID": 2,
+  "meetingTimestamp": "2018-04-20T18:00:00",
+  "meetingHost": "Timothy Bartley",
+  "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
+  "meetingBook": 3,
+  "meetingNotes": "Meeting at Tim's this month.  Katy will bring donuts.  Reading the governess who stole his heart."
+  },
+  {
+  "clubID": 2,
+  "meetingTimestamp": "2018-05-20T18:00:00",
+  "meetingHost": "Lester Streusi",
+  "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
+  "meetingBook": 3,
+  "meetingNotes": "Meeting at Lester's again.  Ivan will bring food.  Reading Annabelle Enchants."
+  },
+
+  {
+  "clubID": 3,
+  "meetingTimestamp": "2018-05-20T18:00:00",
+  "meetingHost": "Amy Pilsley",
+  "meetingLocation": "4566 E Shannon St. Apt 4, Chicago, Illinois",
+  "meetingBook": 3,
+  "meetingNotes": "Meeting at Amy's again.  Frita will bring food.  Reading The Hobbits."
+  },
+  {
+  "clubID": 3,
+  "meetingTimestamp": "2018-02-20T18:00:00",
+  "meetingHost": "Frita Riggins",
+  "meetingLocation": "123 N Oak Tower St., Chicago, Illinois",
+  "meetingBook": 1,
+  "meetingNotes": "Meeting at Frita's again.  Betty will bring the snacks.  Reading the Fellowship of The Ring."
+  },
+  {
+  "clubID": 3,
+  "meetingTimestamp": "2018-03-20T18:00:00",
+  "meetingHost": "Betty Anderson",
+  "meetingLocation": "660 W Oak St., Chicago, Illinois",
+  "meetingBook": 2,
+  "meetingNotes": "Meeting at Betty's this month.  Tommy will make snacks.  Reading the Two Towers."
+  },
+  {
+  "clubID": 3,
+  "meetingTimestamp": "2018-04-20T18:00:00",
+  "meetingHost": "Tommy Bartley",
+  "meetingLocation": "112 S 289th St. Apt 09, Chicago, Illinois",
+  "meetingBook": 3,
+  "meetingNotes": "Meeting at Tommy's this month.  Amy will bring donuts.  Reading the Return of The King."
+  },
+
+  {
+  "clubID": 4,
+  "meetingTimestamp": "2018-02-20T18:00:00",
+  "meetingHost": "Jenny Wright",
+  "meetingLocation": "6555 N Oak Grove St., Chicago, Illinois",
+  "meetingBook": 1,
+  "meetingNotes": "Meeting at Jenny's again.  Lisa will bring the snacks.  Reading Darwin's Black Box."
+  },
+  {
+  "clubID": 4,
+  "meetingTimestamp": "2018-03-20T18:00:00",
+  "meetingHost": "Lisa Anderson",
+  "meetingLocation": "788 W Liverton St., Chicago, Illinois",
+  "meetingBook": 2,
+  "meetingNotes": "Meeting at Lisa's this month.  Thomas will make snacks.  Reading God and the Astronomers."
+  },
+  {
+  "clubID": 4,
+  "meetingTimestamp": "2018-04-20T18:00:00",
+  "meetingHost": "Thomas Barnesi",
+  "meetingLocation": "12 S 111 St. Apt 09, Chicago, Illinois",
+  "meetingBook": 3,
+  "meetingNotes": "Meeting at Thomas's this month.  Annie will bring donuts.  Reading Understanding John Locke."
+  },
+  {
+  "clubID": 4,
+  "meetingTimestamp": "2018-05-20T18:00:00",
+  "meetingHost": "Annie Smith",
+  "meetingLocation": "102 E Borris St. Apt 4, Chicago, Illinois",
+  "meetingBook": 3,
+  "meetingNotes": "Meeting at Annie's again.  Jenny will bring food.  Reading John Locke's Second Treatise on Government."
+  }
+]
