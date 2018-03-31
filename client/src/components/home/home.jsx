@@ -60,7 +60,7 @@ class Home extends React.Component {
             </div>
           </section>
 
-          <section id="feature" className="content-wrapper">
+          <section className="feature content-wrapper">
             <div className="centered">
               <h3>Our Top Picks</h3>
               <p><em>Popular books from our book clubs!</em></p>
