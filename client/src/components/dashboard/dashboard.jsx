@@ -25,10 +25,10 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    this.props.getUserData(this.props.user.email);
     this.getBooks();
     this.getMeetings();
     this.getNearClubs();
-    this.props.getUserData(this.props.user.email);
   }
 
   getBooks() {
