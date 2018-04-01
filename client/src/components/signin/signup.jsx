@@ -71,8 +71,8 @@ class Signup extends React.Component {
         <div className="form-group">
           <AlgoliaPlaces placeholder="Location by city" onChange={event => this.location(event)} />
         </div>
-        <div className="centerize">
-          <button onClick={this.signupSubmit} type="submit" className="btn-primary btn">Sign Up</button>
+        <div className="centered">
+          <button onClick={this.signupSubmit} type="submit" className="modal-btn btn">Sign Up</button>
         </div>
       </form>
     );
