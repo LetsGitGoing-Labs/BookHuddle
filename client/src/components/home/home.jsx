@@ -75,13 +75,17 @@ class Home extends React.Component {
               </div>
             </div>
           </section>
-          <section id="action" className="container">
+          <section id="action">
             <div className="row">
               <div className="col-md-6 centered content-wrapper">
                 <h3>What Others Are Saying</h3>
-                <p>Enlightenment self philosophy enlightenment of.</p>
+                <blockquote>
+                  <p>"Reading helps us imagine a better world. <br/> BookHuddle has made it easier to share and connect with others who feel the same."
+                  </p>
+                </blockquote>
+                <cite>- Jane, New York</cite>
               </div>
-              <div className="col-md-6 centered content-wrapper">
+              <div className="action-content col-md-6 content-wrapper">
                 <h3>Get in the Huddle</h3>
                 <p>Read your next classic with friends.</p>
                 <a href="#" className="btn">Sign up</a>

@@ -154,6 +154,11 @@ ul {
   margin-top: 25px;
 }
 
+
+.action-content {
+  background-color: #FFCC5E;
+  text-align: center;
+}
 /*Footer Section*/
 
 #footerwrap {
