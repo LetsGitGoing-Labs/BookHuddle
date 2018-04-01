@@ -1,10 +1,5 @@
 const db = require('./index.js');
 
-const sampleUserData = require('./seed/users.json');
-const sampleClubData = require('./seed/clubs.json');
-const sampleMeetingData = require('./seed/meetings.json');
-const sampleBookData = require('./seed/books.json');
-
 const retrieveClubs = (cb, dataObj, res) => db.knex
   .select()
   .from('club')
