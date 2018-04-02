@@ -32,14 +32,11 @@ class Score extends React.Component {
   }
 
   getLeader(rank) {
-  	console.log(rank, 'line64');
   	const score = this.props.score;
-  	console.log('line66', score);
     const winner = [];
 
     for (let i = 1; i < rank.length; i++) {
       winner.push(rank[0]);
-      console.log('line70', score[rank[0]]);
       if (score[rank[i]] === score[winner[0]]) {
       	winner.push(rank[i]);
       }
@@ -47,7 +44,6 @@ class Score extends React.Component {
     }
     this.setState({ leader: winner });
   }
-
 
   addPlayerRow(player, i) {
     const score = this.props.score;
@@ -70,7 +66,6 @@ class Score extends React.Component {
         {this.props.player.type === 'host' &&
         <Col xs="6"><a className="right" href="#" onClick={this.props.hostPageRedirect}>BACK</a></Col>}
       </Row>
-
       {this.props.gameOver && this.state.leader.length === 1 &&
       <div> The winner is...
         <h1 className="centered">{this.state.rank[0]}</h1>
@@ -79,8 +74,6 @@ class Score extends React.Component {
       <div> <h2>Unbelievable...</h2>
         <h1 className="centered">It's a {this.state.leader.length}-way tie!!!</h1>
       </div>}
-
-
       <Table striped className="score-board">
         <thead >
           <tr>
