@@ -39,7 +39,6 @@ class Meeting extends React.Component {
             <div className="tab-pane fade" id="nav-dq" role="tabpanel" aria-labelledby="nav-dq-tab">
               Discussion Questions
             </div>
-
           </div>
         </div>
       </div>
