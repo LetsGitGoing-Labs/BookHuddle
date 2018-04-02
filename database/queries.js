@@ -1,5 +1,10 @@
 const db = require('./index.js');
 
+const sampleUserData = require('./seed/users.json');
+const sampleClubData = require('./seed/clubs.json');
+const sampleMeetingData = require('./seed/meetings.json');
+const sampleBookData = require('./seed/books.json');
+
 const retrieveClubs = (cb, dataObj, res) => db.knex
   .select()
   .from('club')
@@ -10,24 +15,6 @@ const retrieveClubs = (cb, dataObj, res) => db.knex
       cb(clubs, 200, res);
     }
   });
-
-// CHECKUSER FN BEFORE IMPLEMENTING PASSPORT
-// const checkUser = (user, res, cb) => {
-//   console.log(user);
-//    return db.knex('user')
-//   .where({
-//     email: user.email,
-//     password: user.password
-//   })
-//   .select()
-//   .then((data) => {
-//     if (data.length > 0 ) {
-//       cb(data, 200, res);
-//     } else {
-//       cb(data, 401, res);
-//     }
-//   });
-// };
 
 const checkUser = (user, cb) => {
   var userData = {};
@@ -209,10 +196,11 @@ const addUser = (cb, user, res) => {
             cb(userData, statusCode, res);
           });
         });
+    } else {
+      const err = 'Error.  An account with that email address already exists.';
+      console.log(err);
+      cb(err, 401, res);
     }
-    const err = 'Error.  An account with that email address already exists.';
-    console.log(err);
-    cb(err, 401, res);
   });
 };
 
@@ -316,8 +304,6 @@ module.exports = {
   retrieveClubsByName,
   retrieveClubsByLocation,
   userJoinClub,
-  checkCredentials,
-  // retrieveClubIDsByUser,
-  // getUserById
+  checkCredentials
 };
 
