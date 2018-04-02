@@ -363,9 +363,7 @@ module.exports = {
   retrieveClubsByName,
   retrieveClubsByLocation,
   userJoinClub,
-  retrieveUserData
-  dropDatabase,
-  dropMeetings
+  retrieveUserData,
   checkCredentials
 };
 
