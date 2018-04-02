@@ -1,8 +1,11 @@
 import React from 'react';
 import $ from 'jquery';
+import CreateTriviaQs from './trivia-qform.jsx';
 
 class Trivia extends React.Component {
-
+  componentDidMount() {
+    console.log('mounted')
+  }
   handleSubmit(e) {
     e.preventDefault();
 
@@ -32,10 +35,12 @@ class Trivia extends React.Component {
 
   render() {
     return (
-      <div id="create-club-form" className="col-md-9">
-        <div className="container">
-          <h1 className="centerize">Create Trivia Questions</h1>
-          
+      <div id="create-qs-form" className="col-md-9">
+        <div className="container centered">
+        <button className="play-but">Play Trivia!!!</button>
+        <h5>Or...</h5>
+          <h1 className="centered">Create Trivia Questions</h1>
+          <CreateTriviaQs />  
         </div>
       </div>
     );

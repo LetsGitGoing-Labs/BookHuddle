@@ -68,15 +68,17 @@ class CreateTriviaQs extends React.Component {
       children.push(<TriviaQInputs key={i} number={i} onChange={this.onChange} numQ={this.state.numQ} />);
     };
     return (
-      <div id="create-club-form" className="col-md-9">
+      <div id="create-club-form" className="col-md-12">
         <div className="container">
-          <h1 className="centerize">Create Trivia Questions</h1>
+          
           <form onSubmit={this.handleSubmit}>
             {children}
-            <button onClick={this.handleAddQ}>Add a Question</button> 
-            <div className="centered"><input type="submit" className="nav-buttons" value="Submit Questions" /></div>
+            <button onClick={this.handleAddQ} className="left">Add a Question</button> 
+            
           </form>
+          
         </div>
+        <input type="submit" className="nav-buttons centered" value="Submit Questions" />
       </div>
     );
   }
