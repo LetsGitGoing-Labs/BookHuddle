@@ -48,4 +48,4 @@ class Meeting extends React.Component {
 
 export default Meeting;
 
-    // let meetingData = clubData.meetings.find(meeting => meeting.id === this.props.match.params.meetingId);
+// let meetingData = clubData.meetings.find(meeting => meeting.id === this.props.match.params.meetingId);

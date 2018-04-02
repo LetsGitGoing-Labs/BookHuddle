@@ -12,123 +12,124 @@ const retrieveClubs = (cb, dataObj, res) => db.knex
   });
 
 const checkUser = (user, cb) => {
-  var userData = {};
-  var clubsData = {};
+  let userData = {};
+  let clubsData = {};
   return db.knex('user')
-  .where({
-    email: user.email,
-    password: user.password,
-  })
-  .select()
-  .then((user, err) => {
-    if (user.length !== 0) {
-      userData = user[0];
-      return db.knex('user_club')
-      .where({
-        user_id: user[0].id
-      })
-      .select('club_id')
-      .then((clubIDs, err) => {
-        var query;
-        if (clubIDs.length > 0) {
-          query = db.knex('club')
+    .where({
+      email: user.email,
+      password: user.password,
+    })
+    .select()
+    .then((user, err) => {
+      if (user.length !== 0) {
+        userData = user[0];
+        return db.knex('user_club')
           .where({
-            id: clubIDs[0].club_id
+            user_id: user[0].id,
+          })
+          .select('club_id')
+          .then((clubIDs, err) => {
+            let query;
+            if (clubIDs.length > 0) {
+              query = db.knex('club')
+                .where({
+                  id: clubIDs[0].club_id,
+                });
+              for (let i = 1; i < clubIDs.length; i++) {
+                query = query.orWhere({
+                  id: clubIDs[i].club_id,
+                });
+              }
+              query.select()
+                .then((clubs, err) => {
+                  clubsData = clubs;
+                }).then(() => {
+                  clubsData.forEach((club, j) => {
+                    db.knex('meeting')
+                      .where({
+                        club_id: clubsData[j].id,
+                      })
+                      .select()
+                      .then((meetings, err) => {
+                        clubsData[j].meetings = meetings;
+                      })
+                      .then(() => {
+                        if (j === clubsData.length - 1) {
+                          userData.clubs = clubsData;
+                          cb(userData);
+                        }
+                      });
+                  });
+                });
+            } else {
+              userData.clubs = [];
+              userData.meetings = [];
+              cb(userData);
+            }
           });
-          for (var i = 1; i < clubIDs.length; i++) {
-            query = query.orWhere({
-              id: clubIDs[i].club_id
-            });
-          }
-          query.select()
-          .then((clubs, err) => {
-            clubsData = clubs;
-          }).then(() => {
-            clubsData.forEach((club, j) => {
-              db.knex('meeting')
-              .where({
-                club_id: clubsData[j].id
-              })
-              .select()
-              .then((meetings, err) => {
-                clubsData[j].meetings = meetings;
-              }).then(() => {
-                if (j === clubsData.length - 1) {
-                  userData.clubs = clubsData;
-                  cb(userData);
-                }
-              });
-            });
-          });
-        } else {
-          userData.clubs = [];
-          userData.meetings = [];
-          cb(userData);
-        }
-      });
-    } else {
+      }
       cb(null);
-    }
-  });
+    });
 };
 
 const retrieveUserData = (email, cb) => {
-  var userData = {};
-  var clubsData = {};
+  let userData = {};
+  let clubsData = {};
   return db.knex('user')
-  .where({
-    email: email,
-  })
-  .select()
-  .then((user, err) => {
-    userData = user[0];
-    return db.knex('user_club')
     .where({
-      user_id: user[0].id
+      email,
     })
-    .select('club_id')
-    .then((clubIDs, err) => {
-      var query;
-      if (clubIDs.length > 0) {
-        //return db.knex('club')
-        query = db.knex('club')
+    .select()
+    .then((user, err) => {
+      userData = user[0];
+      return db.knex('user_club')
         .where({
-          id: clubIDs[0].club_id
+          user_id: user[0].id,
+        })
+        .select('club_id')
+        .then((clubIDs, err) => {
+          let query;
+          if (clubIDs.length > 0) {
+            // return db.knex('club')
+            query = db.knex('club')
+              .where({
+                id: clubIDs[0].club_id,
+              });
+            for (let i = 1; i < clubIDs.length; i++) {
+              query = query.orWhere({
+                id: clubIDs[i].club_id,
+              });
+            }
+            query.select()
+              .then((clubs, err) => {
+                clubsData = clubs;
+                console.log(userData);
+                console.log(clubsData);
+              }).then(() => {
+                clubsData.forEach((club, j) => {
+                  db.knex('meeting')
+                    .where({
+                      club_id: clubsData[j].id,
+                    })
+                    .select()
+                    .then((meetings, err) => {
+                      clubsData[j].meetings = meetings;
+                    })
+                    .then(() => {
+                      if (j === clubsData.length - 1) {
+                        userData.clubs = clubsData;
+                        cb(userData);
+                      }
+                    });
+                });
+              });
+          } else {
+            userData.meetings = [];
+            userData.clubs = [];
+            cb(userData);
+          }
         });
-        for (var i = 1; i < clubIDs.length; i++) {
-          query = query.orWhere({
-            id: clubIDs[i].club_id
-          });
-        }
-        query.select()
-        .then((clubs, err) => {
-          clubsData = clubs;
-          console.log(userData);
-          console.log(clubsData);
-        }).then(() => {
-          clubsData.forEach((club, j) => {
-            db.knex('meeting')
-            .where({
-              club_id: clubsData[j].id
-            })
-            .select()
-            .then((meetings, err) => {
-              clubsData[j].meetings = meetings;
-            }).then(() => {
-              if (j === clubsData.length - 1) {
-                userData.clubs = clubsData;
-                cb(userData);
-              }
-            });
-          });
-        });
-      } else {
-        userData.meetings = [];
-        userData.clubs = [];
-        cb(userData);
-      }
     });
-  });
 };
 
 // CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT
@@ -242,7 +243,7 @@ const addUser = (cb, user, res) => {
         email: user.email,
         password: user.password,
         user_location: user.location,
-        profile_url: user.profileUrl
+        profile_url: user.profileUrl,
         // user_facebook_token: user.confirmRequest.user.facebook.token
       })
         .into('user')
@@ -250,13 +251,12 @@ const addUser = (cb, user, res) => {
           retrieveUserData(user.email, (userData) => {
             userData.password = 'encrypted';
             cb(userData);
-          })
+          });
         });
-    } else {
-      const err = 'Error.  An account with that email address already exists.';
-      console.log(err);
-      cb(err, 401, res);
     }
+    const err = 'Error.  An account with that email address already exists.';
+    console.log(err);
+    cb(err, 401, res);
   });
 };
 
@@ -293,31 +293,25 @@ const addClub = (cb, club, res) => {
         club_admin_user_id: club.userID,
         club_description: club.description,
       })
-      .into('club')
-      .then((clubID) => {
-        return new Promise((resolve, reject) => {
+        .into('club')
+        .then(clubID => new Promise((resolve, reject) => {
           newClubId = clubID;
-          retrieveClub(clubID, function(clubData) {
+          retrieveClub(clubID, (clubData) => {
             resolve(clubData);
           });
+        }))
+        .then((clubData) => {
+          console.log('clubData obj[0]: ', clubData[0]);
+          clubResponse = clubData;
+          return db.knex.insert({
+            club_id: clubData[0].id,
+            user_id: clubData[0].club_admin_user_id,
+          })
+            .into('user_club');
         })
-      })
-      .then((clubData) => {
-        console.log('clubData obj[0]: ', clubData[0]);
-        clubResponse = clubData;
-        return db.knex.insert({
-          club_id: clubData[0].id,
-          user_id: clubData[0].club_admin_user_id,
-        })
-        .into('user_club')
-      })
-      .then(() => {
-        cb(clubResponse)
-      })
-    }  else {
-      let err = 'Error.  A club with that name already exists.';
-      console.log(err);
-      cb(err, 401, res);
+        .then(() => {
+          cb(clubResponse);
+        });
     }
     const err = 'Error.  A club with that name already exists.';
     cb(err, 401, res);
@@ -341,13 +335,13 @@ const userJoinClub = (userID, clubID, cb) => {
     user_id: userID,
     club_id: clubID,
   })
-  .into('user_club')
-  .then((data) => {
-    cb(data);
-  })
-  .catch((err) => {
-    cb(err);
-  });
+    .into('user_club')
+    .then((data) => {
+      cb(data);
+    })
+    .catch((err) => {
+      cb(err);
+    });
 };
 
 
@@ -364,6 +358,6 @@ module.exports = {
   retrieveClubsByLocation,
   userJoinClub,
   retrieveUserData,
-  checkCredentials
+  checkCredentials,
 };
 

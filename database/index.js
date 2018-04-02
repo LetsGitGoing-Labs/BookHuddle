@@ -47,8 +47,7 @@ db.knex.schema.hasTable('user').then((exists) => {
     if (!exists) {
       return knex.schema.createTable('meeting', (t) => {
         t.increments('id').primary().unsigned();
-        t.date('meeting_date', 100);
-        t.time('meeting_time', 100);
+        t.datetime('meeting_timestamp', 100);
         t.string('meeting_host', 100);
         t.string('meeting_street_address');
         t.text('meeting_notes', 280);
@@ -92,8 +91,10 @@ db.knex.schema.hasTable('user').then((exists) => {
     db.knex.schema.hasTable('user_club').then((exists) => {
       if (!exists) {
         return knex.schema.createTable('user_club', (t) => {
-          t.integer('user_id').references('id').inTable('user').notNull().unsigned();
-          t.integer('club_id').references('id').inTable('club').notNull().unsigned();
+          t.integer('user_id').references('id').inTable('user').notNull()
+            .unsigned();
+          t.integer('club_id').references('id').inTable('club').notNull()
+            .unsigned();
           t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
         });
       }
