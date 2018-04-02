@@ -177,4 +177,3 @@ dropDatabase()
         console.log('User joined club');
       }));
   });
-

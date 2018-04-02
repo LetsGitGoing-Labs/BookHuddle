@@ -330,13 +330,6 @@ const root = {
       resolve(JSON.stringify(userData));
     });
   }),
-  handleJoinClub: ({userID, clubID}) => {
-    return new Promise((resolve, reject) => {
-      database.userJoinClub(userID, clubID, (data) => {
-        resolve(JSON.stringify(data))
-      });
-    })
-  }
 };
 
 app.use('/graphql', graphqlHTTP({
