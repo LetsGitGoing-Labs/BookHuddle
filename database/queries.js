@@ -251,7 +251,7 @@ const addUser = (cb, user, res) => {
             userData.password = 'encrypted';
             cb(userData);
           })
-        });
+        })
     } else {
       const err = 'Error.  An account with that email address already exists.';
       console.log(err);
