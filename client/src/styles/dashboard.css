@@ -128,16 +128,7 @@
 
 /*SEARCHBAR*/
 
-.searchbar {
-  width: 60%;
-  text-align: center;
-}
-
 .searchbar-content {
-  margin-left: 200px;
-}
-
-.searchbar-content input {
   width: 300px;
   border-radius: 4px;
   border: 1px solid #e6e6e6;
