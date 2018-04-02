@@ -25,13 +25,13 @@ class Home extends React.Component {
           signup={this.props.signup}
           isLoggedIn={this.props.isLoggedIn}
         />
-        <header id="showcase">
-          <div className="bg-image" />
+        <header className="showcase">
+          <div className="showcase_image" />
           <div className="bg-overlay" />
-          <div id="showcasewrap">
+          <div className="showcase_wrap">
             <div className="container">
               <h1>BookHuddle</h1>
-              <h5 className="showcase-text pars">Create, join and manage your book clubs. Meet new friends who share your reading tastes, and find the perfect next books to read!</h5>
+              <h5 className="showcase_wrap_text">Create, join and manage your book clubs. Meet new friends who share your reading tastes, and find the perfect next books to read!</h5>
               <button className="btn" onClick={this.smoothScroll.bind(this)}>Read More</button>
             </div>
           </div>
@@ -60,7 +60,7 @@ class Home extends React.Component {
             </div>
           </section>
 
-          <section id="feature" className="content-wrapper">
+          <section className="feature content-wrapper">
             <div className="centered">
               <h3>Our Top Picks</h3>
               <p><em>Popular books from our book clubs!</em></p>
@@ -75,13 +75,17 @@ class Home extends React.Component {
               </div>
             </div>
           </section>
-          <section id="action" className="container">
+          <section id="action">
             <div className="row">
               <div className="col-md-6 centered content-wrapper">
                 <h3>What Others Are Saying</h3>
-                <p>Enlightenment self philosophy enlightenment of.</p>
+                <blockquote>
+                  <p>"Reading helps us imagine a better world. <br/> BookHuddle has made it easier to share and connect with others who feel the same."
+                  </p>
+                </blockquote>
+                <cite>- Jane, New York</cite>
               </div>
-              <div className="col-md-6 centered content-wrapper">
+              <div className="action-content col-md-6 content-wrapper">
                 <h3>Get in the Huddle</h3>
                 <p>Read your next classic with friends.</p>
                 <a href="#" className="btn">Sign up</a>

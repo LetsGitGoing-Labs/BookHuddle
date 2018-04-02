@@ -75,10 +75,10 @@ class Login extends React.Component {
               />
             </div>
             {this.state.errMsg.length > 1 && <div id="login-err"><p>{this.state.errMsg}</p></div>}
-            <div className="form-group">
-              <button id="button1" type="submit" onClick={this.handleSubmit}>Login
+            <div className="form-group centered">
+              <button className="modal-btn btn" type="submit" onClick={this.handleSubmit}>Login
               </button>
-              <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook" /> Facebook</a>
+              <a href="/auth/facebook" className="btn btn-primary"><span><i class="fab fa-facebook-f"></i></span> Facebook</a>
             </div>
           </form>
         </div>

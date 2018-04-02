@@ -18,7 +18,7 @@ class LoginModal extends React.Component {
     return (
       <div>
         <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} external={externalCloseBtn} centered>
-          <ModalBody>
+          <ModalBody id="modal">
             <Nav tabs>
               <NavItem
                 className={` ${classnames({ active: this.props.activeTab === 'login' })} modal-tab`}
@@ -53,7 +53,6 @@ class LoginModal extends React.Component {
                 />
               </TabPane>
             </TabContent>
-
           </ModalBody>
         </Modal>
       </div>
