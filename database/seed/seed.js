@@ -1,7 +1,6 @@
 const sampleUserData = require('./users.json');
 const sampleClubData = require('./clubs.json');
 const sampleMeetingData = require('./meetings.json');
-const sampleBookData = require('./books.json');
 const sampleJoinData = require('./joinData.json');
 const buildSchema = require('./../schema.js');
 
@@ -100,8 +99,8 @@ dropDatabase()
         .catch((err) => {
           console.log(err);
         });
-    }).then((user) => {
-      console.log(`${JSON.stringify(user)} inserted into database`);
+    }).then((userObject) => {
+      console.log(`${JSON.stringify(userObject)} inserted into database`);
       resolve();
     }));
   })
@@ -160,12 +159,12 @@ dropDatabase()
             resolve(meetingData);
           });
       })
-        .then((meeting) => {
-          console.log(`${JSON.stringify(meeting)} inserted into database`);
+        .then((meetingObject) => {
+          console.log(`${JSON.stringify(meetingObject)} inserted into database`);
         })));
   })
   .then(() => {
-    sampleJoinData.forEach((join, err) => db.knex.insert({
+    sampleJoinData.forEach(join => db.knex.insert({
       user_id: join.userID,
       club_id: join.clubID,
     })
