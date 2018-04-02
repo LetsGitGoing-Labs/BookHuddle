@@ -21,7 +21,7 @@ const UpcomingMeetings = props => (
               <div className="row">
                 <div className="col-md-3">
                   <div className="date-panel">
-                    <DateCard time={meeting.meeting_date} />
+                    <DateCard time={meeting.meeting_timestamp} />
                   </div>
                 </div>
                 <div className="col-md-9 vline-l">
@@ -38,7 +38,7 @@ const UpcomingMeetings = props => (
                       <p>123 Main Street<br />Houston, TX</p>
                     </address>
                   </div>
-                  <h6 className="meeting-description"><em>{meeting.meeting_description}</em></h6>
+                  <h6 className="meeting-description"><em>{meeting.meeting_notes}</em></h6>
                   <p className="meeting-description">{meeting.meeting_details}</p>
                 </div>
               </div>

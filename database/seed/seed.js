@@ -93,6 +93,7 @@ dropDatabase()
         email: user.email,
         password: user.password,
         user_location: user.location,
+        profile_url: user.profileUrl
         // user_facebook_token: user.confirmRequest.user.facebook.token
       })
         .into('user')

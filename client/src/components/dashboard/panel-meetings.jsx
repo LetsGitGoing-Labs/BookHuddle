@@ -29,7 +29,7 @@ const MeetingsPanel = props => (
                 <div className="col-md-9">
                   <div className="panel-body">
                     <h4>{meeting.meeting_name}</h4>
-                    <p><em>{meetingDate(meeting.meeting_date)}</em></p>
+                    <p><em>{meetingDate(meeting.meeting_timestamp)}</em></p>
                     <p>hosted by {meeting.meeting_host}</p>
                     <p><em>{meeting.meeting_notes}</em></p>
                   </div>
