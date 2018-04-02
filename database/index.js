@@ -2,9 +2,9 @@ const knex = require('knex')({
   client: 'mysql',
   connection: {
     host: process.env.DATABASE_URL || '127.0.0.1',
-    user: process.env.DATABASE_USER /* || config.dbUser */,
+    user: process.env.DATABASE_USER || 'root'/* || config.dbUser */,
     insecureAuth: true,
-    password: process.env.DATABASE_PASSWORD /*! == undefined ? process.env.DATABASE_PASSWORD : config.dbPass */,
+    password: process.env.DATABASE_PASSWORD || 'password' /*! == undefined ? process.env.DATABASE_PASSWORD : config.dbPass */,
     database: process.env.DATABASE_NAME || 'bookapp',
   },
 });
@@ -46,15 +46,15 @@ db.knex.schema.hasTable('user').then((exists) => {
   db.knex.schema.hasTable('meeting').then((exists) => {
     if (!exists) {
       return knex.schema.createTable('meeting', (t) => {
-        t.increments('id').primary();
+        t.increments('id').primary().unsigned();
         t.date('meeting_date', 100);
         t.time('meeting_time', 100);
         t.string('meeting_host', 100);
         t.string('meeting_street_address');
         t.text('meeting_notes', 280);
         t.timestamp('meeting_created_at').notNullable().defaultTo(knex.raw('now()'));
-        t.integer('club_id').references('club.id');
-        t.integer('book_id').references('book.id');
+        t.integer('club_id').references('club.id').unsigned();
+        t.integer('book_id').references('book.id').unsigned();
       }).then((table) => {
         console.log('Created table meeting');
       });
@@ -65,7 +65,7 @@ db.knex.schema.hasTable('user').then((exists) => {
     db.knex.schema.hasTable('book').then((exists) => {
       if (!exists) {
         return knex.schema.createTable('book', (t) => {
-          t.increments('id').primary();
+          t.increments('id').primary().unsigned();
           t.string('book_amazon_id', 100);
           t.text('book_title', 100);
           t.text('book_author', 100);
@@ -81,7 +81,7 @@ db.knex.schema.hasTable('user').then((exists) => {
     db.knex.schema.hasTable('genre').then((exists) => {
       if (!exists) {
         return knex.schema.createTable('genre', (t) => {
-          t.increments('id').primary();
+          t.increments('id').primary().unsigned();
           t.string('name', 100);
           t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
         });
@@ -92,8 +92,8 @@ db.knex.schema.hasTable('user').then((exists) => {
     db.knex.schema.hasTable('user_club').then((exists) => {
       if (!exists) {
         return knex.schema.createTable('user_club', (t) => {
-          t.integer('user_id').references('user.id');
-          t.integer('club_id').references('club.id');
+          t.integer('user_id').references('id').inTable('user').notNull().unsigned();
+          t.integer('club_id').references('id').inTable('club').notNull().unsigned();
           t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
         });
       }
@@ -103,8 +103,8 @@ db.knex.schema.hasTable('user').then((exists) => {
     db.knex.schema.hasTable('club_book').then((exists) => {
       if (!exists) {
         return knex.schema.createTable('club_book', (t) => {
-          t.integer('club_id').references('club.id');
-          t.integer('book_id').references('book.id');
+          t.integer('club_id').references('club.id').unsigned();
+          t.integer('book_id').references('book.id').unsigned();
           t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
         });
       }
@@ -114,8 +114,8 @@ db.knex.schema.hasTable('user').then((exists) => {
     db.knex.schema.hasTable('genre_club').then((exists) => {
       if (!exists) {
         return knex.schema.createTable('genre_club', (t) => {
-          t.integer('genre_id').references('genre.id');
-          t.integer('club_id').references('club_id');
+          t.integer('genre_id').references('genre.id').unsigned();
+          t.integer('club_id').references('club.id').unsigned();
           t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
         });
       }
@@ -125,8 +125,8 @@ db.knex.schema.hasTable('user').then((exists) => {
     db.knex.schema.hasTable('genre_book').then((exists) => {
       if (!exists) {
         return knex.schema.createTable('genre_book', (t) => {
-          t.integer('genre_id').references('genre.id');
-          t.integer('book_id').references('book.id');
+          t.integer('genre_id').references('genre.id').unsigned();
+          t.integer('book_id').references('book.id').unsigned();
           t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
         });
       }

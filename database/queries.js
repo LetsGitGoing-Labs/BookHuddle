@@ -11,24 +11,6 @@ const retrieveClubs = (cb, dataObj, res) => db.knex
     }
   });
 
-// CHECKUSER FN BEFORE IMPLEMENTING PASSPORT
-// const checkUser = (user, res, cb) => {
-//   console.log(user);
-//    return db.knex('user')
-//   .where({
-//     email: user.email,
-//     password: user.password
-//   })
-//   .select()
-//   .then((data) => {
-//     if (data.length > 0 ) {
-//       cb(data, 200, res);
-//     } else {
-//       cb(data, 401, res);
-//     }
-//   });
-// };
-
 const checkUser = (user, cb) => {
   var userData = {};
   var clubsData = {};
@@ -270,10 +252,11 @@ const addUser = (cb, user, res) => {
             cb(userData);
           })
         });
+    } else {
+      const err = 'Error.  An account with that email address already exists.';
+      console.log(err);
+      cb(err, 401, res);
     }
-    const err = 'Error.  An account with that email address already exists.';
-    console.log(err);
-    cb(err, 401, res);
   });
 };
 
@@ -353,10 +336,11 @@ const emailIsInUse = email => db.knex('user')
     return false;
   });
 
-const userJoinClub = (userID, clubID, cb) => db.knex.insert({
-  user_id: userID,
-  club_id: clubID,
-})
+const userJoinClub = (userID, clubID, cb) => {
+  db.knex.insert({
+    user_id: userID,
+    club_id: clubID,
+  })
   .into('user_club')
   .then((data) => {
     cb(data);
@@ -364,6 +348,8 @@ const userJoinClub = (userID, clubID, cb) => db.knex.insert({
   .catch((err) => {
     cb(err);
   });
+};
+
 
 module.exports = {
   retrieveClubs,
@@ -377,9 +363,7 @@ module.exports = {
   retrieveClubsByName,
   retrieveClubsByLocation,
   userJoinClub,
-  checkCredentials,
-  retrieveUserData
-  // retrieveClubIDsByUser,
-  // getUserById
+  retrieveUserData,
+  checkCredentials
 };
 
