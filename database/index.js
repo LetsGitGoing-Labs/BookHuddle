@@ -2,9 +2,9 @@ const knex = require('knex')({
   client: 'mysql',
   connection: {
     host: process.env.DATABASE_URL || '127.0.0.1',
-    user: process.env.DATABASE_USER /* || config.dbUser */,
+    user: process.env.DATABASE_USER || 'root'/* || config.dbUser */,
     insecureAuth: true,
-    password: process.env.DATABASE_PASSWORD /*! == undefined ? process.env.DATABASE_PASSWORD : config.dbPass */,
+    password: process.env.DATABASE_PASSWORD || 'password' /*! == undefined ? process.env.DATABASE_PASSWORD : config.dbPass */,
     database: process.env.DATABASE_NAME || 'bookapp',
   },
 });

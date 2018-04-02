@@ -336,10 +336,11 @@ const emailIsInUse = email => db.knex('user')
     return false;
   });
 
-const userJoinClub = (userID, clubID, cb) => db.knex.insert({
-  user_id: userID,
-  club_id: clubID,
-})
+const userJoinClub = (userID, clubID, cb) => {
+  db.knex.insert({
+    user_id: userID,
+    club_id: clubID,
+  })
   .into('user_club')
   .then((data) => {
     cb(data);
@@ -347,6 +348,8 @@ const userJoinClub = (userID, clubID, cb) => db.knex.insert({
   .catch((err) => {
     cb(err);
   });
+};
+
 
 module.exports = {
   retrieveClubs,
