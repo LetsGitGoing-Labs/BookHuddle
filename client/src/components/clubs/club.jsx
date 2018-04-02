@@ -19,7 +19,7 @@ class Club extends React.Component {
   userJoinClub() {
     // We are accessing and slicing the page's url to obtain the club's ID
     const addUserID = this.props.user.id;
-    const addClubID = this.props.match.params.clubID;
+    const addClubID = this.props.match.params.clubId;
 
     const query = `mutation HandleJoinClub($addUserID: Int, $addClubID: Int) {
       handleJoinClub(userID: $addUserID, clubID: $addClubID)

@@ -225,6 +225,8 @@ const schema = buildSchema(`
 
     getUserData(userEmail: String): String
 
+    handleJoinClub(userID: Int, clubID: Int): String
+
   }
 
   type Query {
@@ -328,6 +330,13 @@ const root = {
       resolve(JSON.stringify(userData));
     });
   }),
+  handleJoinClub: ({userID, clubID}) => {
+    return new Promise((resolve, reject) => {
+      database.userJoinClub(userID, clubID, (data) => {
+        resolve(JSON.stringify(data))
+      });
+    })
+  }
 };
 
 app.use('/graphql', graphqlHTTP({
