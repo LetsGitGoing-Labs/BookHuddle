@@ -27,7 +27,7 @@ class CreateClub extends React.Component {
 
   setLocation(e) {
     this.setState({
-      clubCity: (`${e.suggestion.name}, ${e.suggestion.administrative}`)
+      clubCity: (`${e.suggestion.name}, ${e.suggestion.administrative}`),
     });
   }
 
@@ -56,9 +56,9 @@ class CreateClub extends React.Component {
         },
       }),
       success: (data) => {
-        console.log('success')
+        console.log('success');
         this.setState({
-          isSubmitted: true
+          isSubmitted: true,
         });
       },
       error: (data) => {
@@ -68,37 +68,37 @@ class CreateClub extends React.Component {
   }
 
   render() {
-    return this.state.isSubmitted ? (<Redirect to='/dashboard' />) :
-    (
-      <div id="create-club-form" className="col-md-9">
-        <div className="container">
-          <h1 className="centerize">Create a Club</h1>
-          <form onSubmit={this.handleSubmit.bind(this)}>
-            <div className="form-group">
-              <input type="text" className="form-control" id="inputClubName" placeholder="Club name" name="clubName" value={this.state.clubName} onChange={this.onChange} />
-            </div>
-            <div className="form-group">
-              <textarea className="form-control" id="inputClubDescription" rows="3" name="description" placeholder="Add a brief description to attract club members"value={this.state.description} onChange={this.onChange} />
-            </div>
-            <div className="form-group">
-              <AlgoliaPlaces placeholder="Location by city" onChange={e => this.setLocation(e)} />
-            </div>
-            <div className="form-group">
-              <select className="form-control" id="inputClubGenres" name="genre" onChange={this.onSelect.bind(this)}>
-                <option disabled defaultValue>Choose a Genre</option>
-                <option>Fantasy</option>
-                <option>Thrillers</option>
-                <option>Historical Fiction</option>
-                <option>Mystery</option>
-                <option>Non-Fiction</option>
-                <option>Variety</option>
-              </select>
-            </div>
-            <input type="submit" className="btn btn-primary centerize" value="Submit" />
-          </form>
+    return this.state.isSubmitted ? (<Redirect to="/dashboard" />) :
+      (
+        <div id="create-club-form" className="col-md-9">
+          <div className="container">
+            <h1 className="centerize">Create a Club</h1>
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              <div className="form-group">
+                <input type="text" className="form-control" id="inputClubName" placeholder="Club name" name="clubName" value={this.state.clubName} onChange={this.onChange} />
+              </div>
+              <div className="form-group">
+                <textarea className="form-control" id="inputClubDescription" rows="3" name="description" placeholder="Add a brief description to attract club members"value={this.state.description} onChange={this.onChange} />
+              </div>
+              <div className="form-group">
+                <AlgoliaPlaces placeholder="Location by city" onChange={e => this.setLocation(e)} />
+              </div>
+              <div className="form-group">
+                <select className="form-control" id="inputClubGenres" name="genre" onChange={this.onSelect.bind(this)}>
+                  <option disabled defaultValue>Choose a Genre</option>
+                  <option>Fantasy</option>
+                  <option>Thrillers</option>
+                  <option>Historical Fiction</option>
+                  <option>Mystery</option>
+                  <option>Non-Fiction</option>
+                  <option>Variety</option>
+                </select>
+              </div>
+              <input type="submit" className="btn btn-primary centerize" value="Submit" />
+            </form>
+          </div>
         </div>
-      </div>
-    );
+      );
   }
 }
 

@@ -92,8 +92,10 @@ db.knex.schema.hasTable('user').then((exists) => {
     db.knex.schema.hasTable('user_club').then((exists) => {
       if (!exists) {
         return knex.schema.createTable('user_club', (t) => {
-          t.integer('user_id').references('id').inTable('user').notNull().unsigned();
-          t.integer('club_id').references('id').inTable('club').notNull().unsigned();
+          t.integer('user_id').references('id').inTable('user').notNull()
+            .unsigned();
+          t.integer('club_id').references('id').inTable('club').notNull()
+            .unsigned();
           t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
         });
       }

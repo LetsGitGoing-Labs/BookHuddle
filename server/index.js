@@ -9,37 +9,39 @@ const database = require('../database/queries.js');
 const parseString = require('xml2js').parseString;
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
+
 const app = express();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 // socket.io Trivia game
-let connections = [];
+const connections = [];
 let gameName = 'Untitled';
-let players = [];
+const players = [];
 let host = {};
-let questions = require('../client/MockQuestions/questions.js');
+const questions = require('../client/MockQuestions/questions.js');
+
 let currentQuestion = false;
-let results = undefined;
-let score = {}
+let results;
+let score = {};
 
 
-let ioServer = app.listen(4000)
-let io = require('socket.io').listen(ioServer);
+const ioServer = app.listen(4000);
+const io = require('socket.io').listen(ioServer);
 
 io.sockets.on('connection', (socket) => {
-  socket.once('disconnect', function(){
-    let player = (players) => {
+  socket.once('disconnect', function () {
+    const player = (players) => {
       for (let i = 0; i < players.length; i++) {
         if (players[i].id === this.id) {
-          players.splice(i,1);
+          players.splice(i, 1);
           io.sockets.emit('players', players);
         } else if (this.id === host.id) {
-          console.log('%s has left, GAME OVER!', host.name)
+          console.log('%s has left, GAME OVER!', host.name);
           host = {};
           score = {};
           gameName = 'Untitled';
-          io.sockets.emit('end', {gameName: 'GAME OVER!', host: '', currentQuestion: false})
+          io.sockets.emit('end', { gameName: 'GAME OVER!', host: '', currentQuestion: false });
         }
       }
     };
@@ -51,23 +53,23 @@ io.sockets.on('connection', (socket) => {
     console.log('Disconnected: %s sockets remaining', connections.length);
   });
 
-  socket.on('join', function(payload) {
-    let newPlayer = {
+  socket.on('join', function (payload) {
+    const newPlayer = {
       id: this.id,
       playerName: payload.playerName,
-      type: 'player'
+      type: 'player',
     };
     this.emit('joined', newPlayer);
     players.push(newPlayer);
     score[newPlayer.playerName] = 0;
     io.sockets.emit('players', players);
     io.sockets.emit('score', score);
-    console.log('username: ' + payload.playerName);
+    console.log(`username: ${payload.playerName}`);
     console.log('joined line 63', payload, score);
   });
 
-  socket.on('start', function(payload) {
-    console.log('payload:',payload);
+  socket.on('start', function (payload) {
+    console.log('payload:', payload);
 
     gameName = payload.gameName;
     host.name = payload.host;
@@ -75,23 +77,23 @@ io.sockets.on('connection', (socket) => {
     host.type = 'host';
     this.emit('joined', host);
     console.log('start', host);
-    io.sockets.emit('start', {gameName: gameName, host: host.name});
+    io.sockets.emit('start', { gameName, host: host.name });
     console.log("Trivia has started: '%s' by %s", payload.gameName, host.name);
   });
 
-  socket.on('gameover', function(score){
+  socket.on('gameover', (score) => {
     io.sockets.emit('gameover', score);
     console.log('the game is over', score);
   });
 
-  socket.on('ask', function(question){
+  socket.on('ask', (question) => {
     currentQuestion = question;
     results = undefined;
     io.sockets.emit('ask', currentQuestion);
     console.log('question: %s', question.q);
   });
 
-  socket.on('answer', function(payload) {
+  socket.on('answer', function (payload) {
     if (payload.answer === payload.question.ans) {
       results = true;
       score[payload.player]++;
@@ -100,30 +102,30 @@ io.sockets.on('connection', (socket) => {
     }
     this.emit('results', results);
     io.sockets.emit('score', score);
-    console.log('answer: %s', payload.answer, results, payload, payload.question.ans,score);
+    console.log('answer: %s', payload.answer, results, payload, payload.question.ans, score);
   });
 
   socket.emit('welcome', {
-    gameName: gameName,
-    players: players,
+    gameName,
+    players,
     host: host.name,
-    questions: questions,
-    currentQuestion: currentQuestion,
-    results: results,
-    score: score
+    questions,
+    currentQuestion,
+    results,
+    score,
   });
-  console.log('welcome', gameName,players,host, score);
+  console.log('welcome', gameName, players, host, score);
 
   connections.push(socket);
   console.log('connect: %s sockets connected', connections.length);
 });
 
-//End of socket.io
+// End of socket.io
 
 // callback for DB queries
-let sendData = (responseData, dataObj, res) => {
-  let results = JSON.stringify(responseData);
-  //console.log(results, '<-- the object sent to client');
+const sendData = (responseData, dataObj, res) => {
+  const results = JSON.stringify(responseData);
+  // console.log(results, '<-- the object sent to client');
   res.status(statusCode).send(results);
 };
 
@@ -135,14 +137,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 passport.use(new LocalStrategy(
   { usernameField: 'email' },
   (email, password, done) => {
-    database.checkUser({ email: email }, function (err, user) {
+    database.checkUser({ email }, (err, user) => {
       if (err) { return done(err); }
       if (!user) { return done(null, false); }
       if (!user.checkCredentials(email, password)) { return done(null, false); }
-      console.log( user, '<-- user from after authentication');
+      console.log(user, '<-- user from after authentication');
       return done(null, user);
     });
-  }
+  },
 ));
 
 // creates passport session for user by serialized ID (tell passport how to serialize the user)
@@ -156,30 +158,30 @@ passport.deserializeUser((user_id, done) => {
   User.getUserById(user_id, (err, user) => {
     if (err) {
       return done(err, false);
-    } else {
-    done(err, res.user);
     }
+    done(err, res.user);
   });
 });
 
 app.use(session({
-  genid: (req) => {
-    return uuid(); // use UUIDs for session IDs
-  },
+  genid: req =>
+    uuid(), // use UUIDs for session IDs
   // store: new FileStore(),
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 // NEW LOGIN CODE FOR USE WITH PASSPORT
-app.post('/login',
+app.post(
+  '/login',
   passport.authenticate('local'),
-  function(req, res) {
+  (req, res) => {
     res.redirect('/dashboard');
-  });
+  },
+);
 
 // OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
 // app.post('/login', (req, res) => {
@@ -188,14 +190,14 @@ app.post('/login',
 // });
 
 app.post('/signup', (req, res) => {
-  let newUser = req.body;
+  const newUser = req.body;
   database.addUser(sendData, newUser, res);
 });
 
 app.get('/logout', (req, res) => {
   console.log('line 192');
   req.logOut();
-  res.clearCookie('connect.sid', {path: '/'}).send('cleared');
+  res.clearCookie('connect.sid', { path: '/' }).send('cleared');
 });
 
 // Serve static files to client
@@ -204,7 +206,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // Begin GraphQL
 
 // Schema
-var schema = buildSchema(`
+const schema = buildSchema(`
   type Mutation {
 
     getBooksAPI(searchBy: String): String
@@ -235,104 +237,101 @@ var schema = buildSchema(`
 `);
 
 // Resolvers
-var root = {
-  setMessage: ({message}) => {
+const root = {
+  setMessage: ({ message }) => {
     fakeDatabase.message = message;
     return message;
   },
-  getMessage: () => {
-    return fakeDatabase.message;
-  },
-  getBooksAPI: ({searchBy}) => {
-    return new Promise((resolve, reject) => {
+  getMessage: () => fakeDatabase.message,
+  getBooksAPI: ({ searchBy }) => new Promise((resolve, reject) => {
     amazonHelpers.retrieveBooksAPI(searchBy)
-        .then(function(books) {
-          var parsedData = parseString(books.data, function(err, result) {
-            result = result.ItemSearchResponse.Items[0].Item;
-            var bookData = result.map((bookObject) => {
-                if (bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage[0].URL) {
-                  return {
-                    book_amazon_id: bookObject.ASIN,
-                    book_title: bookObject.ItemAttributes[0].Title,
-                    book_author: bookObject.ItemAttributes[0].Author,
-                    book_image: bookObject.MediumImage[0].URL,
-                    book_url: bookObject.DetailPageURL
-                  };
-                }
-              }
-            );
-            resolve(JSON.stringify(bookData));
+      .then((books) => {
+        const parsedData = parseString(books.data, (err, result) => {
+          result = result.ItemSearchResponse.Items[0].Item;
+          const bookData = result.map((bookObject) => {
+            if (bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage[0].URL) {
+              return {
+                book_amazon_id: bookObject.ASIN,
+                book_title: bookObject.ItemAttributes[0].Title,
+                book_author: bookObject.ItemAttributes[0].Author,
+                book_image: bookObject.MediumImage[0].URL,
+                book_url: bookObject.DetailPageURL,
+              };
+            }
           });
-        })
+          resolve(JSON.stringify(bookData));
+        });
       });
-  },
-  handleLogin: ({userData}) => {
+  }),
+  handleLogin: ({ userData }) => {
     userData = JSON.parse(userData);
     return new Promise((resolve, reject) => {
-    database.checkUser(userData,
-      (data, statusCode, res) => {
-        resolve(JSON.stringify(data));
+      database.checkUser(
+        userData,
+        (data, statusCode, res) => {
+          resolve(JSON.stringify(data));
+        },
+      );
     });
-  });
   },
-  handleSignup: ({userData}) => {
+  handleSignup: ({ userData }) => {
     userData = JSON.parse(userData);
     return new Promise((resolve, reject) => {
-      database.addUser((data, statusCode, res) => {
-        resolve(JSON.stringify(data));
-      },
-      userData,
-      null);
+      database.addUser(
+        (data, statusCode, res) => {
+          resolve(JSON.stringify(data));
+        },
+        userData,
+        null,
+      );
     });
   },
-  handleLogout: ({userData}) => {
+  handleLogout: ({ userData }) => {
     console.log('Logged out!');
   },
-  handleClubCreate: ({clubData}) => {
+  handleClubCreate: ({ clubData }) => {
     clubData = JSON.parse(clubData);
     return new Promise((resolve, reject) => {
-      database.addClub((clubData, statusCode, res) => {
-        resolve(JSON.stringify(clubData));
-      },
-      clubData,
-      null);
+      database.addClub(
+        (clubData, statusCode, res) => {
+          resolve(JSON.stringify(clubData));
+        },
+        clubData,
+        null,
+      );
     });
   },
-  getClubs: () => {
-    return new Promise((resolve, reject) => {
-      database.retrieveClubs((clubs, statusCode, res) => {
+  getClubs: () => new Promise((resolve, reject) => {
+    database.retrieveClubs(
+      (clubs, statusCode, res) => {
         resolve(JSON.stringify(clubs));
       },
       null,
-      null);
-    });
-  },
-  getNearClubs: ({clubLocation}) => {
+      null,
+    );
+  }),
+  getNearClubs: ({ clubLocation }) => {
     clubLocation = JSON.parse(clubLocation);
     return new Promise((resolve, reject) => {
       database.retrieveClubsByLocation(clubLocation, null, (clubs, statusCode, res) => {
         resolve(JSON.stringify(clubs));
-      })
+      });
     });
   },
-  getClubsByName: ({clubName}) => {
-    return new Promise((resolve, reject) => {
-      database.retrieveClubsByName(clubName, null, (clubs, statusCode, res) => {
-        resolve(JSON.stringify(clubs));
-      })
-    })
-  },
-  getUserData: ({userEmail}) => {
-    return new Promise((resolve, reject) => {
-      database.retrieveUserData(userEmail, (userData) => {
-        resolve(JSON.stringify(userData));
-      })
-    })
-  }
+  getClubsByName: ({ clubName }) => new Promise((resolve, reject) => {
+    database.retrieveClubsByName(clubName, null, (clubs, statusCode, res) => {
+      resolve(JSON.stringify(clubs));
+    });
+  }),
+  getUserData: ({ userEmail }) => new Promise((resolve, reject) => {
+    database.retrieveUserData(userEmail, (userData) => {
+      resolve(JSON.stringify(userData));
+    });
+  }),
 };
 
 app.use('/graphql', graphqlHTTP({
-  schema: schema,
+  schema,
   rootValue: root,
   graphiql: true,
 }));
@@ -344,22 +343,22 @@ app.get('/', (req, res) => {
 });
 
 app.get('/clubs', (req, res) => {
-  let clubObj = req.body;
+  const clubObj = req.body;
   database.retrieveClubs(sendData, clubObj, res);
 });
 
 app.get('/meetings', (req, res) => {
   // this will have to be refactored to get only the meetings of a specific club or user
-  database.retrieveMeetings(function(meetings) {
+  database.retrieveMeetings((meetings) => {
     res.send(meetings);
   });
 });
 
 app.get('/getBooksDB', (req, res) => {
   // get search term to use for db lookup
-  var searchTerm = req.body.searchTerm;
+  const searchTerm = req.body.searchTerm;
   // database function here to retrieve clubs
-  database.retrieveBooksDB(function(books) {
+  database.retrieveBooksDB((books) => {
     // send back clubs data with response
     res.send(books);
   });
@@ -367,47 +366,46 @@ app.get('/getBooksDB', (req, res) => {
 
 app.get('/getBooksAPI', (req, res) => {
   // get search term to use for API lookup
-  var searchTerm = req._parsedOriginalUrl.query.slice(11);
+  const searchTerm = req._parsedOriginalUrl.query.slice(11);
   amazonHelpers.retrieveBooksAPI(searchTerm)
-    .then(function(books) {
-      var parsedData = parseString(books.data, function(err, result) {
+    .then((books) => {
+      const parsedData = parseString(books.data, (err, result) => {
         result = result.ItemSearchResponse.Items[0].Item;
-        var bookData = result.map((bookObject) => {
-            if (bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage[0].URL) {
-              return {
+        const bookData = result.map((bookObject) => {
+          if (bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage[0].URL) {
+            return {
               book_amazon_id: bookObject.ASIN,
               book_title: bookObject.ItemAttributes[0].Title,
               book_author: bookObject.ItemAttributes[0].Author,
               book_image: bookObject.MediumImage[0].URL,
-              book_url: bookObject.DetailPageURL
-              };
-            }
+              book_url: bookObject.DetailPageURL,
+            };
           }
-        );
+        });
 
         res.send(bookData.slice(0, 7));
       });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).send();
     });
 });
 
 app.post('/clubs', (req, res) => {
-  let newClub = req.body;
+  const newClub = req.body;
   database.addClub(sendData, newClub, res);
 });
 
 app.post('/booksdb', (req, res) => {
-  var bookObject = req.body;
-  database.saveBooks(bookObject, function(book) {
+  const bookObject = req.body;
+  database.saveBooks(bookObject, (book) => {
     res.send(book);
   });
 });
 
 app.post('/meetings', (req, res) => {
-  let newMeeting = req.body;
+  const newMeeting = req.body;
   database.saveMeeting(sendData, newMeeting, res);
 });
 
@@ -415,9 +413,9 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-let PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, function() {
+app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
 

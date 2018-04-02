@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: {},
-      isLoggedIn: false
+      isLoggedIn: false,
     };
     this.checkLoginState = this.checkLoginState.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -39,17 +39,17 @@ class App extends React.Component {
       url: '/graphql',
       data: JSON.stringify({
         query,
-        variables: { email }
+        variables: { email },
       }),
       contentType: 'application/json',
       success: (userData) => {
         userData = JSON.parse(userData.data.getUserData);
         if (userData) {
           this.setState({
-            user: userData
+            user: userData,
           });
         }
-      }
+      },
     });
   }
 
@@ -72,7 +72,7 @@ class App extends React.Component {
         if (userData) {
           this.setState({
             user: userData,
-            isLoggedIn: true
+            isLoggedIn: true,
           });
         } else {
           cb();
@@ -150,7 +150,7 @@ class App extends React.Component {
             path="/dashboard"
             render={
             props => (this.state.isLoggedIn
-              ? <DashboardRouting user={this.state.user} getUserData={this.getUserData}/>
+              ? <DashboardRouting user={this.state.user} getUserData={this.getUserData} />
               : <Redirect to={{
                   pathname: '/nologin',
                   state: { from: props.location },
