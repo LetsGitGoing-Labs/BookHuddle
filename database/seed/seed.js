@@ -19,60 +19,60 @@ const knex = require('knex')({
 
 const db = require('bookshelf')(knex);
 
-const dropDatabase = () => new Promise((resolve, reject) => {
+const dropDatabase = () => new Promise((resolve) => {
   db.knex.schema.dropTable('genre_club')
     .then(() => {
       console.log('genre_club table dropped');
       resolve();
     });
-}).then(() => new Promise((resolve, reject) => {
+}).then(() => new Promise((resolve) => {
   db.knex.schema.dropTable('user_club')
     .then(() => {
       console.log('user_club table dropped');
       resolve();
     });
-})).then(() => new Promise((resolve, reject) => {
+})).then(() => new Promise((resolve) => {
   db.knex.schema.dropTable('meeting')
     .then(() => {
       console.log('meeting table dropped');
       resolve();
     });
-})).then(() => new Promise((resolve, reject) => {
+})).then(() => new Promise((resolve) => {
   db.knex.schema.dropTable('club_book')
     .then(() => {
       console.log('club_book table dropped');
       resolve();
     });
 }))
-  .then(() => new Promise((resolve, reject) => {
+  .then(() => new Promise((resolve) => {
     db.knex.schema.dropTable('genre_book')
       .then(() => {
         console.log('genre_book table dropped');
         resolve();
       });
   }))
-  .then(() => new Promise((resolve, reject) => {
+  .then(() => new Promise((resolve) => {
     db.knex.schema.dropTable('book')
       .then(() => {
         console.log('book table dropped');
         resolve();
       });
   }))
-  .then(() => new Promise((resolve, reject) => {
+  .then(() => new Promise((resolve) => {
     db.knex.schema.dropTable('genre')
       .then(() => {
         console.log('genre table dropped');
         resolve();
       });
   }))
-  .then(() => new Promise((resolve, reject) => {
+  .then(() => new Promise((resolve) => {
     db.knex.schema.dropTable('club')
       .then(() => {
         console.log('club table dropped');
         resolve();
       });
   }))
-  .then(() => new Promise((resolve, reject) => {
+  .then(() => new Promise((resolve) => {
     db.knex.schema.dropTable('user')
       .then(() => {
         console.log('user table dropped');
@@ -81,13 +81,13 @@ const dropDatabase = () => new Promise((resolve, reject) => {
   }));
 
 dropDatabase()
-  .then(() => new Promise((resolve, reject) => {
+  .then(() => new Promise((resolve) => {
     buildSchema(db, knex).then(() => {
       resolve();
     });
   }))
   .then(() => {
-    sampleUserData.forEach((user, err) => new Promise((resolve, reject) => {
+    sampleUserData.forEach(user => new Promise((resolve) => {
       db.knex.insert({
         first_name: user.firstName,
         last_name: user.lastName,
@@ -106,7 +106,7 @@ dropDatabase()
     }));
   })
   .then(() => {
-    sampleClubData.forEach((club, err) => new Promise((resolve, reject) => db.knex.insert({
+    sampleClubData.forEach(club => new Promise(resolve => db.knex.insert({
       club_name: club.clubName,
       club_location: club.clubCity,
       club_admin_user_id: club.userID,
@@ -116,7 +116,7 @@ dropDatabase()
       .catch((err) => {
         console.log(err);
       })
-      .then(clubID => new Promise((resolve, reject) => {
+      .then(clubID => new Promise((resolve) => {
         db.knex('club')
           .where({
             id: clubID,
@@ -139,9 +139,8 @@ dropDatabase()
       })));
   })
   .then(() => {
-    sampleMeetingData.forEach((meeting, err) => db.knex.insert({
-      meeting_date: meeting.meetingDate,
-      meeting_time: meeting.meetingTime,
+    sampleMeetingData.forEach(meeting => db.knex.insert({
+      meeting_timestamp: meeting.meetingTimestamp,
       meeting_host: meeting.meetingHost,
       meeting_street_address: meeting.meetingLocation,
       meeting_notes: meeting.meetingNotes,
@@ -151,7 +150,7 @@ dropDatabase()
       .catch((err) => {
         console.log(err);
       })
-      .then(meetingID => new Promise((resolve, reject) => {
+      .then(meetingID => new Promise((resolve) => {
         db.knex('meeting')
           .where({
             id: meetingID,

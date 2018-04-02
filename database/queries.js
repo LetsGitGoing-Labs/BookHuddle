@@ -66,9 +66,9 @@ const checkUser = (user, cb) => {
           cb(userData);
         }
       });
-    } 
+    }
       cb(null);
-    
+
   });
 };
 
@@ -253,11 +253,11 @@ const addUser = (cb, user, res) => {
             cb(userData);
           })
         });
-    } 
+    }
       const err = 'Error.  An account with that email address already exists.';
       console.log(err);
       cb(err, 401, res);
-    
+
   });
 };
 
@@ -315,11 +315,7 @@ const addClub = (cb, club, res) => {
       .then(() => {
         cb(clubResponse)
       })
-    }  
-      let err = 'Error.  A club with that name already exists.';
-      console.log(err);
-      cb(err, 401, res);
-    
+    }
     const err = 'Error.  A club with that name already exists.';
     cb(err, 401, res);
   });
