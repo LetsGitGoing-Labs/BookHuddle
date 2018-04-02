@@ -5,6 +5,7 @@ import UpcomingMeetings from '../clubs/upcoming.jsx';
 import CreateMeeting from '../clubs/create-meeting.jsx';
 import MeetingPageNavbar from '../navigation/meeting-nav.jsx';
 import MeetingDetails from './meeting-detail.jsx';
+import Trivia from '../Trivia.jsx';
 
 class Meeting extends React.Component {
   constructor(props) {
@@ -47,10 +48,12 @@ class Meeting extends React.Component {
             </div>
             <div className="tab-pane fade" id="nav-trivia" role="tabpanel" aria-labelledby="nav-trivia-tab">
                 Trivia
+              <Trivia meetingData={this.props.match.params.meetingId}/>
             </div>
             <div className="tab-pane fade" id="nav-dq" role="tabpanel" aria-labelledby="nav-dq-tab">
               Discussion Questions
             </div>
+            <Trivia/>
           </div>
         </div>
       </div>
