@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link, Route, Redirect, Switch } from 'react-router-dom';
 
 class TriviaJoin extends React.Component {
   constructor(props) {

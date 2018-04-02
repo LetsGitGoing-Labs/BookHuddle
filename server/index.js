@@ -63,14 +63,13 @@ io.sockets.on('connection', (socket) => {
     players.push(newPlayer);
     score[newPlayer.playerName] = 0;
     io.sockets.emit('players', players);
-    io.sockets.emit('score', score);
-    console.log(`username: ${payload.playerName}`);
-    console.log('joined line 63', payload, score);
-  });
+    io.sockets.emit('score', score)
+    console.log('username: ' + payload.playerName)
+  })
 
-  socket.on('start', function (payload) {
-    console.log('payload:', payload);
-
+  socket.on('start', function(payload) {
+    console.log('payload:',payload)
+    
     gameName = payload.gameName;
     host.name = payload.host;
     host.id = this.id;
