@@ -25,10 +25,12 @@ class Searchbar extends React.Component {
 
   render() {
     return (
-      <div className="input-group">
+      <div className="searchbar">
         <form onSubmit={this.handleSearch}>
-          <input type="text" id="term" placeholder="Search for clubs" value={this.state.term} onChange={this.handleChange} />
-          <input type="submit" value="Submit" />
+          <div class="searchbar-content">
+            <input type="text" id="term" placeholder="Search for clubs" value={this.state.term} onChange={this.handleChange} />
+            <button type="submit" class="search-form-btn"><i class="fas fa-search"></i></button>
+          </div>
         </form>
       </div>
     );
