@@ -332,9 +332,11 @@ const root = {
     });
   }),
   handleTriviaQs: ({questions, meetingID}) => {
+    console.log('line 335', questions, meetingID)
     return new Promise((resolve) => {
       database.addTriviaQs(questions, meetingID, (meeting) => {
         resolve(JSON.stringify(meeting))
+        console.log('line 338', questions, meetingID)
       })
     })
   },
