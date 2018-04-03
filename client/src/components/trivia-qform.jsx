@@ -84,9 +84,7 @@ class CreateTriviaQs extends React.Component {
             <button onClick={this.handleAddQ} className="left">Add a Question</button>
             <input type="submit" className="nav-buttons score-board" value="Submit Questions" />
           </form>
-          
         </div>
-        <input type="submit" className="nav-buttons centered" value="Submit Questions" />
       </div>
     );
   }
