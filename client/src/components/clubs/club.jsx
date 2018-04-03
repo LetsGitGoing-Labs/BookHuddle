@@ -65,7 +65,10 @@ class Club extends React.Component {
               <UpcomingMeetings meetings={clubData.meetings} />
             </div>
             <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
-                Members
+              {/* Members */}
+              <div class="content-panel">
+                <img src="https://source.unsplash.com/gdKNGWKoxsU" className="img-circle" />
+              </div>
             </div>
             <div className="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
                 Book History

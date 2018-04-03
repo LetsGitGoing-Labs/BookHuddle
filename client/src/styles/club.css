@@ -90,3 +90,9 @@
 address {
   margin: 0;
 }
+
+/*Members*/
+.content-panel {
+  box-shadow: 0px 3px 2px #aab2bd;
+  padding: 10px 0 5px 10px;
+}
