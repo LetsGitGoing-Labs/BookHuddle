@@ -233,6 +233,26 @@ const retrieveMeeting = (meetingID, cb) => db.knex('meeting')
     }
   });
 
+const addTriviaQs = (questions, meetingID, cb) => {
+  db.knex
+    .where({
+      id: meetingID,
+    })
+    .update({
+      trivia_questions: JSON.stringify(questions),
+    })
+    .then(() => new Promise((resolve) => {
+        db.knex
+          .where({
+            id: meetingID,
+          })
+          .select() 
+      }) 
+        .then((meeting) => {
+          cb(meeting)
+        }));
+};
+
 const addUser = (cb, user, res) => {
   const checkDatabase = emailIsInUse(user.email);
   checkDatabase.then((exists) => {
@@ -359,5 +379,6 @@ module.exports = {
   userJoinClub,
   retrieveUserData,
   checkCredentials,
+  addTriviaQs,
 };
 

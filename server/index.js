@@ -226,6 +226,8 @@ const schema = buildSchema(`
 
     handleJoinClub(userID: Int, clubID: Int): String
 
+    addTriviaQs(triviaQuestions: String, meetingTrivID: String): String
+
   }
 
   type Query {
@@ -329,6 +331,13 @@ const root = {
       resolve(JSON.stringify(userData));
     });
   }),
+  handleTriviaQs: ({questions, meetingID}) => {
+    return new Promise((resolve) => {
+      database.addTriviaQs(questions, meetingID, (meeting) => {
+        resolve(JSON.stringify(meeting))
+      })
+    })
+  },
   handleJoinClub: ({userID, clubID}) => {
     return new Promise((resolve, reject) => {
       database.userJoinClub(userID, clubID, (data) => {
@@ -337,6 +346,7 @@ const root = {
     })
   }
 };
+  
 
 app.use('/graphql', graphqlHTTP({
   schema,
