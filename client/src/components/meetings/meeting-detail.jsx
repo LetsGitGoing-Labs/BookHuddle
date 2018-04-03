@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DateCard from '../dashboard/pretty-date.jsx';
 
 import UpcomingMeetings from '../clubs/upcoming.jsx';
 import CreateMeeting from '../clubs/create-meeting.jsx';
@@ -12,14 +13,28 @@ class MeetingDetails extends React.Component {
 
   render() {
     console.log('meeting details:', this.props.meetingDetails)
+
     return (
-      <div>
-      <h4>Meeting Host: </h4>
-      {this.props.meetingDetails.meetingHost}
-      <h4>Meeting Location: </h4>
-      {this.props.meetingDetails.meetingLocation}
-      <h4>Meeting Notes: </h4>
-      {this.props.meetingDetails.meetingNotes}
+      <div className="panel-content">
+        <div>
+          <div className="meeting-dh">
+            <h4>Meeting Host: </h4>
+              <p>{this.props.meetingDetails.meetingHost}</p>
+            <h4>Meeting Time: </h4>
+              <p>{this.props.meetingDetails.meetingTimestamp}</p>
+            <h4>Meeting Notes: </h4>
+              <p>{this.props.meetingDetails.meetingNotes}</p>
+            <h4>Meeting Location: </h4>
+            <div className="meeting-loc">
+              <div className="map-pin">
+                <i className="fas fa-map-marker-alt" />
+              </div>
+                <address className="map-address">
+                {this.props.meetingDetails.meetingLocation}
+                </address>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
