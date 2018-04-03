@@ -233,6 +233,26 @@ const retrieveMeeting = (meetingID, cb) => db.knex('meeting')
     }
   });
 
+const addTriviaQs = (questions, meetingID, cb) => {
+  db.knex('meeting')
+    .where({
+      id: meetingID,
+    })
+    .update({
+      trivia_questions: questions,
+    })
+    .then(() =>
+        db.knex('meeting')
+          .where({
+            id: meetingID,
+          })
+          .select('*')
+          .then((meeting) => {
+            cb(meeting)
+        })
+    )
+}
+
 const addUser = (cb, user, res) => {
   const checkDatabase = emailIsInUse(user.email);
   checkDatabase.then((exists) => {
@@ -344,6 +364,16 @@ const userJoinClub = (userID, clubID, cb) => {
     });
 };
 
+const retrieveTriviaQs = (meetingID, cb) => {
+  db.knex('meeting')
+    .where({
+      id: meetingID
+    })
+    .select()
+    .then((meeting) => {
+      cb(meeting[0].trivia_questions)
+    })
+}
 
 module.exports = {
   retrieveClubs,
@@ -359,4 +389,6 @@ module.exports = {
   userJoinClub,
   retrieveUserData,
   checkCredentials,
+  addTriviaQs,
+  retrieveTriviaQs
 };

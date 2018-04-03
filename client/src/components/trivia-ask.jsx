@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'reactstrap';
 import '../styles/trivia.css';
 
 class Ask extends React.Component {
@@ -8,7 +7,6 @@ class Ask extends React.Component {
   	this.state = {
       answers: [],
       answer: undefined,
-      correctAns: undefined,
   	};
   	this.setAnswers = this.setAnswers.bind(this);
   	this.addAnswers = this.addAnswers.bind(this);
@@ -36,10 +34,8 @@ class Ask extends React.Component {
     this.props.emit('answer', {
       question: this.props.question,
       answer,
-      correctAns: this.props.question.ans,
       player: this.props.player.playerName,
     });
-    console.log('selection line 40', this.props.question);
   }
 
   addAnswers(answer, i) {

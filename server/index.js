@@ -19,7 +19,7 @@ const connections = [];
 let gameName = 'Untitled';
 const players = [];
 let host = {};
-const questions = require('../client/MockQuestions/questions.js');
+let questions = [];
 
 let currentQuestion = false;
 let results;
@@ -63,13 +63,12 @@ io.sockets.on('connection', (socket) => {
     players.push(newPlayer);
     score[newPlayer.playerName] = 0;
     io.sockets.emit('players', players);
-    io.sockets.emit('score', score);
-    console.log(`username: ${payload.playerName}`);
-    console.log('joined line 63', payload, score);
-  });
+    io.sockets.emit('score', score)
+    console.log('username: ' + payload.playerName)
+  })
 
-  socket.on('start', function (payload) {
-    console.log('payload:', payload);
+  socket.on('start', function(payload) {
+    console.log('payload:',payload)
 
     gameName = payload.gameName;
     host.name = payload.host;
@@ -227,6 +226,10 @@ const schema = buildSchema(`
 
     handleJoinClub(userID: Int, clubID: Int): String
 
+    handleTriviaQs(triviaQuestions: String, meetingTrivID: String): String
+
+    getTriviaQs(meetingTrivID: String) : String
+
   }
 
   type Query {
@@ -330,14 +333,32 @@ const root = {
       resolve(JSON.stringify(userData));
     });
   }),
+  handleTriviaQs: ({triviaQuestions, meetingTrivID}) => {
+    meetingTrivID = JSON.parse(meetingTrivID)
+    return new Promise((resolve) => {
+      database.addTriviaQs(triviaQuestions, meetingTrivID, (meeting) => {
+        resolve(JSON.stringify(meeting))
+      })
+    })
+  },
   handleJoinClub: ({userID, clubID}) => {
-  return new Promise((resolve, reject) => {
-    database.userJoinClub(userID, clubID, (data) => {
-      resolve(JSON.stringify(data))
-    });
-  })
-}
+    return new Promise((resolve, reject) => {
+      database.userJoinClub(userID, clubID, (data) => {
+        resolve(JSON.stringify(data))
+      });
+    })
+  },
+  getTriviaQs: ({meetingTrivID}) => {
+    meetingTrivID = JSON.parse(meetingTrivID);
+    return new Promise((resolve, reject) => {
+      database.retrieveTriviaQs(meetingTrivID, (triviaQs) => {
+        questions = JSON.parse(triviaQs)
+        resolve();
+      })
+    })
+  }
 };
+
 
 app.use('/graphql', graphqlHTTP({
   schema,

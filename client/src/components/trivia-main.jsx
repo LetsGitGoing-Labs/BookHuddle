@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect, Switch } from 'react-router-dom';
+import { Link, Route, Redirect, Switch } from 'react-router-dom';
 import { Badge, Container, Row, Col } from 'reactstrap';
 import io from 'socket.io-client';
 import TriviaPlayers from './trivia-players.jsx';
@@ -68,7 +68,6 @@ class TriviaMain extends React.Component {
     this.emit('join', {
       playerName: this.state.playerName,
     });
-
     this.setState({
       viewState: 'players',
     });
@@ -156,7 +155,7 @@ class TriviaMain extends React.Component {
   }
 
   gameOver(score) {
-    console.log('game over bitches', score);
+    console.log('game over', score);
     this.setState({
       gameOver: true,
       currentQuestion: false,
@@ -228,7 +227,7 @@ class TriviaMain extends React.Component {
         {this.state.viewState === 'host' && <TriviaHost start={this.start} onHostChange={this.onHostChange} onGameChange={this.onGameChange} />}
         {this.state.viewState === 'hostpage' && <HostPage gameOver={this.gameOver} scoreRedirect={this.scoreRedirect} players={this.state.players} questions={this.state.questions} emit={this.emit} score={this.state.score} />}
         {this.state.viewState === 'score' && <Score gameOver={this.state.gameOver} hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit} />}
-      </div>
+      </div>     
     </Container>
   	);
   }

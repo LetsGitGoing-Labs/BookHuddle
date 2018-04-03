@@ -36,7 +36,7 @@ class CreateMeeting extends React.Component {
   render() {
     return (
       <div id="create-meeting" className="col-md-9">
-        <div className="container">
+        <div className="container cent">
           <h3>Create New Meeting</h3>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group">

@@ -42,6 +42,7 @@ const buildSchema = (db, knex) => new Promise((resolve, reject) => {
           t.timestamp('meeting_created_at').notNullable().defaultTo(knex.raw('now()'));
           t.integer('club_id').references('club.id').unsigned();
           t.integer('book_id').references('book.id').unsigned();
+          t.string('trivia_questions', 1000);
         }).then((table) => {
           console.log('Created table meeting');
         });
