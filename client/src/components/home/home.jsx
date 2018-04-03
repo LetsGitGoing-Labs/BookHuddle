@@ -68,7 +68,7 @@ class Home extends React.Component {
                 { bookList.map((book, i) =>
                   (<div key={i} className="col-md-4">
                     <img className="book-cover" src={book.cover} />
-                    <h4>{book.title}</h4>
+                    <h5>{book.title}</h5>
                     <p>By {book.author}</p>
                    </div>))
                 }
@@ -100,7 +100,7 @@ class Home extends React.Component {
               <div className="col-md-4">
                 <h4>About</h4>
                 <div className="hline-w" />
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                <p>BookHuddle is an app that caters to people who love to read and want to connect with other likeminded individuals through the creation of digital bookclubs.</p>
               </div>
               <div className="col-md-4">
                 <h4>FAQ</h4>
@@ -112,6 +112,8 @@ class Home extends React.Component {
               <div className="col-md-4">
                 <h4>Github Repo</h4>
                 <div className="hline-w" />
+                <a href="https://github.com/LetsGitGoing-Labs/BookHuddle"><p>LetsGitGoing-Labs/BookHuddle</p></a>
+
               </div>
             </div>
           </div>

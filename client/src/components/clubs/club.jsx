@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import UpcomingMeetings from './upcoming.jsx';
 import CreateMeeting from './create-meeting.jsx';
 import ClubPageNavbar from '../navigation/club-nav.jsx';
+import Members from './members.jsx';
 
 import '../../styles/club.css';
 
@@ -65,13 +66,10 @@ class Club extends React.Component {
               <UpcomingMeetings meetings={clubData.meetings} />
             </div>
             <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
-              {/* Members */}
-              <div class="content-panel">
-                <img src="https://source.unsplash.com/gdKNGWKoxsU" className="img-circle" />
-              </div>
+              <Members />
             </div>
             <div className="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
-                Book History
+                <em>Your past meetings will show here</em>
             </div>
             <button style={showJoin} className="btn" onClick={this.userJoinClub}>Join Club</button>
             {this.state.joinMsg.length > 1 && <div id="join-msg"><p>{this.state.joinMsg}</p></div>}

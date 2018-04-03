@@ -24,7 +24,7 @@ const MeetingsPanel = props => (
             <div key={id} className="panel-content">
               <div className="row">
                 <div className="col-md-3">
-                  <img style={{width: '100px', height: '180px'}} src="http://covers.openlibrary.org/b/isbn/0451207149-M.jpg" />
+                  <img className="meeting-book" src="http://covers.openlibrary.org/b/isbn/0451207149-M.jpg" />
                 </div>
                 <div className="col-md-9">
                   <div className="panel-body">
