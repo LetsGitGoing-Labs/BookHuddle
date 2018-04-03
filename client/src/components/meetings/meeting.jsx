@@ -7,19 +7,16 @@ import MeetingPageNavbar from '../navigation/meeting-nav.jsx';
 
 class Meeting extends React.Component {
   constructor(props) {
-    super(props); this.state = {
-      joinMsg: '',
-    };
+    super(props);
   }
 
   render() {
-    let clubData;
-    if (this.props.searchResults.length) {
-      clubData = this.props.searchResults.find(club => club.id === Number(this.props.match.params.clubId));
-    } else {
-      clubData = this.props.clubs.find(club => club.id === this.props.match.params.clubId);
-    }
-
+    let clubData = this.props.clubs.find((club) => {
+      return club.id === +(this.props.match.params.clubId)
+    });
+    let meetingData = clubData.meetings.find((meeting) => {
+      return meeting.id === +(this.props.match.params.meetingId)
+    });
 
     return (
       <div id="club-page" className="col-md-9">
@@ -29,6 +26,7 @@ class Meeting extends React.Component {
           <div className="tab-content" id="nav-tabContent">
             <div className="tab-pane fade show active" id="nav-upcoming" role="tabpanel" aria-labelledby="nav-home-tab">
             Details
+            {meetingData.meeting_notes}
             </div>
             <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
                 Members
