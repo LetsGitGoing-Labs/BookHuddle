@@ -14,6 +14,7 @@ class CreateTriviaQs extends React.Component {
       d: '',
       ans: '',
       numQ: 1,
+      newQ: [],
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,19 +29,27 @@ class CreateTriviaQs extends React.Component {
   }
 
   handleAddQ() {
-    const questionData = JSON.stringify(this.state);
+    const questionData = { q: this.state.q,
+    a: this.state.a,
+    b: this.state.b,
+    c: this.state.c,
+    d: this.state.d,
+    ans: this.state.ans,}
     this.setState({numQ: this.state.numQ + 1})
-    newQ.push(questionData)
-    console.log('line33', newQ)
+    this.state.newQ.push(questionData)
+    console.log('line33', this.state.newQ)
     this.setState({q: '', a: '', b: '', c: '', d: '', ans: '',}) 
   }
 
   handleSubmit(e) {
     e.preventDefault();
-
-    const clubData = JSON.stringify(this.state);
-    const query = `mutation HandleClubCreate($clubData: String) {
-      handleClubCreate(clubData: $clubData)
+console.log(this.props)
+console.log('line47',this.state)
+    const triviaQuestions = JSON.stringify(this.state.newQ);
+    const meetingTrivID = this.props.match.params.meetingId;
+    console.log('line47',triviaQuestions, 'line48',meetingTrivID)
+    const query = `mutation AddTriviaQs($triviaQuestions: String, $meetingTrivID: String) {
+      addTriviaQs(triviaQuestions: $triviaQuestions, meetingTrivID: $meetingTrivID)
     }`;
 
     $.ajax({
@@ -50,7 +59,8 @@ class CreateTriviaQs extends React.Component {
       data: JSON.stringify({
         query,
         variables: {
-          clubData,
+          triviaQuestions,
+          meetingTrivID,
         },
       }),
       success: (data) => {
@@ -70,19 +80,16 @@ class CreateTriviaQs extends React.Component {
     return (
       <div id="create-club-form" className="col-md-12">
         <div className="container">
-          
           <form onSubmit={this.handleSubmit}>
             {children}
             <button onClick={this.handleAddQ} className="left">Add a Question</button> 
-            
+            <input type="submit" className="nav-buttons score-board" value="Submit Questions" />
           </form>
-          
         </div>
-        <input type="submit" className="nav-buttons centered" value="Submit Questions" />
       </div>
     );
   }
 }
-const newQ = [];
+
 
 export default CreateTriviaQs;
