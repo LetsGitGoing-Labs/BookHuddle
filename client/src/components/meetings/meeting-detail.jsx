@@ -1,10 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import DateCard from '../dashboard/pretty-date.jsx';
-
-import UpcomingMeetings from '../clubs/upcoming.jsx';
-import CreateMeeting from '../clubs/create-meeting.jsx';
-import MeetingPageNavbar from '../navigation/meeting-nav.jsx';
 
 class MeetingDetails extends React.Component {
   constructor(props) {
@@ -12,26 +6,33 @@ class MeetingDetails extends React.Component {
   }
 
   render() {
-    console.log('meeting details:', this.props.meetingDetails)
+    let meeting = this.props.meetingDetails;
 
     return (
-      <div className="panel-content">
-        <div>
-          <div className="meeting-dh">
-            <h4>Meeting Host: </h4>
-              <p>{this.props.meetingDetails.meetingHost}</p>
-            <h4>Meeting Time: </h4>
-              <p>{this.props.meetingDetails.meetingTimestamp}</p>
-            <h4>Meeting Notes: </h4>
-              <p>{this.props.meetingDetails.meetingNotes}</p>
-            <h4>Meeting Location: </h4>
-            <div className="meeting-loc">
-              <div className="map-pin">
-                <i className="fas fa-map-marker-alt" />
+      <div>
+        <div class="row">
+          <div className="col-md-4">
+            <img className="meeting-book" src="http://covers.openlibrary.org/b/isbn/0451207149-M.jpg" />
+          </div>
+          <div className="col-md-8" style={{margin: 'auto'}}>
+            <div className="row">
+              <div className="col-md-6">
+                <h4>Wrapping Up</h4>
+                <h6>Hosted by {meeting.meeting_host}</h6>
               </div>
+              <div className="col-md-6 meeting-loc">
+                <div className="map-pin">
+                  <i className="fas fa-map-marker-alt" />
+                </div>
                 <address className="map-address">
-                {this.props.meetingDetails.meetingLocation}
+                  <p>James' Place</p>
+                  <p>123 Main Street<br />Houston, TX</p>
                 </address>
+              </div>
+            </div>
+            <div className="row col-md-12" style={{marginTop: '20px'}}>
+              <h6 className="meeting-description"><em>{meeting.meeting_notes}</em></h6>
+              <p className="meeting-description">{meeting.meeting_details}</p>
             </div>
           </div>
         </div>
@@ -41,5 +42,3 @@ class MeetingDetails extends React.Component {
 };
 
 export default MeetingDetails;
-
-// let meetingData = clubData.meetings.find(meeting => meeting.id === this.props.match.params.meetingId);
