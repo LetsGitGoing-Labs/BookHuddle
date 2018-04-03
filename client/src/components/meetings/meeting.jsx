@@ -5,11 +5,8 @@ import UpcomingMeetings from '../clubs/upcoming.jsx';
 import CreateMeeting from '../clubs/create-meeting.jsx';
 import MeetingPageNavbar from '../navigation/meeting-nav.jsx';
 import MeetingDetails from './meeting-detail.jsx';
-<<<<<<< HEAD
 import Trivia from '../Trivia.jsx';
-=======
 import Members from '../clubs/members.jsx';
->>>>>>> Modify layout of meeting details component
 
 class Meeting extends React.Component {
   constructor(props) {
