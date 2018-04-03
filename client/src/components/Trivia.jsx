@@ -12,13 +12,8 @@ class Trivia extends React.Component {
     this.retrieveTriviaQs = this.retrieveTriviaQs.bind(this);
   }
 
-  componentDidMount() {
-    this.setState = {
-      isQuestions: false,
-    };
-  }
-
   retrieveTriviaQs() {
+    this.setState({ isQuestions: true });
     const meetingTrivID = this.props.meetingData.match.params.meetingId;
     const query = `mutation GetTriviaQs($meetingTrivID: String) {
       getTriviaQs(meetingTrivID: $meetingTrivID)
@@ -41,7 +36,6 @@ class Trivia extends React.Component {
         console.log(err);
       },
     });
-    this.setState({ isQuestions: true });
   }
 
   render() {
