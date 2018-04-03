@@ -7,11 +7,11 @@ class CreateMeeting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meeting_timestamp: '',
-      meeting_host: '',
-      meeting_location: '',
-      meeting_notes: '',
-      meeting_book: '',
+      meetingTimestamp: '',
+      meetingHost: '',
+      meetingLocation: '',
+      meetingNotes: '',
+      meetingBook: '',
       clubId: ''
     };
     this.onChange = this.onChange.bind(this);
@@ -29,13 +29,12 @@ class CreateMeeting extends React.Component {
 
   setLocation(e) {
     this.setState({
-      meeting_location: (`${e.suggestion.name}, ${e.suggestion.administrative}`),
+      meetingLocation: (`${e.suggestion.name}, ${e.suggestion.administrative}`),
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    debugger;
     let meetingData = this.state;
     meetingData.clubId = this.props.clubData.match.params.clubId
     meetingData = JSON.stringify(meetingData);
@@ -43,7 +42,7 @@ class CreateMeeting extends React.Component {
   }
 
   handleCreateMeeting(meetingData) {
-    const query = `mutation handleCreateMeeting($meetingData: String) {
+    const query = `mutation HandleCreateMeeting($meetingData: String) {
       handleCreateMeeting(meetingData: $meetingData)
     }`;
     console.log('meetingData: ', meetingData);
@@ -77,16 +76,16 @@ class CreateMeeting extends React.Component {
           <h3>Create New Meeting</h3>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group">
-              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meeting_timestamp" value={this.state.meeting_timestamp} onChange={this.onChange} />
+              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />
             </div>
             <div className="form-group">
-              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Host" name="meeting_host" value={this.state.meeting_host} onChange={this.onChange} />
+              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Host" name="meetingHost" value={this.state.meetingHost} onChange={this.onChange} />
             </div>
             <div className="form-group">
-              <input className="form-control" id="inputClubDescription" rows="3" placeholder="Add a brief description.  Book to be discussed, who will bring snacks, etc." name="meeting_notes" value={this.state.meeting_notes} onChange={this.onChange} />
+              <input className="form-control" id="inputClubDescription" rows="3" placeholder="Add a brief description.  Book to be discussed, who will bring snacks, etc." name="meetingNotes" value={this.state.meetingNotes} onChange={this.onChange} />
             </div>
             <div className="form-group">
-              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Book" name="meeting_book" value={this.state.meeting_book} onChange={this.onChange} />
+              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Book" name="meetingBook" value={this.state.meetingBook} onChange={this.onChange} />
             </div>
             <div className="form-group">
               <AlgoliaPlaces placeholder="Meeting address" onChange={e => this.setLocation(e)} />

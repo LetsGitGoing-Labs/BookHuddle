@@ -230,6 +230,8 @@ const schema = buildSchema(`
 
     getTriviaQs(meetingTrivID: String) : String
 
+    handleCreateMeeting(meetingData: String) : String
+
   }
 
   type Query {
@@ -354,6 +356,14 @@ const root = {
       database.retrieveTriviaQs(meetingTrivID, (triviaQs) => {
         questions = JSON.parse(triviaQs)
         resolve();
+      })
+    })
+  },
+  handleCreateMeeting: ({meetingData}) => {
+    meetingData = JSON.parse(meetingData);
+    return new Promise((resolve, reject) => {
+      database.addMeeting(meetingData, (meeting) => {
+        resolve(meeting);
       })
     })
   }
