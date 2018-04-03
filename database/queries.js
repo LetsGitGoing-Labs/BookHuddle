@@ -220,7 +220,8 @@ const getUserById = (user_id, cb) => db.knex('user')
     cb(err, user);
   });
 
-const retrieveMeeting = (meetingID, cb) => db.knex('meeting')
+const retrieveMeeting = (meetingID, cb) =>
+  db.knex('meeting')
   .where({
     id: meetingID,
   })
@@ -280,23 +281,26 @@ const addUser = (cb, user, res) => {
   });
 };
 
-const saveMeeting = (cb, meeting, res) => {
+const addMeeting = (meeting, cb) => {
   console.log(meeting, '<-- meeting');
   return db.knex.insert({
-    meeting_date: meeting.date,
-    meeting_time: meeting.time,
-    meeting_host: meeting.host,
-    meeting_street_address: meeting.address,
-    meeting_notes: meeting.notes,
-    club_id: meeting.clubID,
+    meeting_timestamp: meeting.meetingTimestamp,
+    meeting_host: meeting.meetingHost,
+    meeting_street_address: meeting.meetingLocation,
+    meeting_notes: meeting.meetingNotes,
+    club_id: meeting.clubId,
   })
     .into('meeting')
-  // .then(ADD RECORD TO THE MEETING_CLUB JOIN TABLE)
     .then((meetingID) => {
-      retrieveMeeting(meetingID, (userData, statusCode) => {
-        cb(userData, statusCode, res);
-      });
-    });
+      db.knex('meeting')
+      .where({
+        id: meetingID
+      })
+      .select()
+      .then((meetingObject) => {
+        cb(meetingObject[0]);
+      })
+    })
 };
 
 const addClub = (cb, club, res) => {
@@ -382,7 +386,7 @@ module.exports = {
   addUser,
   addClub,
   checkUser,
-  saveMeeting,
+  addMeeting,
   getUserById,
   retrieveClubsByName,
   retrieveClubsByLocation,
