@@ -3,7 +3,6 @@ import $ from 'jquery';
 import CreateTriviaQs from './trivia-qform.jsx';
 
 class Trivia extends React.Component {
-<<<<<<< HEAD
 
   retrieveTriviaQs() {
 
@@ -29,11 +28,6 @@ class Trivia extends React.Component {
         console.log(err);
       }
     });
-=======
-  componentDidMount() {
-    
-    console.log('mounted')
->>>>>>> work on sending triv to db
   }
 
   handleSubmit(e) {
