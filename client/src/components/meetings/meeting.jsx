@@ -35,12 +35,12 @@ class Meeting extends React.Component {
             </div>
             <div className="tab-pane fade" id="nav-trivia" role="tabpanel" aria-labelledby="nav-trivia-tab">
                 Trivia
-              <Trivia />
+              <Trivia meetingData={this.props} />
             </div>
             <div className="tab-pane fade" id="nav-dq" role="tabpanel" aria-labelledby="nav-dq-tab">
               Discussion Questions
             </div>
-            <Trivia/>
+          
           </div>
         </div>
       </div>

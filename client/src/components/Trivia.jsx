@@ -4,6 +4,7 @@ import CreateTriviaQs from './trivia-qform.jsx';
 
 class Trivia extends React.Component {
   componentDidMount() {
+    
     console.log('mounted')
   }
   handleSubmit(e) {
@@ -40,7 +41,7 @@ class Trivia extends React.Component {
         <button className="play-but">Play Trivia!!!</button>
         <h5>Or...</h5>
           <h1 className="centered">Create Trivia Questions</h1>
-          <CreateTriviaQs />  
+          <CreateTriviaQs meetingData={this.props.meetingData} />  
         </div>
       </div>
     );

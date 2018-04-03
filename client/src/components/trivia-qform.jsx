@@ -29,12 +29,7 @@ class CreateTriviaQs extends React.Component {
   }
 
   handleAddQ() {
-    const questionData = { q: this.state.q,
-    a: this.state.a,
-    b: this.state.b,
-    c: this.state.c,
-    d: this.state.d,
-    ans: this.state.ans,}
+    const questionData = { q: this.state.q, a: this.state.a, b: this.state.b, c: this.state.c, d: this.state.d, ans: this.state.ans,}
     this.setState({numQ: this.state.numQ + 1})
     this.state.newQ.push(questionData)
     console.log('line33', this.state.newQ)
@@ -43,10 +38,11 @@ class CreateTriviaQs extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-console.log(this.props)
-console.log('line47',this.state)
+    const questionData = { q: this.state.q, a: this.state.a, b: this.state.b, c: this.state.c, d: this.state.d, ans: this.state.ans,}
+    this.state.newQ.push(questionData)
+   console.log('trivia q props', this.props)
     const triviaQuestions = JSON.stringify(this.state.newQ);
-    const meetingTrivID = this.props.match.params.meetingId;
+    const meetingTrivID = Number(this.props.meetingData.match.params.meetingId);
     console.log('line47',triviaQuestions, 'line48',meetingTrivID)
     const query = `mutation AddTriviaQs($triviaQuestions: String, $meetingTrivID: String) {
       addTriviaQs(triviaQuestions: $triviaQuestions, meetingTrivID: $meetingTrivID)
