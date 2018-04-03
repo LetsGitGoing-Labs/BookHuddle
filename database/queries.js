@@ -360,4 +360,3 @@ module.exports = {
   retrieveUserData,
   checkCredentials,
 };
-

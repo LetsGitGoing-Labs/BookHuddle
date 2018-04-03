@@ -137,7 +137,7 @@ class App extends React.Component {
                 isLoggedIn={this.state.isLoggedIn}
               />)
             }
-          />
+            />
           <Route path="/trivia-main" component={TriviaMain} />
           <Route path="/about" component={About} />
           <Route
