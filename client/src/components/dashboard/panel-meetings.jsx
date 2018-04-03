@@ -9,18 +9,41 @@ const NoMeetings = () => (
   </div>
 );
 
-const meetingDate = function(timestamp) {
-  return DateTime.fromISO(timestamp).toFormat('yyyy LLL dd t');
-}
+class MeetingsPanel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      meetings: [],
+    }
+    this.meetingDate = this.meetingDate.bind(this);
+  }
 
-const MeetingsPanel = props => (
-  !props.clubs || props.clubs.length === 0 ?
-    <NoMeetings />
-    : (
-      <div id="meetings-list" className="panel-card">
-        <h3>UPCOMING MEETINGS</h3>
-        {props.clubs[0].meetings.map((meeting, id) =>
-          (
+  componentDidMount() {
+    const now = DateTime.local().ts;
+    const list = this.props.clubs[0].meetings
+      .filter((meeting) => (
+        DateTime.fromISO(meeting.meeting_timestamp).valueOf() > now
+      ))
+      .sort((a,b) => (
+        DateTime.fromISO(a.meeting_timestamp).valueOf() - DateTime.fromISO(b.meeting_timestamp).valueOf()
+      ));
+    this.setState({
+      meetings: list
+    });
+  }
+
+  meetingDate(timestamp) {
+    return DateTime.fromISO(timestamp).toFormat('yyyy LLL dd t');
+  }
+
+  render() {
+    return(
+      !this.state.meetings || this.state.meetings.length === 0 ?
+        <NoMeetings />
+      : (
+        <div id="meetings-list" className="panel-card">
+          <h3>UPCOMING MEETINGS</h3>
+          {this.state.meetings.map((meeting, id) => (
             <div key={id} className="panel-content">
               <div className="row">
                 <div className="col-md-3">
@@ -29,7 +52,7 @@ const MeetingsPanel = props => (
                 <div className="col-md-9">
                   <div className="panel-body">
                     <h4>{meeting.meeting_name}</h4>
-                    <p><em>{meetingDate(meeting.meeting_timestamp)}</em></p>
+                    <p><em>{this.meetingDate(meeting.meeting_timestamp)}</em></p>
                     <p>hosted by {meeting.meeting_host}</p>
                     <p><em>{meeting.meeting_notes}</em></p>
                   </div>
@@ -40,8 +63,10 @@ const MeetingsPanel = props => (
               </div>
             </div>
           ))}
-      </div>
+        </div>
+      )
     )
-);
+  }
+}
 
 export default MeetingsPanel;

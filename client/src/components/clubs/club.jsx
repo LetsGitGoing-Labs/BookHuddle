@@ -5,6 +5,7 @@ import UpcomingMeetings from './upcoming.jsx';
 import CreateMeeting from './create-meeting.jsx';
 import ClubPageNavbar from '../navigation/club-nav.jsx';
 import Members from './members.jsx';
+import BookHistory from './bookhistory.jsx';
 
 import '../../styles/club.css';
 
@@ -69,7 +70,7 @@ class Club extends React.Component {
               <Members />
             </div>
             <div className="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
-                <em>Your past meetings will show here</em>
+                <BookHistory meetings={clubData.meetings}/>
             </div>
             <button style={showJoin} className="btn" onClick={this.userJoinClub}>Join Club</button>
             {this.state.joinMsg.length > 1 && <div id="join-msg"><p>{this.state.joinMsg}</p></div>}
