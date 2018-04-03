@@ -78,7 +78,7 @@ class Login extends React.Component {
             <div className="form-group centered">
               <button className="modal-btn btn" type="submit" onClick={this.handleSubmit}>Login
               </button>
-              <a href="/auth/facebook" className="btn btn-primary"><span><i class="fab fa-facebook-f"></i></span> Facebook</a>
+              <a href="/auth/facebook" className="btn btn-primary"><span><i className="fab fa-facebook-f"></i></span> Facebook</a>
             </div>
           </form>
         </div>
