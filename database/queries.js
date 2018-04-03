@@ -363,6 +363,16 @@ const userJoinClub = (userID, clubID, cb) => {
     });
 };
 
+const retrieveTriviaQs = (meetingID, cb) => {
+  db.knex('meeting')
+    .where({
+      id = meetingID,
+    })
+    .select()
+    .then((meeting) => {
+      cb(meeting.trivia_questions)
+    })
+}
 
 module.exports = {
   retrieveClubs,
@@ -379,4 +389,5 @@ module.exports = {
   retrieveUserData,
   checkCredentials,
   addTriviaQs,
+  retrieveTriviaQs
 };

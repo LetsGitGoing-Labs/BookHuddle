@@ -342,12 +342,20 @@ const root = {
     })
   },
   handleJoinClub: ({userID, clubID}) => {
-  return new Promise((resolve, reject) => {
-    database.userJoinClub(userID, clubID, (data) => {
-      resolve(JSON.stringify(data))
-    });
-  })
-}
+    return new Promise((resolve, reject) => {
+      database.userJoinClub(userID, clubID, (data) => {
+        resolve(JSON.stringify(data))
+      });
+    })
+  },
+  getTriviaQs: ({meetingID}) => {
+    return new Promise((resolve, reject) => {
+      database.retrieveTriviaQs(meetingID, (meeting) => {
+        debugger;
+        resolve(meeting)
+      }
+    })
+  }
 };
 
 
