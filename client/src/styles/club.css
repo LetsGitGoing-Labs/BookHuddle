@@ -11,19 +11,19 @@
   text-align: right;
 }
 
-#club-page-nav {
-  justify-content: space-between;
+.page-nav {
+  justify-content: space-around;
   margin: auto;
   margin-top: 20px;
-  width: 80%;
+  background-color: #5FABB9;
 }
 
-#club-page-nav li {
+.page-nav li {
   display: inline-block;
 }
 
-#club-page-nav a {
-  color: #333;
+.page-nav a {
+  color: #fff;
   padding: 10px;
 }
 
