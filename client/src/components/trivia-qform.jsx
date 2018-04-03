@@ -30,8 +30,9 @@ class CreateTriviaQs extends React.Component {
 
   handleAddQ() {
     const questionData = { q: this.state.q, a: this.state.a, b: this.state.b, c: this.state.c, d: this.state.d, ans: this.state.ans,}
-    this.setState({numQ: this.state.numQ + 1})
     this.state.newQ.push(questionData)
+    this.setState({numQ: this.state.numQ + 1})
+    
     console.log('line33', this.state.newQ)
     this.setState({q: '', a: '', b: '', c: '', d: '', ans: '',})
   }
@@ -47,6 +48,7 @@ class CreateTriviaQs extends React.Component {
     const query = `mutation HandleTriviaQs($triviaQuestions: String, $meetingTrivID: String) {
       handleTriviaQs(triviaQuestions: $triviaQuestions, meetingTrivID: $meetingTrivID)
     }`;
+    console.log('line50', this.state.newQ)
 
     $.ajax({
       type: 'POST',
@@ -79,11 +81,12 @@ class CreateTriviaQs extends React.Component {
     return (
       <div id="create-club-form" className="col-md-12">
         <div className="container">
-          <form onSubmit={this.handleSubmit}>
+          
             {children}
             <button onClick={this.handleAddQ} className="left">Add a Question</button>
-            <input type="submit" className="nav-buttons score-board" value="Submit Questions" />
-          </form>
+            <button onClick={this.handleSubmit} className="nav-buttons score-board">Submit Questions</button>
+            
+         
         </div>
       </div>
     );
