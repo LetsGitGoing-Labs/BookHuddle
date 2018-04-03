@@ -347,6 +347,7 @@ const root = {
     return new Promise((resolve) => {
       database.addTriviaQs(triviaQuestions, meetingTrivID, (meeting) => {
         resolve(JSON.stringify(meeting))
+        console.log('line 338', questions, meetingID)
       })
     })
   },
