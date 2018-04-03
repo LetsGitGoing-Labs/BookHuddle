@@ -4,10 +4,15 @@ import { Link } from 'react-router-dom';
 import UpcomingMeetings from '../clubs/upcoming.jsx';
 import CreateMeeting from '../clubs/create-meeting.jsx';
 import MeetingPageNavbar from '../navigation/meeting-nav.jsx';
+import MeetingDetails from './meeting-detail.jsx';
 
 class Meeting extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      club: '',
+      meeting: ''
+    };
   }
 
   render() {
@@ -27,6 +32,8 @@ class Meeting extends React.Component {
             <div className="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab">
             Details
             {meetingData.meeting_notes}
+            {/*<MeetingDetails
+              meetingDetails = {this.state.meeting}/>*/}
             </div>
             <div className="tab-pane fade" id="nav-meet-members" role="tabpanel" aria-labelledby="nav-meet-members-tab">
                 Members
@@ -45,3 +52,4 @@ class Meeting extends React.Component {
 }
 
 export default Meeting;
+
