@@ -19,7 +19,7 @@ const connections = [];
 let gameName = 'Untitled';
 const players = [];
 let host = {};
-const questions = require('../client/MockQuestions/questions.js');
+let questions = require('../client/MockQuestions/questions.js');
 
 let currentQuestion = false;
 let results;
@@ -69,7 +69,7 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('start', function(payload) {
     console.log('payload:',payload)
-    
+
     gameName = payload.gameName;
     host.name = payload.host;
     host.id = this.id;
@@ -226,7 +226,9 @@ const schema = buildSchema(`
 
     handleJoinClub(userID: Int, clubID: Int): String
 
-    addTriviaQs(triviaQuestions: String, meetingTrivID: String): String
+    handleTriviaQs(triviaQuestions: String, meetingTrivID: String): String
+
+    getTriviaQs(meetingTrivID: String) : String
 
   }
 
@@ -331,12 +333,11 @@ const root = {
       resolve(JSON.stringify(userData));
     });
   }),
-  handleTriviaQs: ({questions, meetingID}) => {
-    console.log('line 335', questions, meetingID)
+  handleTriviaQs: ({triviaQuestions, meetingTrivID}) => {
+    meetingTrivID = JSON.parse(meetingTrivID)
     return new Promise((resolve) => {
-      database.addTriviaQs(questions, meetingID, (meeting) => {
+      database.addTriviaQs(triviaQuestions, meetingTrivID, (meeting) => {
         resolve(JSON.stringify(meeting))
-        console.log('line 338', questions, meetingID)
       })
     })
   },
@@ -348,7 +349,7 @@ const root = {
   })
 }
 };
-  
+
 
 app.use('/graphql', graphqlHTTP({
   schema,

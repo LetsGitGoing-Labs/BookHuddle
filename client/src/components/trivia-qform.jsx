@@ -33,7 +33,7 @@ class CreateTriviaQs extends React.Component {
     this.setState({numQ: this.state.numQ + 1})
     this.state.newQ.push(questionData)
     console.log('line33', this.state.newQ)
-    this.setState({q: '', a: '', b: '', c: '', d: '', ans: '',}) 
+    this.setState({q: '', a: '', b: '', c: '', d: '', ans: '',})
   }
 
   handleSubmit(e) {
@@ -43,9 +43,9 @@ class CreateTriviaQs extends React.Component {
    console.log('trivia q props', this.props)
     const triviaQuestions = JSON.stringify(this.state.newQ);
     const meetingTrivID = Number(this.props.meetingData.match.params.meetingId);
-    console.log('line47',triviaQuestions, 'line48',meetingTrivID)
-    const query = `mutation AddTriviaQs($triviaQuestions: String, $meetingTrivID: String) {
-      addTriviaQs(triviaQuestions: $triviaQuestions, meetingTrivID: $meetingTrivID)
+
+    const query = `mutation HandleTriviaQs($triviaQuestions: String, $meetingTrivID: String) {
+      handleTriviaQs(triviaQuestions: $triviaQuestions, meetingTrivID: $meetingTrivID)
     }`;
 
     $.ajax({
@@ -59,8 +59,11 @@ class CreateTriviaQs extends React.Component {
           meetingTrivID,
         },
       }),
-      success: (data) => {
-        console.log(data);
+      success: (meeting) => {
+        meeting = JSON.parse(meeting.data.handleTriviaQs)[0];
+        const questions = JSON.parse(meeting.trivia_questions);
+        console.log(meeting);
+        console.log(questions);
       },
       error: (data) => {
         console.log(data);
@@ -78,7 +81,7 @@ class CreateTriviaQs extends React.Component {
         <div className="container">
           <form onSubmit={this.handleSubmit}>
             {children}
-            <button onClick={this.handleAddQ} className="left">Add a Question</button> 
+            <button onClick={this.handleAddQ} className="left">Add a Question</button>
             <input type="submit" className="nav-buttons score-board" value="Submit Questions" />
           </form>
         </div>

@@ -234,23 +234,22 @@ const retrieveMeeting = (meetingID, cb) => db.knex('meeting')
   });
 
 const addTriviaQs = (questions, meetingID, cb) => {
-  db.knex
+  db.knex('meeting')
     .where({
       id: meetingID,
     })
     .update({
-      trivia_questions: JSON.stringify(questions),
+      trivia_questions: questions,
     })
-    .then(() => new Promise((resolve) => {
-        db.knex
+    .then(() =>
+        db.knex('meeting')
           .where({
             id: meetingID,
           })
-          .select()
-      })
-        .then((meeting) => {
-          cb(meeting)
-        }));
+          .select('*')
+          .then((meeting) => {
+            cb(meeting)
+        });
 };
 
 const addUser = (cb, user, res) => {
