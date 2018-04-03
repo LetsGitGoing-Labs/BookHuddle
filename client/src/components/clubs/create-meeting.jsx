@@ -7,12 +7,17 @@ class CreateMeeting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meetingName: '',
-      description: '',
-      location: '',
+      meeting_timestamp: '',
+      meeting_host: '',
+      meeting_location: '',
+      meeting_notes: '',
+      meeting_book: '',
+      clubId: ''
     };
     this.onChange = this.onChange.bind(this);
     this.setLocation = this.setLocation.bind(this);
+    this.handleCreateMeeting = this.handleCreateMeeting.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onChange(e) {
@@ -24,13 +29,45 @@ class CreateMeeting extends React.Component {
 
   setLocation(e) {
     this.setState({
-      location: (`${e.suggestion.name}, ${e.suggestion.administrative}`),
+      meeting_location: (`${e.suggestion.name}, ${e.suggestion.administrative}`),
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const clubData = JSON.stringify(this.state);
+    debugger;
+    let meetingData = this.state;
+    meetingData.clubId = this.props.clubData.match.params.clubId
+    meetingData = JSON.stringify(meetingData);
+    this.handleCreateMeeting(meetingData);
+  }
+
+  handleCreateMeeting(meetingData) {
+    const query = `mutation handleCreateMeeting($meetingData: String) {
+      handleCreateMeeting(meetingData: $meetingData)
+    }`;
+    console.log('meetingData: ', meetingData);
+
+    $.ajax({
+      type: 'POST',
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query,
+        variables: {
+          meetingData,
+        },
+      }),
+      success: (data) => {
+        console.log('success');
+        this.setState({
+          isSubmitted: true,
+        });
+      },
+      error: (data) => {
+        console.log(data);
+      },
+    });
   }
 
   render() {
@@ -40,10 +77,16 @@ class CreateMeeting extends React.Component {
           <h3>Create New Meeting</h3>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group">
-              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Name" name="meetingName" value={this.state.meetingName} onChange={this.onChange} />
+              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meeting_timestamp" value={this.state.meeting_timestamp} onChange={this.onChange} />
             </div>
             <div className="form-group">
-              <textarea className="form-control" id="inputClubDescription" rows="3" name="description" placeholder="Add a brief description to inform club members"value={this.state.description} onChange={this.onChange} />
+              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Host" name="meeting_host" value={this.state.meeting_host} onChange={this.onChange} />
+            </div>
+            <div className="form-group">
+              <input className="form-control" id="inputClubDescription" rows="3" placeholder="Add a brief description.  Book to be discussed, who will bring snacks, etc." name="meeting_notes" value={this.state.meeting_notes} onChange={this.onChange} />
+            </div>
+            <div className="form-group">
+              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Book" name="meeting_book" value={this.state.meeting_book} onChange={this.onChange} />
             </div>
             <div className="form-group">
               <AlgoliaPlaces placeholder="Meeting address" onChange={e => this.setLocation(e)} />
