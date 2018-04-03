@@ -47,6 +47,7 @@ class TriviaMain extends React.Component {
     this.scoreRedirect = this.scoreRedirect.bind(this);
     this.playerRedirect = this.playerRedirect.bind(this);
     this.gameOver = this.gameOver.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   componentWillMount() {
@@ -163,6 +164,13 @@ class TriviaMain extends React.Component {
     this.scoreRedirect();
   }
 
+  reset() {
+    this.gameOver();
+    this.setState( {
+      gameName: '', playerName: '', player: {}, players: [], host: '', viewState: 'join', questions: [], currentQuestion: false, results: undefined, score: {}, gameOver: false,
+    })
+  }
+
   updateState(serverState) {
   	this.setState(serverState);
     console.log(serverState);
@@ -211,6 +219,8 @@ class TriviaMain extends React.Component {
   render() {
     const player = this.state.player.playerName;
   	return (
+      <div>
+    <button onClick={this.reset}>reset</button>
     <Container id="trivia">
       <Row id="title">
         <Col xs="12">{this.state.gameName}<span data-toggle="tooltip" data-placement="left" title={this.state.status} className={this.state.status} /></Col>
@@ -229,6 +239,7 @@ class TriviaMain extends React.Component {
         {this.state.viewState === 'score' && <Score gameOver={this.state.gameOver} hostPageRedirect={this.hostPageRedirect} playerRedirect={this.playerRedirect} players={this.state.players} player={this.state.player} questions={this.state.questions} score={this.state.score} results={this.state.results} emit={this.emit} />}
       </div>     
     </Container>
+    </div>
   	);
   }
 }

@@ -20,7 +20,6 @@ let gameName = 'Untitled';
 const players = [];
 let host = {};
 let questions = [];
-
 let currentQuestion = false;
 let results;
 let score = {};
