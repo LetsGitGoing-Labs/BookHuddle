@@ -11,7 +11,14 @@ class Meeting extends React.Component {
     super(props);
     this.state = {
       club: '',
-      meeting: ''
+      meeting: {
+  "clubID": 1,
+  "meetingTimestamp": "2018-02-15T19:00:00",
+  "meetingHost": "Sandy Anderson",
+  "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
+  "meetingBook": 1,
+  "meetingNotes": "Meeting at Sandy's again.  Jessica will bring the snacks.  This month we'll be reading a book about five immigrant families in NYC who lived in one tenement."
+  }
     };
   }
 

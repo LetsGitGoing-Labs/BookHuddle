@@ -11,9 +11,15 @@ class MeetingDetails extends React.Component {
   }
 
   render() {
+    console.log('meeting details:', this.props.meetingDetails)
     return (
       <div>
-      this.props.meetingDetails.meeting_host;
+      <h4>Meeting Host: </h4>
+      {this.props.meetingDetails.meetingHost}
+      <h4>Meeting Location: </h4>
+      {this.props.meetingDetails.meetingLocation}
+      <h4>Meeting Notes: </h4>
+      {this.props.meetingDetails.meetingNotes}
       </div>
     );
   }
