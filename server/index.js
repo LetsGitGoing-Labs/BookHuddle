@@ -19,7 +19,7 @@ const connections = [];
 let gameName = 'Untitled';
 const players = [];
 let host = {};
-let questions = require('../client/MockQuestions/questions.js');
+let questions = [];
 
 let currentQuestion = false;
 let results;
@@ -348,12 +348,13 @@ const root = {
       });
     })
   },
-  getTriviaQs: ({meetingID}) => {
+  getTriviaQs: ({meetingTrivID}) => {
+    meetingTrivID = JSON.parse(meetingTrivID);
     return new Promise((resolve, reject) => {
-      database.retrieveTriviaQs(meetingID, (meeting) => {
-        debugger;
-        resolve(meeting)
-      }
+      database.retrieveTriviaQs(meetingTrivID, (triviaQs) => {
+        questions = JSON.parse(triviaQs)
+        resolve();
+      })
     })
   }
 };

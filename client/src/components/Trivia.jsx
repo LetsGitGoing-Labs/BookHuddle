@@ -6,10 +6,9 @@ class Trivia extends React.Component {
 
   retrieveTriviaQs() {
 
-    let meetingID = this.props;
-    debugger;
-    const query = `mutation GetTriviaQs($meetingID: String) {
-      getTriviaQs(meetingID: $meetingID)
+    let meetingTrivID = this.props.meetingData.match.params.meetingId;
+    const query = `mutation GetTriviaQs($meetingTrivID: String) {
+      getTriviaQs(meetingTrivID: $meetingTrivID)
     }`;
 
     $.ajax({
@@ -19,15 +18,14 @@ class Trivia extends React.Component {
       data: JSON.stringify({
         query,
         variables: {
-          meetingID,
+          meetingTrivID,
         }
       }),
-      success: (data) => {
-        debugger;
-        console.log(data);
+      success: () => {
+        console.log('Trivia request sent');
       },
-      error: (data) => {
-        console.log(data);
+      error: (err) => {
+        console.log(err);
       }
     });
   }

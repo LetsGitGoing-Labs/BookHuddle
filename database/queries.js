@@ -249,8 +249,9 @@ const addTriviaQs = (questions, meetingID, cb) => {
           .select('*')
           .then((meeting) => {
             cb(meeting)
-        });
-};
+        })
+    )
+}
 
 const addUser = (cb, user, res) => {
   const checkDatabase = emailIsInUse(user.email);
@@ -366,11 +367,11 @@ const userJoinClub = (userID, clubID, cb) => {
 const retrieveTriviaQs = (meetingID, cb) => {
   db.knex('meeting')
     .where({
-      id = meetingID,
+      id: meetingID
     })
     .select()
     .then((meeting) => {
-      cb(meeting.trivia_questions)
+      cb(meeting[0].trivia_questions)
     })
 }
 
