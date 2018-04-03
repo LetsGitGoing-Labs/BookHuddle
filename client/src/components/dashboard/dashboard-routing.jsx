@@ -7,7 +7,6 @@ import Sidebar from '../navigation/sidebar.jsx';
 import Dashboard from './dashboard.jsx';
 import CreateClub from './create-club.jsx';
 import Club from '../clubs/club.jsx';
-import Meeting from '../meetings/meeting.jsx';
 
 class DashboardRouting extends React.Component {
   constructor(props) {
@@ -51,17 +50,10 @@ class DashboardRouting extends React.Component {
           <Sidebar user={this.props.user} />
 
           <Switch>
-            <Route
-              path="/dashboard/create-club"
+            <Route 
+              path="/dashboard/create-club" 
               render={
               props => <CreateClub {...props} userID={this.props.user.id} />
-              }
-            />
-
-            <Route
-              path="/dashboard/:meetingId"
-              render={
-              props => (<Meeting {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} />)
               }
             />
             <Route
@@ -70,7 +62,7 @@ class DashboardRouting extends React.Component {
               props => (<Club {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
             }
             />
-            <Route render={props => <Dashboard user={this.props.user} searchResults={this.state.searchResults} getUserData={this.props.getUserData} />} />
+            <Route render={props => <Dashboard user={this.props.user} getUserData={this.props.getUserData} searchResults={this.state.searchResults}  />} />
           </Switch>
         </div>
       </div>
@@ -79,3 +71,4 @@ class DashboardRouting extends React.Component {
 }
 
 export default DashboardRouting;
+

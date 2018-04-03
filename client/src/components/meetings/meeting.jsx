@@ -12,6 +12,7 @@ class Meeting extends React.Component {
   }
 
   render() {
+    console.log('line15',this.props)
     let clubData = this.props.clubs.find((club) => {
       return club.id === +(this.props.match.params.clubId)
     });
