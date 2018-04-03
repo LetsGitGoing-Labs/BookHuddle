@@ -24,17 +24,17 @@ class Meeting extends React.Component {
           <h2 className="club-title">Meeting Page</h2>
           <MeetingPageNavbar />
           <div className="tab-content" id="nav-tabContent">
-            <div className="tab-pane fade show active" id="nav-upcoming" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div className="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab">
             Details
             {meetingData.meeting_notes}
             </div>
-            <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
+            <div className="tab-pane fade" id="nav-meet-members" role="tabpanel" aria-labelledby="nav-meet-members-tab">
                 Members
             </div>
-            <div className="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
+            <div className="tab-pane fade" id="nav-trivia" role="tabpanel" aria-labelledby="nav-trivia-tab">
                 Trivia
             </div>
-            <div className="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
+            <div className="tab-pane fade" id="nav-dq" role="tabpanel" aria-labelledby="nav-dq-tab">
               Discussion Questions
             </div>
           </div>
@@ -45,5 +45,3 @@ class Meeting extends React.Component {
 }
 
 export default Meeting;
-
-// let meetingData = clubData.meetings.find(meeting => meeting.id === this.props.match.params.meetingId);
