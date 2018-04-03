@@ -52,6 +52,9 @@ class Club extends React.Component {
     } else {
       clubData = this.props.clubs.find(club => club.id === Number(this.props.match.params.clubId));
     }
+
+    const showJoin = this.props.user.clubs.indexOf(clubData) >= 0 ? { display: 'none'} : { display: 'normal'}
+
     return (
       <div id="club-page" className="col-md-9">
         <div className="container">
@@ -62,12 +65,15 @@ class Club extends React.Component {
               <UpcomingMeetings meetings={clubData.meetings} />
             </div>
             <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
-                Members
+              {/* Members */}
+              <div class="content-panel">
+                <img src="https://source.unsplash.com/gdKNGWKoxsU" className="img-circle" />
+              </div>
             </div>
             <div className="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
                 Book History
             </div>
-            <button className="btn" onClick={this.userJoinClub}>Join Club</button>
+            <button style={showJoin} className="btn" onClick={this.userJoinClub}>Join Club</button>
             {this.state.joinMsg.length > 1 && <div id="join-msg"><p>{this.state.joinMsg}</p></div>}
             <div className="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
               <CreateMeeting />

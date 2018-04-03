@@ -34,7 +34,7 @@ const MeetingsPanel = props => (
                     <p><em>{meeting.meeting_notes}</em></p>
                   </div>
                   <div className="panel-button">
-                    <Link to={`dashboard/${meeting.club_id}/${id}`} ><button className="btn btn-danger">See Details</button></Link>
+                    <Link to={`dashboard/${meeting.club_id}/${meeting.id}`} ><button className="btn btn-danger">See Details</button></Link>
                   </div>
                 </div>
               </div>
