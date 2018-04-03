@@ -1,7 +1,4 @@
-/*
 
-################################################################# */
-@import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
 /*  ################################################################
   1. GENERAL STRUCTURES
 ################################################################# */
@@ -16,13 +13,8 @@ body {
   margin: 0;
   height: 100%;
   color: #384452;
-  font-family: 'Raleway', sans-serif;
   font-size: 14px;
   font-weight: 400;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
 }
 
 p {
@@ -41,9 +33,13 @@ ul {
   list-style: none;
 }
 
+blockquote p{
+  margin: 0 20px;
+}
+
 .book-cover {
-  width: 160px;
-  height: 240px;
+  width: 130px;
+  height: 200px;
   object-fit: cover;
 }
 
@@ -150,7 +146,7 @@ ul {
   margin-bottom: 25px;
 }
 
-.feature h4 {
+.feature h5 {
   margin-top: 25px;
 }
 
