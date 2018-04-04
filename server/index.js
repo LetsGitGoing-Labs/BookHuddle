@@ -232,6 +232,8 @@ const schema = buildSchema(`
 
     handleCreateMeeting(meetingData: String) : String
 
+    getClubMembers(clubId: String) : String
+
   }
 
   type Query {
@@ -328,6 +330,12 @@ const root = {
   getClubsByName: ({ clubName }) => new Promise((resolve, reject) => {
     database.retrieveClubsByName(clubName, null, (clubs, statusCode, res) => {
       resolve(JSON.stringify(clubs));
+    });
+  }),
+  getClubMembers: ({ clubId }) => new Promise((resolve, reject) => {
+    console.log('getClubMembers fired!! use clubID: ', clubId);
+    database.retrieveMembers(clubId, (members) => {
+      resolve(JSON.stringify(members));
     });
   }),
   getUserData: ({ userEmail }) => new Promise((resolve, reject) => {
