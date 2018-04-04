@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'reactstrap';
 
-class CurPlayers extends React.Component {
+class CurrentPlayers extends React.Component {
   constructor(props) {
   	super(props);
   	this.addPlayerRow = this.addPlayerRow.bind(this);
@@ -35,4 +35,4 @@ class CurPlayers extends React.Component {
   }
 }
 
-export default CurPlayers;
+export default CurrentPlayers;

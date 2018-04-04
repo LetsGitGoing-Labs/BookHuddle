@@ -4,7 +4,6 @@ import Home from './home/home.jsx';
 import About from './home/about.jsx';
 import Logout from './home/logout.jsx';
 import DashboardRouting from './dashboard/dashboard-routing.jsx';
-import TriviaMain from './trivia-main.jsx';
 
 import '../styles/style.css';
 
@@ -138,7 +137,6 @@ class App extends React.Component {
               />)
             }
             />
-          <Route path="/trivia-main" component={TriviaMain} />
           <Route path="/about" component={About} />
           <Route
             path="/logout"

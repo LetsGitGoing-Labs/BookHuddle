@@ -11,37 +11,41 @@ const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
 
 const app = express();
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 // socket.io Trivia game
-const connections = [];
+let connections = [];
 let gameName = 'Untitled';
-const players = [];
+let players = [];
 let host = {};
 let questions = [];
-
 let currentQuestion = false;
 let results;
 let score = {};
+let roomName = '';
 
 
 const ioServer = app.listen(4000);
 const io = require('socket.io').listen(ioServer);
 
 io.sockets.on('connection', (socket) => {
+  socket.on('room', (room) => {
+    socket.join(room);
+    roomName = room;
+    console.log('line57', room)
+  });
   socket.once('disconnect', function () {
+    console.log('line39', roomName);
     const player = (players) => {
       for (let i = 0; i < players.length; i++) {
         if (players[i].id === this.id) {
           players.splice(i, 1);
-          io.sockets.emit('players', players);
+          io.to(roomName).emit('players', players);
         } else if (this.id === host.id) {
           console.log('%s has left, GAME OVER!', host.name);
           host = {};
           score = {};
           gameName = 'Untitled';
-          io.sockets.emit('end', { gameName: 'GAME OVER!', host: '', currentQuestion: false });
+          io.to(roomName).emit('end', { gameName: 'GAME OVER!', host: '', currentQuestion: false });
         }
       }
     };
@@ -53,6 +57,7 @@ io.sockets.on('connection', (socket) => {
     console.log('Disconnected: %s sockets remaining', connections.length);
   });
 
+
   socket.on('join', function (payload) {
     const newPlayer = {
       id: this.id,
@@ -62,13 +67,13 @@ io.sockets.on('connection', (socket) => {
     this.emit('joined', newPlayer);
     players.push(newPlayer);
     score[newPlayer.playerName] = 0;
-    io.sockets.emit('players', players);
-    io.sockets.emit('score', score)
-    console.log('username: ' + payload.playerName)
-  })
+    io.to(roomName).emit('players', players);
+    io.to(roomName).emit('score', score);
+    console.log(`username: ${  payload.playerName}`);
+  });
 
-  socket.on('start', function(payload) {
-    console.log('payload:',payload)
+  socket.on('start', function (payload) {
+    console.log('payload:', payload);
 
     gameName = payload.gameName;
     host.name = payload.host;
@@ -76,19 +81,31 @@ io.sockets.on('connection', (socket) => {
     host.type = 'host';
     this.emit('joined', host);
     console.log('start', host);
-    io.sockets.emit('start', { gameName, host: host.name });
+    io.to(roomName).emit('start', { gameName, host: host.name });
     console.log("Trivia has started: '%s' by %s", payload.gameName, host.name);
   });
 
   socket.on('gameover', (score) => {
-    io.sockets.emit('gameover', score);
+    io.to(roomName).emit('gameover', score);
     console.log('the game is over', score);
+  });
+
+  socket.on('reset', (payload) => {
+    console.log('line 88', payload);
+    connections = [];
+    gameName = 'Untitled';
+    players = [];
+    host = {};
+    currentQuestion = false;
+    results;
+    score = {};
+    io.to(roomName).emit('reset', payload);
   });
 
   socket.on('ask', (question) => {
     currentQuestion = question;
     results = undefined;
-    io.sockets.emit('ask', currentQuestion);
+    io.to(roomName).emit('ask', currentQuestion);
     console.log('question: %s', question.q);
   });
 
@@ -100,7 +117,7 @@ io.sockets.on('connection', (socket) => {
       results = false;
     }
     this.emit('results', results);
-    io.sockets.emit('score', score);
+    io.to(roomName).emit('score', score);
     console.log('answer: %s', payload.answer, results, payload, payload.question.ans, score);
   });
 
@@ -133,54 +150,54 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure local strategy
-passport.use(new LocalStrategy(
-  { usernameField: 'email' },
-  (email, password, done) => {
-    database.checkUser({ email }, (err, user) => {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.checkCredentials(email, password)) { return done(null, false); }
-      console.log(user, '<-- user from after authentication');
-      return done(null, user);
-    });
-  },
-));
+// passport.use(new LocalStrategy(
+//   { usernameField: 'email' },
+//   (email, password, done) => {
+//     database.checkUser({ email }, (err, user) => {
+//       if (err) { return done(err); }
+//       if (!user) { return done(null, false); }
+//       if (!user.checkCredentials(email, password)) { return done(null, false); }
+//       console.log(user, '<-- user from after authentication');
+//       return done(null, user);
+//     });
+//   },
+// ));
 
-// creates passport session for user by serialized ID (tell passport how to serialize the user)
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// // creates passport session for user by serialized ID (tell passport how to serialize the user)
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
 
-// deserializes the user ID for passport to deliver to the session
-passport.deserializeUser((user_id, done) => {
-  console.log('deserializing user');
-  User.getUserById(user_id, (err, user) => {
-    if (err) {
-      return done(err, false);
-    }
-    done(err, res.user);
-  });
-});
+// // deserializes the user ID for passport to deliver to the session
+// passport.deserializeUser((user_id, done) => {
+//   console.log('deserializing user');
+//   User.getUserById(user_id, (err, user) => {
+//     if (err) {
+//       return done(err, false);
+//     }
+//     done(err, res.user);
+//   });
+// });
 
-app.use(session({
-  genid: req =>
-    uuid(), // use UUIDs for session IDs
-  // store: new FileStore(),
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(session({
+//   genid: req =>
+//     uuid(), // use UUIDs for session IDs
+//   // store: new FileStore(),
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-// NEW LOGIN CODE FOR USE WITH PASSPORT
-app.post(
-  '/login',
-  passport.authenticate('local'),
-  (req, res) => {
-    res.redirect('/dashboard');
-  },
-);
+// // NEW LOGIN CODE FOR USE WITH PASSPORT
+// app.post(
+//   '/login',
+//   passport.authenticate('local'),
+//   (req, res) => {
+//     res.redirect('/dashboard');
+//   },
+// );
 
 // OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
 // app.post('/login', (req, res) => {
@@ -342,39 +359,39 @@ const root = {
       resolve(JSON.stringify(userData));
     });
   }),
-  handleTriviaQs: ({triviaQuestions, meetingTrivID}) => {
-    meetingTrivID = JSON.parse(meetingTrivID)
+  handleTriviaQs: ({ triviaQuestions, meetingTrivID }) => {
+    meetingTrivID = JSON.parse(meetingTrivID);
     return new Promise((resolve) => {
       database.addTriviaQs(triviaQuestions, meetingTrivID, (meeting) => {
-        resolve(JSON.stringify(meeting))
-      })
-    })
+        resolve(JSON.stringify(meeting));
+        console.log('line 338', questions);
+      });
+    });
   },
-  handleJoinClub: ({userID, clubID}) => {
-    return new Promise((resolve, reject) => {
+  handleJoinClub: ({ userID, clubID }) => new Promise((resolve, reject) => {
       database.userJoinClub(userID, clubID, (data) => {
         resolve(JSON.stringify(data))
       });
-    })
-  },
-  getTriviaQs: ({meetingTrivID}) => {
+    }),
+  getTriviaQs: ({ meetingTrivID }) => {
     meetingTrivID = JSON.parse(meetingTrivID);
     return new Promise((resolve, reject) => {
       database.retrieveTriviaQs(meetingTrivID, (triviaQs) => {
-        questions = JSON.parse(triviaQs)
+        questions = JSON.parse(triviaQs);
         resolve();
-      })
-    })
+      });
+    });
   },
-  handleCreateMeeting: ({meetingData}) => {
+  handleCreateMeeting: ({ meetingData }) => {
     meetingData = JSON.parse(meetingData);
     return new Promise((resolve, reject) => {
       database.addMeeting(meetingData, (meeting) => {
         resolve(meeting);
-      })
-    })
-  }
+      });
+    });
+  },
 };
+
 
 
 app.use('/graphql', graphqlHTTP({

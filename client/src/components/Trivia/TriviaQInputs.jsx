@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 
 class TriviaQInputs extends React.Component {
   render() {
@@ -24,10 +23,10 @@ class TriviaQInputs extends React.Component {
         <div className="form-group">
           <select className="form-control" id="inputAnswer" name="ans" onChange={this.props.onChange}>
             <option disabled defaultValue>Choose correct answer...</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-            <option>D</option>
+            <option>a</option>
+            <option>b</option>
+            <option>c</option>
+            <option>d</option>
           </select>
         </div>
       </div>

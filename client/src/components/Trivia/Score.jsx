@@ -58,35 +58,35 @@ class Score extends React.Component {
 
   render() {
   	return (
-    <Container className="score-board">
-      <Row>
-        <Col xs="6"><p className="left">SCOREBOARD</p></Col>
-        {this.props.player.type === 'player' &&
-        <Col xs="6"><a className="right" href="#" onClick={this.props.playerRedirect}>BACK</a></Col>}
-        {this.props.player.type === 'host' &&
-        <Col xs="6"><a className="right" href="#" onClick={this.props.hostPageRedirect}>BACK</a></Col>}
-      </Row>
-      {this.props.gameOver && this.state.leader.length === 1 &&
-      <div> The winner is...
-        <h1 className="centered">{this.state.rank[0]}</h1>
-      </div>}
-      {this.props.gameOver && this.state.leader.length > 1 &&
-      <div> <h2>Unbelievable...</h2>
-        <h1 className="centered">It's a {this.state.leader.length}-way tie!!!</h1>
-      </div>}
-      <Table striped className="score-board">
-        <thead >
-          <tr>
-            <th>Rank</th>
-            <th>Player Name</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.rank.map(this.addPlayerRow)}
-        </tbody>
-      </Table>
-    </Container>
+      <Container className="score-board">
+        <Row>
+          <Col xs="6"><p className="left">SCOREBOARD</p></Col>
+          {this.props.player.type === 'player' &&
+          <Col xs="6"><a className="right" href="#" onClick={this.props.playerRedirect}>BACK</a></Col>}
+          {this.props.player.type === 'host' &&
+          <Col xs="6"><a className="right" href="#" onClick={this.props.hostPageRedirect}>BACK</a></Col>}
+        </Row>
+        {this.props.gameOver && this.state.leader.length === 1 &&
+          <div> The winner is...
+            <h1 className="centered">{this.state.rank[0]}</h1>
+          </div>}
+        {this.props.gameOver && this.state.leader.length > 1 &&
+          <div> <h2>Unbelievable...</h2>
+            <h1 className="centered">It's a {this.state.leader.length}-way tie!!!</h1>
+          </div>}
+        <Table striped className="score-board">
+          <thead >
+            <tr>
+              <th>Rank</th>
+              <th>Player Name</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.rank.map(this.addPlayerRow)}
+          </tbody>
+        </Table>
+      </Container>
   	);
   }
 }

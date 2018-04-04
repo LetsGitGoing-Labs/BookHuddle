@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/trivia.css';
+import '../../styles/trivia.css';
 
 class Ask extends React.Component {
   constructor(props) {
@@ -46,25 +46,24 @@ class Ask extends React.Component {
 
   render() {
   	return (
-    <div id="currentQuestion">
-      {this.state.answer &&
-        <div>
-          <h2> You answered: {this.props.question[this.state.answer]}</h2>
-          {this.props.results && <h2 id="correct" className="centered"> CORRECT!!!</h2> }
-          {!this.props.results && <h2 id="incorrect" className="centered"> WRONG!!!</h2>}
-          <h5 className="centered"> Please wait for the next question...</h5>
-        </div>
-      }
-      {!this.state.answer &&
-        <div className="centered">
-          <button className="q-button">{this.props.question.q}</button>
-          <div className="row">
-            {this.state.answers.map(this.addAnswers)}
+      <div id="currentQuestion">
+        {this.state.answer &&
+          <div>
+            <h2> You answered: {this.props.question[this.state.answer]}</h2>
+              {this.props.results && <h2 id="correct" className="centered"> CORRECT!!!</h2> }
+              {!this.props.results && <h2 id="incorrect" className="centered"> WRONG!!!</h2>}
+            <h5 className="centered"> Please wait for the next question...</h5>
           </div>
-        </div>
-      }
-
-    </div>
+        }
+        {!this.state.answer &&
+          <div className="centered">
+            <button className="q-button">{this.props.question.q}</button>
+            <div className="row">
+              {this.state.answers.map(this.addAnswers)}
+            </div>
+          </div>
+        }
+      </div>
   	);
   }
 }

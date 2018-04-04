@@ -1,11 +1,10 @@
 import React from 'react';
 import { Table, Card, Button, CardTitle, CardText } from 'reactstrap';
-import '../styles/trivia.css';
+import '../../styles/trivia.css';
 
 class Questions extends React.Component {
   constructor(props) {
   	super(props);
-  
   	this.ask = this.ask.bind(this);
   	this.addQuestion = this.addQuestion.bind(this);
   	this.endGame = this.endGame.bind(this);
@@ -34,14 +33,14 @@ class Questions extends React.Component {
 
   render() {
   	return (
-    <div>
-      <div id="questions" className="row centered">
-        {this.props.questions.map(this.addQuestion)}
+      <div>
+        <div id="questions" className="row centered">
+          {this.props.questions.map(this.addQuestion)}
+        </div>
+        <div className="centered">
+          <button className="nav-buttons"onClick={this.endGame}>And the winner is...</button>
+        </div>
       </div>
-      <div className="centered">
-        <button className="nav-buttons"onClick={this.endGame}>And the winner is...</button>
-      </div>
-    </div>
   	);
   }
 }
