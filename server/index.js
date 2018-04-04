@@ -23,24 +23,31 @@ let questions = [];
 let currentQuestion = false;
 let results;
 let score = {};
+let roomName = '';
 
 
 const ioServer = app.listen(4000);
 const io = require('socket.io').listen(ioServer);
 
 io.sockets.on('connection', (socket) => {
+  socket.on('room', (room) => {
+    socket.join(room);
+    roomName = room;
+    console.log('line57', room)
+  });
   socket.once('disconnect', function () {
+    console.log('line39', roomName);
     const player = (players) => {
       for (let i = 0; i < players.length; i++) {
         if (players[i].id === this.id) {
           players.splice(i, 1);
-          io.sockets.emit('players', players);
+          io.to(roomName).emit('players', players);
         } else if (this.id === host.id) {
           console.log('%s has left, GAME OVER!', host.name);
           host = {};
           score = {};
           gameName = 'Untitled';
-          io.sockets.emit('end', { gameName: 'GAME OVER!', host: '', currentQuestion: false });
+          io.to(roomName).emit('end', { gameName: 'GAME OVER!', host: '', currentQuestion: false });
         }
       }
     };
@@ -52,6 +59,7 @@ io.sockets.on('connection', (socket) => {
     console.log('Disconnected: %s sockets remaining', connections.length);
   });
 
+
   socket.on('join', function (payload) {
     const newPlayer = {
       id: this.id,
@@ -61,13 +69,13 @@ io.sockets.on('connection', (socket) => {
     this.emit('joined', newPlayer);
     players.push(newPlayer);
     score[newPlayer.playerName] = 0;
-    io.sockets.emit('players', players);
-    io.sockets.emit('score', score)
-    console.log('username: ' + payload.playerName)
-  })
+    io.to(roomName).emit('players', players);
+    io.to(roomName).emit('score', score);
+    console.log(`username: ${  payload.playerName}`);
+  });
 
-  socket.on('start', function(payload) {
-    console.log('payload:',payload)
+  socket.on('start', function (payload) {
+    console.log('payload:', payload);
 
     gameName = payload.gameName;
     host.name = payload.host;
@@ -75,17 +83,17 @@ io.sockets.on('connection', (socket) => {
     host.type = 'host';
     this.emit('joined', host);
     console.log('start', host);
-    io.sockets.emit('start', { gameName, host: host.name });
+    io.to(roomName).emit('start', { gameName, host: host.name });
     console.log("Trivia has started: '%s' by %s", payload.gameName, host.name);
   });
 
   socket.on('gameover', (score) => {
-    io.sockets.emit('gameover', score);
+    io.to(roomName).emit('gameover', score);
     console.log('the game is over', score);
   });
 
   socket.on('reset', (payload) => {
-    console.log('line 88', payload)
+    console.log('line 88', payload);
     connections = [];
     gameName = 'Untitled';
     players = [];
@@ -93,13 +101,13 @@ io.sockets.on('connection', (socket) => {
     currentQuestion = false;
     results;
     score = {};
-    io.sockets.emit('reset', payload)
-  })
+    io.to(roomName).emit('reset', payload);
+  });
 
   socket.on('ask', (question) => {
     currentQuestion = question;
     results = undefined;
-    io.sockets.emit('ask', currentQuestion);
+    io.to(roomName).emit('ask', currentQuestion);
     console.log('question: %s', question.q);
   });
 
@@ -111,7 +119,7 @@ io.sockets.on('connection', (socket) => {
       results = false;
     }
     this.emit('results', results);
-    io.sockets.emit('score', score);
+    io.to(roomName).emit('score', score);
     console.log('answer: %s', payload.answer, results, payload, payload.question.ans, score);
   });
 
@@ -353,41 +361,39 @@ const root = {
       resolve(JSON.stringify(userData));
     });
   }),
-  handleTriviaQs: ({triviaQuestions, meetingTrivID}) => {
-    meetingTrivID = JSON.parse(meetingTrivID)
+  handleTriviaQs: ({ triviaQuestions, meetingTrivID }) => {
+    meetingTrivID = JSON.parse(meetingTrivID);
     return new Promise((resolve) => {
       database.addTriviaQs(triviaQuestions, meetingTrivID, (meeting) => {
-        resolve(JSON.stringify(meeting))
-        console.log('line 338', questions)
-      })
-    })
+        resolve(JSON.stringify(meeting));
+        console.log('line 338', questions);
+      });
+    });
   },
-  handleJoinClub: ({userID, clubID}) => {
-    return new Promise((resolve, reject) => {
+  handleJoinClub: ({ userID, clubID }) => new Promise((resolve, reject) => {
       database.userJoinClub(userID, clubID, (data) => {
         resolve(JSON.stringify(data))
       });
-    })
-  },
-  getTriviaQs: ({meetingTrivID}) => {
+    }),
+  getTriviaQs: ({ meetingTrivID }) => {
     meetingTrivID = JSON.parse(meetingTrivID);
     return new Promise((resolve, reject) => {
       database.retrieveTriviaQs(meetingTrivID, (triviaQs) => {
-        questions = JSON.parse(triviaQs)
+        questions = JSON.parse(triviaQs);
         resolve();
-      })
-    })
+      });
+    });
   },
-  handleCreateMeeting: ({meetingData}) => {
+  handleCreateMeeting: ({ meetingData }) => {
     meetingData = JSON.parse(meetingData);
     return new Promise((resolve, reject) => {
       database.addMeeting(meetingData, (meeting) => {
         resolve(meeting);
-      })
-    })
-  }
+      });
+    });
+  },
 };
-  
+
 
 
 app.use('/graphql', graphqlHTTP({

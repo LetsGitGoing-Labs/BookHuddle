@@ -134,6 +134,25 @@ background:#fffcf4;
   padding: 20px 40px 20px 40px;
 }
 
+.play-but2:hover {
+  background: white;
+  margin-top: 5%;
+  font-weight: bold;
+  font-size: 120%;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 8px;
+  color: #5fabb9;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  padding: 20px 40px 20px 40px;
+}
+
+.reset-button {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 5px 10px 5px 10px;
+}
+
 
 
 

@@ -29,26 +29,23 @@ class CreateTriviaQs extends React.Component {
   }
 
   handleAddQ() {
-    const questionData = { q: this.state.q, a: this.state.a, b: this.state.b, c: this.state.c, d: this.state.d, ans: this.state.ans,}
-    this.state.newQ.push(questionData)
-    this.setState({numQ: this.state.numQ + 1})
-    
-    console.log('line33', this.state.newQ)
-    this.setState({q: '', a: '', b: '', c: '', d: '', ans: '',})
+    const questionData = { q: this.state.q, a: this.state.a, b: this.state.b, c: this.state.c, d: this.state.d, ans: this.state.ans,};
+    this.state.newQ.push(questionData);
+    this.setState({q: '', a: '', b: '', c: '', d: '', ans: '', numQ: this.state.numQ + 1});
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const questionData = { q: this.state.q, a: this.state.a, b: this.state.b, c: this.state.c, d: this.state.d, ans: this.state.ans,}
-    this.state.newQ.push(questionData)
-   console.log('trivia q props', this.props)
+    const questionData = { q: this.state.q, a: this.state.a, b: this.state.b, c: this.state.c, d: this.state.d, ans: this.state.ans,};
+    this.state.newQ.push(questionData);
+   console.log('trivia q props', this.props);
     const triviaQuestions = JSON.stringify(this.state.newQ);
     const meetingTrivID = Number(this.props.meetingData.match.params.meetingId);
 
     const query = `mutation HandleTriviaQs($triviaQuestions: String, $meetingTrivID: String) {
       handleTriviaQs(triviaQuestions: $triviaQuestions, meetingTrivID: $meetingTrivID)
     }`;
-    console.log('line50', this.state.newQ)
+    console.log('line50', this.state.newQ);
 
     $.ajax({
       type: 'POST',
@@ -71,22 +68,20 @@ class CreateTriviaQs extends React.Component {
         console.log(data);
       },
     });
+    this.setState({ q: '', a: '', b: '', c: '', d: '', ans: '', numQ: 0, newQ: [], });
   }
 
   render() {
     const children = [];
-    for (var i = 0; i < this.state.numQ; i++) {
+    for (let i = 0; i < this.state.numQ; i++) {
       children.push(<TriviaQInputs key={i} number={i} onChange={this.onChange} numQ={this.state.numQ} />);
     };
     return (
       <div id="create-club-form" className="col-md-12">
         <div className="container">
-          
-            {children}
-            <button onClick={this.handleAddQ} className="left">Add a Question</button>
-            <button onClick={this.handleSubmit} className="nav-buttons score-board">Submit Questions</button>
-            
-         
+          {children}
+          <button onClick={this.handleAddQ} className="left reset-button">Add a Question</button>
+          <button onClick={this.handleSubmit} className="nav-buttons score-board">Submit Questions</button> 
         </div>
       </div>
     );

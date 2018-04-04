@@ -41,11 +41,11 @@ class Trivia extends React.Component {
   render() {
     return (
 
-      <div>{this.state.isQuestions && <TriviaMain />}
+      <div>{this.state.isQuestions && <TriviaMain meetingTrivID={this.props.meetingData.match.params.meetingId}/>}
         {!this.state.isQuestions &&
         <div id="create-qs-form" className="col-md-9">
           <div className="container centered">
-            <button className="play-but" onClick={this.retrieveTriviaQs}>Play Trivia!!!</button>
+            <button className="play-but play-but2" onClick={this.retrieveTriviaQs}>Play Trivia!!!</button>
             <h5>Or...</h5>
             <h1 className="centered">Create Trivia Questions</h1>
             <CreateTriviaQs meetingData={this.props.meetingData} />

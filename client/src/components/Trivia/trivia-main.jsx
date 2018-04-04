@@ -142,6 +142,9 @@ class TriviaMain extends React.Component {
   }
 
   connect() {
+    console.log('liine145', this.props.meetingTrivID)
+    let room = this.props.meetingTrivID;
+    this.socket.emit('room', room);
     const player = (sessionStorage.player) ? JSON.parse(sessionStorage.player) : null;
     if (player && player.type === 'player') {
       this.emit('join', player);
@@ -228,7 +231,7 @@ class TriviaMain extends React.Component {
     const player = this.state.player.playerName;
   	return (
       <div>
-    <button onClick={this.reset}>reset</button>
+    <button className="reset-button" onClick={this.reset}>reset</button>
     <Container id="trivia">
       <Row id="title">
         <Col xs="12">{this.state.gameName}<span data-toggle="tooltip" data-placement="left" title={this.state.status} className={this.state.status} /></Col>
