@@ -2,6 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
 import AlgoliaPlaces from 'algolia-places-react';
+import MeetingSearchbar from './meeting-searchbar.jsx';
+import MeetingSearchResultsPanel from './meeting-search-results-panel.jsx';
 
 class CreateMeeting extends React.Component {
   constructor(props) {
@@ -12,12 +14,27 @@ class CreateMeeting extends React.Component {
       meetingLocation: '',
       meetingNotes: '',
       meetingBook: '',
-      clubId: ''
+      clubId: '',
+      books: [],
+      bookData: ''
     };
     this.onChange = this.onChange.bind(this);
     this.setLocation = this.setLocation.bind(this);
     this.handleCreateMeeting = this.handleCreateMeeting.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getBooks = this.getBooks.bind(this);
+    this.loadBook = this.loadBook.bind(this);
+
+  }
+
+  loadBook(bookImage, bookTitle) {
+    let bookData = JSON.stringify({
+        bookImage: bookImage,
+        bookTitle: bookTitle
+      });
+    this.setState({
+      bookData: bookData
+    });
   }
 
   onChange(e) {
@@ -33,10 +50,36 @@ class CreateMeeting extends React.Component {
     });
   }
 
+  getBooks(e, searchTerm) {
+    e.preventDefault();
+    const query = `mutation GetBooksAPI($searchTerm: String) {
+      getBooksAPI(searchBy: $searchTerm)
+    }`;
+
+    $.ajax({
+      type: 'POST',
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query,
+        variables: { searchTerm },
+      }),
+      success: (booksData) => {
+        const books = JSON.parse(booksData.data.getBooksAPI).slice(0, 3);
+        this.setState({
+          books,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    let meetingData = this.state;
-    meetingData.clubId = this.props.clubData.match.params.clubId
+    let meetingData = {meetingTimestamp: this.state.meetingTimestamp, meetingHost: this.state.meetingHost, meetingLocation: this.state.meetingLocation, meetingNotes: this.state.meetingNotes, meetingBook: this.state.bookData, clubId: this.state.clubId};
+    meetingData.clubId = this.props.clubData.match.params.clubId;
     meetingData = JSON.stringify(meetingData);
     this.handleCreateMeeting(meetingData);
   }
@@ -84,9 +127,8 @@ class CreateMeeting extends React.Component {
             <div className="form-group">
               <input className="form-control" id="inputClubDescription" rows="3" placeholder="Add a brief description.  Book to be discussed, who will bring snacks, etc." name="meetingNotes" value={this.state.meetingNotes} onChange={this.onChange} />
             </div>
-            <div className="form-group">
-              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Book" name="meetingBook" value={this.state.meetingBook} onChange={this.onChange} />
-            </div>
+            <MeetingSearchbar searchBooks={this.getBooks}/>
+            <MeetingSearchResultsPanel loadBook={this.loadBook} results={this.state.books}/>
             <div className="form-group">
               <AlgoliaPlaces placeholder="Meeting address" onChange={e => this.setLocation(e)} />
             </div>

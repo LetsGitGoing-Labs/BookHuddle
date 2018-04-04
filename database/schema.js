@@ -40,8 +40,8 @@ const buildSchema = (db, knex) => new Promise((resolve, reject) => {
           t.string('meeting_street_address');
           t.text('meeting_notes', 280);
           t.timestamp('meeting_created_at').notNullable().defaultTo(knex.raw('now()'));
+          t.string('meeting_book', 600);
           t.integer('club_id').references('club.id').unsigned();
-          t.integer('book_id').references('book.id').unsigned();
           t.string('trivia_questions', 1000);
         }).then((table) => {
           console.log('Created table meeting');

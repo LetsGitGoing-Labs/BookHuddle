@@ -271,11 +271,14 @@ const root = {
   getMessage: () => fakeDatabase.message,
   getBooksAPI: ({ searchBy }) => new Promise((resolve, reject) => {
     amazonHelpers.retrieveBooksAPI(searchBy)
+      .catch((err) => {
+        console.log(err)
+      })
       .then((books) => {
         const parsedData = parseString(books.data, (err, result) => {
           result = result.ItemSearchResponse.Items[0].Item;
-          const bookData = result.map((bookObject) => {
-            if (bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage[0].URL) {
+          var bookData = result.map((bookObject) => {
+            if (bookObject.ItemAttributes && bookObject.ASIN && bookObject.ItemAttributes[0].Title && bookObject.ItemAttributes[0].Author && bookObject.MediumImage && bookObject.MediumImage[0].URL) {
               return {
                 book_amazon_id: bookObject.ASIN,
                 book_title: bookObject.ItemAttributes[0].Title,
@@ -285,6 +288,11 @@ const root = {
               };
             }
           });
+          for (var i = 0; i < bookData.length; i++) {
+            if (!bookData[i]) {
+              bookData.splice(i, 1)
+            }
+          }
           resolve(JSON.stringify(bookData));
         });
       });

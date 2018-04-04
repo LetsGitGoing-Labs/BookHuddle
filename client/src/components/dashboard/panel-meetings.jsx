@@ -18,16 +18,18 @@ class MeetingsPanel extends React.Component {
 
   filterMeetings() {
     const now = DateTime.local().ts;
-    const list = this.props.clubs[0].meetings
+    if (this.props.clubs[0]) {
+      const list = this.props.clubs[0].meetings
       .filter((meeting) => (
         DateTime.fromISO(meeting.meeting_timestamp).valueOf() > now
       ))
       .sort((a,b) => (
         DateTime.fromISO(a.meeting_timestamp).valueOf() - DateTime.fromISO(b.meeting_timestamp).valueOf()
       ));
-    this.setState({
-      meetings: list
-    });
+      this.setState({
+        meetings: list
+      });
+    }
   }
 
   render() {

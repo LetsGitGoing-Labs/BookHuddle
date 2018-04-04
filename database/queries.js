@@ -315,6 +315,7 @@ const addMeeting = (meeting, cb) => {
     meeting_host: meeting.meetingHost,
     meeting_street_address: meeting.meetingLocation,
     meeting_notes: meeting.meetingNotes,
+    meeting_book: meeting.meetingBook,
     club_id: meeting.clubId,
   })
     .into('meeting')
