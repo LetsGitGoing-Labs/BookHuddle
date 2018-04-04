@@ -333,7 +333,6 @@ const root = {
     });
   }),
   getClubMembers: ({ clubId }) => new Promise((resolve, reject) => {
-    console.log('getClubMembers fired!! use clubID: ', clubId);
     database.retrieveMembers(clubId, (members) => {
       resolve(JSON.stringify(members));
     });

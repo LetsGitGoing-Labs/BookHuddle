@@ -131,14 +131,12 @@ const retrieveUserData = (email, cb) => {
 };
 
 const retrieveMembers = (clubId, cb) => {
-  console.log('retrieveMembers fired');
   return db.knex('user_club')
   .where({
     club_id: clubId
   })
   .select('user_id')
   .then((userArray) => {
-    console.log('userArray: ', userArray)
     let query;
     if (userArray.length > 0) {
       query = db.knex('user')
@@ -152,7 +150,6 @@ const retrieveMembers = (clubId, cb) => {
       }
       query.select()
       .then((users) => {
-        console.log('this should be a bunch of user objs, ', users)
         cb(users)
       })
       .catch((err) => {
