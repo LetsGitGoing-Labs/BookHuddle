@@ -94,6 +94,7 @@ class Club extends React.Component {
 
   render() {
     const showJoin = this.props.user.clubs.indexOf(this.state.clubData) >= 0 ? { display: 'none'} : { display: 'normal'}
+    const clubData = this.props.match.params.clubId;
 
     return (
       <div id="club-page" className="col-md-9">
@@ -103,7 +104,9 @@ class Club extends React.Component {
           <div className="tab-content" id="nav-tabContent">
             <UpcomingMeetings futureMeetings={this.state.futureMeetings} />
             <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
-              <Members />
+              <Members
+              club={clubData}
+              />
             </div>
             <BookHistory pastMeetings={this.state.pastMeetings} />
             <button style={showJoin} className="btn" onClick={this.userJoinClub}>Join Club</button>

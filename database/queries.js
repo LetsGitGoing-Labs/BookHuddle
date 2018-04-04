@@ -103,8 +103,6 @@ const retrieveUserData = (email, cb) => {
             query.select()
               .then((clubs, err) => {
                 clubsData = clubs;
-                console.log(userData);
-                console.log(clubsData);
               }).then(() => {
                 clubsData.forEach((club, j) => {
                   db.knex('meeting')
@@ -131,6 +129,35 @@ const retrieveUserData = (email, cb) => {
         });
     });
 };
+
+const retrieveMembers = (clubId, cb) => {
+  return db.knex('user_club')
+  .where({
+    club_id: clubId
+  })
+  .select('user_id')
+  .then((userArray) => {
+    let query;
+    if (userArray.length > 0) {
+      query = db.knex('user')
+        .where({
+          id: userArray[0].user_id,
+        });
+      for (let i = 1; i < userArray.length; i++) {
+        query = query.orWhere({
+          id: userArray[i].user_id,
+        });
+      }
+      query.select('first_name', 'last_name', 'profile_url')
+      .then((users) => {
+        cb(users)
+      })
+      .catch((err) => {
+        cb(err)
+      })
+    }
+  })
+}
 
 // CHECKPASSWORD FN ADDED DURING IMPLEMENTATION OF PASSPORT
 const checkCredentials = (email, password) => db.knex('user')
@@ -394,5 +421,6 @@ module.exports = {
   retrieveUserData,
   checkCredentials,
   addTriviaQs,
-  retrieveTriviaQs
+  retrieveTriviaQs,
+  retrieveMembers
 };
