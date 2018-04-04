@@ -103,7 +103,9 @@ class Club extends React.Component {
           <div className="tab-content" id="nav-tabContent">
             <UpcomingMeetings futureMeetings={this.state.futureMeetings} />
             <div className="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
-              <Members />
+              <Members
+              club={clubData}
+              />
             </div>
             <BookHistory pastMeetings={this.state.pastMeetings} />
             <button style={showJoin} className="btn" onClick={this.userJoinClub}>Join Club</button>
