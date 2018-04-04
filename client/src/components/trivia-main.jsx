@@ -48,6 +48,7 @@ class TriviaMain extends React.Component {
     this.playerRedirect = this.playerRedirect.bind(this);
     this.gameOver = this.gameOver.bind(this);
     this.reset = this.reset.bind(this);
+    this.joinRedirect = this.joinRedirect.bind(this);
   }
 
   componentWillMount() {
@@ -63,6 +64,7 @@ class TriviaMain extends React.Component {
     this.socket.on('results', this.updateResults);
     this.socket.on('score', this.updateScore);
     this.socket.on('gameover', this.gameOver);
+    this.socket.on('reset', this.joinRedirect);
   }
 
   join(event) {
@@ -123,6 +125,12 @@ class TriviaMain extends React.Component {
     });
   }
 
+  joinRedirect() {
+    this.setState({
+      viewState: 'join',
+    });
+  }
+
   playerRedirect() {
     this.setState({
       viewState: 'players',
@@ -165,10 +173,10 @@ class TriviaMain extends React.Component {
   }
 
   reset() {
-    this.gameOver();
-    this.setState( {
-      gameName: '', playerName: '', player: {}, players: [], host: '', viewState: 'join', questions: [], currentQuestion: false, results: undefined, score: {}, gameOver: false,
+    this.setState({
+      gameName: '', playerName: '', player: {}, players: [], host: '', viewState: 'join', currentQuestion: false, results: undefined, score: {}, gameOver: false,
     })
+    this.emit('reset', this.state.gameName)
   }
 
   updateState(serverState) {

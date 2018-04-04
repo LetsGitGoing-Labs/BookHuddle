@@ -15,9 +15,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 // socket.io Trivia game
-const connections = [];
+let connections = [];
 let gameName = 'Untitled';
-const players = [];
+let players = [];
 let host = {};
 let questions = [];
 let currentQuestion = false;
@@ -83,6 +83,18 @@ io.sockets.on('connection', (socket) => {
     io.sockets.emit('gameover', score);
     console.log('the game is over', score);
   });
+
+  socket.on('reset', (payload) => {
+    console.log('line 88', payload)
+    connections = [];
+    gameName = 'Untitled';
+    players = [];
+    host = {};
+    currentQuestion = false;
+    results;
+    score = {};
+    io.sockets.emit('reset', payload)
+  })
 
   socket.on('ask', (question) => {
     currentQuestion = question;
@@ -346,7 +358,7 @@ const root = {
     return new Promise((resolve) => {
       database.addTriviaQs(triviaQuestions, meetingTrivID, (meeting) => {
         resolve(JSON.stringify(meeting))
-        console.log('line 338', questions, meetingID)
+        console.log('line 338', questions)
       })
     })
   },
