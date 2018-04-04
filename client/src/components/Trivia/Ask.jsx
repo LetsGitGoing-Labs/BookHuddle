@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/trivia.css';
+import '../../styles/trivia.css';
 
 class Ask extends React.Component {
   constructor(props) {

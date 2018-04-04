@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
-import TriviaQInputs from './trivia-qinputs.jsx';
+import TriviaQInputs from './TriviaQInputs.jsx';
 
 
 class CreateTriviaQs extends React.Component {
@@ -38,7 +38,6 @@ class CreateTriviaQs extends React.Component {
     e.preventDefault();
     const questionData = { q: this.state.q, a: this.state.a, b: this.state.b, c: this.state.c, d: this.state.d, ans: this.state.ans,};
     this.state.newQ.push(questionData);
-   console.log('trivia q props', this.props);
     const triviaQuestions = JSON.stringify(this.state.newQ);
     const meetingTrivID = Number(this.props.meetingData.match.params.meetingId);
 
@@ -87,6 +86,5 @@ class CreateTriviaQs extends React.Component {
     );
   }
 }
-
 
 export default CreateTriviaQs;

@@ -13,7 +13,6 @@ class TriviaJoin extends React.Component {
     this.props.onNameChange(event.target.value);
   }
 
-
   render() {
   	return (
     <div className="centered">

@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 
 class TriviaQInputs extends React.Component {
   render() {

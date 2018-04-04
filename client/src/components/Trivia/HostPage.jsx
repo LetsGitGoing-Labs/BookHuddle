@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'reactstrap'; 
-import Questions from './trivia-qs.jsx'; 
-import Score from './trivia-score.jsx'; 
-import '../styles/trivia.css'; 
+import Questions from './Questions.jsx'; 
+import Score from './Score.jsx'; 
+import '../../styles/trivia.css';
  
  
 class HostPage extends React.Component {

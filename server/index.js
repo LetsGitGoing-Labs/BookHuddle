@@ -11,8 +11,6 @@ const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
 
 const app = express();
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 // socket.io Trivia game
 let connections = [];
@@ -152,54 +150,54 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure local strategy
-passport.use(new LocalStrategy(
-  { usernameField: 'email' },
-  (email, password, done) => {
-    database.checkUser({ email }, (err, user) => {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.checkCredentials(email, password)) { return done(null, false); }
-      console.log(user, '<-- user from after authentication');
-      return done(null, user);
-    });
-  },
-));
+// passport.use(new LocalStrategy(
+//   { usernameField: 'email' },
+//   (email, password, done) => {
+//     database.checkUser({ email }, (err, user) => {
+//       if (err) { return done(err); }
+//       if (!user) { return done(null, false); }
+//       if (!user.checkCredentials(email, password)) { return done(null, false); }
+//       console.log(user, '<-- user from after authentication');
+//       return done(null, user);
+//     });
+//   },
+// ));
 
-// creates passport session for user by serialized ID (tell passport how to serialize the user)
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// // creates passport session for user by serialized ID (tell passport how to serialize the user)
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
 
-// deserializes the user ID for passport to deliver to the session
-passport.deserializeUser((user_id, done) => {
-  console.log('deserializing user');
-  User.getUserById(user_id, (err, user) => {
-    if (err) {
-      return done(err, false);
-    }
-    done(err, res.user);
-  });
-});
+// // deserializes the user ID for passport to deliver to the session
+// passport.deserializeUser((user_id, done) => {
+//   console.log('deserializing user');
+//   User.getUserById(user_id, (err, user) => {
+//     if (err) {
+//       return done(err, false);
+//     }
+//     done(err, res.user);
+//   });
+// });
 
-app.use(session({
-  genid: req =>
-    uuid(), // use UUIDs for session IDs
-  // store: new FileStore(),
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(session({
+//   genid: req =>
+//     uuid(), // use UUIDs for session IDs
+//   // store: new FileStore(),
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-// NEW LOGIN CODE FOR USE WITH PASSPORT
-app.post(
-  '/login',
-  passport.authenticate('local'),
-  (req, res) => {
-    res.redirect('/dashboard');
-  },
-);
+// // NEW LOGIN CODE FOR USE WITH PASSPORT
+// app.post(
+//   '/login',
+//   passport.authenticate('local'),
+//   (req, res) => {
+//     res.redirect('/dashboard');
+//   },
+// );
 
 // OLD LOGIN FROM BEFORE PASSPORT WAS IMPLEMENTED:
 // app.post('/login', (req, res) => {

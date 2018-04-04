@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
-import CreateTriviaQs from './trivia-qform.jsx';
-import TriviaMain from './trivia-main.jsx';
+import CreateTriviaQs from './CreateTriviaQs.jsx';
+import TriviaMain from './TriviaMain.jsx';
 
 class Trivia extends React.Component {
   constructor(props) {
@@ -40,17 +40,20 @@ class Trivia extends React.Component {
 
   render() {
     return (
-
-      <div>{this.state.isQuestions && <TriviaMain meetingTrivID={this.props.meetingData.match.params.meetingId}/>}
+      <div>
+        {this.state.isQuestions && 
+          <TriviaMain meetingTrivID={this.props.meetingData.match.params.meetingId} />
+        }
         {!this.state.isQuestions &&
-        <div id="create-qs-form" className="col-md-9">
-          <div className="container centered">
-            <button className="play-but play-but2" onClick={this.retrieveTriviaQs}>Play Trivia!!!</button>
-            <h5>Or...</h5>
-            <h1 className="centered">Create Trivia Questions</h1>
-            <CreateTriviaQs meetingData={this.props.meetingData} />
+          <div id="create-qs-form" className="col-md-9">
+            <div className="container centered">
+              <button className="play-but play-but2" onClick={this.retrieveTriviaQs}>Play Trivia!!!</button>
+              <h5>Or...</h5>
+              <h1 className="centered">Create Trivia Questions</h1>
+              <CreateTriviaQs meetingData={this.props.meetingData} />
+            </div>
           </div>
-        </div>}
+        }
       </div>
     );
   }

@@ -37,6 +37,7 @@
     "express-graphql": "^0.6.12",
     "express-session": "^1.15.6",
     "graphql": "^0.13.2",
+    "jquery": "^3.3.1",
     "knex": "^0.14.4",
     "lodash": "^4.17.5",
     "luxon": "^1.0.0",
