@@ -35,9 +35,15 @@ getClubMembers(clubId) {
       }),
       success: (data) => {
         console.log('success');
-        // this.setState({
-        //   memberList: data
-        // });
+        let members = JSON.parse(data.data.getClubMembers);
+        console.log(Array.isArray(members), '<-- is Array members');
+        console.log('data from server:', members);
+        console.log('this.state b4', this.state);
+        this.setState({
+          memberList: members
+        });
+        console.log('this.state after', this.state);
+        console.log(Array.isArray(members), '<-- is Array members');
       },
       error: (data) => {
         console.log(data);
@@ -51,8 +57,8 @@ getClubMembers(clubId) {
         { this.state.memberList.map(member =>
           (
             <div key={member.profile_url} className="col-md-6 content-panel">
-              <img src={`https://source.unsplash.com/${member.profile_url}`} className="img-circle" />
-              <h5 className="user">{member.name}</h5>
+              <img src={member.profile_url} className="img-circle" />
+              <h5 className="user">{member.first_name} {member.last_name}</h5>
             </div>
           )
         )}
