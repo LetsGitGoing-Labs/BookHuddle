@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
 // components
 import DashboardNavbar from '../navigation/dashboard-navbar.jsx';
 import Sidebar from '../navigation/sidebar.jsx';
@@ -49,7 +48,6 @@ class DashboardRouting extends React.Component {
         <DashboardNavbar search={this.search} />
         <div className="row">
           <Sidebar user={this.props.user} />
-
           <Switch>
             <Route
               path="/dashboard/create-club"
@@ -57,7 +55,6 @@ class DashboardRouting extends React.Component {
               props => <CreateClub {...props} userID={this.props.user.id} />
               }
             />
-
             <Route
               path="/dashboard/:clubId/:meetingId"
               render={
@@ -68,7 +65,7 @@ class DashboardRouting extends React.Component {
               path="/dashboard/:clubId"
               render={
               props => (<Club {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
-            }
+              }
             />
             <Route render={props => <Dashboard user={this.props.user} searchResults={this.state.searchResults} getUserData={this.props.getUserData} />} />
           </Switch>

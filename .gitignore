@@ -24,7 +24,6 @@ coverage
 node_modules/
 bower_components/
 client/dist/bundle.js
-package-lock.json
 
 # Floobits
 .floo
