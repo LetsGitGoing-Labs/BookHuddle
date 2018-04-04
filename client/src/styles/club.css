@@ -100,4 +100,5 @@ address {
 .user {
   display: inline-block;
   margin-left: 15px;
+  vertical-align: middle;
 }

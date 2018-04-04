@@ -31,7 +31,7 @@ class Meeting extends React.Component {
               <MeetingDetails meetingDetails={meetingData} />
             </div>
             <div className="tab-pane fade" id="nav-meet-members" role="tabpanel" aria-labelledby="nav-meet-members-tab">
-                <Members />
+                <Members club={clubData.id} />
             </div>
             <div className="tab-pane fade" id="nav-trivia" role="tabpanel" aria-labelledby="nav-trivia-tab">
               <Trivia meetingData={this.props} />

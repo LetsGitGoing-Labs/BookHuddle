@@ -3,6 +3,12 @@ import React from 'react';
 class MeetingDetails extends React.Component {
   constructor(props) {
     super(props);
+    this.handleCancelMtg = this.handleCancelMtg.bind(this);
+  }
+
+  handleCancelMtg() {
+    console.log(this.props, '<-- this.props');
+    confirm('Are you sure you want to cancel?')
   }
 
   render() {
@@ -34,6 +40,9 @@ class MeetingDetails extends React.Component {
               <h6 className="meeting-description"><em>{meeting.meeting_notes}</em></h6>
               <p className="meeting-description">{meeting.meeting_details}</p>
             </div>
+            <button className="btn btn-danger" onClick={this.handleCancelMtg}>
+              Cancel Meeting
+            </button>
           </div>
         </div>
       </div>

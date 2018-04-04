@@ -53,7 +53,10 @@ getClubMembers(clubId) {
           (
             <div key={member.profile_url} className="col-md-6 content-panel">
               <img src={member.profile_url} className="img-circle" />
-              <h5 className="user">{member.first_name} {member.last_name}</h5>
+              <div className="user">
+                <h5>{member.first_name} {member.last_name}</h5>
+                <a href={`mailto:${member.email}`}>Contact <i className="far fa-envelope"></i></a>
+              </div>
             </div>
           )
         )}
