@@ -10,7 +10,7 @@ class MeetingDetails extends React.Component {
 
     return (
       <div>
-        <div class="row">
+        <div className="row">
           <div className="col-md-4">
             <img className="meeting-book" src="http://covers.openlibrary.org/b/isbn/0451207149-M.jpg" />
           </div>
