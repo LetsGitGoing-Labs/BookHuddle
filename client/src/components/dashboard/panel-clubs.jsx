@@ -19,7 +19,7 @@ const ClubsPanel = props => (
           (
             <div key={id} className="col-md-4">
               <Link to={`/dashboard/${club.id}`}>
-                <img className="book-cover" src={`http://covers.openlibrary.org/b/isbn/${club.current_book_isbn}-M.jpg`} />
+                <img className="book-cover" src={JSON.parse(club.meetings[0].meeting_book).bookImage} />
                 <p>{club.club_name}</p>
               </Link>
             </div>

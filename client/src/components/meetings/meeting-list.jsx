@@ -19,6 +19,7 @@ class MeetingsList extends React.Component {
   }
 
   render() {
+
     return(
       <div>
       {!this.props.meetings || this.props.meetings.length === 0 ?
