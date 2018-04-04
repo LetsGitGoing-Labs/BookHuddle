@@ -32,7 +32,7 @@ class MeetingsList extends React.Component {
                   <div className="col-md-3">
                     <img className="meeting-book" src="http://covers.openlibrary.org/b/isbn/0451207149-M.jpg" />
                   </div>
-                  <div className="col-md-9 vline-l">
+                  <div className="col-md-9">
                     <div className="meeting-dh">
                       <h4>{meeting.meeting_name}</h4>
                       <p><em>{this.meetingDate(meeting.meeting_timestamp)}</em></p>
@@ -49,8 +49,6 @@ class MeetingsList extends React.Component {
                     </div>
                     <h6 className="meeting-description"><em>{meeting.meeting_notes}</em></h6>
                     <p className="meeting-description">{meeting.meeting_details}</p>
-                  </div>
-                  <div className="panel-button">
                     <Link to={`${this.props.root}${meeting.club_id}/${meeting.id}`} ><button className="btn btn-danger">See Details</button></Link>
                   </div>
                 </div>

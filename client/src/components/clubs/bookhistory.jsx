@@ -9,7 +9,7 @@ class BookHistory extends React.Component {
   render() {
     return(
       <div className="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
-        <h3>Book History</h3>
+        <h4>Book History</h4>
         <MeetingsList root='' meetings={this.props.pastMeetings} />
       </div>
     )

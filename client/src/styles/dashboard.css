@@ -92,10 +92,7 @@
 }
 
 .panel-content {
-  background: #ffffff;
-  border: 1px solid #aab2bd;
-  padding-top: 15px;
-  padding-bottom: 5px;
+  padding: 10px 0;
 }
 
 .date-panel {
@@ -115,20 +112,11 @@
   display: inline-block;
   width: 65%;
 }
-.panel-body button {
-  display: inline-block;
-}
-.panel-button {
-  display:  inline-block;
-  position: relative;
-  bottom: 50px;
-  left:  30px;
-}
 
 .meeting-book {
-  width: 120px;
-  height: 184px;
-  margin-left: 25px;
+  width: 110px;
+  height: 170px;
+  margin-left: 15px;
   margin-bottom: 10px;
 }
 
