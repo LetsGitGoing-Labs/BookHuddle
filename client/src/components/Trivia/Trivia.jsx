@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
-import CreateTriviaQs from './CreateTriviaQs.jsx';
-import TriviaMain from './TriviaMain.jsx';
+import CreateTriviaQs from './CreateTriviaQs';
+import TriviaMain from './TriviaMain';
 
 class Trivia extends React.Component {
   constructor(props) {

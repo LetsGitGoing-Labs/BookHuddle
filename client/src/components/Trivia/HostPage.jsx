@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'reactstrap'; 
-import Questions from './Questions.jsx'; 
-import Score from './Score.jsx'; 
+import Questions from './Questions'; 
+import Score from './Score'; 
 import '../../styles/trivia.css';
  
  

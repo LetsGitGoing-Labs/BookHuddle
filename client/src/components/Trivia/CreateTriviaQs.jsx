@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
-import TriviaQInputs from './TriviaQInputs.jsx';
+import TriviaQInputs from './TriviaQInputs';
 
 
 class CreateTriviaQs extends React.Component {
