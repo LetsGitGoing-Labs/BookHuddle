@@ -15,7 +15,7 @@ constructor(props) {
 }
 
 componentDidMount() {
-  let clubId = this.props.club.id;
+  let clubId = this.props.club;
   this.getClubMembers(clubId)
 }
 
@@ -36,14 +36,9 @@ getClubMembers(clubId) {
       success: (data) => {
         console.log('success');
         let members = JSON.parse(data.data.getClubMembers);
-        console.log(Array.isArray(members), '<-- is Array members');
-        console.log('data from server:', members);
-        console.log('this.state b4', this.state);
         this.setState({
           memberList: members
         });
-        console.log('this.state after', this.state);
-        console.log(Array.isArray(members), '<-- is Array members');
       },
       error: (data) => {
         console.log(data);

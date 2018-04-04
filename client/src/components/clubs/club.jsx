@@ -94,6 +94,7 @@ class Club extends React.Component {
 
   render() {
     const showJoin = this.props.user.clubs.indexOf(this.state.clubData) >= 0 ? { display: 'none'} : { display: 'normal'}
+    const clubData = this.props.match.params.clubId;
 
     return (
       <div id="club-page" className="col-md-9">
