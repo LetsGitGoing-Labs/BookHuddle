@@ -31,7 +31,7 @@ class MeetingsList extends React.Component {
               <div key={id} className="panel-content">
                 <div className="row">
                   <div className="col-md-3">
-                    <img className="meeting-book" src="http://covers.openlibrary.org/b/isbn/0451207149-M.jpg" />
+                    <img className="meeting-book" src={JSON.parse(meeting.meeting_book).bookImage} />
                   </div>
                   <div className="col-md-9">
                     <div className="meeting-dh">
