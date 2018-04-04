@@ -3,64 +3,64 @@
   "meetingTimestamp": "2018-02-15T19:00:00",
   "meetingHost": "Sandy Anderson",
   "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
-  "meetingBook": 1,
-  "meetingNotes": "Meeting at Sandy's again.  Jessica will bring the snacks.  This month we'll be reading a book about five immigrant families in NYC who lived in one tenement."
+  "meetingNotes": "Meeting at Sandy's again.  Jessica will bring the snacks.  This month we'll be reading a book about five immigrant families in NYC who lived in one tenement.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51SWIVYfw2L._SL160_.jpg\",\"bookTitle\":\"City of Dreams: The 400-Year Epic History of Immigrant New York\"}"
   },
   {
   "clubID": 1,
   "meetingTimestamp": "2018-03-15T19:00:00",
   "meetingHost": "Sandy Anderson",
   "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
-  "meetingBook": 2,
-  "meetingNotes": "Meeting at Sandy's again.  Harry will make snacks.  This month we'll be reading a book about the history of Chicago.  It's Ivan's turn to suggest a book for the following month."
+  "meetingNotes": "Meeting at Sandy's again.  Harry will make snacks.  This month we'll be reading a book about the history of Chicago.  It's Ivan's turn to suggest a book for the following month.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51mppSQ3y%2BL._SL160_.jpg\",\"bookTitle\":\"A People's History of Chicago\"}"
   },
   {
   "clubID": 1,
   "meetingTimestamp": "2018-04-15T19:00:00",
   "meetingHost": "Harry Bartley",
   "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
-  "meetingBook": 3,
-  "meetingNotes": "Meeting at Harry's this month.  Amy will bring donuts.  Ivan chose Robert Louis Stevenson's classic novel \"Kidnapped\".  It's set in 1800's Scotland."
+  "meetingNotes": "Meeting at Harry's this month.  Amy will bring donuts.  Ivan chose Robert Louis Stevenson's classic novel \"Kidnapped\".  It's set in 1800's Scotland.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51jpYobmnxL._SL160_.jpg\",\"bookTitle\":\"Kidnapped\"}"
   },
   {
   "clubID": 1,
   "meetingTimestamp": "2018-05-15T19:00:00",
   "meetingHost": "Harry Bartley",
   "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
-  "meetingBook": 3,
-  "meetingNotes": "Meeting at Harry's again.  Ivan will bring food.  Since it's Jessica's bday it's her turn to choose a book and she chose \"a day in the life of ivan denisovich\" by Yevtushenko."
+  "meetingNotes": "Meeting at Harry's again.  Ivan will bring food.  Since it's Jessica's bday it's her turn to choose a book and she chose \"a day in the life of ivan denisovich\" by Yevtushenko.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51f50KHNXgL._SL160_.jpg\",\"bookTitle\":\"One Day in the Life of Ivan Denisovich\"}"
   },
   {
   "clubID": 2,
   "meetingTimestamp": "2018-05-15T19:00:00",
   "meetingHost": "Bonnie Drew",
   "meetingLocation": "98 N Water Tower St., Chicago, Illinois",
-  "meetingBook": 1,
-  "meetingNotes": "Meeting at Bonnie's again.  Angela will bring the snacks.  Reading the Betrayed Dutchess."
+  "meetingNotes": "Meeting at Bonnie's again.  Angela will bring the snacks.  Reading the Betrayed Dutchess.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/6129953C8nL._SL160_.jpg\",\"bookTitle\":\"The Legend of the Betrayed Duchess: A Historical Regency Romance Novel\"}"
   },
   {
   "clubID": 2,
   "meetingTimestamp": "2018-02-20T18:00:00",
   "meetingHost": "Barbara Anderson",
   "meetingLocation": "489 W Elm St. Apt 301, Chicago, Illinois",
-  "meetingBook": 2,
-  "meetingNotes": "Meeting at Barbara's this month.  Bonnie will make snacks.  Reading the Puzzled Earl."
+  "meetingNotes": "Meeting at Barbara's this month.  Bonnie will make snacks.  Reading the Puzzled Earl.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/61KpHGE55fL._SL160_.jpg\",\"bookTitle\":\"Diana Adores the Puzzled Earl: A Historical Regency Romance Book\"}"
   },
   {
   "clubID": 2,
   "meetingTimestamp": "2018-03-20T18:00:00",
   "meetingHost": "Timothy Bartley",
   "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
-  "meetingBook": 3,
-  "meetingNotes": "Meeting at Tim's this month.  Katy will bring donuts.  Reading the governess who stole his heart."
+  "meetingNotes": "Meeting at Tim's this month.  Katy will bring donuts.  Reading the governess who stole his heart.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/514lXuUTAHL._SL160_.jpg\",\"bookTitle\":\"The Governess\"}"
   },
   {
   "clubID": 2,
   "meetingTimestamp": "2018-04-20T18:00:00",
   "meetingHost": "Lester Streusi",
   "meetingLocation": "600 S 289th St. Apt 821, Chicago, Illinois",
-  "meetingBook": 3,
-  "meetingNotes": "Meeting at Lester's again.  Ivan will bring food.  Reading Annabelle Enchants."
+  "meetingNotes": "Meeting at Lester's again.  Ivan will bring food.  Reading Annabelle Enchants.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/61lmbrz5mwL._SL160_.jpg\",\"bookTitle\":\"Annabelle Enchants the Rejected Earl: A Historical Regency Romance Novel\"}"
   },
 
   {
@@ -68,32 +68,32 @@
   "meetingTimestamp": "2018-05-20T18:00:00",
   "meetingHost": "Amy Pilsley",
   "meetingLocation": "4566 E Shannon St. Apt 4, Chicago, Illinois",
-  "meetingBook": 3,
-  "meetingNotes": "Meeting at Amy's again.  Frita will bring food.  Reading The Hobbits."
+  "meetingNotes": "Meeting at Amy's again.  Frita will bring food.  Reading The Hobbits.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51uLvJlKpNL._SL160_.jpg\",\"bookTitle\":\"The Hobbit\"}"
   },
   {
   "clubID": 3,
   "meetingTimestamp": "2018-02-20T18:00:00",
   "meetingHost": "Frita Riggins",
   "meetingLocation": "123 N Oak Tower St., Chicago, Illinois",
-  "meetingBook": 1,
-  "meetingNotes": "Meeting at Frita's again.  Betty will bring the snacks.  Reading the Fellowship of The Ring."
+  "meetingNotes": "Meeting at Frita's again.  Betty will bring the snacks.  Reading the Fellowship of The Ring.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51tW-UJVfHL._SL160_.jpg\",\"bookTitle\":\"The Fellowship of the Ring: Being the First Part of The Lord of the Rings\"}"
   },
   {
   "clubID": 3,
   "meetingTimestamp": "2018-04-20T18:00:00",
   "meetingHost": "Betty Anderson",
   "meetingLocation": "660 W Oak St., Chicago, Illinois",
-  "meetingBook": 2,
-  "meetingNotes": "Meeting at Betty's this month.  Tommy will make snacks.  Reading the Two Towers."
+  "meetingNotes": "Meeting at Betty's this month.  Tommy will make snacks.  Reading the Two Towers.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51zwIlXzbSL._SL160_.jpg\",\"bookTitle\":\"The Two Towers: Being the Second Part of The Lord of the Rings\"}"
   },
   {
   "clubID": 3,
   "meetingTimestamp": "2018-03-20T18:00:00",
   "meetingHost": "Tommy Bartley",
   "meetingLocation": "112 S 289th St. Apt 09, Chicago, Illinois",
-  "meetingBook": 3,
-  "meetingNotes": "Meeting at Tommy's this month.  Amy will bring donuts.  Reading the Return of The King."
+  "meetingNotes": "Meeting at Tommy's this month.  Amy will bring donuts.  Reading the Return of The King.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51MlPWDaXGL._SL160_.jpg\",\"bookTitle\":\"The Return of the King: Being the Third Part of the Lord of the Rings\"}"
   },
 
   {
@@ -101,24 +101,24 @@
   "meetingTimestamp": "2018-02-20T18:00:00",
   "meetingHost": "Jenny Wright",
   "meetingLocation": "6555 N Oak Grove St., Chicago, Illinois",
-  "meetingBook": 1,
-  "meetingNotes": "Meeting at Jenny's again.  Lisa will bring the snacks.  Reading Darwin's Black Box."
+  "meetingNotes": "Meeting at Jenny's again.  Lisa will bring the snacks.  Reading Darwin's Black Box.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51dFs-m6cLL._SL160_.jpg\",\"bookTitle\":\"Darwin's Black Box: The Biochemical Challenge to Evolution\"}"
   },
   {
   "clubID": 4,
   "meetingTimestamp": "2018-03-20T18:00:00",
   "meetingHost": "Lisa Anderson",
   "meetingLocation": "788 W Liverton St., Chicago, Illinois",
-  "meetingBook": 2,
-  "meetingNotes": "Meeting at Lisa's this month.  Thomas will make snacks.  Reading God and the Astronomers."
+  "meetingNotes": "Meeting at Lisa's this month.  Thomas will make snacks.  Reading God and the Astronomers.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51mYIFMqWhL._SL160_.jpg\",\"bookTitle\":\"God and the Astronomers\"}"
   },
   {
   "clubID": 4,
   "meetingTimestamp": "2018-04-20T18:00:00",
   "meetingHost": "Thomas Barnesi",
   "meetingLocation": "12 S 111 St. Apt 09, Chicago, Illinois",
-  "meetingBook": 3,
-  "meetingNotes": "Meeting at Thomas's this month.  Annie will bring donuts.  Reading Understanding John Locke."
+  "meetingNotes": "Meeting at Thomas's this month.  Annie will bring donuts.  Reading Understanding John Locke.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51ULAclXFCL._SL160_.jpg\",\"bookTitle\":\"UNDERSTANDING JOHN LOCKE: The Smart Student's Guide to Locke's Second Treatise of Government (Smart Student's Guides to Philosophical Classics Book 2)\"}"
   },
   {
   "clubID": 4,
@@ -126,6 +126,7 @@
   "meetingHost": "Annie Smith",
   "meetingLocation": "102 E Borris St. Apt 4, Chicago, Illinois",
   "meetingBook": 3,
-  "meetingNotes": "Meeting at Annie's again.  Jenny will bring food.  Reading John Locke's Second Treatise on Government."
+  "meetingNotes": "Meeting at Annie's again.  Jenny will bring food.  Reading John Locke's Second Treatise on Government.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/41oJSQkomrL._SL160_.jpg\",\"bookTitle\":\"The Second Treatise of Government and A Letter Concerning Toleration (Dover Thrift Editions)\"}"
   }
 ]

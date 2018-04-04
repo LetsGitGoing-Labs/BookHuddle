@@ -145,6 +145,7 @@ dropDatabase()
       meeting_street_address: meeting.meetingLocation,
       meeting_notes: meeting.meetingNotes,
       club_id: meeting.clubID,
+      meeting_book: meeting.meetingBook
     })
       .into('meeting')
       .catch((err) => {

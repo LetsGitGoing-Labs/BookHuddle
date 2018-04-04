@@ -75,21 +75,23 @@ class Club extends React.Component {
   }
 
   filterMeetings(clubData) {
-    const now = DateTime.local().ts;
-    const pastList = clubData.meetings.filter((meeting) => (
-      DateTime.fromISO(meeting.meeting_timestamp).valueOf() < now
-    ));
-    const futureList = clubData.meetings
-      .filter((meeting) => (
-        DateTime.fromISO(meeting.meeting_timestamp).valueOf() > now
-      ))
-      .sort((a,b) => (
-        DateTime.fromISO(a.meeting_timestamp).valueOf() - DateTime.fromISO(b.meeting_timestamp).valueOf()
+    if (clubData.meetings) {
+      const now = DateTime.local().ts;
+      const pastList = clubData.meetings.filter((meeting) => (
+        DateTime.fromISO(meeting.meeting_timestamp).valueOf() < now
       ));
-    this.setState({
-      pastMeetings: pastList,
-      futureMeetings: futureList,
-    });
+      const futureList = clubData.meetings
+        .filter((meeting) => (
+          DateTime.fromISO(meeting.meeting_timestamp).valueOf() > now
+        ))
+        .sort((a,b) => (
+          DateTime.fromISO(a.meeting_timestamp).valueOf() - DateTime.fromISO(b.meeting_timestamp).valueOf()
+        ));
+      this.setState({
+        pastMeetings: pastList,
+        futureMeetings: futureList,
+      });
+    }
   }
 
   render() {

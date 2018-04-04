@@ -12,7 +12,8 @@ function sha256(stringToSign, secretKey) {
 
 // Amazon API request that returns an array of 10 books based on search term
 const retrieveBooksAPI = function (searchTerm) {
-  searchTerm = searchTerm.replace(' ', '%20');
+  searchTerm = searchTerm.replace(/ /g, '%20');
+  searchTerm = searchTerm.replace(/'/g, '');
 
   const today = new Date();
   time = today.toISOString();
