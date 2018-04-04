@@ -148,7 +148,7 @@ const retrieveMembers = (clubId, cb) => {
           id: userArray[i].user_id,
         });
       }
-      query.select('first_name', 'last_name', 'profile_url')
+      query.select('first_name', 'last_name', 'profile_url', 'email')
       .then((users) => {
         cb(users)
       })
