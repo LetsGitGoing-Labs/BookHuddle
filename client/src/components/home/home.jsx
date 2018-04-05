@@ -1,6 +1,7 @@
 import React from 'react';
 import MainNavbar from '../navigation/MainNavbar';
 
+
 class Home extends React.Component {
   constructor(props) {
     super(props);

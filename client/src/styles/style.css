@@ -9,18 +9,17 @@
 }
 
 body {
-  background: #ffffff;
-  margin: 0;
+  background: #fff;
   height: 100%;
-  color: #384452;
+  color: #333;
   font-size: 14px;
-  font-weight: 400;
+  font-family: 'Lato';
 }
 
 p {
   padding: 0;
   line-height: 24px;
-  color: #384452;
+  color: #333;
   margin-top: 10px;
 }
 
@@ -33,8 +32,17 @@ ul {
   list-style: none;
 }
 
-blockquote p{
-  margin: 0 20px;
+blockquote {
+  margin: auto;
+  width: 80%;
+}
+
+button:focus {
+  outline: none;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 .book-cover {
@@ -181,17 +189,12 @@ blockquote p{
   color: white;
 }
 
-
 /*  ################################################################
   LOGIN MODAL
 ################################################################# */
 
 .modal-dialog {
-  position: relative;
-  width: 90%;
-  max-width: 600px;
-  background: transparent;
-  margin: 3em auto 4em;
+  width: 40%;
   cursor: auto;
 }
 
@@ -216,7 +219,7 @@ blockquote p{
 .nav-link, .nav-link.active {
   border: none;
 }
-.nav-link:hover {
+.nav-link:focus, .nav-link:hover {
   border: none;
 }
 
