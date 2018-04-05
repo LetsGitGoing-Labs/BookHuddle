@@ -19,6 +19,7 @@ class MeetingsPanel extends React.Component {
   filterMeetings() {
     const now = DateTime.local().ts;
     if (this.props.clubs[0]) {
+
       const list = this.props.clubs[0].meetings
       .filter((meeting) => (
         DateTime.fromISO(meeting.meeting_timestamp).valueOf() > now
