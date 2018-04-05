@@ -281,3 +281,33 @@ a:hover {
   background: #e6e6e6;
 }
 
+/*ABOUT*/
+
+.mtb {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.mb {
+  margin-bottom: 40px;
+}
+
+.img-rnd {
+  width: 180px;
+  border-radius: 50%;
+ }
+
+ .ctitle {
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-style: normal;
+    letter-spacing: 1px;
+    text-decoration: none;
+    line-height: 1.4em;
+    margin-top: 15px;
+}
+
+.grey {
+  color: #666;
+}
