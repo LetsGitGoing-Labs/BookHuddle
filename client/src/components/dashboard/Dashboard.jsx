@@ -125,6 +125,7 @@ class Dashboard extends React.Component {
         variables: { location },
       }),
       success: (clubsData) => {
+        debugger;
         clubsData = JSON.parse(clubsData.data.getNearClubs);
         this.setState({
           clubs: clubsData,
