@@ -8,7 +8,7 @@ import MeetingDetails from './meeting-detail.jsx';
 import Trivia from '../Trivia/Trivia.jsx';
 import Members from '../clubs/members.jsx';
 
-class Meeting extends React.Component {
+class MeetingPage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -46,5 +46,5 @@ class Meeting extends React.Component {
   }
 }
 
-export default Meeting;
+export default MeetingPage;
 
