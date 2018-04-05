@@ -409,10 +409,13 @@ const retrieveTriviaQs = (meetingID, cb) => {
 
 const deleteMeeting = (meetingId, cb) => {
   console.log('deleteMeeting invoked for meeting: ', meetingId)
-  return db.knex('meeting')
-  .where('id', meetingId)
+  db.knex('meeting')
+  .where({
+    id: meetingId
+  })
   .del()
-  then((data) => {
+  then((data, err) => {
+    console.log(arguments);
     cb(data);
   })
 }
