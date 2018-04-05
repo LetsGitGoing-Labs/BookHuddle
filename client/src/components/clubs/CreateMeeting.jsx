@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import AlgoliaPlaces from 'algolia-places-react';
+import Datetime from 'react-datetime';
 
 import MeetingSearchbar from './MeetingSearchbar';
 import MeetingSearchResultsPanel from './MeetingSearchResultsPanel';
@@ -126,7 +127,8 @@ class CreateMeeting extends React.Component {
           <h3>Create New Meeting</h3>
           <div className="container mt create-form">
             <div className="form-group">
-              <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />
+              {/*<input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />*/}
+              <Datetime onChange={this.onChange} />
             </div>
             <div className="form-group">
               <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Host" name="meetingHost" value={this.state.meetingHost} onChange={this.onChange} />
