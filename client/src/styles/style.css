@@ -64,6 +64,10 @@ blockquote p{
   margin-top: 25px;
 }
 
+.ts {
+  text-shadow: 2px 1px 2px #333;
+}
+
 /*  ################################################################
   BOOTSTRAP MODIFICATIONS & TWEAKS
 ################################################################# */
@@ -77,16 +81,22 @@ blockquote p{
   color: white;
 }
 
-.btn {
+.bttn {
   text-decoration: none;
   padding: 0.8em 1.5em;
   color: #fff;
-  background: #292624;
-  border: 1px solid #666;
-  margin: .5em 0;
+  background: #61bfb6;
+  border: none;
+  margin: 1em 0;
   display: inline-block;
+  border-radius: 25px;
 }
 
+@media (min-width: 768px) {
+  .col-md-6 {
+    max-width: 49.2% !important;
+  }
+}
 
 /*  ################################################################
   HOMEPAGE
@@ -138,7 +148,7 @@ blockquote p{
 
 /*Book Feature Section*/
 .feature {
-  background-color: #77bdbc;
+  background-color: #61bfb6;
   color: #fff;
 }
 
@@ -189,7 +199,7 @@ blockquote p{
   width: 50%;
   text-align: center;
   padding: 0.5rem;
-  background-color: #77bdbc;
+  background-color: #61bfb6;
   color: #fff;
 }
 .modal-tab.active {
@@ -199,7 +209,7 @@ blockquote p{
 
 .modal-btn {
   color: #fff;
-  background-color: #76bdbc;
+  background-color: #61bfb6;
   margin: 0.75em 1em;
 }
 
