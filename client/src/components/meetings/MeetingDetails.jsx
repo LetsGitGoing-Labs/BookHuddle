@@ -1,20 +1,52 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 
 class MeetingDetails extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isCancelled: false,
+      clubId: this.props.meetingDetails.club_id,
+    }
     this.handleCancelMtg = this.handleCancelMtg.bind(this);
+    this.cancelMeeting = this.cancelMeeting.bind(this);
   }
 
   handleCancelMtg() {
-    console.log(this.props, '<-- this.props');
-    confirm('Are you sure you want to cancel?')
+    let check = confirm('Are you sure you want to cancel?')
+    if (check) {
+      let meetingId = this.props.meetingDetails.id;
+      this.cancelMeeting(meetingId)
+    }
+  }
+
+  cancelMeeting(meetingId) {
+    const query = `mutation cancelMeeting($meetingId: String) {
+      cancelMeeting(meetingId: $meetingId)
+    }`;
+
+    $.ajax({
+      type: 'POST',
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query,
+        variables: { meetingId },
+      }),
+      success: (data) => {
+        this.setState({
+          isCancelled: true,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   render() {
     let meeting = this.props.meetingDetails;
-
-    return (
+    return this.state.isCancelled ? (<Redirect to={`/dashboard/${this.state.clubId}`}/>) : (
       <div>
         <div className="row">
           <div className="col-md-4">

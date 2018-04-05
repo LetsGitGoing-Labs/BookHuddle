@@ -407,6 +407,18 @@ const retrieveTriviaQs = (meetingID, cb) => {
     })
 }
 
+const deleteMeeting = (meetingId, cb) => {
+  console.log('deleteMeeting invoked for meeting: ', meetingId)
+  db.knex('meeting')
+  .where({
+    id: meetingId
+  })
+  .del()
+  .then((data, err) => {
+    cb(data);
+  })
+}
+
 module.exports = {
   retrieveClubs,
   retrieveClub,
@@ -423,5 +435,6 @@ module.exports = {
   checkCredentials,
   addTriviaQs,
   retrieveTriviaQs,
-  retrieveMembers
+  retrieveMembers,
+  deleteMeeting
 };

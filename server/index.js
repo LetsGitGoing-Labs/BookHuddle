@@ -252,6 +252,8 @@ const schema = buildSchema(`
 
     getClubMembers(clubId: String) : String
 
+    cancelMeeting(meetingId: String) : String
+
   }
 
   type Query {
@@ -399,9 +401,15 @@ const root = {
       });
     });
   },
+  cancelMeeting: ({ meetingId }) => {
+    meetingId = JSON.parse(meetingId);
+    return new Promise((resolve, reject) => {
+      database.deleteMeeting(meetingId, (meeting) => {
+        resolve(meeting);
+      });
+    });
+  },
 };
-
-
 
 app.use('/graphql', graphqlHTTP({
   schema,
