@@ -9,7 +9,6 @@ import SearchResultsPanel from './SearchResultsPanel';
 import MeetingsPanel from './MeetingsPanel';
 import ClubsPanel from './ClubsPanel';
 import SuggestedBooksPanel from './SuggestedBooksPanel';
-import ClubsNearYouPanel from './ClubsNearYouPanel';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -143,7 +142,6 @@ class Dashboard extends React.Component {
         <SearchResultsPanel results={this.props.searchResults} />
         <MeetingsPanel clubs={this.props.user.clubs} />
         <ClubsPanel clubs={this.props.user.clubs} />
-        <ClubsNearYouPanel clubs={this.state.clubs} />
         <SuggestedBooksPanel books={this.state.books} />
       </div>
     );

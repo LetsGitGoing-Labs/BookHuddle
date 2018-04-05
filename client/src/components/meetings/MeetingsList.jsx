@@ -44,7 +44,7 @@ class MeetingsList extends React.Component {
                         <i className="fas fa-map-marker-alt" />
                       </div>
                       <address className="map-address">
-                        <p style={{width:'50px'}}>{meeting.meeting_street_address}</p>
+                        <p style={{width:'100px'}}>{meeting.meeting_street_address.slice(0, -26)}</p>
                       </address>
                     </div>
                     <h6 className="meeting-description"><em>{meeting.meeting_notes}</em></h6>

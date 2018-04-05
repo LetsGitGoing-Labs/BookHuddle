@@ -46,7 +46,7 @@ class CreateMeeting extends React.Component {
 
   setLocation(e) {
     this.setState({
-      meetingLocation: (`${e.suggestion.name}, ${e.suggestion.administrative}`),
+      meetingLocation: (`${e.suggestion.value}`),
     });
   }
 
