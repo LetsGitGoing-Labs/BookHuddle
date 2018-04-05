@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 // components
-import DashboardNavbar from '../navigation/dashboard-navbar.jsx';
-import Sidebar from '../navigation/sidebar.jsx';
-import Dashboard from './dashboard.jsx';
-import CreateClub from './create-club.jsx';
-import Club from '../clubs/club.jsx';
-import Meeting from '../meetings/meeting.jsx';
+import DashboardNavbar from '../navigation/DashboardNavbar';
+import Sidebar from '../navigation/Sidebar';
+import Dashboard from './Dashboard';
+import CreateClub from './CreateClub';
+import ClubPage from '../clubs/ClubPage';
+import MeetingPage from '../meetings/MeetingPage';
 
 class DashboardRouting extends React.Component {
   constructor(props) {

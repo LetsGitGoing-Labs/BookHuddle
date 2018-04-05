@@ -10,7 +10,7 @@ import BookHistory from './bookhistory.jsx';
 
 import '../../styles/club.css';
 
-class Club extends React.Component {
+class ClubPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -123,4 +123,4 @@ class Club extends React.Component {
   }
 }
 
-export default Club;
+export default ClubPage;
