@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import AlgoliaPlaces from 'algolia-places-react';
 import Datetime from 'react-datetime';
+import '../../styles/datetime.css';
 // import InputMoment from 'input-moment';
 
 import MeetingSearchbar from './MeetingSearchbar';
