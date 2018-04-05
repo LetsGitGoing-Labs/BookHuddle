@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import Searchbar from '../dashboard/Searchbar';
+
 import '../../styles/dashboard.css';
-import Searchbar from '../dashboard/searchbar.jsx';
 
 class DashboardNavbar extends React.Component {
   constructor(props) {
