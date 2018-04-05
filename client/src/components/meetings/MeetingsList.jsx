@@ -50,7 +50,7 @@ class MeetingsList extends React.Component {
                     </div>
                     <h6 className="meeting-description"><em>{meeting.meeting_notes}</em></h6>
                     <p className="meeting-description">{meeting.meeting_details}</p>
-                    <Link to={`${this.props.root}${meeting.club_id}/${meeting.id}`} ><button className="btn btn-danger">See Details</button></Link>
+                    <Link to={`${this.props.root}${meeting.club_id}/${meeting.id}`} ><button className="details-btn">See Details</button></Link>
                   </div>
                 </div>
               </div>
