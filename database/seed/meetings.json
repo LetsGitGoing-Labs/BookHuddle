@@ -82,10 +82,10 @@
   {
   "clubID": 3,
   "meetingTimestamp": "2018-04-20T18:00:00",
-  "meetingHost": "Betty Anderson",
+  "meetingHost": "George RR Martin",
   "meetingLocation": "660 W Oak St., Chicago, Illinois, United States of America",
-  "meetingNotes": "Meeting at Betty's this month.  Tommy will make snacks.  Reading the Two Towers.",
-  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51zwIlXzbSL._SL160_.jpg\",\"bookTitle\":\"The Two Towers: Being the Second Part of The Lord of the Rings\"}"
+  "meetingNotes": "Meeting at George's this month.  Tommy will make snacks.  We'll be dancing with dragons.",
+  "meetingBook":"{\"bookImage\":\"https://images-na.ssl-images-amazon.com/images/I/51oe-hbvKTL._SL160_.jpg\",\"bookTitle\":\"A Dance with Dragons (A Song of Ice and Fire)\"}"
   },
   {
   "clubID": 3,
