@@ -415,8 +415,6 @@ const deleteMeeting = (meetingId, cb) => {
   })
   .del()
   .then((data, err) => {
-    console.log('data:', data);
-    console.log('err: ', err);
     cb(data);
   })
 }

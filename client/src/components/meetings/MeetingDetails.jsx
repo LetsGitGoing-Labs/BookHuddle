@@ -1,14 +1,18 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 
 class MeetingDetails extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isCancelled: false,
+      clubId: this.props.meetingDetails.club_id,
+    }
     this.handleCancelMtg = this.handleCancelMtg.bind(this);
     this.cancelMeeting = this.cancelMeeting.bind(this);
   }
 
   handleCancelMtg() {
-    console.log(this.props.meetingDetails.id, '<-- this.props.meetingDetails.id');
     let check = confirm('Are you sure you want to cancel?')
     if (check) {
       let meetingId = this.props.meetingDetails.id;
@@ -17,7 +21,6 @@ class MeetingDetails extends React.Component {
   }
 
   cancelMeeting(meetingId) {
-    console.log('meetingId in cancelMeeting on front end is: ', meetingId);
     const query = `mutation cancelMeeting($meetingId: String) {
       cancelMeeting(meetingId: $meetingId)
     }`;
@@ -31,7 +34,9 @@ class MeetingDetails extends React.Component {
         variables: { meetingId },
       }),
       success: (data) => {
-        console.log('Meeting Deleted')
+        this.setState({
+          isCancelled: true,
+        });
       },
       error: (err) => {
         console.log(err);
@@ -41,8 +46,7 @@ class MeetingDetails extends React.Component {
 
   render() {
     let meeting = this.props.meetingDetails;
-
-    return (
+    return this.state.isCancelled ? (<Redirect to={`/dashboard/${this.state.clubId}`}/>) : (
       <div>
         <div className="row">
           <div className="col-md-4">
