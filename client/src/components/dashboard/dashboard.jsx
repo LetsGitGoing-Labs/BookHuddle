@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import { Route, Link, Redirect } from 'react-router-dom';
 
 // stylesheets
@@ -10,7 +9,6 @@ import SearchResultsPanel from './SearchResultsPanel';
 import MeetingsPanel from './MeetingsPanel';
 import ClubsPanel from './ClubsPanel';
 import SuggestedBooksPanel from './SuggestedBooksPanel';
-import ClubPage from '../clubs/ClubPage';
 import ClubsNearYouPanel from './ClubsNearYouPanel';
 
 class Dashboard extends React.Component {

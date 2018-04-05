@@ -1,7 +1,6 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Redirect } from 'react-router-dom';
-import $ from 'jquery';
 
 class Login extends React.Component {
   constructor(props) {

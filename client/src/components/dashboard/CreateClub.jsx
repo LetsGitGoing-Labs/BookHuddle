@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
 import { Modal, ModalBody } from 'reactstrap';
 import AlgoliaPlaces from 'algolia-places-react';

@@ -1,6 +1,7 @@
 import React from 'react';
 import MainNavbar from '../navigation/MainNavbar';
 
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -8,7 +9,7 @@ class Home extends React.Component {
 
   smoothScroll() {
     $('html, body').animate({
-      scrollTop: $('#how-it-works').offset().top,
+      scrollTop: $('#service').offset().top,
     }, 1000);
   }
 
@@ -30,9 +31,9 @@ class Home extends React.Component {
           <div className="bg-overlay" />
           <div className="showcase_wrap">
             <div className="container">
-              <h1>BookHuddle</h1>
-              <h5 className="showcase_wrap_text">Create, join and manage your book clubs. Meet new friends who share your reading tastes, and find the perfect next books to read!</h5>
-              <button className="btn" onClick={this.smoothScroll.bind(this)}>Read More</button>
+              <h1 className="ts">BookHuddle</h1>
+              <h5 className="showcase_wrap_text ts">Create, join and manage your book clubs. Meet new friends who share your reading tastes, and find the perfect next books to read!</h5>
+              <button className="bttn" onClick={this.smoothScroll.bind(this)}>Read More</button>
             </div>
           </div>
         </header>
@@ -88,7 +89,7 @@ class Home extends React.Component {
               <div className="action-content col-md-6 content-wrapper">
                 <h3>Get in the Huddle</h3>
                 <p>Read your next classic with friends.</p>
-                <a href="#" className="btn">Sign up</a>
+                <a href="#" className="btn btn-dark">Sign up</a>
               </div>
             </div>
           </section>

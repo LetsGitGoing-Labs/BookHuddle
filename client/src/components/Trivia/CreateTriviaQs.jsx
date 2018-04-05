@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import TriviaQInputs from './TriviaQInputs';
 
 
@@ -80,7 +79,7 @@ class CreateTriviaQs extends React.Component {
         <div className="container">
           {children}
           <button onClick={this.handleAddQ} className="left reset-button">Add a Question</button>
-          <button onClick={this.handleSubmit} className="nav-buttons score-board">Submit Questions</button> 
+          <button onClick={this.handleSubmit} className="nav-buttons score-board">Submit Questions</button>
         </div>
       </div>
     );

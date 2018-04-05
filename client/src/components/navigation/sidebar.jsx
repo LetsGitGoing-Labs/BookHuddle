@@ -18,7 +18,7 @@ const Sidebar = props => (
           </Link>
         </li>
         <li>
-          <Link to="/dashboard/create-club">
+          <Link to="/dashboard/createclub">
             <i className="fas fa-plus-circle" /><span>New Club</span>
           </Link>
         </li>

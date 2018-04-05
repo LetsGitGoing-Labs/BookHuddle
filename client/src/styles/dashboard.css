@@ -114,10 +114,16 @@
 }
 
 .meeting-book {
-  width: 110px;
-  height: 170px;
-  margin-left: 15px;
-  margin-bottom: 10px;
+  width: 100px;
+  height: 160px;
+}
+
+.details-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: 40px;
+  padding: 5px 10px;
+  border-radius: 25px;
 }
 
 
