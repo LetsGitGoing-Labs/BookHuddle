@@ -17,10 +17,10 @@ const SuggestedBooksPanel = props => (
         <div className="row">
           {props.books.map((book, id) =>
           (
-            <div key={id} className="col-md-4">
+            <div key={id} className="col-md-4 mt centered">
               <a href={book.book_url} target="blank">
                 <img className="book-cover" src={book.book_image[0]} />
-                <p>{book.book_title[0].slice(0, 30)}</p>
+                <p>{book.book_title[0]}</p>
               </a>
             </div>
           ))}
