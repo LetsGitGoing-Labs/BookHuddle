@@ -21,31 +21,23 @@ let questions = [];
 let currentQuestion = false;
 let results;
 let score = {};
-let roomName = '';
-
 
 const ioServer = app.listen(4000);
 const io = require('socket.io').listen(ioServer);
 
 io.sockets.on('connection', (socket) => {
-  socket.on('room', (room) => {
-    socket.join(room);
-    roomName = room;
-    console.log('line57', room)
-  });
   socket.once('disconnect', function () {
-    console.log('line39', roomName);
     const player = (players) => {
       for (let i = 0; i < players.length; i++) {
         if (players[i].id === this.id) {
           players.splice(i, 1);
-          io.to(roomName).emit('players', players);
+          io.sockets.emit('players', players);
         } else if (this.id === host.id) {
           console.log('%s has left, GAME OVER!', host.name);
           host = {};
           score = {};
           gameName = 'Untitled';
-          io.to(roomName).emit('end', { gameName: 'GAME OVER!', host: '', currentQuestion: false });
+          io.sockets.emit('end', { gameName: 'GAME OVER!', host: '', currentQuestion: false });
         }
       }
     };
@@ -53,7 +45,6 @@ io.sockets.on('connection', (socket) => {
     console.log('players remaining', players);
     connections.splice(connections.indexOf(socket), 1);
     socket.disconnect();
-
     console.log('Disconnected: %s sockets remaining', connections.length);
   });
 
@@ -67,31 +58,27 @@ io.sockets.on('connection', (socket) => {
     this.emit('joined', newPlayer);
     players.push(newPlayer);
     score[newPlayer.playerName] = 0;
-    io.to(roomName).emit('players', players);
-    io.to(roomName).emit('score', score);
-    console.log(`username: ${  payload.playerName}`);
+    io.sockets.emit('players', players);
+    io.sockets.emit('score', score);
   });
 
   socket.on('start', function (payload) {
-    console.log('payload:', payload);
-
     gameName = payload.gameName;
     host.name = payload.host;
     host.id = this.id;
     host.type = 'host';
     this.emit('joined', host);
-    console.log('start', host);
-    io.to(roomName).emit('start', { gameName, host: host.name });
+    io.sockets.emit('start', { gameName, host: host.name });
     console.log("Trivia has started: '%s' by %s", payload.gameName, host.name);
   });
 
   socket.on('gameover', (score) => {
-    io.to(roomName).emit('gameover', score);
-    console.log('the game is over', score);
+    io.sockets.emit('gameover', score);
+    console.log('The game is over', score);
   });
 
   socket.on('reset', (payload) => {
-    console.log('line 88', payload);
+    io.sockets.emit('reset', payload);
     connections = [];
     gameName = 'Untitled';
     players = [];
@@ -99,13 +86,12 @@ io.sockets.on('connection', (socket) => {
     currentQuestion = false;
     results;
     score = {};
-    io.to(roomName).emit('reset', payload);
   });
 
   socket.on('ask', (question) => {
     currentQuestion = question;
     results = undefined;
-    io.to(roomName).emit('ask', currentQuestion);
+    io.sockets.emit('ask', currentQuestion);
     console.log('question: %s', question.q);
   });
 
@@ -117,8 +103,8 @@ io.sockets.on('connection', (socket) => {
       results = false;
     }
     this.emit('results', results);
-    io.to(roomName).emit('score', score);
-    console.log('answer: %s', payload.answer, results, payload, payload.question.ans, score);
+    io.sockets.emit('score', score);
+    console.log('answer: %s', payload.answer, results, payload, payload.player, score);
   });
 
   socket.emit('welcome', {
