@@ -4,11 +4,39 @@ class MeetingDetails extends React.Component {
   constructor(props) {
     super(props);
     this.handleCancelMtg = this.handleCancelMtg.bind(this);
+    this.cancelMeeting = this.cancelMeeting.bind(this);
   }
 
   handleCancelMtg() {
-    console.log(this.props, '<-- this.props');
-    confirm('Are you sure you want to cancel?')
+    console.log(this.props.meetingDetails.id, '<-- this.props.meetingDetails.id');
+    let check = confirm('Are you sure you want to cancel?')
+    if (check) {
+      let meetingId = this.props.meetingDetails.id;
+      this.cancelMeeting(meetingId)
+    }
+  }
+
+  cancelMeeting(meetingId) {
+    console.log('meetingId in cancelMeeting on front end is: ', meetingId);
+    const query = `mutation cancelMeeting($meetingId: String) {
+      cancelMeeting(meetingId: $meetingId)
+    }`;
+
+    $.ajax({
+      type: 'POST',
+      url: '/graphql',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        query,
+        variables: { meetingId },
+      }),
+      success: (data) => {
+        console.log('Meeting Deleted')
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   render() {
