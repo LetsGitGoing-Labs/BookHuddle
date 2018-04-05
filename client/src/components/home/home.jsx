@@ -89,7 +89,7 @@ class Home extends React.Component {
               <div className="action-content col-md-6 content-wrapper">
                 <h3>Get in the Huddle</h3>
                 <p>Read your next classic with friends.</p>
-                <a href="#" className="btn">Sign up</a>
+                <a href="#" className="btn btn-dark">Sign up</a>
               </div>
             </div>
           </section>
