@@ -17,7 +17,6 @@ class MeetingDetails extends React.Component {
   }
 
   cancelMeeting(meetingId) {
-    console.log('meetingId in cancelMeeting on front end is: ', meetingId);
     const query = `mutation cancelMeeting($meetingId: String) {
       cancelMeeting(meetingId: $meetingId)
     }`;
@@ -31,7 +30,7 @@ class MeetingDetails extends React.Component {
         variables: { meetingId },
       }),
       success: (data) => {
-        console.log('Meeting Deleted')
+        console.log('Meeting Deleted: ', data)
       },
       error: (err) => {
         console.log(err);
