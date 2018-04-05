@@ -29,7 +29,7 @@ class MeetingSearchbar extends React.Component {
       <div>
         <form onSubmit={this.handleSearch}>
           <div >
-            <input className="meeting-searchbar-content" type="text" id="term" placeholder="Find a book for the meeting" value={this.state.term} onChange={this.handleChange} />
+            <input className="meeting-search-content form-control" type="text" id="term" placeholder="Find a book for the meeting" value={this.state.term} onChange={this.handleChange} />
             <button className="search-form-btn"><i className="fas fa-search"></i></button>
           </div>
         </form>

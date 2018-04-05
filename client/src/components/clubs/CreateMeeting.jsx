@@ -115,9 +115,9 @@ class CreateMeeting extends React.Component {
   render() {
     return (
       <div className="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
-        <div id="create-meeting container" className="col-md-9">
+        <div id="create-meeting" className="container mt centered">
           <h3>Create New Meeting</h3>
-          <form onSubmit={this.handleSubmit.bind(this)}>
+          <div className="container mt create-form" onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group">
               <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />
             </div>
@@ -125,15 +125,15 @@ class CreateMeeting extends React.Component {
               <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Host" name="meetingHost" value={this.state.meetingHost} onChange={this.onChange} />
             </div>
             <div className="form-group">
-              <input className="form-control" id="inputClubDescription" rows="3" placeholder="Add a brief description.  Book to be discussed, who will bring snacks, etc." name="meetingNotes" value={this.state.meetingNotes} onChange={this.onChange} />
+              <textarea className="form-control" id="inputMeetingDescription" rows="3" placeholder="Add a brief description to attract club members." name="meetingNotes" value={this.state.meetingNotes} onChange={this.onChange} />
             </div>
             <MeetingSearchbar searchBooks={this.getBooks}/>
             <MeetingSearchResultsPanel loadBook={this.loadBook} results={this.state.books}/>
             <div className="form-group">
               <AlgoliaPlaces placeholder="Meeting address" onChange={e => this.setLocation(e)} />
             </div>
-            <input type="submit" className="btn btn-primary centered" value="Submit" />
-          </form>
+            <input type="submit" className="btn btn-primary form-btn" value="Submit" />
+          </div>
         </div>
       </div>
     );

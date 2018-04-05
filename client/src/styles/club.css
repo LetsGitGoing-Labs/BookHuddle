@@ -102,3 +102,21 @@ address {
   margin-left: 15px;
   vertical-align: middle;
 }
+
+/*Meetingsearchbar*/
+.meeting-search-content {
+  width: 94%;
+  display: inline-block;
+  margin-left: -6px;
+  margin-bottom: 15px;
+}
+
+.highlighted{
+  outline: 2px solid #5eabb9;
+
+}
+
+.bks {
+  padding-top: 10px;
+}
+

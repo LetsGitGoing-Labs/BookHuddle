@@ -72,7 +72,7 @@ class CreateClub extends React.Component {
       (
         <div id="create-club-form" className="col-md-9">
           <div className="container mt centered">
-            <h2>Create a Club</h2>
+            <h3>Create a Club</h3>
             <form className="container mt create-form" onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group">
                 <input type="text" className="form-control" id="inputClubName" placeholder="Club name" name="clubName" value={this.state.clubName} onChange={this.onChange} />
