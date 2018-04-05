@@ -28,9 +28,9 @@ class MeetingsList extends React.Component {
         <div>
           {this.props.meetings.map((meeting, id) =>
             (
-              <div key={id} className="panel-content">
+              <div key={id} className="panel-content container">
                 <div className="row">
-                  <div className="col-md-3">
+                  <div className="col-md-3 centered">
                     <img className="meeting-book" src={JSON.parse(meeting.meeting_book).bookImage} />
                   </div>
                   <div className="col-md-9">
