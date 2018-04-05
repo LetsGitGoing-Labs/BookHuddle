@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 // components
-import DashboardNavbar from '../navigation/dashboard-navbar.jsx';
-import Sidebar from '../navigation/sidebar.jsx';
-import Dashboard from './dashboard.jsx';
-import CreateClub from './create-club.jsx';
-import Club from '../clubs/club.jsx';
-import Meeting from '../meetings/meeting.jsx';
+import DashboardNavbar from '../navigation/DashboardNavbar';
+import Sidebar from '../navigation/Sidebar';
+import Dashboard from './Dashboard';
+import CreateClub from './CreateClub';
+import ClubPage from '../clubs/ClubPage';
+import MeetingPage from '../meetings/MeetingPage';
 
 class DashboardRouting extends React.Component {
   constructor(props) {
@@ -50,24 +50,28 @@ class DashboardRouting extends React.Component {
           <Sidebar user={this.props.user} />
           <Switch>
             <Route
-              path="/dashboard/create-club"
+              path="/dashboard/createclub"
               render={
-              props => <CreateClub {...props} userID={this.props.user.id} />
+                props => <CreateClub {...props} userID={this.props.user.id} />
               }
             />
             <Route
               path="/dashboard/:clubId/:meetingId"
               render={
-              props => (<Meeting {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} />)
+                props => (<MeetingPage {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} />)
               }
             />
             <Route
               path="/dashboard/:clubId"
               render={
-              props => (<Club {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
+                props => (<ClubPage {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
               }
             />
-            <Route render={props => <Dashboard user={this.props.user} searchResults={this.state.searchResults} getUserData={this.props.getUserData} />} />
+            <Route
+              render={
+                props => <Dashboard user={this.props.user} searchResults={this.state.searchResults} getUserData={this.props.getUserData} />
+              }
+            />
           </Switch>
         </div>
       </div>

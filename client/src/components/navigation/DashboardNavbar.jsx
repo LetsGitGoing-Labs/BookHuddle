@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import DashboardSearchbar from '../dashboard/DashboardSearchbar';
+
 import '../../styles/dashboard.css';
-import Searchbar from '../dashboard/searchbar.jsx';
 
 class DashboardNavbar extends React.Component {
   constructor(props) {
@@ -19,7 +21,7 @@ class DashboardNavbar extends React.Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
-              <li><Searchbar search={this.props.search} /></li>
+              <li><DashboardSearchbar search={this.props.search} /></li>
               <li className="nav-item"><Link to="/dashboard">My Dashboard</Link></li>
               <li className="nav-item"><Link to="/logout">Logout</Link></li>
             </ul>

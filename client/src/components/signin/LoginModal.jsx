@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup, Nav, NavLink, NavItem, TabPane, TabContent } from 'reactstrap';
 import classnames from 'classnames';
-import Login from './login.jsx';
-import Signup from './signup.jsx';
+import Login from './Login';
+import Signup from './Signup';
 
 class LoginModal extends React.Component {
   constructor(props) {

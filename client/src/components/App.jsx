@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import Home from './home/home.jsx';
-import About from './home/about.jsx';
-import Logout from './home/logout.jsx';
-import DashboardRouting from './dashboard/dashboard-routing.jsx';
+
+import Home from './home/Home';
+import About from './home/About';
+import Logout from './home/Logout';
+import DashboardRouting from './dashboard/DashboardRouting';
 
 import '../styles/style.css';
 
@@ -140,14 +141,14 @@ class App extends React.Component {
           <Route path="/about" component={About} />
           <Route
             path="/logout"
-            render={props => (
-              <Logout handleLogout={this.handleLogout} />
-           )}
+            render={
+              props => ( <Logout handleLogout={this.handleLogout} /> )
+            }
           />
           <Route
             path="/dashboard"
             render={
-            props => (this.state.isLoggedIn
+              props => (this.state.isLoggedIn
               ? <DashboardRouting user={this.state.user} getUserData={this.getUserData} />
               : <Redirect to={{
                   pathname: '/nologin',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Searchbar extends React.Component {
+class DashboardSearchbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,5 +37,5 @@ class Searchbar extends React.Component {
   }
 }
 
-export default Searchbar;
+export default DashboardSearchbar;
 

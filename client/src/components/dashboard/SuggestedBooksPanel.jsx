@@ -8,7 +8,7 @@ const NoSuggestions = () => (
   </div>
 );
 
-const SuggestedPanel = props => (
+const SuggestedBooksPanel = props => (
   !props.books || props.books.length === 0 ?
     <NoSuggestions />
     : (
@@ -29,4 +29,4 @@ const SuggestedPanel = props => (
     )
 );
 
-export default SuggestedPanel;
+export default SuggestedBooksPanel;

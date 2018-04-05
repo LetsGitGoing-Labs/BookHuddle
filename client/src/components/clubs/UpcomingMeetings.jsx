@@ -1,5 +1,5 @@
 import React from 'react';
-import MeetingsList from '../meetings/meeting-list.jsx';
+import MeetingsList from '../meetings/MeetingsList';
 
 const UpcomingMeetings = props => (
   <div className="tab-pane fade show active" id="nav-upcoming" role="tabpanel" aria-labelledby="nav-home-tab">

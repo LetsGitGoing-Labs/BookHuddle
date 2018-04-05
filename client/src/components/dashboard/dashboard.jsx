@@ -6,12 +6,12 @@ import { Route, Link, Redirect } from 'react-router-dom';
 import '../../styles/dashboard.css';
 
 // components
-import SearchResultsPanel from './panel-search-results.jsx';
-import MeetingsPanel from './panel-meetings.jsx';
-import ClubsPanel from './panel-clubs.jsx';
-import SuggestedPanel from './panel-suggested.jsx';
-import Club from '../clubs/club.jsx';
-import ClubsNearYouPanel from './panel-clubs-near-you.jsx';
+import SearchResultsPanel from './SearchResultsPanel';
+import MeetingsPanel from './MeetingsPanel';
+import ClubsPanel from './ClubsPanel';
+import SuggestedBooksPanel from './SuggestedBooksPanel';
+import ClubPage from '../clubs/ClubPage';
+import ClubsNearYouPanel from './ClubsNearYouPanel';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -105,7 +105,7 @@ class Dashboard extends React.Component {
         <MeetingsPanel clubs={this.props.user.clubs} />
         <ClubsPanel clubs={this.props.user.clubs} />
         <ClubsNearYouPanel clubs={this.state.clubs} />
-        <SuggestedPanel books={this.state.books} />
+        <SuggestedBooksPanel books={this.state.books} />
       </div>
     );
   }

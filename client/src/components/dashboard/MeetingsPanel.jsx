@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
-import MeetingsList from '../meetings/meeting-list.jsx';
+import MeetingsList from '../meetings/MeetingsList';
 
 class MeetingsPanel extends React.Component {
   constructor(props) {

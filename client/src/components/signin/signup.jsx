@@ -1,8 +1,6 @@
-
+import React from 'react';
 import $ from 'jquery';
-import { Link, Redirect } from 'react-router-dom';
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { Redirect } from 'react-router-dom';
 import AlgoliaPlaces from 'algolia-places-react';
 
 class Signup extends React.Component {
@@ -56,20 +54,20 @@ class Signup extends React.Component {
       <form >
         <div className="form-row">
           <div className="form-group col-md-6">
-            <input name="firstName" onChange={event => this.change(event)} type="text" className="form-control" id="inputFirstName" placeholder="First name" />
+            <input name="firstName" onChange={this.change} type="text" className="form-control" id="inputFirstName" placeholder="First name" />
           </div>
           <div className="form-group col-md-6">
-            <input name="lastName" onChange={event => this.change(event)} type="text" className="form-control" id="inputLastName" placeholder="Last name" />
+            <input name="lastName" onChange={this.change} type="text" className="form-control" id="inputLastName" placeholder="Last name" />
           </div>
         </div>
         <div className="form-group">
-          <input name="email" onChange={event => this.change(event)} type="email" className="form-control" id="inputEmail" autoComplete="email" placeholder="Email" />
+          <input name="email" onChange={this.change} type="email" className="form-control" id="inputEmail" autoComplete="email" placeholder="Email" />
         </div>
         <div className="form-group">
-          <input name="password" onChange={event => this.change(event)} type="password" className="form-control" autoComplete="current-password" id="inputPassword" placeholder="Password" />
+          <input name="password" onChange={this.change} type="password" className="form-control" autoComplete="current-password" id="inputPassword" placeholder="Password" />
         </div>
         <div className="form-group">
-          <AlgoliaPlaces placeholder="Location by city" onChange={event => this.location(event)} />
+          <AlgoliaPlaces placeholder="Location by city" onChange={this.location} />
         </div>
         <div className="centered">
           <button onClick={this.signupSubmit} type="submit" className="modal-btn btn">Sign Up</button>

@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
-import UpcomingMeetings from './upcoming.jsx';
-import CreateMeeting from './create-meeting.jsx';
-import ClubPageNavbar from '../navigation/club-nav.jsx';
-import Members from './members.jsx';
-import BookHistory from './bookhistory.jsx';
+import UpcomingMeetings from './UpcomingMeetings';
+import CreateMeeting from './CreateMeeting';
+import ClubPageNavbar from '../navigation/ClubPageNavbar';
+import Members from './Members';
+import BookHistory from './BookHistory';
 
 import '../../styles/club.css';
 
-class Club extends React.Component {
+class ClubPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -111,11 +111,7 @@ class Club extends React.Component {
             <BookHistory pastMeetings={this.state.pastMeetings} />
             <button style={showJoin} className="btn" onClick={this.userJoinClub}>Join Club</button>
             {this.state.joinMsg.length > 1 && <div id="join-msg"><p>{this.state.joinMsg}</p></div>}
-            <div className="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
-              <CreateMeeting
-              clubData={this.props}
-              />
-            </div>
+              <CreateMeeting clubData={this.props} />
           </div>
         </div>
       </div>
@@ -123,4 +119,4 @@ class Club extends React.Component {
   }
 }
 
-export default Club;
+export default ClubPage;
