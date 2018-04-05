@@ -128,7 +128,7 @@ class CreateMeeting extends React.Component {
           <div className="container mt create-form">
             <div className="form-group">
               {/*<input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />*/}
-              <Datetime onChange={this.onChange} />
+              <Datetime type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />
             </div>
             <div className="form-group">
               <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Host" name="meetingHost" value={this.state.meetingHost} onChange={this.onChange} />
