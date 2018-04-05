@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import CreateTriviaQs from './CreateTriviaQs';
 import TriviaMain from './TriviaMain';
 
@@ -41,7 +40,7 @@ class Trivia extends React.Component {
   render() {
     return (
       <div>
-        {this.state.isQuestions && 
+        {this.state.isQuestions &&
           <TriviaMain meetingTrivID={this.props.meetingData.match.params.meetingId} />
         }
         {!this.state.isQuestions &&

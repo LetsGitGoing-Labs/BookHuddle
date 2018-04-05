@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 import AlgoliaPlaces from 'algolia-places-react';
 
