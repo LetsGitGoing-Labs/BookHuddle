@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import UpcomingMeetings from '../clubs/upcoming.jsx';
-import CreateMeeting from '../clubs/create-meeting.jsx';
-import MeetingPageNavbar from '../navigation/meeting-nav.jsx';
-import MeetingDetails from './meeting-detail.jsx';
-import Trivia from '../Trivia/Trivia.jsx';
-import Members from '../clubs/members.jsx';
+import UpcomingMeetings from '../clubs/UpcomingMeetings';
+import CreateMeeting from '../clubs/CreateMeeting';
+import MeetingPageNavbar from '../navigation/MeetingPageNavbar';
+import MeetingDetails from './MeetingDetails';
+import Trivia from '../Trivia/Trivia';
+import Members from '../clubs/Members';
 
 class MeetingPage extends React.Component {
   constructor(props) {
