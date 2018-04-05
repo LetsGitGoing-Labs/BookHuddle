@@ -58,13 +58,13 @@ class DashboardRouting extends React.Component {
             <Route
               path="/dashboard/:clubId/:meetingId"
               render={
-                props => (<Meeting {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} />)
+                props => (<MeetingPage {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} />)
               }
             />
             <Route
               path="/dashboard/:clubId"
               render={
-                props => (<Club {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
+                props => (<ClubPage {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
               }
             />
             <Route

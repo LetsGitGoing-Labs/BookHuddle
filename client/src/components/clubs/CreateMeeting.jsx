@@ -17,7 +17,8 @@ class CreateMeeting extends React.Component {
       meetingBook: '',
       clubId: '',
       books: [],
-      bookData: ''
+      bookData: '',
+      isSubmitted: false,
     };
     this.onChange = this.onChange.bind(this);
     this.setLocation = this.setLocation.bind(this);
@@ -101,7 +102,7 @@ class CreateMeeting extends React.Component {
         },
       }),
       success: (data) => {
-        console.log('success');
+        console.log('success meeting created');
         this.setState({
           isSubmitted: true,
         });

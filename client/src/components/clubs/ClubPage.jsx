@@ -111,11 +111,7 @@ class ClubPage extends React.Component {
             <BookHistory pastMeetings={this.state.pastMeetings} />
             <button style={showJoin} className="btn" onClick={this.userJoinClub}>Join Club</button>
             {this.state.joinMsg.length > 1 && <div id="join-msg"><p>{this.state.joinMsg}</p></div>}
-            <div className="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
-              <CreateMeeting
-              clubData={this.props}
-              />
-            </div>
+              <CreateMeeting clubData={this.props} />
           </div>
         </div>
       </div>
