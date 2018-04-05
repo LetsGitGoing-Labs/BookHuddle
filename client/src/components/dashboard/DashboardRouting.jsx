@@ -50,24 +50,28 @@ class DashboardRouting extends React.Component {
           <Sidebar user={this.props.user} />
           <Switch>
             <Route
-              path="/dashboard/create-club"
+              path="/dashboard/createclub"
               render={
-              props => <CreateClub {...props} userID={this.props.user.id} />
+                props => <CreateClub {...props} userID={this.props.user.id} />
               }
             />
             <Route
               path="/dashboard/:clubId/:meetingId"
               render={
-              props => (<Meeting {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} />)
+                props => (<Meeting {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} />)
               }
             />
             <Route
               path="/dashboard/:clubId"
               render={
-              props => (<Club {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
+                props => (<Club {...props} clubs={this.props.user.clubs} searchResults={this.state.searchResults} user={this.props.user} />)
               }
             />
-            <Route render={props => <Dashboard user={this.props.user} searchResults={this.state.searchResults} getUserData={this.props.getUserData} />} />
+            <Route
+              render={
+                props => <Dashboard user={this.props.user} searchResults={this.state.searchResults} getUserData={this.props.getUserData} />
+              }
+            />
           </Switch>
         </div>
       </div>
