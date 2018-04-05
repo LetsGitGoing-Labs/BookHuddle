@@ -76,6 +76,14 @@ a:hover {
   text-shadow: 2px 1px 2px #333;
 }
 
+.create-form {
+  width: 80%;
+}
+
+.form-btn {
+  display: block;
+  margin-left: auto;
+}
 /*  ################################################################
   BOOTSTRAP MODIFICATIONS & TWEAKS
 ################################################################# */

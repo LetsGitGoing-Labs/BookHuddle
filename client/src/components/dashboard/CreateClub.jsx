@@ -71,9 +71,9 @@ class CreateClub extends React.Component {
     return this.state.isSubmitted ? (<Redirect to="/dashboard" />) :
       (
         <div id="create-club-form" className="col-md-9">
-          <div className="container">
-            <h1 className="centerize">Create a Club</h1>
-            <form onSubmit={this.handleSubmit.bind(this)}>
+          <div className="container mt centered">
+            <h3>Create a Club</h3>
+            <form className="container mt create-form" onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group">
                 <input type="text" className="form-control" id="inputClubName" placeholder="Club name" name="clubName" value={this.state.clubName} onChange={this.onChange} />
               </div>
@@ -119,7 +119,7 @@ class CreateClub extends React.Component {
                   <option>Travel</option>
                 </select>
               </div>
-              <input type="submit" className="btn btn-primary centerize" value="Submit" />
+              <input type="submit" className="btn btn-primary form-btn" value="Submit" />
             </form>
           </div>
         </div>
