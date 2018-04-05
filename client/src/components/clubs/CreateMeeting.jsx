@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import AlgoliaPlaces from 'algolia-places-react';
 import Datetime from 'react-datetime';
+// import InputMoment from 'input-moment';
 
 import MeetingSearchbar from './MeetingSearchbar';
 import MeetingSearchResultsPanel from './MeetingSearchResultsPanel';
@@ -19,6 +20,7 @@ class CreateMeeting extends React.Component {
       books: [],
       bookData: '',
       isSubmitted: false,
+      moment: '',
     };
     this.onChange = this.onChange.bind(this);
     this.setLocation = this.setLocation.bind(this);
@@ -26,6 +28,7 @@ class CreateMeeting extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getBooks = this.getBooks.bind(this);
     this.loadBook = this.loadBook.bind(this);
+    this.onPickDateTime = this.onPickDateTime.bind(this);
   }
 
   loadBook(bookImage, bookTitle) {
@@ -43,6 +46,24 @@ class CreateMeeting extends React.Component {
     this.setState({
       [target]: e.target.value,
     });
+  }
+
+  onPickDateTime(moment) {
+    let time = moment.format("YYYY-MM-DD HH:mm:ss");
+    this.setState({
+      meetingTimestamp: time,
+    })
+  }
+
+  handleChange(m) {
+    debugger;
+    this.setState({
+      moment: m
+    })
+  }
+
+  handleSave() {
+    console.log('saved date and time');
   }
 
   setLocation(e) {
@@ -128,7 +149,12 @@ class CreateMeeting extends React.Component {
           <div className="container mt create-form">
             <div className="form-group">
               {/*<input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />*/}
-              <Datetime type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />
+              <Datetime type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onPickDateTime} />
+              {/*<InputMoment
+                moment={this.state.moment}
+                onChange={this.handleChange}
+                onSave={this.handleSave}
+              />*/}
             </div>
             <div className="form-group">
               <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Host" name="meetingHost" value={this.state.meetingHost} onChange={this.onChange} />
