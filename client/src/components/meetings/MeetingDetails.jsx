@@ -50,12 +50,12 @@ class MeetingDetails extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-4">
-            <img className="meeting-book" src="http://covers.openlibrary.org/b/isbn/0451207149-M.jpg" />
+            <img className="meeting-book" src={JSON.parse(meeting.meeting_book).bookImage} />
           </div>
           <div className="col-md-8" style={{margin: 'auto'}}>
             <div className="row">
               <div className="col-md-6">
-                <h4>Wrapping Up</h4>
+                <h4>{JSON.parse(meeting.meeting_book).bookTitle}</h4>
                 <h6>Hosted by {meeting.meeting_host}</h6>
               </div>
               <div className="col-md-6 meeting-loc">
@@ -63,14 +63,13 @@ class MeetingDetails extends React.Component {
                   <i className="fas fa-map-marker-alt" />
                 </div>
                 <address className="map-address">
-                  <p>James' Place</p>
-                  <p>123 Main Street<br />Houston, TX</p>
+                <p style={{width:'50px'}}>{meeting.meeting_street_address}</p>
                 </address>
               </div>
             </div>
             <div className="row col-md-12" style={{marginTop: '20px'}}>
-              <h6 className="meeting-description"><em>{meeting.meeting_notes}</em></h6>
-              <p className="meeting-description">{meeting.meeting_details}</p>
+              <h5 className="meeting-description"><em>{meeting.meeting_notes}</em></h5>
+              <h6 className="meeting-description"><em>{meeting.meeting_details}</em></h6>
             </div>
             <button className="btn btn-danger" onClick={this.handleCancelMtg}>
               Cancel Meeting
