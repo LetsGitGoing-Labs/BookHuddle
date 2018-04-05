@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
-import UpcomingMeetings from './upcoming.jsx';
-import CreateMeeting from './create-meeting.jsx';
-import ClubPageNavbar from '../navigation/club-nav.jsx';
-import Members from './members.jsx';
-import BookHistory from './bookhistory.jsx';
+import UpcomingMeetings from './UpcomingMeetings';
+import CreateMeeting from './CreateMeeting';
+import ClubPageNavbar from '../navigation/ClubPageNavbar';
+import Members from './Members';
+import BookHistory from './BookHistory';
 
 import '../../styles/club.css';
 
