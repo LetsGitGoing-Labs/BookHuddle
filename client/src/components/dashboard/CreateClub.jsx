@@ -40,6 +40,7 @@ class CreateClub extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const clubData = JSON.stringify(this.state);
+
     const query = `mutation HandleClubCreate($clubData: String) {
       handleClubCreate(clubData: $clubData)
     }`;
@@ -84,13 +85,38 @@ class CreateClub extends React.Component {
               </div>
               <div className="form-group">
                 <select className="form-control" id="inputClubGenres" name="genre" onChange={this.onSelect.bind(this)}>
-                  <option disabled defaultValue>Choose a Genre</option>
-                  <option>Fantasy</option>
-                  <option>Thrillers</option>
-                  <option>Historical Fiction</option>
-                  <option>Mystery</option>
-                  <option>Non-Fiction</option>
-                  <option>Variety</option>
+                  <option defaultValue>Choose a Genre</option>
+                  <option>Arts Photography</option>
+                  <option>Biographies Memoirs</option>
+                  <option>Business Money</option>
+                  <option>Children's eBooks</option>
+                  <option>Comics Graphic Novels</option>
+                  <option>Computers Technology</option>
+                  <option>Cookbooks, Food Wine</option>
+                  <option>Crafts, Hobbies Home</option>
+                  <option>Education Teaching</option>
+                  <option>Engineering Transportation</option>
+                  <option>Foreign Languages</option>
+                  <option>Health, Fitness Dieting</option>
+                  <option>History</option>
+                  <option>Humor Entertainment</option>
+                  <option>Law</option>
+                  <option>Lesbian, Gay, Bisexual Transgender eBooks</option>
+                  <option>Literature Fiction</option>
+                  <option>Medical eBooks</option>
+                  <option>Mystery, Thriller Suspense</option>
+                  <option>Nonfiction</option>
+                  <option>Parenting Relationships</option>
+                  <option>Politics Social Sciences</option>
+                  <option>Reference</option>
+                  <option>Religion Spirituality</option>
+                  <option>Romance</option>
+                  <option>Science Math</option>
+                  <option>Science Fiction Fantasy</option>
+                  <option>Self-Help</option>
+                  <option>Sports Outdoors</option>
+                  <option>Teen Young Adult</option>
+                  <option>Travel</option>
                 </select>
               </div>
               <input type="submit" className="btn btn-primary centerize" value="Submit" />

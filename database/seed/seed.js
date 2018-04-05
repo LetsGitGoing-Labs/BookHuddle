@@ -111,6 +111,7 @@ dropDatabase()
       club_location: club.clubCity,
       club_admin_user_id: club.userID,
       club_description: club.description,
+      club_genre: club.genre
     })
       .into('club')
       .catch((err) => {

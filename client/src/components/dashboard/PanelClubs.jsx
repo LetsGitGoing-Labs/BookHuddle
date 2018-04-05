@@ -17,9 +17,9 @@ const ClubsPanel = props => (
         <div className="row">
           {props.clubs.map((club, id) =>
           (
-            <div key={id} className="col-md-4 centered mt">
+            <div key={id} className="col-md-4">
               <Link to={`/dashboard/${club.id}`}>
-                <img className="meeting-book" src={club.meetings[0] ? JSON.parse(club.meetings[0].meeting_book).bookImage : 'https://genderstudies.indiana.edu/images/publications/book-cover-placeholder.jpg'} />
+                <img className="book-cover" src={JSON.parse(club.meetings[0].meeting_book).bookImage} />
                 <p>{club.club_name}</p>
               </Link>
             </div>

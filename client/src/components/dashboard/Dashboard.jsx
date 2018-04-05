@@ -30,7 +30,47 @@ class Dashboard extends React.Component {
   }
 
   getBooks() {
-    const searchTerm = 'Historical Fiction';
+    var searchTerm;
+    if (this.props.user.clubs[0]) {
+      searchTerm = this.props.user.clubs[0].club_genre;
+    } else {
+      const terms =
+      [
+        'Arts Photography',
+        'Biographies Memoirs',
+        'Business Money',
+        "Children's eBooks",
+        'Comics Graphic Novels',
+        "Computers Technology",
+        "Cookbooks, Food Wine",
+        "Crafts, Hobbies Home",
+        "Education Teaching",
+        "Engineering Transportation",
+        "Foreign Languages",
+        "Health, Fitness Dieting",
+        "History",
+        "Humor Entertainment",
+        "Law",
+        "Lesbian, Gay, Bisexual Transgender eBooks",
+        "Literature Fiction",
+        "Medical eBooks",
+        "Mystery, Thriller Suspense",
+        "Nonfiction",
+        "Parenting Relationships",
+        "Politics Social Sciences",
+        "Reference",
+        "Religion Spirituality",
+        "Romance",
+        "Science Math",
+        "Science Fiction Fantasy",
+        "Self-Help",
+        "Sports Outdoors",
+        "Teen Young Adult",
+        "Travel"
+      ];
+
+      searchTerm = terms[Math.floor(Math.random()*terms.length)];
+    }
 
     const query = `mutation GetBooksAPI($searchTerm: String) {
       getBooksAPI(searchBy: $searchTerm)

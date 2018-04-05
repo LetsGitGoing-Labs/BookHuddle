@@ -50,7 +50,7 @@ class DashboardRouting extends React.Component {
           <Sidebar user={this.props.user} />
           <Switch>
             <Route
-              path="/dashboard/createclub"
+              path="/dashboard/CreateClub"
               render={
                 props => <CreateClub {...props} userID={this.props.user.id} />
               }
