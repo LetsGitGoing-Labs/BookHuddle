@@ -78,7 +78,14 @@ class CreateMeeting extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let meetingData = {meetingTimestamp: this.state.meetingTimestamp, meetingHost: this.state.meetingHost, meetingLocation: this.state.meetingLocation, meetingNotes: this.state.meetingNotes, meetingBook: this.state.bookData, clubId: this.state.clubId};
+    let meetingData = {
+      meetingTimestamp: this.state.meetingTimestamp,
+      meetingHost: this.state.meetingHost,
+      meetingLocation: this.state.meetingLocation,
+      meetingNotes: this.state.meetingNotes,
+      meetingBook: this.state.bookData,
+      clubId: this.state.clubId
+    };
     meetingData.clubId = this.props.clubData.match.params.clubId;
     meetingData = JSON.stringify(meetingData);
     this.handleCreateMeeting(meetingData);
@@ -117,7 +124,7 @@ class CreateMeeting extends React.Component {
       <div className="tab-pane fade" id="nav-create-meeting" role="tabpanel" aria-labelledby="nav-create-meeting-tab">
         <div id="create-meeting" className="container mt centered">
           <h3>Create New Meeting</h3>
-          <div className="container mt create-form" onSubmit={this.handleSubmit.bind(this)}>
+          <div className="container mt create-form">
             <div className="form-group">
               <input type="text" className="form-control" id="meeting-name" placeholder="Meeting Time & Date" name="meetingTimestamp" value={this.state.meetingTimestamp} onChange={this.onChange} />
             </div>
@@ -132,7 +139,7 @@ class CreateMeeting extends React.Component {
             <div className="form-group">
               <AlgoliaPlaces placeholder="Meeting address" onChange={e => this.setLocation(e)} />
             </div>
-            <input type="submit" className="btn btn-primary form-btn" value="Submit" />
+            <input type="submit" className="btn btn-primary form-btn" value="Submit" onClick={this.handleSubmit.bind(this)} />
           </div>
         </div>
       </div>
