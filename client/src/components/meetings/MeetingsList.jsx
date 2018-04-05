@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 const NoMeetings = () => (
-  <div className="panel-card">
-    <div>No meetings to show</div>
-  </div>
+  <div>No meetings to show</div>
 );
 
 class MeetingsList extends React.Component {

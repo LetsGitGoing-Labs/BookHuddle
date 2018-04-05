@@ -47,12 +47,12 @@ class MeetingDetails extends React.Component {
   render() {
     let meeting = this.props.meetingDetails;
     return this.state.isCancelled ? (<Redirect to={`/dashboard/${this.state.clubId}`}/>) : (
-      <div>
+      <div className="container">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-3">
             <img className="meeting-book" src={JSON.parse(meeting.meeting_book).bookImage} />
           </div>
-          <div className="col-md-8" style={{margin: 'auto'}}>
+          <div className="col-md-9">
             <div className="row">
               <div className="col-md-6">
                 <h4>{JSON.parse(meeting.meeting_book).bookTitle}</h4>
@@ -71,7 +71,7 @@ class MeetingDetails extends React.Component {
               <h5 className="meeting-description"><em>{meeting.meeting_notes}</em></h5>
               <h6 className="meeting-description"><em>{meeting.meeting_details}</em></h6>
             </div>
-            <button className="btn btn-danger" onClick={this.handleCancelMtg}>
+            <button className="details-btn btn-danger" onClick={this.handleCancelMtg}>
               Cancel Meeting
             </button>
           </div>
