@@ -335,6 +335,7 @@ const addClub = (cb, club, res) => {
   let newClubId;
   let clubResponse;
   const checkDatabase = clubNameIsTaken(club.clubName);
+  debugger;
   console.log('club: ', club);
   checkDatabase.then((exists) => {
     if (exists === false) {
@@ -344,6 +345,7 @@ const addClub = (cb, club, res) => {
         club_location: club.clubCity,
         club_admin_user_id: club.userID,
         club_description: club.description,
+        club_genre: club.genre,
       })
         .into('club')
         .then(clubID => new Promise((resolve, reject) => {

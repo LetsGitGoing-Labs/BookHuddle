@@ -8,7 +8,6 @@ const buildSchema = (db, knex) => new Promise((resolve, reject) => {
         t.string('first_name', 100);
         t.string('last_name', 100);
         t.string('user_location', 100);
-        t.string('user_facebook_token', 100);
         t.string('profile_url', 300);
         t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
       }).then((table) => {
@@ -24,6 +23,7 @@ const buildSchema = (db, knex) => new Promise((resolve, reject) => {
           t.string('club_location', 100);
           t.integer('club_admin_user_id', 100);
           t.text('club_description', 280);
+          t.string('club_genre', 100);
           t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
         }).then((table) => {
           console.log('Created table club');

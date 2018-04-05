@@ -36,6 +36,7 @@ db.knex.schema.hasTable('user').then((exists) => {
         t.string('club_location', 100);
         t.integer('club_admin_user_id', 100);
         t.text('club_description', 280);
+        t.string('club_genre', 100);
         t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
       }).then((table) => {
         console.log('Created table club');

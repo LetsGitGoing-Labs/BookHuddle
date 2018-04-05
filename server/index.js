@@ -348,7 +348,6 @@ const root = {
     );
   }),
   getNearClubs: ({ clubLocation }) => {
-    clubLocation = JSON.parse(clubLocation);
     return new Promise((resolve, reject) => {
       database.retrieveClubsByLocation(clubLocation, null, (clubs, statusCode, res) => {
         resolve(JSON.stringify(clubs));
