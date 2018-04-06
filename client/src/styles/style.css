@@ -202,7 +202,7 @@ a:hover {
 ################################################################# */
 
 .modal-dialog {
-  width: 40%;
+  width: 90%;
   cursor: auto;
 }
 
@@ -310,4 +310,11 @@ a:hover {
 
 .grey {
   color: #666;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 40%;
+    cursor: auto;
+  }
 }
