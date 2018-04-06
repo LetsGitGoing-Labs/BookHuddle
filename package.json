@@ -25,7 +25,6 @@
   "dependencies": {
     "algolia-places-react": "^1.1.0",
     "axios": "^0.18.0",
-    "babel": "^6.23.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "bookshelf": "^0.13.2",
@@ -37,12 +36,9 @@
     "express-session": "^1.15.6",
     "graphql": "^0.13.2",
     "knex": "^0.14.4",
-    "lodash": "^4.17.5",
     "luxon": "^1.0.0",
     "moment": "^2.22.0",
-    "mongoose": "^5.0.6",
     "mysql": "^2.15.0",
-    "nodemon": "^1.17.3",
     "react": "^16.2.0",
     "react-datetime": "^2.14.0",
     "react-dom": "^16.2.0",
@@ -56,6 +52,7 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -70,6 +67,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "mocha": "^5.0.4",
+    "nodemon": "^1.17.3",
     "request": "^2.85.0",
     "style-loader": "^0.20.3",
     "supertest": "^3.0.0",
