@@ -140,9 +140,6 @@ class TriviaMain extends React.Component {
   }
 
   connect() {
-    console.log('liine145', this.props.meetingTrivID);
-    const room = this.props.meetingTrivID;
-    this.socket.emit('room', room);
     const player = (sessionStorage.player) ? JSON.parse(sessionStorage.player) : null;
     if (player && player.type === 'player') {
       this.emit('join', player);
