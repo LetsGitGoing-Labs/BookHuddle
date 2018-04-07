@@ -85,15 +85,18 @@ Dev Dependencies
 
 From within the root directory:
 
-```sh
+```
 1) npm install
 2) Create .env file with your AWS API credentials:
-  -
-  -
-  -
-  -
-  -
-  -
+  a) Sign up for an AWS account
+      AWS_ACCESS_KEY_ID='hash'
+      AWS_SECRET_ACCESS_KEY='hash'
+      ASSOCIATE_ID='idGoeshere'
+  b) Set up your .env with the following attributes:
+      DATABASE_HOST='url'
+      DATABASE_USER='username'
+      DATABASE_PASSWORD='password'
+      DATABASE_NAME='myDatabase'
 3) npm run react-dev
 4) npm run server-dev
 5) Setting up local instance of mySQL: (mac-specific instructions)
@@ -107,7 +110,6 @@ From within the root directory:
       ii) use your username and password from step d.
       iii) hit 'connect'
       iv) click Database > Add Database and name it
-6)
 ```
 
 ### Roadmap
