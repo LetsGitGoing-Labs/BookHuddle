@@ -96,7 +96,17 @@ From within the root directory:
   -
 3) npm run react-dev
 4) npm run server-dev
-5) mysql...
+5) Setting up local instance of mySQL: (mac-specific instructions)
+  a) Install homebrew with this command in terminal: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+  b) Update homebrew: `brew update`
+  c) Run the MySQL daemon `brew services start mysql`
+  d) Assign a username and password (in this example user is 'root' and password is 'password'): `mysqladmin -u root password 'password'`
+  e) download and install sequalPro (https://sequelpro.com/download#auto-start) <-- optional, there are other ways of setting up mySQL.
+  f) Configure the db in sequalPro:
+      i) set 'host' to '127.0.0.1'
+      ii) use your username and password from step d.
+      iii) hit 'connect'
+      iv) click Database > Add Database and name it
 6)
 ```
 
