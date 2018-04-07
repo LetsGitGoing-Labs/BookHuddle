@@ -15,8 +15,6 @@
 - From the landing page, a user can sign up for an account or login with preexisting credentials.
 - From the dashboard, a user can create a club or join an existing club by using the search bar.
 - Within the club page a user can create new meetings and select a book to discuss.
--
--
 
 ## Requirements
 
